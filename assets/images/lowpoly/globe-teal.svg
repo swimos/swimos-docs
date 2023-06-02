@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="120px" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <polygon fill="#00d4de" points="60 110 40 106 80 106"/>
+  <polygon fill="#02551c" points="20 90 27 86 40 106"/>
+  <polygon fill="#007735" points="40 106 27 86 60 91"/>
+  <polygon fill="#00ad7d" points="60 91 80 106 40 106"/>
+  <polygon fill="#00d4de" points="80 106 60 91 93 86"/>
+  <polygon fill="#2be1ec" points="80 106 100 90 93 86"/>
+  <polygon fill="#02551c" points="20 90 10 60 27 86"/>
+  <polygon fill="#007735" points="27 86 10 60 40 64"/>
+  <polygon fill="#00ad7d" points="40 64 60 91 27 86"/>
+  <polygon fill="#007735" points="60 91 40 64 80 64"/>
+  <polygon fill="#00ad7d" points="80 64 93 86 60 91"/>
+  <polygon fill="#00c1a6" points="93 86 80 64 110 60"/>
+  <polygon fill="#46eaff" points="93 86 110 60 100 90"/>
+  <polygon fill="#00d4de" points="20 30 10 60 27 34"/>
+  <polygon fill="#00ad7d" points="27 34 40 64 10 60"/>
+  <polygon fill="#00c1a6" points="40 64 60 36 27 34"/>
+  <polygon fill="#2be1ec" points="60 36 80 64 40 64"/>
+  <polygon fill="#46eaff" points="80 64 93 34 60 36"/>
+  <polygon fill="#2be1ec" points="93 34 110 60 80 64"/>
+  <polygon fill="#00d5de" points="110 60 100 30 93 34"/>
+  <polygon fill="#00c1a6" points="20 30 40 14 27 34"/>
+  <polygon fill="#00ad7d" points="40 14 60 36 27 34"/>
+  <polygon fill="#46eaff" points="60 36 80 14 40 14"/>
+  <polygon fill="#2be1ec" points="80 14 93 34 60 36"/>
+  <polygon fill="#46eaff" points="80 14 100 30 93 34"/>
+  <polygon fill="#2be1ec" points="60 10 80 14 40 14"/>
+</svg>
