@@ -1,0 +1,55 @@
+<nav class="flex flex-1 flex-col">
+  <ul role="list" class="flex flex-1 flex-col gap-y-7">
+    <li>
+      <ul role="list" class="-mx-2 space-y-1">
+        {% if site.collections %}
+        {% assign collections = site.collections | sort: 'weight' %}
+        {% for collection in collections %}
+        {% if collection.label != "posts" %}
+        <li>
+          <div>
+            <button type="button"
+              class="hover:bg-gray-50 flex items-center w-full text-left rounded-md p-2 gap-x-3 text-sm leading-6 font-semibold text-gray-700"
+              aria-controls="sub-menu-1" aria-expanded="false">
+              <!-- Expanded: "rotate-90 text-gray-500", Collapsed: "text-gray-400" -->
+              <svg class="text-gray-400 h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                  clip-rule="evenodd" />
+              </svg>
+              {{ collection.name | capitalize }}
+            </button>
+
+            <!-- Expandable link section, show/hide based on state. -->
+            <ul class="mt-1 px-2" id="sub-menu-1">
+
+              {% assign items = site[collection.label] | sort: "weight" %}
+              {% for item in items %}
+              {% if item.hidden != true %}
+              <li>
+                <a href="{{ item.url }}"
+                  class="{% if item.url == page.url %} bg-gray-50 {% else %} hover:bg-gray-50 {% endif %} block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700">{{
+                  item.title }}</a>
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        </li>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </ul>
+    </li>
+    <!-- <li class="-mx-6 mt-auto">
+                  <a href="#"
+                      class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50">
+                      <img class="h-8 w-8 rounded-full bg-gray-50"
+                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          alt="">
+                      <span class="sr-only">Your profile</span>
+                      <span aria-hidden="true">Tom Cook</span>
+                  </a>
+              </li> -->
+  </ul>
+</nav>
