@@ -1,0 +1,42 @@
+<!doctype html>
+<html class="h-full bg-white" lang="{{ page.lang | default: site.lang | default: " en" }}">
+{%- include head.html -%}
+
+<body class="h-full">
+
+  <div class="flex min-h-full flex-col">
+
+    {%- include header.html -%}
+
+    <div class="mx-auto flex w-full items-start gap-x-8 px-4 py-10 sm:px-6 lg:px-8">
+
+      <aside class="sticky top-8 hidden w-44 shrink-0 lg:block">
+        {%- include bar.html -%}
+      </aside>
+
+      <main class="prose flex-1 w-full">
+        <h1>{{ page.title }}</h1>
+        {{ content }}
+        <hr class="my-12 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+        <div class="content-center">
+
+
+          <p>{% if page.previous %} Previous - <a href="{{ page.previous.url }}"> {{ page.previous.title }}</a>{% endif
+            %}
+
+            {% if page.next %} Next - <a href="{{ page.next.url }}">{{ page.next.title }}</a>{% endif %}</p>
+
+          <p><a href="{{site.github_repository}}/edit/main/src/{{page.relative_path}}">Edit this page on GitHub</a></p>
+        </div>
+      </main>
+
+      <aside class="prose sticky top-8 hidden w-44 shrink-0 xl:block">
+        <h2>Table of Contents</h2>
+        <div id="table-of-contents">{% toc %}</div>
+      </aside>
+    </div>
+  </div>
+  {%- include footer.html -%}
+</body>
+
+</html>
