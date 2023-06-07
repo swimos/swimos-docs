@@ -1,5 +1,5 @@
 ---
-title: Fundamentals
+title: SwimOS Fundamentals
 layout: page
 ---
 

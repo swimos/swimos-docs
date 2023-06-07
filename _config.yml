@@ -29,6 +29,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_repository: https://github.com/swimos/swimos-docs
+permalink: /:categories/:year/:month/:day/:title
 
 postcss:
   cache: false
@@ -63,29 +64,31 @@ exclude:
 
 # Every top level section is actually a collection. Their files are in a _folder in src/
 collections:
-  fundamentals:
-    output: true
-    name: "Fundamentals"
-    order:
-      - index.md
-    weight: 1
-  meet:
-    output: true
-    name: "Meet Swim"
-    order:
-      - index.md
-    weight: 2
-  start:
-    output: true
-    name: "Getting Started"
-    order:
-      - index.md
-    weight: 3
   tutorials:
     output: true
     name: "Tutorials"
     order:
       - index.md
+      - quick-start.md
+    weight: 1
+  guides:
+    output: true
+    name: "How-to Guides"
+    order:
+      - index.md
+    weight: 2
+  reference:
+    output: true
+    name: "Reference Docs"
+    order:
+      - index.md
+      - concepts.md
+      - agents.md
+      - lanes.md
+      - links.md
+      - recon.md
+      - warp.md
+      - tut-index.md
       - web-agents.md
       - web-agents-server-recon.md
       - command-lanes.md
@@ -106,22 +109,23 @@ collections:
       - http-ingress-bridges.md
       - http-lanes.md
       - auth-policy.md
-    weight: 4
+    weight: 3
   concepts:
     output: true
-    name: "Concepts"
+    name: "Conceptual Guides"
     order:
       - index.md
-      - agents.md
-      - lanes.md
-      - links.md
-      - recon.md
-      - warp.md
-    weight: 5
+      - meet.md
+    weight: 4
   meta:
     output: true
     name: "Meta"
-    weight: 6
+    order:
+      - index.md
+      - diataxis.md
+      - styles.md
+      - theme-management.md
+    weight: 5
   posts:
     output: false
 
