@@ -65,27 +65,33 @@ exclude:
 collections:
   fundamentals:
     output: true
-    name: "Fundamentals"
+    name: "SwimOS Fundamentals"
     order:
       - index.md
+      - meet.md
     weight: 1
-  meet:
-    output: true
-    name: "Meet Swim"
-    order:
-      - index.md
-    weight: 2
   start:
     output: true
     name: "Getting Started"
     order:
       - index.md
-    weight: 3
+    weight: 2
   tutorials:
     output: true
     name: "Tutorials"
     order:
+    weight: 3
+  reference:
+    output: true
+    name: "Reference"
+    order:
       - index.md
+      - agents.md
+      - lanes.md
+      - links.md
+      - recon.md
+      - warp.md
+      - tut-index.md
       - web-agents.md
       - web-agents-server-recon.md
       - command-lanes.md
@@ -107,21 +113,10 @@ collections:
       - http-lanes.md
       - auth-policy.md
     weight: 4
-  concepts:
-    output: true
-    name: "Concepts"
-    order:
-      - index.md
-      - agents.md
-      - lanes.md
-      - links.md
-      - recon.md
-      - warp.md
-    weight: 5
   meta:
     output: true
     name: "Meta"
-    weight: 6
+    weight: 5
   posts:
     output: false
 
