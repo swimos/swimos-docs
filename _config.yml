@@ -64,29 +64,25 @@ exclude:
 
 # Every top level section is actually a collection. Their files are in a _folder in src/
 collections:
-  fundamentals:
-    output: true
-    name: "SwimOS Fundamentals"
-    order:
-      - index.md
-      - meet.md
-    weight: 1
-  start:
-    output: true
-    name: "Getting Started"
-    order:
-      - index.md
-    weight: 2
   tutorials:
     output: true
     name: "Tutorials"
     order:
-    weight: 3
-  reference:
+      - index.md
+      - quick-start.md
+    weight: 1
+  guides:
     output: true
-    name: "Reference"
+    name: "How-to Guides"
     order:
       - index.md
+    weight: 2
+  reference:
+    output: true
+    name: "Reference Docs"
+    order:
+      - index.md
+      - concepts.md
       - agents.md
       - lanes.md
       - links.md
@@ -113,10 +109,22 @@ collections:
       - http-ingress-bridges.md
       - http-lanes.md
       - auth-policy.md
+    weight: 3
+  concepts:
+    output: true
+    name: "Conceptual Guides"
+    order:
+      - index.md
+      - meet.md
     weight: 4
   meta:
     output: true
     name: "Meta"
+    order:
+      - index.md
+      - diataxis.md
+      - styles.md
+      - theme-management.md
     weight: 5
   posts:
     output: false
