@@ -149,3 +149,11 @@ defaults:
 #   sublist_class: ''
 #   item_class: toc-entry
 #   item_prefix: toc-
+
+# Set display to true/false to toggle announcements on/off
+# If developing locally, this requires a jekyll serve restart to test.
+announcement:
+  display: true
+  cta: StreamCon June 1-11
+  text: Join us for things, things, and more things.
+  cta-link: https://github.com/
