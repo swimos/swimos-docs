@@ -43,7 +43,7 @@ pipeline {
             steps {
                 container('ruby') {
                     sh 'bundle exec jekyll build'
-                    archiveArtifacts artifacts: './_site/**/*', followSymlinks: false
+                    archiveArtifacts artifacts: '_site/**/*', followSymlinks: false
                 }
             }
         }
