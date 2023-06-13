@@ -42,8 +42,8 @@ pipeline {
         stage('build') {
             steps {
                 container('ruby') {
-                    sh "sed -i 's/'\\''/\"/g' assets/css/main.css"
-                    sh 'bundle exec jekyll build'
+                    sh "sed -i 's/'\\''/\"/g' assets/css/main.css"  //TODO: Remove this
+                    sh 'bundle exec jekyll build --baseurl "https://www.swimos.org"' //TODO: Remove this
                     archiveArtifacts artifacts: './_site/**/*', followSymlinks: false
                 }
             }
