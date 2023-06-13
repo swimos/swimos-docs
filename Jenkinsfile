@@ -42,6 +42,7 @@ pipeline {
         stage('build') {
             steps {
                 container('ruby') {
+                    sh "sed -i 's/'\\''/\"/g' assets/css/main.css"
                     sh 'bundle exec jekyll build'
                     archiveArtifacts artifacts: './_site/**/*', followSymlinks: false
                 }
