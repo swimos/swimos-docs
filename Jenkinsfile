@@ -32,11 +32,10 @@ pipeline {
     stages {
         stage('prepare') {
             steps {
-                container('node') {
-                    sh 'npm install'
-                }
                 container('ruby') {
+                    sh 'apt-get update && bash -c "curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs"'
                     sh 'bundle install'
+                    sh 'npm install'
                 }
             }
         }
