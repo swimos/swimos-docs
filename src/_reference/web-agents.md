@@ -1,6 +1,8 @@
 ---
 title: Web Agents
 layout: page
+redirect_from:
+  - /tutorials/web-agents/
 ---
 
 Swim servers utilize a general purpose distributed object model in which the objects are called **Web Agents**. Programming with this model feels like typical object-oriented programming with additional key innovations in addressability, statefulness, consistency, boundedness, and composability.

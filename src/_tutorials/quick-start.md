@@ -1,6 +1,8 @@
 ---
 title: Quick Start
 layout: page
+redirect_from:
+  - /start/
 ---
 
 Swim implements a complete, self-contained, distributed application stack in an embeddable software library. To develop server-side Swim apps, add the [swim-api](https://github.com/swimos/swim/tree/main/swim-java/swim-runtime/swim-host/swim.api) library to your Java project. To write a JavaScript client application, install the [@swim/core](https://github.com/swimos/swim/tree/main/swim-js/swim-runtime/swim-core) library from npm. To build a web application, npm install the [@swim/ui](https://github.com/swimos/swim/tree/main/swim-js/swim-toolkit/swim-ui) and [@swim/ux](https://github.com/swimos/swim/tree/main/swim-js/swim-toolkit/swim-ux) libraries. Select one of the boxes below (or scroll down) to get started with Swim.

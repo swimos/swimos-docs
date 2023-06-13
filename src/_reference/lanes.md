@@ -1,6 +1,8 @@
 ---
 title: Lanes
 layout: page
+redirect_from:
+  - /concepts/lanes/
 ---
 
 Distributed objects aren't very useful without properties to store state, and methods to trigger actions. Enter **lanes**. Each Web Agent has a set of named lanes, representing the properties and methods of the Web Agent.

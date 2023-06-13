@@ -1,6 +1,8 @@
 ---
 title: Egress Bridges
 layout: page
+redirect_from:
+  - /tutorials/egress-bridges/
 ---
 
 Swim's built-in networking stack enables communication with other processes--which might themselves be other Swim servers. There are two directions of data flow: from Swim to external processes, and from external processes to Swim. This article discusses the former.

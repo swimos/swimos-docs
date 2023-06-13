@@ -1,6 +1,8 @@
 ---
 title: HTTP Lanes
 layout: page
+redirect_from:
+  - /tutorials/http-lanes/
 ---
 
 In previous tutorials, we have seen how Swim applications consist of interconnected [Web Agents](/reference/web-agents) with properties and methods in the form of [Lanes](/reference/command-lanes).

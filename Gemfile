@@ -36,3 +36,4 @@ gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 
 gem 'jekyll-toc'
 gem 'html-proofer'
+gem 'jekyll-redirect-from'

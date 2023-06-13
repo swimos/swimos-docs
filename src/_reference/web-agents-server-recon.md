@@ -1,6 +1,8 @@
 ---
 title: Web Agents Server Recon
 layout: page
+redirect_from:
+  - /tutorials/web-agents-server-recon/
 ---
 
 In a [previous tutorial](/reference/web-agents), we began to describe a distributed object model where **Web Agents** are the **objects**. This tutorial explains an alternative way to declare web agents.
