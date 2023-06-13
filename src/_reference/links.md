@@ -48,7 +48,7 @@ yourName.close();
 
 Links are point-to-point, and unbuffered, making them real-time within the latency of the network and CPU.
 
-Jump ahead to [Recon](/concepts/recon) to find out how lanes and links represent data internally. Dive into the [tutorials](/tutorials) to see how links get used in a real application. Or read on to learn more about the different kinds of links, their properties, and their guarantees.
+Jump ahead to [Recon](/reference/recon) to find out how lanes and links represent data internally. Dive into the [tutorials](/tutorials) to see how links get used in a real application. Or read on to learn more about the different kinds of links, their properties, and their guarantees.
 
 <!--<h2 class="header-green">Downlinks</h2>
 <div class="feature-stack">

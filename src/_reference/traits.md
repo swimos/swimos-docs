@@ -3,7 +3,7 @@ title: Traits
 layout: page
 ---
 
-In a [previous tutorial](/tutorials/planes), we described a distributed object model to facilitate shared context for a group of **Web Agents**. In this tutorial we describe the concept of **'Trait'** utilized for sharing of data across multiple **Web Agents.** 
+In a [previous tutorial](/reference/planes), we described a distributed object model to facilitate shared context for a group of **Web Agents**. In this tutorial we describe the concept of **'Trait'** utilized for sharing of data across multiple **Web Agents.** 
 
 There are two types of traits: 
 

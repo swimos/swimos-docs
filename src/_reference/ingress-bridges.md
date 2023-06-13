@@ -20,7 +20,7 @@ Writes to a Swim server are most easily accomplished using a Swim client instanc
 
 Note that the second is simply the first with an intermediary process.
 
-Either way, the process that talks directly to the Swim server updates the server by either [sending commands](/tutorials/command-lanes) or [writing to downlinks](/tutorials/downlinks).
+Either way, the process that talks directly to the Swim server updates the server by either [sending commands](/reference/command-lanes) or [writing to downlinks](/reference/downlinks).
 
 ```java
 // swim/basic/SwimWriter.java
@@ -137,7 +137,7 @@ If the data source is not a Swim server and you still want something of a pull m
 
 - A secondary service pulls data, using **any networking protocol of your choice**, from the data source, then relays data to the Swim server using any of the "push-type" bridges discussed above.
 
-It is **not required** that this service run outside of the Swim server. There is a way to execute blocking calls within a server context without impacting Web Agent functionality. This feature exceeds the scope of this discussion, but a fully-worked example can be found in our [HTTP Ingress Bridge example](/tutorials/http-ingress-bridges).
+It is **not required** that this service run outside of the Swim server. There is a way to execute blocking calls within a server context without impacting Web Agent functionality. This feature exceeds the scope of this discussion, but a fully-worked example can be found in our [HTTP Ingress Bridge example](/reference/http-ingress-bridges).
 
 ### Try It Yourself
 

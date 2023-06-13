@@ -3,7 +3,7 @@ title: Map Lanes
 layout: page
 ---
 
-In a [previous tutorial](/tutorials/web-agents), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
+In a [previous tutorial](/reference/web-agents), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
 
 Lanes come in many flavors, but every lane type exposes:
 
@@ -41,7 +41,7 @@ public class UnitAgent extends AbstractAgent {
 
 Internally, lanes are always backed by `swim.structure.Value`s, regardless of their parametrized types. Under the hood, lanes use `swim.structure.Form`s to handle any necessary conversions, allowing users to treat lanes as properly parametrized data types provided that a form for that data type exists. Even custom Java classes can be lane types, provided that forms for those classes exist. We will further discuss this topic in a more advanced cookbook.
 
-<!-- Further reading: <a href="/tutorials/universal-addressability">Universal Addressability</a>, <a href="/tutorials/structures">Structures</a>
+<!-- Further reading: <a href="/reference/universal-addressability">Universal Addressability</a>, <a href="/reference/structures">Structures</a>
 -->
 
 ### Instantiation and Callbacks
@@ -117,7 +117,7 @@ public class UnitAgent extends AbstractAgent {
 
 Direct communication with value lanes is instead accomplished through **downlinks**. Downlinks are WARP subscriptions to lanes. They come in many flavors, but subscriptions to map lanes can only be accomplished through **map downlinks** and, to a more limited extent, **event downlinks**.
 
-Further reading: [Command Lanes](/tutorials/command-lanes), [Downlinks](/tutorials/downlinks)
+Further reading: [Command Lanes](/reference/command-lanes), [Downlinks](/reference/downlinks)
 
 ### Writing to Map Lanes
 

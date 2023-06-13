@@ -3,7 +3,7 @@ title: Demand Map Lanes
 layout: page
 ---
 
-In a [previous tutorial](/tutorials/web-agents), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
+In a [previous tutorial](/reference/web-agents), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
 
 Lanes come in many flavors, but every lane type exposes:
 
@@ -12,7 +12,7 @@ Lanes come in many flavors, but every lane type exposes:
 - Various means to **strongly type** (i.e. *parametrize*) the lane
 - Universal WARP **subscriptions** to this lane
 
-A **demand map lane** does not store a collection, instead they are backed by a [map lane](/tutorials/map-lanes) and retrieve values purely on demand. Demand map lanes **lazily** generate events for the map lane, only when there is an uplink ready to receive the event. The lane meets these requirements:
+A **demand map lane** does not store a collection, instead they are backed by a [map lane](/reference/map-lanes) and retrieve values purely on demand. Demand map lanes **lazily** generate events for the map lane, only when there is an uplink ready to receive the event. The lane meets these requirements:
 
 - Every demand map lane can be **cue(key)**-ed, signalling there is an event to be sent, for given key, to the uplinks, if ready. This is done in the map lane's `didUpdate()` method
 - Doing so will trigger its **onCue(key)** callback
@@ -23,7 +23,7 @@ Demand map lanes can be cue()-ed at extremely high rates, and only as many event
 
 Demand map lanes are ideal for publishing statistical events, where it isn't important that a client receives every incremental update, only that the client eventually receives the latest state, that the state clients receive is real-time (within the latency of the network), and that updates are desired as often as possible.
 
-<h3>Declaration</h3>
+### Declaration
 
 All lanes are declared inside Web Agents as fields annotated with `@SwimLane`. The parameter inside this annotation is the lane's **laneUri**. Recall that every Web Agent has a universal, logical address known as its **nodeUri**; `laneUri`s are simply the equivalent counterpart for lanes.
 

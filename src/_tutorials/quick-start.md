@@ -5,7 +5,7 @@ layout: page
 
 Swim implements a complete, self-contained, distributed application stack in an embeddable software library. To develop server-side Swim apps, add the [swim-api](https://github.com/swimos/swim/tree/main/swim-java/swim-runtime/swim-host/swim.api) library to your Java project. To write a JavaScript client application, install the [@swim/core](https://github.com/swimos/swim/tree/main/swim-js/swim-runtime/swim-core) library from npm. To build a web application, npm install the [@swim/ui](https://github.com/swimos/swim/tree/main/swim-js/swim-toolkit/swim-ui) and [@swim/ux](https://github.com/swimos/swim/tree/main/swim-js/swim-toolkit/swim-ux) libraries. Select one of the boxes below (or scroll down) to get started with Swim.
 
-<div class="platform-case">
+<!-- <div class="platform-case">
   <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="plane">
     <path fill="#e8e8e8" d="M 0 100 L 10 0 L 90 0 L 100 100 Z"></path>
   </svg>
@@ -23,11 +23,11 @@ Swim implements a complete, self-contained, distributed application stack in an 
 <div class="release-stack">
   <p class="release-version">Current version: 4.0.1</p>
   <!-- <p class="release-notes"><a href="">View Release Notes</a></p>-->
-</div>
+<!-- </div> -->
 
 To try Swim, check out one of our step-by-step [tutorials](/tutorials). To build your own app, try cloning a [starter application](https://github.com/swimos/tutorial). Or continue reading to learn more about how to get started with Swim.
 
-### <a name="java-server"></a>Java Server Quick Start
+### Java Server Quick Start
 
 The Swim Java Server is a self-contained, distributed application server for stateful, streaming applications. Swim Server provides applications with persistence without a database, point-to-point messaging without a message broker, and execution scheduling without a job manager. Swim applications communicate using the WARP protocol, a multiplexed streaming upgrade to HTTP.
 
@@ -40,7 +40,7 @@ The Swim Java Server is a self-contained, distributed application server for sta
   </div>
 </div>
 
-### <a name="java-client"></a>Java Client Quick Start
+### Java Client Quick Start
 
 The Swim Java Client is a minimal WARP streaming API client.
 
@@ -53,7 +53,7 @@ The Swim Java Client is a minimal WARP streaming API client.
   </div>
 </div>
 
-### <a name="js-client"></a>JavaScript Client Quick Start
+### JavaScript Client Quick Start
 
 The Swim JavaScript Client is a WARP streaming API client for Node.js and Browser applications.
 
@@ -66,7 +66,7 @@ The Swim JavaScript Client is a WARP streaming API client for Node.js and Browse
   </div>
 </div>
 
-### <a name="web-ui"></a>Web UI Quick Start
+### Web UI Quick Start
 
 The Swim Web UI framework is a dependency-free user interface toolkit for pervasively real-time web applications. It provides everything you need to bind user interface components to WARP streaming APIs. The Swim UX framework implements easy-to-use, procedurally animatable gauges, pies, charts, maps, and more.
 
