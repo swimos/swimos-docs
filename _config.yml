@@ -63,6 +63,8 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  - docker
+  - docker-compose.yml
 
 # Every top level section is actually a collection. Their files are in a _folder in src/
 collections:
