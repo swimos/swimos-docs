@@ -25,6 +25,10 @@ pipeline {
         }
     }
 
+    environment {
+        JEKYLL_ENV = 'development jekyll build'
+    }
+
     stages {
         stage('prepare') {
             steps {
@@ -39,6 +43,7 @@ pipeline {
         stage('build') {
             steps {
                 container('ruby') {
+                    env
                     sh 'bundle exec jekyll build'
                     archiveArtifacts artifacts: './_site/**/*', followSymlinks: false
                 }
