@@ -51,6 +51,7 @@ plugins:
 #
 exclude:
   - .sass-cache/
+  - .idea
   - .jekyll-cache/
   - .ruby-version
   - gemfiles/
