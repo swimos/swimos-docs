@@ -43,7 +43,6 @@ pipeline {
         stage('build') {
             steps {
                 container('ruby') {
-                    env
                     sh 'bundle exec jekyll build'
                     archiveArtifacts artifacts: './_site/**/*', followSymlinks: false
                 }
