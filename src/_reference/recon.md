@@ -1,6 +1,7 @@
 ---
 title: Recon
 layout: page
+  - /concepts/recon/
 ---
 
 Web Agents and their lanes define the entities and associated operations of a streaming API. But this definition is incomplete without also defining the data structures supported by each operation. Swim uses a simple, structural data model, called **Recon**, to exchange streaming messages.

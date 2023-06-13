@@ -1,6 +1,8 @@
 ---
 title: Traits
 layout: page
+redirect_from:
+  - /tutorials/traits/
 ---
 
 In a [previous tutorial](/reference/planes), we described a distributed object model to facilitate shared context for a group of **Web Agents**. In this tutorial we describe the concept of **'Trait'** utilized for sharing of data across multiple **Web Agents.** 

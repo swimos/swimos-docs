@@ -1,6 +1,8 @@
 ---
 title: Forms
 layout: page
+redirect_from:
+  - /tutorials/forms/
 ---
 
 Recall that internally, as in all previous "... Lanes" cookbooks to date, `swim.structure.Value` is the type of every lane, regardless of its parametrized type.

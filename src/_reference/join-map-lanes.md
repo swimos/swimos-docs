@@ -1,6 +1,8 @@
 ---
 title: Join Map Lanes
 layout: page
+redirect_from:
+  - /tutorials/join-map-lanes/
 ---
 
 In a [previous tutorial](/reference/join-value-lanes), we discussed Join Value Lanes which aggregate value lanes from many agents. Similar to **Join Value Lanes**, **Join Map Lanes** aggregate **Map Lanes** across multiple agents.

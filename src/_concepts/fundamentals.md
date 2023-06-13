@@ -1,6 +1,8 @@
 ---
 title: SwimOS Fundamentals
 layout: page
+redirect_from:
+  - /fundamentals/
 ---
 
 Streaming Data Applications are an emerging architectural approach that affords application functionality to streaming data. The three foundational components of Streaming Data Applications are:

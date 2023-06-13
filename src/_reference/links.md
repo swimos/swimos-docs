@@ -1,6 +1,8 @@
 ---
 title: Links
 layout: page
+redirect_from:
+  - /concepts/links/
 ---
 
 Central to programming is the ability to create pointers, or references, to things. Pointers are much more than memory addresses. Pointers often represent usage restrictions (think `const`, or `volatile`). And modern CPUs even use pointers as caching hints, pre-fetching data that might eventually be used in a computation. Swim takes the idea of pointers to the next level, enabling streaming references to the lanes of remote Web Agents, with strong consistency guarantees.

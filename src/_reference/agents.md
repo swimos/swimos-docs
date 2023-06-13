@@ -1,6 +1,8 @@
 ---
 title: Web Agents
 layout: page
+redirect_from:
+  - /concepts/agents/
 ---
 
 Swim implements a general purpose distributed object model, called **Web Agents**, that's easy to program, and just works. It's what object-oriented programming was always meant to be. With key innovations in addressability, statefulness, consistency, boundedness, and composability, Web Agents breathe new life into the old idea of distributed objects.

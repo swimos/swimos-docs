@@ -1,6 +1,8 @@
 ---
 title: HTTP Ingress Bridges
 layout: page
+redirect_from:
+  - /tutorials/http-ingress-bridges/
 ---
 
 Recall the **general** means to ingest into a Swim server via [ingress bridges](/reference/ingress-bridges). Here, we outline one common design where the data source is HTTP server (though the concepts may generalize across other protocols). More specifically, this outlines a "pull-type" bridge where the data ingestion process and the Web Agents share a runtime.

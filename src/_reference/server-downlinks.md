@@ -1,6 +1,8 @@
 ---
 title: Server Downlinks
 layout: page
+redirect_from:
+  - /tutorials/server-downlinks/
 ---
 
 In a [previous tutorial](/reference/downlinks), we discussed **downlinks** - bidirectionally-streaming, persistent **subscriptions** to lanes - and went through an example of a client-side downlink. This tutorial will showcase downlinks between two Swim servers.

@@ -1,6 +1,8 @@
 ---
 title: Meet Swim
 layout: page
+redirect_from:
+  - /meet/
 ---
 
 ## Build Apps with Ease

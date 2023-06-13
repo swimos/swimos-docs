@@ -1,6 +1,8 @@
 ---
 title: Downlinks
 layout: page
+redirect_from:
+  - /tutorials/downlinks/
 ---
 
 In a [previous tutorial](/reference/web-agents), we began to describe a distributed object model where **Web Agents** are the **objects** and **lanes** are **fields**. **Downlinks** are bidirectionally-streaming, persistent **subscriptions** to lanes.
