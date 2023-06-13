@@ -3,7 +3,7 @@ title: Web Agents Server Recon
 layout: page
 ---
 
-In a [previous tutorial](/tutorials/web-agents), we began to describe a distributed object model where **Web Agents** are the **objects**. This tutorial explains an alternative way to declare web agents.
+In a [previous tutorial](/reference/web-agents), we began to describe a distributed object model where **Web Agents** are the **objects**. This tutorial explains an alternative way to declare web agents.
 
 Swim servers utilize a general purpose distributed object model in which the objects are called **Web Agents**. Programming with this model feels like typical object-oriented programming with additional key innovations in addressability, statefulness, consistency, boundedness, and composability.
 
@@ -77,7 +77,7 @@ public class UnitAgent extends AbstractAgent {
 }
 ```
 
-<!-- Further reading: <a href="/tutorials/universal-addressability">Universal Addressability</a>-->
+<!-- Further reading: <a href="/reference/universal-addressability">Universal Addressability</a>-->
 
 ### Instantiation and Agent Property
 
@@ -148,9 +148,9 @@ A Dynamic Web Agent is only instantiated when its `nodeUri` is invoked for the f
 
 In addition to the `nodeUri()` method mentioned in the previous section, every Agent also has access to a `Value getProp(String prop)` convenience method. This returns a `swim.structure.Text` object containing the value of the dynamic `nodeUri` component with the name `prop`, `absent()` if it doesn't exist. For example, `getProp("id").stringValue()` will return either `"1"`, `"foo"`, or `"foo_1"`, depending on which of the above three agents we are currently running in. `getProp("foo")` will return `absent()`.
 
-Further reading: [Planes](/tutorials/planes)
+Further reading: [Planes](/reference/planes)
 
-<!---, <a href="/tutorials/structures">Structures</a>-->
+<!---, <a href="/reference/structures">Structures</a>-->
 
 ### Lifecycle Callbacks
 

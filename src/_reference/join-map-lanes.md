@@ -3,9 +3,9 @@ title: Join Map Lanes
 layout: page
 ---
 
-In a [previous tutorial](/tutorials/join-value-lanes), we discussed Join Value Lanes which aggregate value lanes from many agents. Similar to **Join Value Lanes**, **Join Map Lanes** aggregate **Map Lanes** across multiple agents.
+In a [previous tutorial](/reference/join-value-lanes), we discussed Join Value Lanes which aggregate value lanes from many agents. Similar to **Join Value Lanes**, **Join Map Lanes** aggregate **Map Lanes** across multiple agents.
 
-A **Join Map Lane** uses [downlinks](/concepts/links/) to create permanent links to **Map Lanes** and exhibits the same behaviour as [Map Lanes](/tutorials/map-lanes). Some additional properties are present:
+A **Join Map Lane** uses [downlinks](/reference/links/) to create permanent links to **Map Lanes** and exhibits the same behaviour as [Map Lanes](/reference/map-lanes). Some additional properties are present:
 
 - Operations performed on a **Map Lane** are propagated via downlinks to the **Join Map Lane**.
 - A **link form** must be specified.
@@ -76,7 +76,7 @@ static class AggregatedStatisticsAgent extends AbstractAgent {
 }
 ```
 
-**Join Map Lanes** require downlinks to all of the **JoinMaps** that are to be aggregated and these can be opened using the agent's **didStart()** method; in this instance, the **didStart()** method is used for convenience, however, in more complex applications [command lanes](/tutorials/command-lanes/) would be more suitable. Here, downlinks are opened to three states using the Swim lane **'state'**.
+**Join Map Lanes** require downlinks to all of the **JoinMaps** that are to be aggregated and these can be opened using the agent's **didStart()** method; in this instance, the **didStart()** method is used for convenience, however, in more complex applications [command lanes](/reference/command-lanes/) would be more suitable. Here, downlinks are opened to three states using the Swim lane **'state'**.
 
 Bringing this together, a plane is required with the two previous agents and the appropriate lane URIs.
 
@@ -91,7 +91,7 @@ static class BasicPlane extends AbstractPlane {
 }
 ```
 
-By design, operations performed on a **Join Map Lane** are not propagated through the uplinks to the **Map Lanes**. Thus, the maps to be aggregated must be populated and not inversely. **Map Lanes** are opened on a plane as discussed in the [map lane](/tutorials/map-lanes/) cookbook and a **Join Map Lane** is no exception. This **Join Map Lane** logs streets that contain over 1000 residents using the **didUpdate()** method:
+By design, operations performed on a **Join Map Lane** are not propagated through the uplinks to the **Map Lanes**. Thus, the maps to be aggregated must be populated and not inversely. **Map Lanes** are opened on a plane as discussed in the [map lane](/reference/map-lanes/) cookbook and a **Join Map Lane** is no exception. This **Join Map Lane** logs streets that contain over 1000 residents using the **didUpdate()** method:
 
 ```java
 // swim/basic/CustomClient.java

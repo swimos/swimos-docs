@@ -3,7 +3,7 @@ title: Auth Policy
 layout: page
 ---
 
-Recall in the [Planes](/tutorials/planes) tutorial, we created a security policy to only allow requests with a given token URL parameter. This tutorial will expand upon this to show how access can be restriced for given Agents and Lanes.
+Recall in the [Planes](/reference/planes) tutorial, we created a security policy to only allow requests with a given token URL parameter. This tutorial will expand upon this to show how access can be restriced for given Agents and Lanes.
 
 ### Declaration and Instantiation
 

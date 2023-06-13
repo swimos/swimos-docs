@@ -3,7 +3,7 @@ title: HTTP Lanes
 layout: page
 ---
 
-In previous tutorials, we have seen how Swim applications consist of interconnected [Web Agents](/tutorials/web-agents) with properties and methods in the form of [Lanes](/tutorials/command-lanes).
+In previous tutorials, we have seen how Swim applications consist of interconnected [Web Agents](/reference/web-agents) with properties and methods in the form of [Lanes](/reference/command-lanes).
 
 **HTTP Lanes** accept HTTP requests and respond enabling Web Agents to expose **endpoints**. This allows Web Agent's state to be viewed or modified from outside of Swim applications through the use of **REST APIs**.
 

@@ -11,10 +11,10 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
 
 <div class="tutorials-case">
   <div class="tutorial-stack">
-    <a href="/tutorials/web-agents" class="tutorial-header">
+    <a href="/reference/web-agents" class="tutorial-header">
       <span class="tutorial-title">Web Agents</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -22,16 +22,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/web-agents-server-recon" class="tutorial-header">
+    <a href="/reference/web-agents-server-recon" class="tutorial-header">
       <span class="tutorial-title">Web Agents Server Recon</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -39,16 +39,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/command-lanes" class="tutorial-header">
+    <a href="/reference/command-lanes" class="tutorial-header">
       <span class="tutorial-title">Command Lanes</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -56,16 +56,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/value-lanes" class="tutorial-header">
+    <a href="/reference/value-lanes" class="tutorial-header">
       <span class="tutorial-title">Value Lanes</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -73,16 +73,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/map-lanes" class="tutorial-header">
+    <a href="/reference/map-lanes" class="tutorial-header">
       <span class="tutorial-title">Map Lanes</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -90,16 +90,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/join-value-lanes" class="tutorial-header">
+    <a href="/reference/join-value-lanes" class="tutorial-header">
       <span class="tutorial-title">Join Value Lanes</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -107,16 +107,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/join-map-lanes" class="tutorial-header">
+    <a href="/reference/join-map-lanes" class="tutorial-header">
       <span class="tutorial-title">Join Map Lanes</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -124,16 +124,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/demand-value-lanes" class="tutorial-header">
+    <a href="/reference/demand-value-lanes" class="tutorial-header">
       <span class="tutorial-title">Demand Value Lanes</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -141,16 +141,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/demand-map-lanes" class="tutorial-header">
+    <a href="/reference/demand-map-lanes" class="tutorial-header">
       <span class="tutorial-title">Demand Map Lanes</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -158,16 +158,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/planes" class="tutorial-header">
+    <a href="/reference/planes" class="tutorial-header">
       <span class="tutorial-title">Planes</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -175,16 +175,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/traits" class="tutorial-header">
+    <a href="/reference/traits" class="tutorial-header">
       <span class="tutorial-title">Traits</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -192,16 +192,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/downlinks" class="tutorial-header">
+    <a href="/reference/downlinks" class="tutorial-header">
       <span class="tutorial-title">Downlinks</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -209,16 +209,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/server-downlinks" class="tutorial-header">
+    <a href="/reference/server-downlinks" class="tutorial-header">
       <span class="tutorial-title">Server Downlinks</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -226,16 +226,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/forms" class="tutorial-header">
+    <a href="/reference/forms" class="tutorial-header">
       <span class="tutorial-title">Forms</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -243,16 +243,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/timers" class="tutorial-header">
+    <a href="/reference/timers" class="tutorial-header">
       <span class="tutorial-title">Timers</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -260,16 +260,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/ingress-bridges" class="tutorial-header">
+    <a href="/reference/ingress-bridges" class="tutorial-header">
       <span class="tutorial-title">Ingress Bridges</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -277,16 +277,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/egress-bridges" class="tutorial-header">
+    <a href="/reference/egress-bridges" class="tutorial-header">
       <span class="tutorial-title">Egress Bridges</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -294,16 +294,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/http-ingress-bridges" class="tutorial-header">
+    <a href="/reference/http-ingress-bridges" class="tutorial-header">
       <span class="tutorial-title">HTTP Ingress Bridges</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -311,16 +311,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/http-lanes" class="tutorial-header">
+    <a href="/reference/http-lanes" class="tutorial-header">
       <span class="tutorial-title">HTTP Lanes</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -328,16 +328,16 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
   </div>
   <div class="tutorial-stack">
-    <a href="/tutorials/auth-policy" class="tutorial-header">
+    <a href="/reference/auth-policy" class="tutorial-header">
       <span class="tutorial-title">Auth Policy</span>
       <div class="tutorial-badges">
-        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge">
+        <img src="/assets/images/social/java-gray.svg" width="18" height="24" class="tutorial-badge" alt="Java logo">
       </div>
     </a>
     <div class="tutorial-body">
@@ -345,7 +345,7 @@ Get familiar with core Swim concepts that form the basis of all Swim apps.
     </div>
     <div class="tutorial-footer">
       <div class="tutorial-timer">
-        <img src="/assets/images/clock-gray.svg" class="tutorial-clock">
+        <img src="/assets/images/clock-gray.svg" class="tutorial-clock" alt="Clock">
         <span class="tutorial-time">10 mins</span>
       </div>
     </div>
@@ -359,22 +359,15 @@ Have more questions? Just ask.
 <div class="community-case">
   <div class="community-stack">
     <a href="https://stackoverflow.com/questions/tagged/swim">
-      <img src="/assets/images/social/stackoverflow-gray.svg" width="48" height="48" alt="StackOverflow">
-      <h3>[swim]</h3>
+      <img src="/assets/images/social/stackoverflow-gray.svg" width="48" height="48" alt="StackOverflow" alt="StackOverflow logo">
+      <h3 class="no_toc">[swim]</h3>
     </a>
   Get support and troubleshoot issues with the Swim team on StackOverflow.
   </div>
   <div class="community-stack">
-    <a href="https://gitter.im/swimos">
-      <img src="/assets/images/social/gitter-gray.svg" width="48" height="48" alt="Gitter">
-      <h3>/swimOS</h3>
-    </a>
-  Join the conversation and get help from the Swim team on Gitter.
-  </div>
-  <div class="community-stack">
     <a href="https://www.reddit.com/r/swimos">
-      <img src="/assets/images/social/reddit-gray.svg" width="48" height="48" alt="Reddit">
-      <h3>/r/swimOS</h3>
+      <img src="/assets/images/social/reddit-gray.svg" width="48" height="48" alt="Reddit logo">
+      <h3 class="no_toc">/r/swimOS</h3>
     </a>
   Share your projects and Swim apps with the Reddit community.
   </div>

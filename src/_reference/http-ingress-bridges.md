@@ -3,7 +3,7 @@ title: HTTP Ingress Bridges
 layout: page
 ---
 
-Recall the **general** means to ingest into a Swim server via [ingress bridges](/tutorials/ingress-bridges). Here, we outline one common design where the data source is HTTP server (though the concepts may generalize across other protocols). More specifically, this outlines a "pull-type" bridge where the data ingestion process and the Web Agents share a runtime.
+Recall the **general** means to ingest into a Swim server via [ingress bridges](/reference/ingress-bridges). Here, we outline one common design where the data source is HTTP server (though the concepts may generalize across other protocols). More specifically, this outlines a "pull-type" bridge where the data ingestion process and the Web Agents share a runtime.
 
 You may find it pointless to seed a real-time streaming application with a data source that must be polled. However, note that applications will typically utilize multiple data sources of different types. Because Swim apps are stateful, the poll results will remain available, even after independent messages have been pushed to the Web Agents.
 
@@ -118,7 +118,6 @@ A successful JSON response from the REST server takes the form
 
 We can use a number of libraries to parse this into a structured object `response`. If we use `swim.structure`, then:
 
-
 1. `pair = response.get("rates").getItem(i)` returns the i'th pair's information
 1. `pair = pair.key()` returns the currency pair's combined name, so we can call `String.subString()` to isolate one piece
 1. `pair = pair.toValue()` returns the rate and timestamp information
@@ -174,9 +173,9 @@ The actual code only differs from this by enforcing a [singleton pattern](https:
 
 At this point, all the hooks are in place to bridge between the REST data and the Web Agents. The only remaining piece is to actually invoke `relayExchangeRates()`. Since this contains a blocking network call, we cannot naively invoke this from the Web Agent context without the risk of impacting performance. On the other hand, having access to this context within the same process circumvents interprocess communication.
 
-One way to reap the best of both worlds is to have a dedicated, singleton Web Agent that invokes `relayExchangeRates()`, but to delegate this invocation to Swim's `asyncStage()` instead of the "main" thread pool that runs the `CurrencyAgent` logic. An additional advantage of this strategy is the ability to use [Swim's built-in timers](/tutorials/timers) to **periodically** poll the data source.
+One way to reap the best of both worlds is to have a dedicated, singleton Web Agent that invokes `relayExchangeRates()`, but to delegate this invocation to Swim's `asyncStage()` instead of the "main" thread pool that runs the `CurrencyAgent` logic. An additional advantage of this strategy is the ability to use [Swim's built-in timers](/reference/timers) to **periodically** poll the data source.
 
-We thus define a `CurrencyFetchAgent` as follows, and delegate the responsibility of ensuring this remains a singleton to the `server.recon` configuration file as outlined in a [prior cookbook](/tutorials/web-agents-server-recon).
+We thus define a `CurrencyFetchAgent` as follows, and delegate the responsibility of ensuring this remains a singleton to the `server.recon` configuration file as outlined in a [prior cookbook](/reference/web-agents-server-recon).
 
 ```java
 // swim/forex/CurrencyFetchAgent.java
