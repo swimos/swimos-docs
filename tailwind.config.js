@@ -8,8 +8,18 @@ module.exports = {
       './*.html',
     ],
     theme: {
-      theme: {
-        extend: {},
+      extend: {
+        fontFamily: {
+          'sans': ['"Sora"', 'sans-serif']
+        },
+        colors: {
+          'vermillion-orange': '#FE3B1E',
+          'deep-kaimurasaki': '#221C34',
+          'magenta': '#D2007D',
+          'deep-magenta': '#740049',
+          'eggshell': '#F0E5D0',
+          'alabastor': '#FCF9EC'
+        },
       },
     },
     plugins: [

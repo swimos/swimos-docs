@@ -149,3 +149,19 @@ defaults:
 #   sublist_class: ''
 #   item_class: toc-entry
 #   item_prefix: toc-
+
+# jekyll-toc Config
+toc:
+  # list_id: my-toc-id # Default: "toc"
+  list_class: mt-1 px-2
+  sublist_class: my-sublist-class # Default: no class for sublists
+  item_class:  hover:bg-gray-50  block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700
+  # item_prefix: item- # Default: "toc-":
+
+# Set display to true/false to toggle announcements on/off
+# If developing locally, this requires a jekyll serve restart to test.
+announcement:
+  display: true
+  cta: StreamCon June 1-11
+  text: Join us for things, things, and more things.
+  cta-link: https://github.com/

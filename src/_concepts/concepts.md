@@ -1,5 +1,5 @@
 ---
-title: Concepts
+title: Swim Concepts
 layout: page
 ---
 

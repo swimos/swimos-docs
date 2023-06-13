@@ -9,7 +9,7 @@
         <li>
           <div>
             <button type="button"
-              class="hover:bg-gray-50 flex items-center w-full text-left rounded-md p-2 gap-x-3 text-sm leading-6 font-semibold text-gray-700"
+              class="hover:bg-eggshell hover:text-vermillion-orange flex items-center w-full text-left rounded-md p-2 gap-x-3 text-sm leading-6 font-semibold text-gray-700"
               aria-controls="sub-menu-1" aria-expanded="false">
               <!-- Expanded: "rotate-90 text-gray-500", Collapsed: "text-gray-400" -->
               <svg class="text-gray-400 h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -28,7 +28,7 @@
               {% if item.hidden != true %}
               <li>
                 <a href="{{ item.url }}"
-                  class="{% if item.url == page.url %} bg-gray-50 {% else %} hover:bg-gray-50 {% endif %} block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700">{{
+                  class="{% if item.url == page.url %} bg-eggshell font-extrabold text-magenta {% else %} hover:bg-eggshell hover:text-vermillion-orange {% endif %} block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700">{{
                   item.title }}</a>
               </li>
               {% endif %}

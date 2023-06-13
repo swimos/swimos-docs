@@ -25,6 +25,7 @@ package swim.basic;
 import swim.api.agent.AbstractAgent;
 
 public class UnitAgent extends AbstractAgent {
+
 }
 ```
 
@@ -41,9 +42,9 @@ package swim.basic;
 import swim.api.agent.AbstractAgent;
 
 public class UnitAgent extends AbstractAgent {
-private void logMessage(Object msg) {
-  System.out.println(nodeUri() + ": " + msg);
-}
+  private void logMessage(Object msg) {
+    System.out.println(nodeUri() + ": " + msg);
+  }
 }
 ```
 
@@ -64,8 +65,8 @@ import swim.api.plane.AbstractPlane;
 import swim.api.agent.AgentRoute;
 
 public class BasicPlane extends AbstractPlane {
-@SwimRoute("/unit/:id")
-AgentRoute<UnitAgent> unitAgentType;
+  @SwimRoute("/unit/:id")
+  AgentRoute<UnitAgent> unitAgentType;
 }
 ```
 
@@ -93,19 +94,19 @@ package swim.basic;
 import swim.api.agent.AbstractAgent;
 
 public class UnitAgent extends AbstractAgent {
-@Override
-public void didStart() {
-  logMessage("didStart");
-}
+  @Override
+  public void didStart() {
+    logMessage("didStart");
+  }
 
-@Override
-public void willStop() {
-  logMessage("willStop");
-}
+  @Override
+  public void willStop() {
+    logMessage("willStop");
+  }
 
-private void logMessage(Object msg) {
-  System.out.println(nodeUri() + ": " + msg);
-}
+  private void logMessage(Object msg) {
+    System.out.println(nodeUri() + ": " + msg);
+  }
 }
 ```
 

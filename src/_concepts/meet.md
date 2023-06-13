@@ -3,42 +3,6 @@ title: Meet Swim
 layout: page
 ---
 
-Swim was designed from first principles as a completely integrated solution for building scalable, end-to-end streaming applications. Instead of configuring a separate message broker, app server and database, Swim provides for its own persistence, messaging, scheduling, clustering, replication, introspection, and security. Swim automatically optimizes utilization of available compute resources and processes data locally, building massively scalable applications from streaming data without limiting real-time performance.
-
-## What Is Swim?
-
-<div class="feature-graphic">
-  <img src="/assets/images/lowpoly/globe-teal.svg" width="120" height="120">
-</div>
-
-### Like a Distributed Operating System
-
-Built from first principles, Swim comprehensively solves the problem of building massively distributed, real-time applications.
-
-<div class="feature-graphic">
-  <img src="/assets/images/lowpoly/rockets-green-blue.svg" width="120" height="120">
-</div>
-
-### A Streaming Web
-
-To transparently interconnect distributed applications, Swim upgrades HTTP to a continuously consistent, multiplexed streaming protocol, called WARP.
-
-<div class="feature-graphic">
-  <img src="/assets/images/lowpoly/lander-teal.svg" width="120" height="120">
-</div>
-
-### A Universal Runtime
-
-With its small, self-contained runtime, Swim can seamlessly distribute applications across modest edge devices, large server clusters, and everything in between.
-
-<div class="feature-graphic">
-  <img src="/assets/images/lowpoly/robot-magenta.svg" width="120" height="120">
-</div>
-
-### A Living User Experience
-
-Humans are real-time beings. We experience life as a stream of consciousness. Swim's streaming UI frameworks make apps work the way users do.
-
 ## Build Apps with Ease
 
 Swim applications are comprised of stateful web agents, which represent real-world objects, and streamlets, bits of application logic which continuously analyze streaming inputs, update their own state, and stream output over their links to other streamlets or to users and applications. By combining web agents and streamlets, Swim developers can quickly model even the most complex real-world systems, processes and environments.

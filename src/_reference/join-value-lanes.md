@@ -35,6 +35,7 @@ public class BuildingAgent extends AbstractAgent {
   @SwimLane("lights")
   JoinValueLane<String, Boolean> lights;
 }
+```
 
 Internally, lanes are always backed by `swim.structure.Value`s, regardless of their parametrized types. Under the hood, lanes use **forms** to handle any necessary conversions, allowing users to treat lanes as properly parametrized data types provided that a form for that data type exists. Even custom Java classes can be lane types, provided that forms for those classes exist. We will further discuss this topic in a more advanced cookbook.
 

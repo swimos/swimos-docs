@@ -22,6 +22,7 @@ A **demand map lane** does not store a collection, instead they are backed by a 
 Demand map lanes can be cue()-ed at extremely high rates, and only as many events will be generated as each uplink can handle; the rate of event generation is tailored per uplink.
 
 Demand map lanes are ideal for publishing statistical events, where it isn't important that a client receives every incremental update, only that the client eventually receives the latest state, that the state clients receive is real-time (within the latency of the network), and that updates are desired as often as possible.
+
 <h3>Declaration</h3>
 
 All lanes are declared inside Web Agents as fields annotated with `@SwimLane`. The parameter inside this annotation is the lane's **laneUri**. Recall that every Web Agent has a universal, logical address known as its **nodeUri**; `laneUri`s are simply the equivalent counterpart for lanes.
