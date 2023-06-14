@@ -26,8 +26,7 @@ pipeline {
     }
 
     environment {
-        JEKYLL_ENV = 'development jekyll build'
-        when { not { branch 'master' } }
+        JEKYLL_ENV = "${env.BRANCH = 'main' ? 'production' : 'development'} jekyll build"
     }
 
     stages {
