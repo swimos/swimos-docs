@@ -61,7 +61,7 @@ pipeline {
                 container('aws-cli') {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         script {
-                            sh "aws s3 sync build/html s3://nstream-developer-stg/${JOB_NAME}/${BUILD_NUMBER}/"
+                            sh "aws s3 sync _site/ s3://nstream-developer-stg/${JOB_NAME}/${BUILD_NUMBER}/"
                         }
                     }
                 }
