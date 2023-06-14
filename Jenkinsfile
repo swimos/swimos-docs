@@ -50,9 +50,15 @@ pipeline {
         }
         stage('deploy-staging') {
             when { not { branch 'main' } }
+            steps {
+                sh 'echo Deploying to staging'
+            }
         }
         stage('deploy-production') {
             when { branch 'main' }
+            steps {
+                sh 'echo Deploying to production'
+            }
         }
     }
 }
