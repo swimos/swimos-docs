@@ -26,7 +26,7 @@ pipeline {
     }
 
     environment {
-        JEKYLL_ENV = "${env.BRANCH = 'main' ? 'production' : 'development'} jekyll build"
+        JEKYLL_ENV = "${env.BRANCH_NAME == 'main' ? 'production' : 'development'} jekyll build"
     }
 
     options {
