@@ -16,17 +16,23 @@ pipeline {
             command:
             - cat
             tty: true
-          - name: node
-            image: node:20.3
+          - name: aws-cli
+            image: amazon/aws-cli:2.11.17
             command:
             - cat
-            tty: true          
+            tty: true      
         '''
         }
     }
 
     environment {
         JEKYLL_ENV = "${env.BRANCH = 'main' ? 'production' : 'development'} jekyll build"
+    }
+
+    options {
+        sidebarLinks([
+                [displayName: 'Jekyll Output', iconFileName: '', urlName: "https://nstream-developer-stg.s3.us-west-1.amazonaws.com/${JOB_NAME}/${BUILD_NUMBER}/index.html"]
+        ])
     }
 
     stages {
@@ -52,6 +58,13 @@ pipeline {
             when { not { branch 'main' } }
             steps {
                 sh 'echo Deploying to staging'
+                container('aws-cli') {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        script {
+                            sh "aws s3 sync build/html s3://nstream-developer-stg/${JOB_NAME}/${BUILD_NUMBER}/"
+                        }
+                    }
+                }
             }
         }
         stage('deploy-production') {
