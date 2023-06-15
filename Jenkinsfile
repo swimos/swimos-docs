@@ -68,20 +68,20 @@ pipeline {
             }
         }
         stage('deploy-production') {
-            when { not {branch 'main' }}
+            when { branch 'main' }
             steps {
                 sh 'echo Deploying to production'
                 container('aws-cli') {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         script {
-                            sh "aws s3 sync _site/ s3://nstream-developer-prd/${JOB_BASE_NAME.toLowerCase()}/"
+                            sh "aws s3 sync _site/ s3://nstream-developer-prd/www.swimos.org/"
                         }
                     }
                 }
             }
         }
-        stage('invalidate cdn') {
-            when { not {branch 'main' }}
+        stage('invalidate-cdn') {
+            when { branch 'main' }
             steps {
                 container('aws-cli') {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
