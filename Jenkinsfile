@@ -71,6 +71,27 @@ pipeline {
             when { branch 'main' }
             steps {
                 sh 'echo Deploying to production'
+                container('aws-cli') {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        script {
+                            sh "aws s3 sync _site/ s3://nstream-developer-prd/www.swimos.org/"
+                        }
+                    }
+                }
+            }
+        }
+        stage('invalidate-cdn') {
+            when { branch 'main' }
+            steps {
+                container('aws-cli') {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        withCredentials([string(credentialsId: 'cloudfront-distribution-id-static-swimos', variable: 'CLOUDFRONT_DISTRIBUTION_ID')]) {
+                            script {
+                                sh "aws cloudfront create-invalidation --distribution-id '$CLOUDFRONT_DISTRIBUTION_ID' --paths '/*'"
+                            }
+                        }
+                    }
+                }
             }
         }
     }
