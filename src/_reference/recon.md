@@ -1,6 +1,7 @@
 ---
 title: Recon
 layout: page
+redirect_from:
   - /concepts/recon/
 ---
 
