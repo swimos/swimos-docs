@@ -4,9 +4,9 @@
     <div class="flex h-16 justify-between">
       <div class="flex px-2 lg:px-0">
         <div class="flex flex-shrink-0 items-center">
-          <img class="block h-8 w-auto lg:hidden" src="/assets/images/nstream-logo.png"
+          <img class="block h-8 w-auto lg:hidden" src="{{site.baseurl}}{{ "/assets/images/nstream-logo.png"}}"
             alt="Your Company">
-          <img class="hidden h-8 w-auto lg:block" src="/assets/images/nstream-logo.png"
+          <img class="hidden h-8 w-auto lg:block" src="{{site.baseurl}}{{ "/assets/images/nstream-logo.png"}}"
             alt="Your Company">
         </div>
         <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
@@ -15,17 +15,17 @@
             class="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">Dashboard</a> -->
           <!-- <a href="#"
             class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Team</a> -->
-          <a href="/" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
+          <a href="{{site.baseurl}}/" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
             HOME
           </a>
 
-          <a href="/community" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
+          <a href="{{site.baseurl}}/community" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
             COMMUNITY
           </a>
 
             <a
               class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange"
-              href="/tutorials"
+              href="{{site.baseurl}}/tutorials"
               type="button"
               id="dropdownMenuButton2"
               aria-expanded="false">
@@ -50,7 +50,7 @@
               <li>
                 <a
                   class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                  href="/"
+                  href="{{site.baseurl}}/"
                   data-te-dropdown-item-ref
                   >Action</a
                 >
@@ -62,7 +62,7 @@
           {% assign collections = site.collections | sort: 'weight' %}
           {% for collection in collections %}
           {% if collection.label != "posts" %}
-          <a href="/{{ collection.label }}"
+          <a href="{{site.baseurl}}/{{ collection.label }}"
             class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">{{
             collection.name }}</a>
           {% endif %}
@@ -132,11 +132,11 @@
       <a href="#"
         class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">Team</a> -->
 
-      <a href="/" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+      <a href="{{site.baseurl}}/" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
         Home
       </a>
 
-      <a href="/community" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+      <a href="{{site.baseurl}}/community" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
         Community
       </a>
 
@@ -144,7 +144,7 @@
       {% assign collections = site.collections | sort: 'weight' %}
       {% for collection in collections %}
       {% if collection.label != "posts" %}
-      <a href="/{{ collection.label }}"
+      <a href="{{site.baseurl}}/{{ collection.label }}"
         class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">{{
         collection.name }}</a>
       {% endif %}

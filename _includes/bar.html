@@ -27,7 +27,7 @@
               {% for item in items %}
               {% if item.hidden != true %}
               <li>
-                <a href="{{ item.url }}"
+                <a href="{{site.baseurl}}{{ item.url }}"
                   class="{% if item.url == page.url %} bg-eggshell font-extrabold text-magenta {% else %} hover:bg-eggshell hover:text-vermillion-orange {% endif %} block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700">{{
                   item.title }}</a>
               </li>
