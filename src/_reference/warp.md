@@ -1,6 +1,7 @@
 ---
 title: WARP
 layout: page
+redirect_from:  
   - /concepts/warp/
 ---
 
