@@ -41,6 +41,7 @@ plugins:
   - jekyll-postcss
   - jekyll-toc
   - jekyll-redirect-from
+  - jekyll-sitemap
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -169,3 +170,11 @@ announcement:
   cta: StreamCon June 1-11
   text: Join us for things, things, and more things.
   cta-link: https://github.com/
+
+feed:
+  collections:
+    - tutorials
+    - guides
+    - reference
+    - concepts
+    - meta
