@@ -13,7 +13,7 @@ Swim unifies the traditionally disparate roles of database, message broker, job 
 
 <div class="row">
   <figure class="col col-12 text-center">
-    <img src="/assets/images/agents-lanes-links.svg" style="max-width: 100%" alt="Agents, lanes, and links">
+    <img src="{{site.baseurl}}/assets/images/agents-lanes-links.svg" style="max-width: 100%" alt="Agents, lanes, and links">
   </figure>
 </div>
 
