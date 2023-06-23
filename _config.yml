@@ -30,6 +30,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.swimos.org" # the base hostname & protocol for your site, e.g. http://example.com
 github_repository: https://github.com/swimos/swimos-docs
 permalink: none
+destination: _site
 
 postcss:
   cache: false
