@@ -8,5 +8,6 @@ Jekyll::Hooks.register :site, :post_write do |site|
     :enforce_https => false,
     :ignore_empty_alt => false,
     :ignore_missing_alt => false,
+    :url_swap => "^/" + site.config["destination"] + "/:/"
   }).run
 end
