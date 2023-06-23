@@ -16,6 +16,11 @@ pipeline {
             command:
             - cat
             tty: true
+          - name: jruby
+            image: jruby:9.4-jdk17
+            command:
+            - cat
+            tty: true
           - name: aws-cli
             image: amazon/aws-cli:2.11.17
             command:
@@ -38,7 +43,7 @@ pipeline {
     stages {
         stage('prepare') {
             steps {
-                container('ruby') {
+                container('jruby') {
                     sh 'apt-get update && bash -c "curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs"'
                     sh 'bundle install'
                     sh 'npm install'
@@ -72,7 +77,7 @@ pipeline {
 
         stage('build') {
             steps {
-                container('ruby') {
+                container('jruby') {
                     sh 'echo $JEKYLL_ENV'
                     sh 'bundle exec jekyll build'
                     archiveArtifacts artifacts: '_site/**/*', followSymlinks: false
