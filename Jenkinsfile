@@ -76,7 +76,7 @@ pipeline {
                     def redirectsJson = readJSON file: '_site/redirects.json'
                     def redirectsTrimmed = [:]
                     redirectsJson.each { redirect ->
-                        redirectsTrimmed[redirect.key.subString(1)] = redirect.value
+                        redirectsTrimmed[redirect.key.substring(1)] = redirect.value
                     }
 
                     def s3ConfigYaml = readYaml(file: 's3_website.yml')
