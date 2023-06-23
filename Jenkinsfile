@@ -74,6 +74,12 @@ pipeline {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         script {
                             sh "aws s3 sync --delete --size-only _site/ s3://nstream-developer-stg/${JOB_NAME}/${BUILD_NUMBER}/"
+                            sh "touch zerobytefile"
+                            def redirects = readJSON file: '_site/redirects.json'
+
+                            redirects.each { redirect  ->
+                                sh "aws s3 cp --dryrun --website-redirect '${redirect.value}' zerobytefile 's3://nstream-developer-stg/${JOB_NAME}/${BUILD_NUMBER}/${redirect.key}'"
+                            }
                         }
                     }
                 }
