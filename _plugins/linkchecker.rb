@@ -1,32 +1,13 @@
-require "html-proofer"
+# require "html-proofer"
 
-Jekyll::Hooks.register :site, :post_write do |site|
-  if site.config['JEKYLL_ENV'] == "development"
-    HTMLProofer.check_directory(site.config["destination"], opts = {
-      :allow_hash_href => true,
-      :check_html => true,
-      :check_img_http => true,
-      :disable_external => false,
-      :enforce_https => false,
-      :report_invalid_tags => true,
-    }).run
-    elseif site.config['JEKYLL_ENV'] == "production"
-      HTMLProofer.check_directory(site.config["destination"], opts = {
-        :allow_hash_href => true,
-        :check_html => true,
-        :check_img_http => true,
-        :disable_external => false,
-        :enforce_https => true,
-        :report_invalid_tags => true,
-      }).run
-    else
-      HTMLProofer.check_directory(site.config["destination"], opts = {
-        :allow_hash_href => true,
-        :check_html => true,
-        :check_img_http => true,
-        :disable_external => true,
-        :enforce_https => false,
-        :report_invalid_tags => true,
-      }).run
-  end
-end
+# Jekyll::Hooks.register :site, :post_write do |site|
+#   HTMLProofer.check_directory(site.config["destination"], opts = {
+#     :allow_hash_href => false,
+#     :check_html => true,
+#     :disable_external => true,
+#     :enforce_https => false,
+#     :ignore_empty_alt => false,
+#     :ignore_missing_alt => false,
+#     :url_swap => "^/" + site.config["baseurl"] + "/:/"
+#   }).run
+# end

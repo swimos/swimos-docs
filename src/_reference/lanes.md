@@ -47,7 +47,7 @@ class Person {
 
 Not much difference. But the former instantiates distributable, automatically persistent, continuously consistent Web Agents, accessible via multiplexed streaming APIs. And the latter instantiates ephemeral Java objects.
 
-Jump ahead to [links](/reference/links) to find out more about streaming APIs. Dive into the [tutorials](/tutorials) to see how lanes are used in practice. Or read on to learn more about the various kinds of lanes available in Swim.
+Jump ahead to [links]({% link _reference/links.md %}) to find out more about streaming APIs. Dive into the [tutorials]({% link _tutorials/index.md %}) to see how lanes are used in practice. Or read on to learn more about the various kinds of lanes available in Swim.
 
 <!--<h2 class="header-green">Data Lanes</h2>
 <div class="feature-stack">

@@ -5,7 +5,7 @@ redirect_from:
   - /tutorials/demand-value-lanes/
 ---
 
-In a [previous tutorial](/reference/web-agents), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
+In a [previous tutorial]({% link _reference/web-agents.md %}), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
 
 Lanes come in many flavors, but every lane type exposes:
 
@@ -14,7 +14,7 @@ Lanes come in many flavors, but every lane type exposes:
 - Various means to **strongly type** (i.e. *parametrize*) the lane
 - Universal WARP **subscriptions** to this lane
 
-A **demand lane** does not store any value, instead they are backed by a [value lane](/reference/value-lanes) and retrieve values purely on demand. Demand lanes **lazily** generate events for the value lane, only when there is an uplink ready to receive the event. The lane meets these requirements: 
+A **demand lane** does not store any value, instead they are backed by a [value lane]({% link _reference/value-lanes.md %}) and retrieve values purely on demand. Demand lanes **lazily** generate events for the value lane, only when there is an uplink ready to receive the event. The lane meets these requirements: 
 
 - Every demand lane can be **cue**-ed, signalling there is an event to be sent to the uplinks, if ready. This is done in the value lane's `didSet()` method
 - Doing so will trigger its **onCue()** callback

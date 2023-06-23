@@ -4,10 +4,10 @@
     <div class="flex h-16 justify-between">
       <div class="flex px-2 lg:px-0">
         <div class="flex flex-shrink-0 items-center">
-          <img class="block h-8 w-auto lg:hidden" src="/assets/images/nstream-logo.png"
-            alt="Your Company">
-          <img class="hidden h-8 w-auto lg:block" src="/assets/images/nstream-logo.png"
-            alt="Your Company">
+          <img class="block h-8 w-auto lg:hidden" src="{{ '/assets/images/nstream-logo.png' | absolute_url }}"
+            alt="Nstream Logo">
+          <img class="hidden h-8 w-auto lg:block" src="{{ '/assets/images/nstream-logo.png' | absolute_url }}"
+            alt="Nstream Logo">
         </div>
         <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
           <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
@@ -15,19 +15,19 @@
             class="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">Dashboard</a> -->
           <!-- <a href="#"
             class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Team</a> -->
-          <a href="/" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
+          <a href="{{ '/' | relative_url }}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
             HOME
           </a>
 
-          <a href="/community" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
+          <a href="{{ '/community.html' | absolute_url }}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
             COMMUNITY
           </a>
 
             <a
               class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange"
-              href="/tutorials"
+              href="{{ '/tutorials/index.html' | absolute_url }}"
               type="button"
-              id="dropdownMenuButton2"
+              id="docsDropdown"
               aria-expanded="false">
               DOCUMENTATION
               <span class="ml-2 w-2">
@@ -55,40 +55,13 @@
                   >Action</a
                 >
               </li>
-            </ul>
-
-          {% comment %}
-          {% if site.collections %}
-          {% assign collections = site.collections | sort: 'weight' %}
-          {% for collection in collections %}
-          {% if collection.label != "posts" %}
-          <a href="/{{ collection.label }}"
-            class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">{{
-            collection.name }}</a>
-          {% endif %}
-          {% endfor %}
-          {% endif %}
-          {% endcomment %}
+            </ul>          
 
         </div>
       </div>
-      <div class="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end">
-        <div class="w-full max-w-lg lg:max-w-xs">
-          <label for="search" class="sr-only">Search</label>
-          <div class="relative">
-            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd"
-                  d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                  clip-rule="evenodd" />
-              </svg>
-            </div>
-            <input id="search" name="search"
-              class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              placeholder="Search" type="search">
-          </div>
-        </div>
-      </div>
+      
+      {%- include search.html -%}
+
       <div class="flex items-center lg:hidden">
         <!-- Mobile menu button -->
         <button type="button"
@@ -132,24 +105,13 @@
       <a href="#"
         class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">Team</a> -->
 
-      <a href="/" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+      <a href="{{ '/' | relative_url }}" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
         Home
       </a>
 
-      <a href="/community" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+      <a href="{{ '/community.html' | absolute_url }}" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
         Community
       </a>
-
-      {% if site.collections %}
-      {% assign collections = site.collections | sort: 'weight' %}
-      {% for collection in collections %}
-      {% if collection.label != "posts" %}
-      <a href="/{{ collection.label }}"
-        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">{{
-        collection.name }}</a>
-      {% endif %}
-      {% endfor %}
-      {% endif %}
 
     </div>
   </div>

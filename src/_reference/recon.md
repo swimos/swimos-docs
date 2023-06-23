@@ -1,6 +1,7 @@
 ---
 title: Recon
 layout: page
+redirect_from:
   - /concepts/recon/
 ---
 
@@ -15,4 +16,4 @@ Recon was designed to meet a number of key requirements:
 - **simple grammar** to facilitate many compatible implementations
 - **universal data type** compatible with JSON, XML, and other popular data languages
 
-Jump ahead to [WARP](/reference/warp) to see how Recon is used as the wire format for a multiplexed streaming network protocol. Dive into the [tutorials](/tutorials) to see how Recon is used in practice to serialize application objects. Or read on to learn more about the unique properties of Recon.
+Jump ahead to [WARP]({% link _reference/warp.md %}) to see how Recon is used as the wire format for a multiplexed streaming network protocol. Dive into the [tutorials]({% link _tutorials/index.md %}) to see how Recon is used in practice to serialize application objects. Or read on to learn more about the unique properties of Recon.

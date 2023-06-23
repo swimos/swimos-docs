@@ -29,7 +29,8 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.swimos.org" # the base hostname & protocol for your site, e.g. http://example.com
 github_repository: https://github.com/swimos/swimos-docs
-permalink: /:categories/:year/:month/:day/:title
+permalink: none
+destination: _site
 
 postcss:
   cache: false
@@ -41,6 +42,7 @@ plugins:
   - jekyll-postcss
   - jekyll-toc
   - jekyll-redirect-from
+  - jekyll-sitemap
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -169,3 +171,11 @@ announcement:
   cta: StreamCon June 1-11
   text: Join us for things, things, and more things.
   cta-link: https://github.com/
+
+feed:
+  collections:
+    - tutorials
+    - guides
+    - reference
+    - concepts
+    - meta

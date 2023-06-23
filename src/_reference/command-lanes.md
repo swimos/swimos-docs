@@ -5,7 +5,7 @@ redirect_from:
   - /tutorials/command-lanes/
 ---
 
-In a [previous tutorial](/reference/web-agents), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
+In a [previous tutorial]({% link _reference/web-agents.md %}), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
 
 Lanes come in many flavors, but every lane type exposes:
 
@@ -211,7 +211,7 @@ class CustomClient {
 }
 ```
 
-Further reading: [Downlinks](/reference/downlinks)
+Further reading: [Downlinks]({% link _reference/downlinks.md %})
 
 ## Try It Yourself
 

@@ -17,7 +17,7 @@
         <div class="max-w-max p-4 container flex justify-center mx-auto">
           <div class="flex flex-row mx-auto">
             {% if page.previous %}
-            <a href="{{ page.previous.url }}">
+            <a href="{{ page.previous.url | absolute_url }}">
               <button type="button"
                 class="bg-gray-800 text-white rounded-l-md border-r border-gray-100 py-2 hover:bg-red-700 hover:text-white px-3">
                 <div class="flex flex-row align-middle">
@@ -33,7 +33,7 @@
             {% endif %}
 
             {% if page.next %}
-            <a href="{{ page.next.url }}">
+            <a href="{{ page.next.url | absolute_url }}">
               <button type="button"
                 class="bg-gray-800 text-white rounded-r-md py-2 border-l border-gray-200 hover:bg-red-700 hover:text-white px-3">
                 <div class="flex flex-row align-middle">

@@ -15,7 +15,7 @@ To implement a Web Agent, simply extend the `AbstractAgent` Java class, and opti
 }
 ```
 
-Jump ahead to [lanes](/reference/lanes) to see what goes inside a Web Agent. Dive into the [tutorials](/tutorials) to see Web Agents in action. Or read on to learn what it really means to be a Web Agent.
+Jump ahead to [lanes]({% link _reference/lanes.md %}) to see what goes inside a Web Agent. Dive into the [tutorials]({% link _tutorials/index.md %}) to see Web Agents in action. Or read on to learn what it really means to be a Web Agent.
 
 ### Universally Addressable
 

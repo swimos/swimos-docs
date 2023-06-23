@@ -5,7 +5,7 @@ layout: page
 
 SwimOS documentation follows the [Diátaxis](https://diataxis.fr/) framework. You're encouraged to read about the framework to understand how documents get created for different audiences. Each document on this site should fall into a specific category.
 
-![](/assets/images/diataxis.webp)
+![Diátaxis Framework Overview]({{'/assets/images/diataxis.webp'| absolute_url}})
 
 ### Tutorials
 

@@ -5,7 +5,7 @@ redirect_from:
   - /tutorials/server-downlinks/
 ---
 
-In a [previous tutorial](/reference/downlinks), we discussed **downlinks** - bidirectionally-streaming, persistent **subscriptions** to lanes - and went through an example of a client-side downlink. This tutorial will showcase downlinks between two Swim servers.
+In a [previous tutorial]({% link _reference/downlinks.md %}), we discussed **downlinks** - bidirectionally-streaming, persistent **subscriptions** to lanes - and went through an example of a client-side downlink. This tutorial will showcase downlinks between two Swim servers.
 
 Server-side downlinks provide a simple and efficient way to integrate Swim applications allowing them to be linked or chained together with ease.
 
@@ -120,7 +120,7 @@ public class CustomerAgent extends AbstractAgent {
 }
 ```
 
-Client-side downlinks have been showcased in a [previous tutorial](/reference/downlinks).
+Client-side downlinks have been showcased in a [previous tutorial]({% link _reference/downlinks.md %}).
 
 ### Try It Yourself
 

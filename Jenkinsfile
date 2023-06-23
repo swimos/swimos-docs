@@ -31,7 +31,7 @@ pipeline {
 
     options {
         sidebarLinks([
-                [displayName: 'Jekyll Output', iconFileName: '', urlName: "https://nstream-developer-stg.s3.us-west-1.amazonaws.com/${JOB_NAME}/${BUILD_NUMBER}/index.html"]
+                [displayName: 'Jekyll Output', iconFileName: '', urlName: "http://nstream-developer-stg.s3-website.us-west-1.amazonaws.com/${JOB_NAME}/${BUILD_NUMBER}"]
         ])
     }
 
@@ -42,6 +42,18 @@ pipeline {
                     sh 'apt-get update && bash -c "curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs"'
                     sh 'bundle install'
                     sh 'npm install'
+                }
+            }
+        }
+        stage('modify-config' ) {
+            when { not { branch 'main' } }
+            steps {
+                script {
+                    def configYaml = readYaml(file: '_config.yml')
+                    configYaml['baseurl'] = "/${JOB_NAME}/${BUILD_NUMBER}"
+                    configYaml['url'] = "http://nstream-developer-stg.s3-website.us-west-1.amazonaws.com"
+                    writeYaml(file: '_config.yml', overwrite: true, data: configYaml)
+                    archiveArtifacts artifacts: '_config.yml'
                 }
             }
         }
@@ -61,7 +73,7 @@ pipeline {
                 container('aws-cli') {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         script {
-                            sh "aws s3 sync _site/ s3://nstream-developer-stg/${JOB_NAME}/${BUILD_NUMBER}/"
+                            sh "aws s3 sync --delete --size-only _site/ s3://nstream-developer-stg/${JOB_NAME}/${BUILD_NUMBER}/"
                         }
                     }
                 }
@@ -74,7 +86,7 @@ pipeline {
                 container('aws-cli') {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         script {
-                            sh "aws s3 sync _site/ s3://nstream-developer-prd/www.swimos.org/"
+                            sh "aws s3 sync --delete _site/ s3://nstream-developer-prd/www.swimos.org/"
                         }
                     }
                 }
