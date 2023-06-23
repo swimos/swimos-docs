@@ -74,11 +74,23 @@ pipeline {
             steps {
                 script {
                     def redirectsJson = readJSON file: '_site/redirects.json'
+                    def redirectsTrimmed = [:]
+                    redirectsJson.each { redirect ->
+                        redirectsTrimmed[redirect.key.subString(1)] = redirect.value
+                    }
 
                     def s3ConfigYaml = readYaml(file: 's3_website.yml')
+                    // Copy over the existing redirects if there are some defined in s3_website.yml
+                    def existingRedirects = s3ConfigYaml['redirects']
+                    if(null!= existingRedirects) {
+                        existingRedirects.each { redirect ->
+                            redirectsTrimmed[redirect.key] = redirect.value
+                        }
+                    }
+
                     s3ConfigYaml['s3_key_prefix'] = "${JOB_NAME}/${BUILD_NUMBER}"
                     s3ConfigYaml['s3_bucket'] = "nstream-developer-stg"
-                    s3ConfigYaml['redirects'] = redirectsJson
+                    s3ConfigYaml['redirects'] = redirectsTrimmed
                     writeYaml(file: 's3_website.yml', overwrite: true, data: s3ConfigYaml)
                     archiveArtifacts artifacts: 's3_website.yml'
                 }
