@@ -51,7 +51,7 @@ pipeline {
                 script {
                     def configYaml = readYaml(file: '_config.yml')
                     configYaml['baseurl'] = "/${JOB_NAME}/${BUILD_NUMBER}"
-                    configYaml['url'] = "https://nstream-developer-stg.s3-website.us-west-1.amazonaws.com"
+                    configYaml['url'] = "http://nstream-developer-stg.s3-website.us-west-1.amazonaws.com"
                     writeYaml(file: '_config.yml', overwrite: true, data: configYaml)
                     archiveArtifacts artifacts: '_config.yml'
                 }
