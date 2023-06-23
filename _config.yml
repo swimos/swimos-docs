@@ -67,6 +67,9 @@ exclude:
   - vendor/ruby/
   - docker
   - docker-compose.yml
+  - Jenkinsfile
+  - s3_website.yml
+
 
 # Every top level section is actually a collection. Their files are in a _folder in src/
 collections:

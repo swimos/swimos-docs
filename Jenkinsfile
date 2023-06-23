@@ -62,9 +62,12 @@ pipeline {
             when { not { branch 'main' } }
             steps {
                 script {
+                    def redirectsJson = readJSON file: '_site/redirects.json'
+
                     def s3ConfigYaml = readYaml(file: 's3_website.yml')
                     s3ConfigYaml['s3_key_prefix'] = "${JOB_NAME}/${BUILD_NUMBER}"
                     s3ConfigYaml['s3_bucket'] = "nstream-developer-stg"
+                    s3ConfigYaml['redirects'] = redirectsJson
                     writeYaml(file: 's3_website.yml', overwrite: true, data: s3ConfigYaml)
                     archiveArtifacts artifacts: 's3_website.yml'
                 }
