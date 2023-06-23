@@ -38,7 +38,7 @@ function selectConfigs() {
             };
         },
         fetchOptions() {
-            fetch('/search.json')
+            fetch(window.location.origin + '/search.json')
                 .then(response => response.json())
                 .then(data => this.options = data);
         },
