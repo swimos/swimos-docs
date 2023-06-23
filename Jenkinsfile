@@ -43,6 +43,9 @@ pipeline {
     stages {
         stage('prepare') {
             steps {
+                container('jruby') {
+                    sh 'bundle install'
+                }
                 container('ruby') {
                     sh 'apt-get update && bash -c "curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs"'
                     sh 'bundle install'
