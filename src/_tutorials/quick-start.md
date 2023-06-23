@@ -27,7 +27,7 @@ Swim implements a complete, self-contained, distributed application stack in an 
   <!-- <p class="release-notes"><a href="">View Release Notes</a></p>-->
 <!-- </div> -->
 
-To try Swim, check out one of our step-by-step [tutorials](/tutorials). To build your own app, try cloning a [starter application](https://github.com/swimos/tutorial). Or continue reading to learn more about how to get started with Swim.
+To try Swim, check out one of our step-by-step [tutorials]({% link _tutorials/index.md %}). To build your own app, try cloning a [starter application](https://github.com/swimos/tutorial). Or continue reading to learn more about how to get started with Swim.
 
 ### Java Server Quick Start
 
@@ -36,7 +36,7 @@ The Swim Java Server is a self-contained, distributed application server for sta
 <div class="artifact-case">
   <div class="artifact-stack">
     <a href="http://docs.swimos.org/java/latest/" class="artifact-header">
-      <img src="/assets/images/social/java-gray.svg" width="48" height="48" alt="Java">
+      <img src="{{ '/assets/images/social/java-gray.svg' | absolute_url }}" width="48" height="48" alt="Java">
     </a>
     <pre class="artifact-info">group: "<a href="https://mvnrepository.com/artifact/org.swimos" target="_blank">org.swimos</a>",<br>name: "<a href="https://mvnrepository.com/artifact/org.swimos/swim-server" target="_blank">swim-server</a>",<br>version: "<a href="https://mvnrepository.com/artifact/org.swimos/swim-server/4.0.1" target="_blank">4.0.1</a>"</pre>
   </div>
@@ -49,7 +49,7 @@ The Swim Java Client is a minimal WARP streaming API client.
 <div class="artifact-case">
   <div class="artifact-stack">
     <a href="http://docs.swimos.org/java/latest/" class="artifact-header">
-      <img src="/assets/images/social/java-gray.svg" width="48" height="48" alt="Java">
+      <img src="{{ '/assets/images/social/java-gray.svg' | absolute_url }}" width="48" height="48" alt="Java">
     </a>
     <pre class="artifact-info">group: "<a href="https://mvnrepository.com/artifact/org.swimos" target="_blank">org.swimos</a>",<br>name: "<a href="https://mvnrepository.com/artifact/org.swimos/swim-client" target="_blank">swim-client</a>",<br>version: "<a href="https://mvnrepository.com/artifact/org.swimos/swim-client/4.0.1" target="_blank">4.0.1</a>"</pre>
   </div>
@@ -62,7 +62,7 @@ The Swim JavaScript Client is a WARP streaming API client for Node.js and Browse
 <div class="artifact-case">
   <div class="artifact-stack">
     <a href="http://docs.swimos.org/js/latest/" class="artifact-header">
-      <img src="/assets/images/social/js-gray.svg" width="48" height="48" alt="JavaScript">
+      <img src="{{ '/assets/images/social/js-gray.svg' | absolute_url }}" width="48" height="48" alt="JavaScript">
     </a>
     <pre class="artifact-info">npm i <a href="https://www.npmjs.com/package/@swim/core" target="_blank">@swim/core</a></pre>
   </div>
@@ -75,7 +75,7 @@ The Swim Web UI framework is a dependency-free user interface toolkit for pervas
 <div class="artifact-case">
   <div class="artifact-stack">
     <a href="http://docs.swimos.org/js/latest/" class="artifact-header">
-      <img src="/assets/images/social/browser-gray.svg" width="48" height="48" alt="Browser">
+      <img src="{{ '/assets/images/social/browser-gray.svg' | absolute_url }}" width="48" height="48" alt="Browser">
     </a>
     <pre class="artifact-info">npm i <a href="https://www.npmjs.com/package/@swim/ui" target="_blank">@swim/ui</a><br>npm i <a href="https://www.npmjs.com/package/@swim/ux" target="_blank">@swim/ux</a></pre>
   </div>
@@ -83,4 +83,4 @@ The Swim Web UI framework is a dependency-free user interface toolkit for pervas
 
 ### Next Steps
 
-Continue reading to tryout step-by-step lessons with Swim. Or dive into the core Swim [concepts](/concepts).
+Continue reading to tryout step-by-step lessons with Swim. Or dive into the core Swim [concepts]({% link _concepts/index.md %}).

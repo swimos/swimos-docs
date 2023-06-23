@@ -17,7 +17,7 @@
                   d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
                   clip-rule="evenodd" />
               </svg>
-              {{ collection.name | capitalize }}
+              {{ collection.name | upcase }}
             </button>
 
             <!-- Expandable link section, show/hide based on state. -->
@@ -27,7 +27,7 @@
               {% for item in items %}
               {% if item.hidden != true %}
               <li>
-                <a href="{{ item.url }}"
+                <a href="{{ item.url | absolute_url }}"
                   class="{% if item.url == page.url %} bg-eggshell font-extrabold text-magenta {% else %} hover:bg-eggshell hover:text-vermillion-orange {% endif %} block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700">{{
                   item.title }}</a>
               </li>
@@ -41,15 +41,5 @@
         {% endif %}
       </ul>
     </li>
-    <!-- <li class="-mx-6 mt-auto">
-                  <a href="#"
-                      class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50">
-                      <img class="h-8 w-8 rounded-full bg-gray-50"
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                          alt="">
-                      <span class="sr-only">Your profile</span>
-                      <span aria-hidden="true">Tom Cook</span>
-                  </a>
-              </li> -->
   </ul>
 </nav>

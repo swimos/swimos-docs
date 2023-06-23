@@ -5,7 +5,7 @@ redirect_from:
   - /tutorials/join-value-lanes/
 ---
 
-In a [previous tutorial](/reference/value-lanes), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
+In a [previous tutorial]({% link _reference/value-lanes.md %}), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
 
 Lanes come in many flavors, but every lane type exposes:
 

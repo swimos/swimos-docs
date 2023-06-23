@@ -5,7 +5,7 @@ redirect_from:
   - /tutorials/map-lanes/
 ---
 
-In a [previous tutorial](/reference/web-agents), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
+In a [previous tutorial]({% link _reference/web-agents.md %}), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
 
 Lanes come in many flavors, but every lane type exposes:
 
@@ -119,7 +119,7 @@ public class UnitAgent extends AbstractAgent {
 
 Direct communication with value lanes is instead accomplished through **downlinks**. Downlinks are WARP subscriptions to lanes. They come in many flavors, but subscriptions to map lanes can only be accomplished through **map downlinks** and, to a more limited extent, **event downlinks**.
 
-Further reading: [Command Lanes](/reference/command-lanes), [Downlinks](/reference/downlinks)
+Further reading: [Command Lanes]({% link _reference/command-lanes.md %}), [Downlinks]({% link _reference/downlinks.md %})
 
 ### Writing to Map Lanes
 
