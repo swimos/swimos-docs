@@ -57,6 +57,19 @@ pipeline {
                 }
             }
         }
+        stage('config-s3-stage') {
+            when { not { branch 'main' } }
+            steps {
+                script {
+                    def s3ConfigYaml = readYaml(file: 's3_website.yml')
+                    s3ConfigYaml['s3_key_prefix'] = "${JOB_NAME}/${BUILD_NUMBER}"
+                    s3ConfigYaml['s3_bucket'] = "nstream-developer-stg"
+                    writeYaml(file: 's3_website.yml', overwrite: true, data: s3ConfigYaml)
+                    archiveArtifacts artifacts: 's3_website.yml'
+                }
+            }
+        }
+
         stage('build') {
             steps {
                 container('ruby') {
@@ -73,13 +86,7 @@ pipeline {
                 container('aws-cli') {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         script {
-                            sh "aws s3 sync --delete --size-only _site/ s3://nstream-developer-stg/${JOB_NAME}/${BUILD_NUMBER}/"
-                            sh "touch zerobytefile"
-                            def redirects = readJSON file: '_site/redirects.json'
-
-                            redirects.each { redirect  ->
-                                sh "aws s3 cp --dryrun --website-redirect '${redirect.value}' zerobytefile 's3://nstream-developer-stg/${JOB_NAME}/${BUILD_NUMBER}/${redirect.key}'"
-                            }
+                            sh "s3_website push"
                         }
                     }
                 }
