@@ -68,9 +68,7 @@ pipeline {
                 }
             }
         }
-
-        stage('config-s3-stage') {
-            when { not { branch 'main' } }
+        stage('modify-redirects') {
             steps {
                 script {
                     def redirectsJson = readJSON file: '_site/redirects.json'
@@ -87,21 +85,44 @@ pipeline {
                             redirectsTrimmed[redirect.key] = redirect.value
                         }
                     }
-
-                    s3ConfigYaml['s3_key_prefix'] = "${JOB_NAME}/${BUILD_NUMBER}"
-                    s3ConfigYaml['s3_bucket'] = "nstream-developer-stg"
                     s3ConfigYaml['redirects'] = redirectsTrimmed
                     writeYaml(file: 's3_website.yml', overwrite: true, data: s3ConfigYaml)
-                    archiveArtifacts artifacts: 's3_website.yml'
                 }
             }
         }
 
-
-        stage('deploy-staging') {
+        stage('config-s3-stage') {
             when { not { branch 'main' } }
             steps {
-                sh 'echo Deploying to staging'
+                withCredentials([string(credentialsId: 's3-website-content-staging', variable: 'S3BUCKET')]) {
+                    script {
+                        def s3ConfigYaml = readYaml(file: 's3_website.yml')
+                        s3ConfigYaml['s3_key_prefix'] = "${JOB_NAME}/${BUILD_NUMBER}"
+                        s3ConfigYaml['s3_bucket'] = "${S3BUCKET}"
+                        writeYaml(file: 's3_website.yml', overwrite: true, data: s3ConfigYaml)
+                        archiveArtifacts artifacts: 's3_website.yml'
+                    }
+                }
+            }
+        }
+
+        stage('config-s3-production') {
+            when {  branch 'main' }
+            steps {
+                withCredentials([string(credentialsId: 's3-website-content-production', variable: 'S3BUCKET')]) {
+                    script {
+                        def s3ConfigYaml = readYaml(file: 's3_website.yml')
+                        s3ConfigYaml['s3_key_prefix'] = "www.swimos.org/"
+                        s3ConfigYaml['s3_bucket'] = "${S3BUCKET}"
+                        writeYaml(file: 's3_website.yml', overwrite: true, data: s3ConfigYaml)
+                        archiveArtifacts artifacts: 's3_website.yml'
+                    }
+                }
+            }
+        }
+
+        stage('deploy') {
+            steps {
                 container('ruby') {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         script {
@@ -111,19 +132,7 @@ pipeline {
                 }
             }
         }
-        stage('deploy-production') {
-            when { branch 'main' }
-            steps {
-                sh 'echo Deploying to production'
-                container('aws-cli') {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                        script {
-                            sh "aws s3 sync --delete _site/ s3://nstream-developer-prd/www.swimos.org/"
-                        }
-                    }
-                }
-            }
-        }
+
         stage('invalidate-cdn') {
             when { branch 'main' }
             steps {
