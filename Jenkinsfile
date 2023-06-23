@@ -58,6 +58,17 @@ pipeline {
                 }
             }
         }
+
+        stage('build') {
+            steps {
+                container('ruby') {
+                    sh 'echo $JEKYLL_ENV'
+                    sh 'bundle exec jekyll build'
+                    archiveArtifacts artifacts: '_site/**/*', followSymlinks: false
+                }
+            }
+        }
+
         stage('config-s3-stage') {
             when { not { branch 'main' } }
             steps {
@@ -74,15 +85,7 @@ pipeline {
             }
         }
 
-        stage('build') {
-            steps {
-                container('ruby') {
-                    sh 'echo $JEKYLL_ENV'
-                    sh 'bundle exec jekyll build'
-                    archiveArtifacts artifacts: '_site/**/*', followSymlinks: false
-                }
-            }
-        }
+
         stage('deploy-staging') {
             when { not { branch 'main' } }
             steps {
