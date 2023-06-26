@@ -40,6 +40,7 @@ pipeline {
             steps {
                 container('ruby') {
                     sh 'apt-get update && bash -c "curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs"'
+                    sh 'apt-get install -y openjdk-17-jdk-headless'
                     sh 'bundle install'
                     sh 'npm install'
                 }
@@ -57,6 +58,7 @@ pipeline {
                 }
             }
         }
+
         stage('build') {
             steps {
                 container('ruby') {
@@ -66,32 +68,71 @@ pipeline {
                 }
             }
         }
-        stage('deploy-staging') {
+        stage('modify-redirects') {
+            steps {
+                script {
+                    def redirectsJson = readJSON file: '_site/redirects.json'
+                    def redirectsTrimmed = [:]
+                    redirectsJson.each { redirect ->
+                        redirectsTrimmed[redirect.key.substring(1)] = redirect.value
+                    }
+
+                    def s3ConfigYaml = readYaml(file: 's3_website.yml')
+                    // Copy over the existing redirects if there are some defined in s3_website.yml
+                    def existingRedirects = s3ConfigYaml['redirects']
+                    if(null!= existingRedirects) {
+                        existingRedirects.each { redirect ->
+                            redirectsTrimmed[redirect.key] = redirect.value
+                        }
+                    }
+                    s3ConfigYaml['redirects'] = redirectsTrimmed
+                    writeYaml(file: 's3_website.yml', overwrite: true, data: s3ConfigYaml)
+                }
+            }
+        }
+
+        stage('config-s3-stage') {
             when { not { branch 'main' } }
             steps {
-                sh 'echo Deploying to staging'
-                container('aws-cli') {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                        script {
-                            sh "aws s3 sync --delete --size-only _site/ s3://nstream-developer-stg/${JOB_NAME}/${BUILD_NUMBER}/"
-                        }
+                withCredentials([string(credentialsId: 's3-website-content-staging', variable: 'S3BUCKET')]) {
+                    script {
+                        def s3ConfigYaml = readYaml(file: 's3_website.yml')
+                        s3ConfigYaml['s3_key_prefix'] = "${JOB_NAME}/${BUILD_NUMBER}"
+                        s3ConfigYaml['s3_bucket'] = "${S3BUCKET}"
+                        writeYaml(file: 's3_website.yml', overwrite: true, data: s3ConfigYaml)
+                        archiveArtifacts artifacts: 's3_website.yml'
                     }
                 }
             }
         }
-        stage('deploy-production') {
-            when { branch 'main' }
+
+        stage('config-s3-production') {
+            when {  branch 'main' }
             steps {
-                sh 'echo Deploying to production'
-                container('aws-cli') {
+                withCredentials([string(credentialsId: 's3-website-content-production', variable: 'S3BUCKET')]) {
+                    script {
+                        def s3ConfigYaml = readYaml(file: 's3_website.yml')
+                        s3ConfigYaml['s3_key_prefix'] = "www.swimos.org/"
+                        s3ConfigYaml['s3_bucket'] = "${S3BUCKET}"
+                        writeYaml(file: 's3_website.yml', overwrite: true, data: s3ConfigYaml)
+                        archiveArtifacts artifacts: 's3_website.yml'
+                    }
+                }
+            }
+        }
+
+        stage('deploy') {
+            steps {
+                container('ruby') {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         script {
-                            sh "aws s3 sync --delete _site/ s3://nstream-developer-prd/www.swimos.org/"
+                            sh "s3_website push"
                         }
                     }
                 }
             }
         }
+
         stage('invalidate-cdn') {
             when { branch 'main' }
             steps {
