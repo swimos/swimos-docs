@@ -45,7 +45,7 @@
                 {% for collection in collections %}
                 {% if collection.label != "posts" %}
                 <li>
-                  <a href="/{{ collection.label }}" class="block hover:bg-gray-200 whitespace-no-wrap py-2 px-4">
+                  <a href="/{{ collection.label | absolute_url }}" class="block hover:bg-gray-200 whitespace-no-wrap py-2 px-4">
                     {{ collection.name }}
                   </a>
                 </li>
@@ -107,7 +107,7 @@
       {% assign collections = site.collections | sort: 'weight' %}
         {% for collection in collections %}
           {% if collection.label != "posts" %}
-            <a href="/{{ collection.label }}"
+            <a href="/{{ collection.label | absolute_url }}"
               class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
               {{ collection.name }}
             </a>
