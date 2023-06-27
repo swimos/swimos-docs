@@ -1,4 +1,4 @@
-<nav class="bg-deep-kaimurasaki">
+<nav class="bg-deep-kaimurasaki" x-data="{ isOpen: false }">
   {%- include banner.html -%}
   <div class="mx-auto px-2 sm:px-4 lg:px-8">
     <div class="flex h-16 justify-between">
@@ -26,10 +26,10 @@
             COMMUNITY
           </a>
 
-          <div
-            class="flex flex-1 items-center text-white border-b-2 border-transparent hover:border-vermillion-orange hover:text-vermillion-orange">
+          <div class="flex flex-1 items-center text-white border-b-2 border-transparent hover:border-vermillion-orange hover:text-vermillion-orange">
             <div x-data="{ open: false }" class="relative">
-              <button x-on:click="open = true" class="inline-flex items-center px-1 pt-1 text-[15px] font-bold "
+              <button x-on:click="open = true"
+                class="inline-flex items-center px-1 pt-1 text-[15px] font-bold "
                 type="button">
                 <span class="mr-1">DOCUMENTATION</span>
                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
@@ -61,32 +61,22 @@
               </ul>
             </div>
           </div>
-
+          
         </div>
       </div>
 
       {%- include search.html -%}
 
+      <!-- Mobile menu button -->
       <div class="flex items-center lg:hidden">
-        <!-- Mobile menu button -->
-        <button type="button"
-          class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+        <button @click="isOpen = !isOpen"
+          class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-vermillion-orange"
           aria-controls="mobile-menu" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
-          <!--
-            Icon when menu is closed.
-
-            Menu open: "hidden", Menu closed: "block"
-          -->
           <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
-          <!--
-            Icon when menu is open.
-
-            Menu open: "block", Menu closed: "hidden"
-          -->
           <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -102,24 +92,28 @@
     </div>
   </div>
 
-  <!-- Mobile menu, show/hide based on menu state. -->
-  <div class="lg:hidden" id="mobile-menu">
+  <!-- Mobile menu -->
+  <div class="lg:hidden" id="mobile-menu" x-show="isOpen" @click.away="isOpen = false">
     <div class="space-y-1 pb-3 pt-2">
-      <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" -->
-      <!-- <a href="#"
-        class="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700">Dashboard</a>
-      <a href="#"
-        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">Team</a> -->
-
       <a href="{{ '/' | relative_url }}"
-        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
         Home
       </a>
-
       <a href="{{ '/community.html' | absolute_url }}"
-        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
         Community
       </a>
+      {% if site.collections %}
+      {% assign collections = site.collections | sort: 'weight' %}
+        {% for collection in collections %}
+          {% if collection.label != "posts" %}
+            <a href="/{{ collection.label }}"
+              class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+              {{ collection.name }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
 
     </div>
   </div>
