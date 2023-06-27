@@ -9,6 +9,7 @@
           <img class="hidden max-w-[195px] lg:block" src="{{ '/assets/images/nstream-logo.png' | absolute_url }}"
             alt="Nstream Logo">
         </div>
+
         <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
           <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
           <!-- <a href="#"
@@ -25,25 +26,41 @@
             COMMUNITY
           </a>
 
-          <a class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange"
-            href="{{ '/tutorials/index.html' | absolute_url }}" type="button" id="docsDropdown" aria-expanded="false">
-            DOCUMENTATION
-            <span class="ml-2 w-2">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                <path fill-rule="evenodd"
-                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                  clip-rule="evenodd" />
-              </svg>
-            </span>
-          </a>
-          <ul
-            class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
-            aria-labelledby="dropdownMenuButton2" data-te-dropdown-menu-ref>
-            <li>
-              <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                href="/" data-te-dropdown-item-ref>Action</a>
-            </li>
-          </ul>
+          <div
+            class="flex flex-1 items-center text-white border-b-2 border-transparent hover:border-vermillion-orange hover:text-vermillion-orange">
+            <div x-data="{ open: false }" class="relative">
+              <button x-on:click="open = true" class="inline-flex items-center px-1 pt-1 text-[15px] font-bold "
+                type="button">
+                <span class="mr-1">DOCUMENTATION</span>
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                  style="margin-top:3px">
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </button>
+              <ul x-show="open" x-on:click.away="open = false"
+                class="bg-white text-gray-700 rounded shadow-lg absolute py-2 mt-1" style="min-width:15rem">
+
+                {% if site.collections %}
+                {% assign collections = site.collections | sort: 'weight' %}
+                {% for collection in collections %}
+                {% if collection.label != "posts" %}
+                <li>
+                  <a href="/{{ collection.label }}" class="block hover:bg-gray-200 whitespace-no-wrap py-2 px-4">
+                    {{ collection.name }}
+                  </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+                <!-- <li>
+                  <a href="#" class="block hover:bg-gray-200 whitespace-no-wrap py-2 px-4">
+                    Dom <span class="text-gray-400">(no good)</span>
+                  </a>
+                </li> -->
+              </ul>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -80,7 +97,7 @@
       <div class="hidden lg:ml-4 lg:flex lg:items-center">
 
         {%- include header-social.html -%}
-        
+
       </div>
     </div>
   </div>
