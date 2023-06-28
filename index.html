@@ -1,255 +1,390 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
+title: SwimOS Documentation
 layout: default
 ---
-
-<div class="mx-auto">
-  <div class="">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div
-        class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start">
-        <div class="lg:pr-4 lg:pt-4">
-          <div class="lg:max-w-lg">
-            <h2 class="text-sm font-semibold leading-7 text-magenta">Proven at scale</h2>
-            <p class="mt-2 text-3xl font-bold text-vermillion-orange sm:text-4xl">Build real-time applications in 
-              minutes not months</p>
-            <p class="mt-6 text-lg leading-8 text-gray-900">Swim was designed from first principles as a completely integrated solution for building scalable, end-to-end streaming applications. Instead of configuring a separate message broker, app server and database, Swim provides for its own persistence, messaging, scheduling, clustering, replication, introspection, and security. Swim automatically optimizes utilization of available compute resources and processes data locally, building massively scalable applications from streaming data without limiting real-time performance.</p>
-            <dl class="mt-10 max-w-xl space-y-4 text-base leading-7 text-gray-600 lg:max-w-none">
-              <div class="relative pl-9">
-                <dt class="inline font-semibold text-gray-900">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute left-1 top-1 h-5 w-5 text-magenta">
-                    <path d="M16.5 7.5h-9v9h9v-9z" />
-                    <path fill-rule="evenodd" d="M8.25 2.25A.75.75 0 019 3v.75h2.25V3a.75.75 0 011.5 0v.75H15V3a.75.75 0 011.5 0v.75h.75a3 3 0 013 3v.75H21A.75.75 0 0121 9h-.75v2.25H21a.75.75 0 010 1.5h-.75V15H21a.75.75 0 010 1.5h-.75v.75a3 3 0 01-3 3h-.75V21a.75.75 0 01-1.5 0v-.75h-2.25V21a.75.75 0 01-1.5 0v-.75H9V21a.75.75 0 01-1.5 0v-.75h-.75a3 3 0 01-3-3v-.75H3A.75.75 0 013 15h.75v-2.25H3a.75.75 0 010-1.5h.75V9H3a.75.75 0 010-1.5h.75v-.75a3 3 0 013-3h.75V3a.75.75 0 01.75-.75zM6 6.75A.75.75 0 016.75 6h10.5a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V6.75z" clip-rule="evenodd" />
-                  </svg>
-                  Like a Distributed Operating System
-                </dt>
-                <dd class="inline">Built from first principles, Swim comprehensively solves the problem of building massively distributed, real-time applications.</dd>
-              </div>
-              <div class="relative pl-9">
-                <dt class="inline font-semibold text-gray-900">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute left-1 top-1 h-5 w-5 text-magenta">
-                    <path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477zM14.634 15.55a17.324 17.324 0 00.332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 00.332 4.647 17.385 17.385 0 005.268 0zM9.772 17.119a18.963 18.963 0 004.456 0A17.182 17.182 0 0112 21.724a17.18 17.18 0 01-2.228-4.605zM7.777 15.23a18.87 18.87 0 01-.214-4.774 12.753 12.753 0 01-4.34-2.708 9.711 9.711 0 00-.944 5.004 17.165 17.165 0 005.498 2.477zM21.356 14.752a9.765 9.765 0 01-7.478 6.817 18.64 18.64 0 001.988-4.718 18.627 18.627 0 005.49-2.098zM2.644 14.752c1.682.971 3.53 1.688 5.49 2.099a18.64 18.64 0 001.988 4.718 9.765 9.765 0 01-7.478-6.816zM13.878 2.43a9.755 9.755 0 016.116 3.986 11.267 11.267 0 01-3.746 2.504 18.63 18.63 0 00-2.37-6.49zM12 2.276a17.152 17.152 0 012.805 7.121c-.897.23-1.837.353-2.805.353-.968 0-1.908-.122-2.805-.353A17.151 17.151 0 0112 2.276zM10.122 2.43a18.629 18.629 0 00-2.37 6.49 11.266 11.266 0 01-3.746-2.504 9.754 9.754 0 016.116-3.985z" />
-                  </svg>
-                  A Streaming Web
-                </dt>
-                <dd class="inline">To transparently interconnect distributed applications, Swim upgrades HTTP to a continuously consistent, multiplexed streaming protocol, called WARP.</dd>
-              </div>
-              <div class="relative pl-9">
-                <dt class="inline font-semibold text-gray-900">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute left-1 top-1 h-5 w-5 text-magenta">
-                    <path d="M17.004 10.407c.138.435-.216.842-.672.842h-3.465a.75.75 0 01-.65-.375l-1.732-3c-.229-.396-.053-.907.393-1.004a5.252 5.252 0 016.126 3.537zM8.12 8.464c.307-.338.838-.235 1.066.16l1.732 3a.75.75 0 010 .75l-1.732 3.001c-.229.396-.76.498-1.067.16A5.231 5.231 0 016.75 12c0-1.362.519-2.603 1.37-3.536zM10.878 17.13c-.447-.097-.623-.608-.394-1.003l1.733-3.003a.75.75 0 01.65-.375h3.465c.457 0 .81.408.672.843a5.252 5.252 0 01-6.126 3.538z" />
-                    <path fill-rule="evenodd" d="M21 12.75a.75.75 0 000-1.5h-.783a8.22 8.22 0 00-.237-1.357l.734-.267a.75.75 0 10-.513-1.41l-.735.268a8.24 8.24 0 00-.689-1.191l.6-.504a.75.75 0 10-.964-1.149l-.6.504a8.3 8.3 0 00-1.054-.885l.391-.678a.75.75 0 10-1.299-.75l-.39.677a8.188 8.188 0 00-1.295-.471l.136-.77a.75.75 0 00-1.477-.26l-.136.77a8.364 8.364 0 00-1.377 0l-.136-.77a.75.75 0 10-1.477.26l.136.77c-.448.121-.88.28-1.294.47l-.39-.676a.75.75 0 00-1.3.75l.392.678a8.29 8.29 0 00-1.054.885l-.6-.504a.75.75 0 00-.965 1.149l.6.503a8.243 8.243 0 00-.689 1.192L3.8 8.217a.75.75 0 10-.513 1.41l.735.267a8.222 8.222 0 00-.238 1.355h-.783a.75.75 0 000 1.5h.783c.042.464.122.917.238 1.356l-.735.268a.75.75 0 10.513 1.41l.735-.268c.197.417.428.816.69 1.192l-.6.504a.75.75 0 10.963 1.149l.601-.505c.326.323.679.62 1.054.885l-.392.68a.75.75 0 101.3.75l.39-.679c.414.192.847.35 1.294.471l-.136.771a.75.75 0 101.477.26l.137-.772a8.376 8.376 0 001.376 0l.136.773a.75.75 0 101.477-.26l-.136-.772a8.19 8.19 0 001.294-.47l.391.677a.75.75 0 101.3-.75l-.393-.679a8.282 8.282 0 001.054-.885l.601.504a.75.75 0 10.964-1.15l-.6-.503a8.24 8.24 0 00.69-1.191l.735.268a.75.75 0 10.512-1.41l-.734-.268c.115-.438.195-.892.237-1.356h.784zm-2.657-3.06a6.744 6.744 0 00-1.19-2.053 6.784 6.784 0 00-1.82-1.51A6.704 6.704 0 0012 5.25a6.801 6.801 0 00-1.225.111 6.7 6.7 0 00-2.15.792 6.784 6.784 0 00-2.952 3.489.758.758 0 01-.036.099A6.74 6.74 0 005.251 12a6.739 6.739 0 003.355 5.835l.01.006.01.005a6.706 6.706 0 002.203.802c.007 0 .014.002.021.004a6.792 6.792 0 002.301 0l.022-.004a6.707 6.707 0 002.228-.816 6.781 6.781 0 001.762-1.483l.009-.01.009-.012a6.744 6.744 0 001.18-2.064c.253-.708.39-1.47.39-2.264a6.74 6.74 0 00-.408-2.308z" clip-rule="evenodd" />
-                  </svg>
-                  A Universal Runtime
-                </dt>
-                <dd class="inline">With its small, self-contained runtime, Swim can seamlessly distribute applications across modest edge devices, large server clusters, and everything in between.</dd>
-              </div>
-              <div class="relative pl-9">
-                <dt class="inline font-semibold text-gray-900">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute left-1 top-1 h-5 w-5 text-magenta">
-                    <path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9.75a3 3 0 116 0 3 3 0 01-6 0zM2.25 9.75a3 3 0 116 0 3 3 0 01-6 0zM6.31 15.117A6.745 6.745 0 0112 12a6.745 6.745 0 016.709 7.498.75.75 0 01-.372.568A12.696 12.696 0 0112 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 01-.372-.568 6.787 6.787 0 011.019-4.38z" clip-rule="evenodd" />
-                    <path d="M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 0 013.57-4.047zM20.226 19.389a8.287 8.287 0 00-1.308-5.135 3.75 3.75 0 013.57 4.047l-.01.121a.563.563 0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441z" />
-                  </svg>
-                  A Living User Experience
-                </dt>
-                <dd class="inline">Humans are real-time beings. We experience life as a stream of consciousness. Swim's streaming UI frameworks make apps work the way users do.</dd>
-              </div>
-            </dl>
-            <div class="mt-8">
-              <a href="{% link _tutorials/index.md %}"
-                class="inline-flex rounded-md bg-vermillion-orange px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white hover:text-deep-magenta hover:outline hover:outline-vermillion-orange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vermillion-orange no-underline">Get
-                started</a>
-              <a href="{% link _concepts/meet.md %}"
-                class="inline-flex rounded-md bg-vermillion-orange px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white hover:text-deep-magenta hover:outline hover:outline-vermillion-orange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vermillion-orange no-underline">See
-                a demo</a>
+<!-- Hero & CTAs -->
+<div class="mx-auto overflow-hidden">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 pb-8">
+    <div
+      class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start">
+      <div class="lg:pr-4 lg:pt-4">
+        <div class="lg:max-w-lg">
+          <h2 class="text-sm font-semibold leading-7 text-magenta">Proven at scale</h2>
+          <p class="mt-2 text-3xl font-bold text-vermillion-orange sm:text-4xl">Build streaming data applications in
+            minutes not months</p>
+          <!-- <p class="mt-6 text-lg leading-8 text-gray-900">
+              Swim is designed as a completely integrated solution for building scalable,
+              end-to-end streaming applications. Swim provides for its own persistence, messaging, scheduling,
+              clustering, replication,
+              introspection, and security. Swim automatically optimizes utilization of available compute resources and
+              processes data locally, building massively scalable applications from streaming data without limiting
+              real-time performance.</p> -->
+          <dl class="mt-10 max-w-xl space-y-4 text-base leading-7 text-gray-600 lg:max-w-none">
+            <div class="relative pl-9">
+              <dt class="inline font-semibold text-gray-900">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                  class="absolute left-1 top-1 h-5 w-5 text-magenta">
+                  <path d="M16.5 7.5h-9v9h9v-9z" />
+                  <path fill-rule="evenodd"
+                    d="M8.25 2.25A.75.75 0 019 3v.75h2.25V3a.75.75 0 011.5 0v.75H15V3a.75.75 0 011.5 0v.75h.75a3 3 0 013 3v.75H21A.75.75 0 0121 9h-.75v2.25H21a.75.75 0 010 1.5h-.75V15H21a.75.75 0 010 1.5h-.75v.75a3 3 0 01-3 3h-.75V21a.75.75 0 01-1.5 0v-.75h-2.25V21a.75.75 0 01-1.5 0v-.75H9V21a.75.75 0 01-1.5 0v-.75h-.75a3 3 0 01-3-3v-.75H3A.75.75 0 013 15h.75v-2.25H3a.75.75 0 010-1.5h.75V9H3a.75.75 0 010-1.5h.75v-.75a3 3 0 013-3h.75V3a.75.75 0 01.75-.75zM6 6.75A.75.75 0 016.75 6h10.5a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V6.75z"
+                    clip-rule="evenodd" />
+                </svg>
+                Distributed Operating System
+              </dt>
+              <dd class="inline">Developed to help you build massively distributed, streaming data applications.</dd>
             </div>
-
+            <div class="relative pl-9">
+              <dt class="inline font-semibold text-gray-900">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                  class="absolute left-1 top-1 h-5 w-5 text-magenta">
+                  <path
+                    d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477zM14.634 15.55a17.324 17.324 0 00.332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 00.332 4.647 17.385 17.385 0 005.268 0zM9.772 17.119a18.963 18.963 0 004.456 0A17.182 17.182 0 0112 21.724a17.18 17.18 0 01-2.228-4.605zM7.777 15.23a18.87 18.87 0 01-.214-4.774 12.753 12.753 0 01-4.34-2.708 9.711 9.711 0 00-.944 5.004 17.165 17.165 0 005.498 2.477zM21.356 14.752a9.765 9.765 0 01-7.478 6.817 18.64 18.64 0 001.988-4.718 18.627 18.627 0 005.49-2.098zM2.644 14.752c1.682.971 3.53 1.688 5.49 2.099a18.64 18.64 0 001.988 4.718 9.765 9.765 0 01-7.478-6.816zM13.878 2.43a9.755 9.755 0 016.116 3.986 11.267 11.267 0 01-3.746 2.504 18.63 18.63 0 00-2.37-6.49zM12 2.276a17.152 17.152 0 012.805 7.121c-.897.23-1.837.353-2.805.353-.968 0-1.908-.122-2.805-.353A17.151 17.151 0 0112 2.276zM10.122 2.43a18.629 18.629 0 00-2.37 6.49 11.266 11.266 0 01-3.746-2.504 9.754 9.754 0 016.116-3.985z" />
+                </svg>
+                Seamless Interconnectivity
+              </dt>
+              <dd class="inline">Upgrades HTTP to a reliable multiplexed streaming protocol, WARP, that facilitates you to connects distributed applications</dd>
+            </div>
+            <div class="relative pl-9">
+              <dt class="inline font-semibold text-gray-900">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                  class="absolute left-1 top-1 h-5 w-5 text-magenta">
+                  <path
+                    d="M17.004 10.407c.138.435-.216.842-.672.842h-3.465a.75.75 0 01-.65-.375l-1.732-3c-.229-.396-.053-.907.393-1.004a5.252 5.252 0 016.126 3.537zM8.12 8.464c.307-.338.838-.235 1.066.16l1.732 3a.75.75 0 010 .75l-1.732 3.001c-.229.396-.76.498-1.067.16A5.231 5.231 0 016.75 12c0-1.362.519-2.603 1.37-3.536zM10.878 17.13c-.447-.097-.623-.608-.394-1.003l1.733-3.003a.75.75 0 01.65-.375h3.465c.457 0 .81.408.672.843a5.252 5.252 0 01-6.126 3.538z" />
+                  <path fill-rule="evenodd"
+                    d="M21 12.75a.75.75 0 000-1.5h-.783a8.22 8.22 0 00-.237-1.357l.734-.267a.75.75 0 10-.513-1.41l-.735.268a8.24 8.24 0 00-.689-1.191l.6-.504a.75.75 0 10-.964-1.149l-.6.504a8.3 8.3 0 00-1.054-.885l.391-.678a.75.75 0 10-1.299-.75l-.39.677a8.188 8.188 0 00-1.295-.471l.136-.77a.75.75 0 00-1.477-.26l-.136.77a8.364 8.364 0 00-1.377 0l-.136-.77a.75.75 0 10-1.477.26l.136.77c-.448.121-.88.28-1.294.47l-.39-.676a.75.75 0 00-1.3.75l.392.678a8.29 8.29 0 00-1.054.885l-.6-.504a.75.75 0 00-.965 1.149l.6.503a8.243 8.243 0 00-.689 1.192L3.8 8.217a.75.75 0 10-.513 1.41l.735.267a8.222 8.222 0 00-.238 1.355h-.783a.75.75 0 000 1.5h.783c.042.464.122.917.238 1.356l-.735.268a.75.75 0 10.513 1.41l.735-.268c.197.417.428.816.69 1.192l-.6.504a.75.75 0 10.963 1.149l.601-.505c.326.323.679.62 1.054.885l-.392.68a.75.75 0 101.3.75l.39-.679c.414.192.847.35 1.294.471l-.136.771a.75.75 0 101.477.26l.137-.772a8.376 8.376 0 001.376 0l.136.773a.75.75 0 101.477-.26l-.136-.772a8.19 8.19 0 001.294-.47l.391.677a.75.75 0 101.3-.75l-.393-.679a8.282 8.282 0 001.054-.885l.601.504a.75.75 0 10.964-1.15l-.6-.503a8.24 8.24 0 00.69-1.191l.735.268a.75.75 0 10.512-1.41l-.734-.268c.115-.438.195-.892.237-1.356h.784zm-2.657-3.06a6.744 6.744 0 00-1.19-2.053 6.784 6.784 0 00-1.82-1.51A6.704 6.704 0 0012 5.25a6.801 6.801 0 00-1.225.111 6.7 6.7 0 00-2.15.792 6.784 6.784 0 00-2.952 3.489.758.758 0 01-.036.099A6.74 6.74 0 005.251 12a6.739 6.739 0 003.355 5.835l.01.006.01.005a6.706 6.706 0 002.203.802c.007 0 .014.002.021.004a6.792 6.792 0 002.301 0l.022-.004a6.707 6.707 0 002.228-.816 6.781 6.781 0 001.762-1.483l.009-.01.009-.012a6.744 6.744 0 001.18-2.064c.253-.708.39-1.47.39-2.264a6.74 6.74 0 00-.408-2.308z"
+                    clip-rule="evenodd" />
+                </svg>
+                Universal Runtime
+              </dt>
+              <dd class="inline">Self-contained runtime enables you to distribute applications at any scale; from edge devices to large server clusters.</dd>
+            </div>
+            <div class="relative pl-9">
+              <dt class="inline font-semibold text-gray-900">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                  class="absolute left-1 top-1 h-5 w-5 text-magenta">
+                  <path fill-rule="evenodd"
+                    d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9.75a3 3 0 116 0 3 3 0 01-6 0zM2.25 9.75a3 3 0 116 0 3 3 0 01-6 0zM6.31 15.117A6.745 6.745 0 0112 12a6.745 6.745 0 016.709 7.498.75.75 0 01-.372.568A12.696 12.696 0 0112 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 01-.372-.568 6.787 6.787 0 011.019-4.38z"
+                    clip-rule="evenodd" />
+                  <path
+                    d="M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 0 013.57-4.047zM20.226 19.389a8.287 8.287 0 00-1.308-5.135 3.75 3.75 0 013.57 4.047l-.01.121a.563.563 0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441z" />
+                </svg>
+                Real-time UIs
+              </dt>
+              <dd class="inline">Our UI frameworks empower you to make streaming data applications work how humans experience life, in real-time. </dd>
+            </div>
+          </dl>
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <a href="{% link _tutorials/index.md %}" class="rounded-md bg-vermillion-orange px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white hover:text-deep-magenta hover: outline hover:outline-vermillion-orange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vermillion-orange no-underline">Get started</a>
+            <a href="#demos" class="text-sm font-semibold leading-6 text-deep-magenta no-underline hover:underline">See a demo <span aria-hidden="true">→</span></a>
           </div>
         </div>
-        <img src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png" alt="Product screenshot"
-          class="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:ml-0"
-          width="2432" height="1442">
+      </div>
+      <img src="{{ '/assets/images/traffic-min.png' | absolute_url }}" alt="SwimOS Traffic Demo"
+        class="w-[48rem] max-w-fit rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:ml-0"
+        width="2432" height="1442">
+    </div>
+  </div>
+</div>
+<!-- /Hero & CTAs -->
+
+<!-- Documentation Section -->
+<div class="w-screen bg-deep-kaimurasaki border-l-[20px] border-magenta">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 py-6 lg:py-8">
+    <div class="divide-y divide-deep-magenta overflow-hidden rounded-lg shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0 mt-8 mb-8">
+
+      <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-vermillion-orange hover:bg-alabastor">
+        <!-- <div> -->
+          <span class="inline-flex rounded-lg p-3 bg-vermillion-orange text-white group-hover:bg-magenta group-hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+            </svg>
+          </span>
+        <!-- </div> -->
+        <div class="mt-8">
+          <h3 class="text-base leading-6">
+            <a href="{% link _tutorials/index.md %}"
+              class="font-bold text-deep-magenta focus:outline-none no-underline hover:text-vermillion-orange">
+              <!-- Extend touch target to entire panel -->
+              <span class="absolute inset-0" aria-hidden="true"></span>
+              Ready to get started?
+            </a>
+          </h3>
+          <p class="mt-2 text-sm text-black">Start here to get up and running with SwimOS.</p>
+        </div>
+        <span class="pointer-events-none absolute right-6 top-6 text-vermillion-orange group-hover:text-magenta"
+          aria-hidden="true">
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+          </svg>
+        </span>
+      </div>
+
+      <div
+        class="sm:rounded-tr-lg group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-vermillion-orange hover:bg-alabastor">
+        <div>
+          <span
+            class="inline-flex rounded-lg p-3 bg-vermillion-orange text-white group-hover:bg-magenta group-hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+            </svg>
+          </span>
+        </div>
+        <div class="mt-8">
+          <h3 class="text-base leading-6">
+            <a href="{% link _concepts/index.md %}"
+              class="font-bold text-deep-magenta focus:outline-none no-underline hover:text-vermillion-orange">
+              <!-- Extend touch target to entire panel -->
+              <span class="absolute inset-0" aria-hidden="true"></span>
+              New to SwimOS and streaming data?
+            </a>
+          </h3>
+          <p class="mt-2 text-sm text-black">Learn concepts and ideas that will help you understand streaming data
+            apps and how SwimOS fits in to your existing infrastructure.</p>
+        </div>
+        <span class="pointer-events-none absolute right-6 top-6 text-vermillion-orange group-hover:text-magenta"
+          aria-hidden="true">
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+          </svg>
+        </span>
+      </div>
+
+      <div
+        class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-vermillion-orange hover:bg-alabastor">
+        <div>
+          <span
+            class="inline-flex rounded-lg p-3 bg-vermillion-orange text-white group-hover:bg-magenta group-hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+          </span>
+        </div>
+        <div class="mt-8">
+          <h3 class="text-base leading-6">
+            <a href="{% link _tutorials/index.md %}"
+              class="font-bold text-deep-magenta focus:outline-none no-underline hover:text-vermillion-orange">
+              <!-- Extend touch target to entire panel -->
+              <span class="absolute inset-0" aria-hidden="true"></span>
+              Take a guided tour of SwimOS.
+            </a>
+          </h3>
+          <p class="mt-2 text-sm text-black">Let us walk you through a tutorial that'll get you up and running with
+            SwimOS.</p>
+        </div>
+        <span class="pointer-events-none absolute right-6 top-6 text-vermillion-orange group-hover:text-magenta"
+          aria-hidden="true">
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+          </svg>
+        </span>
+      </div>
+
+      <div
+        class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-vermillion-orange hover:bg-alabastor">
+        <div>
+          <span
+            class="inline-flex rounded-lg p-3 bg-vermillion-orange text-white group-hover:bg-magenta group-hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+            </svg>
+          </span>
+        </div>
+        <div class="mt-8">
+          <h3 class="text-base leading-6">
+            <a href="{% link _guides/index.md %}"
+              class="font-bold text-deep-magenta focus:outline-none no-underline hover:text-vermillion-orange">
+              <!-- Extend touch target to entire panel -->
+              <span class="absolute inset-0" aria-hidden="true"></span>
+              How-to Guides
+            </a>
+          </h3>
+          <p class="mt-2 text-sm text-black">
+            These guides will help you accomplish a specific goal.
+          </p>
+        </div>
+        <span class="pointer-events-none absolute right-6 top-6 text-vermillion-orange group-hover:text-magenta"
+          aria-hidden="true">
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+          </svg>
+        </span>
+      </div>
+
+      <div
+        class="sm:rounded-bl-lg group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-vermillion-orange hover:bg-alabastor">
+        <div>
+          <span
+            class="inline-flex rounded-lg p-3 bg-vermillion-orange text-white group-hover:bg-magenta group-hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+          </span>
+        </div>
+        <div class="mt-8">
+          <h3 class="text-base leading-6">
+            <a href="{% link _reference/index.md %}"
+              class="font-bold text-deep-magenta focus:outline-none no-underline hover:text-vermillion-orange">
+              <!-- Extend touch target to entire panel -->
+              <span class="absolute inset-0" aria-hidden="true"></span>
+              Reference Docs
+            </a>
+          </h3>
+          <p class="mt-2 text-sm text-black">Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit
+            repellendus qui ut at blanditiis et quo et molestiae.</p>
+        </div>
+        <span class="pointer-events-none absolute right-6 top-6 text-vermillion-orange group-hover:text-magenta"
+          aria-hidden="true">
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+          </svg>
+        </span>
+      </div>
+
+      <div
+        class="rounded-bl-lg rounded-br-lg sm:rounded-bl-none group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-vermillion-orange hover:bg-alabastor">
+        <div>
+          <span
+            class="inline-flex rounded-lg p-3 bg-vermillion-orange text-white group-hover:bg-magenta group-hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+            </svg>
+          </span>
+        </div>
+        <div class="mt-8">
+          <h3 class="text-base leading-6">
+            <a href="https://www.nstream.io/contact-us/"
+              class="font-bold text-deep-magenta focus:outline-none no-underline hover:text-vermillion-orange">
+              <!-- Extend touch target to entire panel -->
+              <span class="absolute inset-0" aria-hidden="true"></span>
+              Training
+            </a>
+          </h3>
+          <p class="mt-2 text-sm text-black">
+            Contact us to learn about training opportunities for your team.
+          </p>
+        </div>
+        <span class="pointer-events-none absolute right-6 top-6 text-vermillion-orange group-hover:text-magenta"
+          aria-hidden="true">
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+          </svg>
+        </span>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- /Documentation Section -->
+
+<!-- Nstream CTA Section -->
+<div class="w-screen bg-alabastor pt-8 pb-24">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl text-center">
+        <a id="demos" class="no-underline"><h2 class="text-3xl font-bold tracking-tight text-vermillion-orange sm:text-4xl">See a Demo</h2></a>
+        <p class="mt-2 text-lg leading-8 text-gray-600">See a live demo of SwimOS by clicking the links below.</p>
+      </div>
+      <div class="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        
+        <article class="flex flex-col items-start justify-between">
+          <div class="relative w-full">
+            <img src="{{ '/assets/images/ripple.png' | absolute_url }}" alt="Ripple app" class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+          </div>
+          <div class="max-w-xl">
+            <div class="group relative">
+              <a href="https://ripple.swim.inc/" class="mt-3 text-lg font-semibold leading-6 no-underline text-deep-magenta group-hover:text-vermillion-orange">
+                <span class="absolute inset-0"></span>
+                Ripple
+              </a>
+              <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
+                Ripple is a real-time synchronous shared multiplayer experience built on the Swim platform
+              </p>
+            </div>
+            <div class="group relative mt-8 flex items-center gap-x-4">
+              <svg class="w-10 h-10 text-black group-hover:text-vermillion-orange" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="1em" viewBox="0 0 496 512">
+                <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+              </svg>
+              <div class="text-sm leading-6">
+                <p class="text-gray-600">
+                  <a href="https://github.com/swimos/ripple" class="no-underline group-hover:underline">Check it out on GitHub</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flex flex-col items-start justify-between">
+          <div class="relative w-full">
+            <img src="{{ '/assets/images/traffic-min.png' | absolute_url }}" alt="Traffic app" class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+          </div>
+          <div class="max-w-xl">
+            <div class="group relative">
+              <a href="https://traffic.swim.inc/" class="mt-3 text-lg font-semibold leading-6 no-underline text-deep-magenta group-hover:text-vermillion-orange">
+                <span class="absolute inset-0"></span>
+                Traffic
+              </a>
+              <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
+                Traffic processes 30,000 data points per second from connected traffic intersections
+              </p>
+            </div>
+            <div class="group relative mt-8 flex items-center gap-x-4">
+              <svg class="w-10 h-10 text-black group-hover:text-vermillion-orange" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="1em" viewBox="0 0 496 512">
+                <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+              </svg>
+              <div class="text-sm leading-6">
+                <p class="text-gray-600">
+                  <a href="https://github.com/swimos/traffic" class="no-underline group-hover:underline">Check it out on GitHub</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+         
+        <article class="flex flex-col items-start justify-between">
+          <div class="relative w-full">
+            <img src="{{ '/assets/images/transit.png' | absolute_url }}" alt="Transit app" class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+          </div>
+          <div class="max-w-xl">
+            <div class="group relative">
+              <a href="http://transit.swim.inc/" class="mt-3 text-lg font-semibold leading-6 no-underline text-deep-magenta group-hover:text-vermillion-orange">
+                <span class="absolute inset-0"></span>
+                Transit
+              </a>
+              <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
+                Transit analyzes application performance to deliver continuous insights in real-time
+              </p>
+            </div>
+            <div class="group relative mt-8 flex items-center gap-x-4">
+              <svg class="w-10 h-10 text-black group-hover:text-vermillion-orange" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="1em" viewBox="0 0 496 512">
+                <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+              </svg>
+              <div class="text-sm leading-6">
+                <p class="text-gray-600">
+                  <a href="https://github.com/swimos/transit" class="no-underline group-hover:underline">Check it out on GitHub</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+  
       </div>
     </div>
-  </div>
-</div>
-
-<div class="mx-auto max-w-7xl px-6 lg:px-8 py-6 lg:py-8">
-<div class="divide-y divide-deep-magenta overflow-hidden rounded-lg shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0 mb-8">
-  <div
-    class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none group relative bg-deep-kaimurasaki p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-vermillion-orange">
-    <div>
-      <span class="inline-flex rounded-lg p-3 bg-alabastor text-magenta group-hover:bg-vermillion-orange group-hover:text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-        </svg>
-      </span>
-    </div>
-    <div class="mt-8">
-      <h3 class="text-base font-semibold leading-6 text-gray-900">
-        <a href="{% link _tutorials/index.md %}" class="text-vermillion-orange focus:outline-none no-underline">
-          <!-- Extend touch target to entire panel -->
-          <span class="absolute inset-0" aria-hidden="true"></span>
-          Ready to get started?
-        </a>
-      </h3>
-      <p class="mt-2 text-sm text-alabastor">Start here to get up and running with SwimOS.</p>
-    </div>
-    <span class="pointer-events-none absolute right-6 top-6 text-alabastor group-hover:text-magenta" aria-hidden="true">
-      <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-        <path
-          d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
-      </svg>
-    </span>
-  </div>
-  <div
-    class="sm:rounded-tr-lg group relative bg-deep-kaimurasaki p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-vermillion-orange">
-    <div>
-      <span class="inline-flex rounded-lg p-3 bg-alabastor text-magenta group-hover:bg-vermillion-orange group-hover:text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
-        </svg>
-      </span>
-    </div>
-    <div class="mt-8">
-      <h3 class="text-base font-semibold leading-6 text-vermillion-orange">
-        <a href="{% link _concepts/index.md %}" class="text-vermillion-orange focus:outline-none no-underline">
-          <!-- Extend touch target to entire panel -->
-          <span class="absolute inset-0" aria-hidden="true"></span>
-          New to SwimOS and streaming data?
-        </a>
-      </h3>
-      <p class="mt-2 text-sm text-alabastor">Learn concepts and ideas that will help you understand streaming data apps
-        and how SwimOS fits in to your existing infrastructure.</p>
-    </div>
-    <span class="pointer-events-none absolute right-6 top-6 text-alabastor group-hover:text-magenta" aria-hidden="true">
-      <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-        <path
-          d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
-      </svg>
-    </span>
-  </div>
-  <div class="group relative bg-deep-kaimurasaki p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-vermillion-orange">
-    <div>
-      <span class="inline-flex rounded-lg p-3 bg-alabastor text-magenta group-hover:bg-vermillion-orange group-hover:text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
-        </svg>
-      </span>
-    </div>
-    <div class="mt-8">
-      <h3 class="text-base font-semibold leading-6 text-gray-900">
-        <a href="{% link _tutorials/index.md %}" class="text-vermillion-orange focus:outline-none no-underline">
-          <!-- Extend touch target to entire panel -->
-          <span class="absolute inset-0" aria-hidden="true"></span>
-          Take a guided tour of SwimOS.
-        </a>
-      </h3>
-      <p class="mt-2 text-sm text-alabastor">Let us walk you through a tutorial that'll get you up and running with
-        SwimOS.</p>
-    </div>
-    <span class="pointer-events-none absolute right-6 top-6 text-alabastor group-hover:text-magenta" aria-hidden="true">
-      <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-        <path
-          d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
-      </svg>
-    </span>
-  </div>
-  <div class="group relative bg-deep-kaimurasaki p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-vermillion-orange">
-    <div>
-      <span class="inline-flex rounded-lg p-3 bg-alabastor text-magenta group-hover:bg-vermillion-orange group-hover:text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
-        </svg>
-      </span>
-    </div>
-    <div class="mt-8">
-      <h3 class="text-base font-semibold leading-6 text-gray-900">
-        <a href="{% link _guides/index.md %}" class="text-vermillion-orange focus:outline-none no-underline">
-          <!-- Extend touch target to entire panel -->
-          <span class="absolute inset-0" aria-hidden="true"></span>
-          How-to Guides
-        </a>
-      </h3>
-      <p class="mt-2 text-sm text-alabastor">
-        These guides will help you accomplish a specific goal.
-      </p>
-    </div>
-    <span class="pointer-events-none absolute right-6 top-6 text-alabastor group-hover:text-magenta" aria-hidden="true">
-      <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-        <path
-          d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
-      </svg>
-    </span>
-  </div>
-  <div
-    class="sm:rounded-bl-lg group relative bg-deep-kaimurasaki p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-vermillion-orange">
-    <div>
-      <span class="inline-flex rounded-lg p-3 bg-alabastor text-magenta group-hover:bg-vermillion-orange group-hover:text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-        </svg>
-      </span>
-    </div>
-    <div class="mt-8">
-      <h3 class="text-base font-semibold leading-6 text-gray-900">
-        <a href="{% link _reference/index.md %}" class="text-vermillion-orange focus:outline-none no-underline">
-          <!-- Extend touch target to entire panel -->
-          <span class="absolute inset-0" aria-hidden="true"></span>
-          Reference Docs
-        </a>
-      </h3>
-      <p class="mt-2 text-sm text-alabastor">Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit
-        repellendus qui ut at blanditiis et quo et molestiae.</p>
-    </div>
-    <span class="pointer-events-none absolute right-6 top-6 text-alabastor group-hover:text-magenta" aria-hidden="true">
-      <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-        <path
-          d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
-      </svg>
-    </span>
-  </div>
-  <div
-    class="rounded-bl-lg rounded-br-lg sm:rounded-bl-none group relative bg-deep-kaimurasaki p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-vermillion-orange">
-    <div>
-      <span class="inline-flex rounded-lg p-3 bg-alabastor text-magenta group-hover:bg-vermillion-orange group-hover:text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
-        </svg>
-      </span>
-    </div>
-    <div class="mt-8">
-      <h3 class="text-base font-semibold leading-6 text-gray-900">
-        <a href="https://www.nstream.io/contact-us/" class="text-vermillion-orange focus:outline-none no-underline">
-          <!-- Extend touch target to entire panel -->
-          <span class="absolute inset-0" aria-hidden="true"></span>
-          Training
-        </a>
-      </h3>
-      <p class="mt-2 text-sm text-alabastor">
-        Contact us to learn about training opportunities for your team.
-      </p>
-    </div>
-    <span class="pointer-events-none absolute right-6 top-6 text-alabastor group-hover:text-magenta" aria-hidden="true">
-      <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-        <path
-          d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
-      </svg>
-    </span>
-  </div>
-</div>
+  
 </div>

@@ -4,9 +4,8 @@
             <div class="w-full">
                 <div @click.away="close()" class="my-2 p-1 bg-white flex border border-gray-200 rounded">
                     <input x-model="filter" x-transition:leave="transition ease-in duration-100"
-                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-                        @mousedown="open()" @keydown.enter.stop.prevent="selectOption()"
-                        @keydown.arrow-up.prevent="focusPrevOption()"
+                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @mousedown="open()"
+                        @keydown.enter.stop.prevent="selectOption()" @keydown.arrow-up.prevent="focusPrevOption()"
                         @keydown.arrow-down.prevent="focusNextOption()"
                         class="p-1 px-2 appearance-none outline-none w-full text-gray-800" placeholder="Search">
                     <div class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200">
@@ -24,22 +23,16 @@
                 </div>
             </div>
             <div x-show="isOpen()"
-                class="absolute shadow bg-white top-100 z-40 w-full lef-0 rounded max-h-select overflow-y-auto svelte-5uyqqj">
+                class="absolute shadow bg-white top-100 z-40 w-full lef-0 rounded max-h-select overflow-y-auto overflow-x-hidden svelte-5uyqqj">
                 <div class="flex flex-col w-full">
                     <template x-for="(option, index) in filteredOptions()" :key="index">
                         <div @click="onOptionClick(index)" :class="classOption(option.title, index)"
                             :aria-selected="focusedOptionIndex === index">
                             <div
-                                class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-teal-100">
-                                <div class="w-6 flex flex-col items-center">
-                                    <div
-                                        class="flex relative w-5 h-5 bg-orange-500 justify-center items-center m-1 mr-2 w-4 h-4 mt-1 rounded-full ">
-
-                                    </div>
-                                </div>
+                                class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:bg-gray-200">
                                 <div class="w-full items-center flex">
-                                    <div class="mx-2 -mt-1"><span
-                                            x-text="option.title"></span>
+                                    <div class="mx-2 -mt-1">
+                                        <span x-text="option.title"></span>
                                         <div class="text-xs truncate w-full normal-case font-normal -mt-1 text-gray-500"
                                             x-text="option.excerpt"></div>
                                     </div>
@@ -50,18 +43,5 @@
                 </div>
             </div>
         </div>
-        <!-- <label for="search" class="sr-only">Search</label>
-        <div class="relative">
-            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd"
-                        d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                        clip-rule="evenodd" />
-                </svg>
-            </div>
-            <input id="search" name="search"
-                class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                placeholder="Search" type="search">
-        </div> -->
     </div>
 </div>
