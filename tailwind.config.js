@@ -10,7 +10,7 @@ module.exports = {
     theme: {
       extend: {
         fontFamily: {
-          'sans': ['"Sora"', 'sans-serif']
+          'sans': ['Sora', 'sans-serif']
         },
         colors: {
           'vermillion-orange': '#FE3B1E',
