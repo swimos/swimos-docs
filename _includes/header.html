@@ -1,117 +1,119 @@
-<nav class="bg-deep-kaimurasaki">
+<nav class="bg-deep-kaimurasaki" x-data="{ isOpen: false }">
   {%- include banner.html -%}
   <div class="mx-auto px-2 sm:px-4 lg:px-8">
     <div class="flex h-16 justify-between">
       <div class="flex px-2 lg:px-0">
         <div class="flex flex-shrink-0 items-center">
-          <img class="block h-8 w-auto lg:hidden" src="{{ '/assets/images/nstream-logo.png' | absolute_url }}"
+          <img class="block max-w-[195px] lg:hidden" src="{{ '/assets/images/nstream-logo.png' | absolute_url }}"
             alt="Nstream Logo">
-          <img class="hidden h-8 w-auto lg:block" src="{{ '/assets/images/nstream-logo.png' | absolute_url }}"
+          <img class="hidden max-w-[195px] lg:block" src="{{ '/assets/images/nstream-logo.png' | absolute_url }}"
             alt="Nstream Logo">
         </div>
+
         <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
           <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
           <!-- <a href="#"
             class="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">Dashboard</a> -->
           <!-- <a href="#"
             class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Team</a> -->
-          <a href="{{ '/' | relative_url }}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
+          <a href="{{ '/' | relative_url }}"
+            class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
             HOME
           </a>
 
-          <a href="{{ '/community.html' | absolute_url }}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
+          <a href="{{ '/community.html' | absolute_url }}"
+            class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
             COMMUNITY
           </a>
 
-            <a
-              class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange"
-              href="{{ '/tutorials/index.html' | absolute_url }}"
-              type="button"
-              id="docsDropdown"
-              aria-expanded="false">
-              DOCUMENTATION
-              <span class="ml-2 w-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  class="h-5 w-5">
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                    clip-rule="evenodd" />
+          <div class="flex flex-1 items-center text-white border-b-2 border-transparent hover:border-vermillion-orange hover:text-vermillion-orange">
+            <div x-data="{ open: false }" class="relative">
+              <button x-on:click="open = true"
+                class="inline-flex items-center px-1 pt-1 text-[15px] font-bold "
+                type="button">
+                <span class="mr-1">DOCUMENTATION</span>
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                  style="margin-top:3px">
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                 </svg>
-              </span>
-            </a>
-            <ul
-              class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
-              aria-labelledby="dropdownMenuButton2"
-              data-te-dropdown-menu-ref>
-              <li>
-                <a
-                  class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                  href="/"
-                  data-te-dropdown-item-ref
-                  >Action</a
-                >
-              </li>
-            </ul>          
+              </button>
+              <ul x-show="open" x-on:click.away="open = false"
+                class="bg-white text-gray-700 rounded shadow-lg absolute py-2 mt-1" style="min-width:15rem">
 
+                {% if site.collections %}
+                {% assign collections = site.collections | sort: 'weight' %}
+                {% for collection in collections %}
+                {% if collection.label != "posts" %}
+                <li>
+                  <a href="{{ collection.label | absolute_url }}" class="block hover:bg-gray-200 whitespace-no-wrap py-2 px-4">
+                    {{ collection.name }}
+                  </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+                <!-- <li>
+                  <a href="#" class="block hover:bg-gray-200 whitespace-no-wrap py-2 px-4">
+                    Dom <span class="text-gray-400">(no good)</span>
+                  </a>
+                </li> -->
+              </ul>
+            </div>
+          </div>
+          
         </div>
       </div>
-      
+
       {%- include search.html -%}
 
+      <!-- Mobile menu button -->
       <div class="flex items-center lg:hidden">
-        <!-- Mobile menu button -->
-        <button type="button"
-          class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+        <button @click="isOpen = !isOpen"
+          class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-vermillion-orange"
           aria-controls="mobile-menu" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
-          <!--
-            Icon when menu is closed.
-
-            Menu open: "hidden", Menu closed: "block"
-          -->
           <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
-          <!--
-            Icon when menu is open.
-
-            Menu open: "block", Menu closed: "hidden"
-          -->
           <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
+
       <div class="hidden lg:ml-4 lg:flex lg:items-center">
-        <a href="https://nstream.io"
-          class="ml-6 inline-flex items-center rounded-md bg-vermillion-orange px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white hover:text-deep-magenta hover:outline hover:outline-vermillion-orange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vermillion-orange">Nstream
-          Cloud</a>
+
+        {%- include header-social.html -%}
+
       </div>
     </div>
   </div>
 
-  <!-- Mobile menu, show/hide based on menu state. -->
-  <div class="lg:hidden" id="mobile-menu">
+  <!-- Mobile menu -->
+  <div class="lg:hidden" id="mobile-menu" x-show="isOpen" @click.away="isOpen = false">
     <div class="space-y-1 pb-3 pt-2">
-      <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" -->
-      <!-- <a href="#"
-        class="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700">Dashboard</a>
-      <a href="#"
-        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">Team</a> -->
-
-      <a href="{{ '/' | relative_url }}" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+      <a href="{{ '/' | relative_url }}"
+        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
         Home
       </a>
-
-      <a href="{{ '/community.html' | absolute_url }}" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+      <a href="{{ '/community.html' | absolute_url }}"
+        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
         Community
       </a>
+      {% if site.collections %}
+      {% assign collections = site.collections | sort: 'weight' %}
+        {% for collection in collections %}
+          {% if collection.label != "posts" %}
+            <a href="{{ collection.label | absolute_url }}"
+              class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+              {{ collection.name }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
 
     </div>
   </div>
