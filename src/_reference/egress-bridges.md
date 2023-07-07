@@ -1,6 +1,7 @@
 ---
 title: Egress Bridges
 layout: page
+description: "Relay your Swim server's data to any other system."
 redirect_from:
   - /tutorials/egress-bridges/
 ---

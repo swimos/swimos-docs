@@ -1,6 +1,7 @@
 ---
 title: Web Agents
 layout: page
+description: "Learn about stateful, distributed objects that are the endpoints of streaming APIs."
 redirect_from:
   - /concepts/agents/
 ---

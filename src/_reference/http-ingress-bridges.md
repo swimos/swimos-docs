@@ -1,6 +1,7 @@
 ---
 title: HTTP Ingress Bridges
 layout: page
+description: "See our recommended approach to simple HTTP ingress."
 redirect_from:
   - /tutorials/http-ingress-bridges/
 ---

@@ -1,8 +1,10 @@
 ---
 title: Web Agents
 layout: page
+description: "Learn about stateful, distributed objects that are the endpoints of streaming APIs."
 redirect_from:
   - /tutorials/web-agents/
+  - /concepts/agents/
 ---
 
 Swim servers utilize a general purpose distributed object model in which the objects are called **Web Agents**. Programming with this model feels like typical object-oriented programming with additional key innovations in addressability, statefulness, consistency, boundedness, and composability.
@@ -12,13 +14,13 @@ Although this analogy holds very well for the most part, there are two important
 - Methods, while still being able to define arbitrarily complicated logic, are not directly invoked. Instead, Web agents come with **lifecycle callback** functions that are called during specified stages of a Web Agent's lifetime
 - Web Agent **instantiation** is not accomplished by invoking a constructor (at least from the programmer's perspective)
 
-Don't worry if these points feel restrictive through this article; much finer control becomes available once we discuss **lanes** in subsequent recipes.
+Don't worry if these points feel restrictive through this article; much finer control becomes available once we discuss [lanes]({% link _reference/lanes.md %}).
 
 ### Declaration
 
 Just like with (instantiable) `class` declarations in Java, **Agent declarations** in Swim define the behavior for **instances** of those Agents. Declarations alone don't actually instantiate anything.
 
-To declare a Web Agent, simply extend the `AbstractAgent` class from the `swim.api` module.
+To declare a Web Agent, extend the `AbstractAgent` class from the `swim.api` module:
 
 ```java
 // swim/basic/UnitAgent.java
@@ -33,7 +35,7 @@ public class UnitAgent extends AbstractAgent {
 
 ### External Addressability
 
-Every Web Agent has a universal, logical address, in the form of a URI. The URI of a custom `PlanetAgent` might look something like `"/planet/Mercury"`. That of a singleton `SunAgent` might just look like `"/sun"`.
+Every Web Agent has a universal, logical address, in the form of a URI. The URI of a custom `PlanetAgent` might look something like `"/planet/Mercury"`. That of a singleton `SunAgent` might just look like `"/sun"`. By decoupling Web Agent's logical addresses from the network addresses of their host machines, Swim applications become invariant to the infrastructure on which they're deployed.
 
 Each Web Agent is aware of its own URI, available via its `nodeUri()` method. Let's add a simple utility method to each `UnitAgent` to help us identify the Agent from which a logged message originated.
 
@@ -49,8 +51,6 @@ public class UnitAgent extends AbstractAgent {
   }
 }
 ```
-
-<!--Further reading: <a href="/reference/universal-addressability">Universal Addressability</a>-->
 
 ### Instantiation
 
@@ -72,15 +72,13 @@ public class BasicPlane extends AbstractPlane {
 }
 ```
 
-A Web Agent is only instantiated when its `nodeUri` is invoked for the first time. With the code we have so far, we can instantiate any number of `UnitAgent`s simply by invoking URIs with the `"/unit/"` prefix. For example, if we invoke `"/unit/1"`, `"/unit/foo"`, and `"/unit/foo_1"`, three `UnitAgent`s will be instantiated, one for each URI.
+A Web Agent is only instantiated when its `nodeUri` is invoked for the first time. With the code we have so far, we can instantiate any number of `UnitAgent` simply by invoking URIs with the `"/unit/"` prefix. For example, if we invoke `"/unit/1"`, `"/unit/foo"`, and `"/unit/foo_1"`, three `UnitAgent`s will be instantiated, one for each URI.
 
-**CAUTION:** if you have multiple agent types within a plane, ensure that their URI patterns do not **clash**. This is a stricter requirement than saying that the patterns are **identical**; for example, `"/unit/:id"` and `"/unit/:foo"` clash. Suppose these same patterns annotated different agent types; how would a plane know which type of Agent to seek or instantiate for the request `"/unit/1"`?
+**CAUTION:** If you have multiple agent types within a plane, ensure that their URI patterns do not **clash**. This is a stricter requirement than saying that the patterns are **identical**; for example, `"/unit/:id"` and `"/unit/:foo"` clash. Suppose these same patterns annotated different agent types; how would a plane know which type of Agent to seek or instantiate for the request `"/unit/1"`?
 
 In addition to the `nodeUri()` method mentioned in the previous section, every Agent also has access to a `Value getProp(String prop)` convenience method. This returns a `swim.structure.Text` object containing the value of the dynamic `nodeUri` component with the name `prop`, `absent()` if it doesn't exist. For example, `getProp("id").stringValue()` will return either `"1"`, `"foo"`, or `"foo_1"`, depending on which of the above three agents we are currently running in. `getProp("foo")` will return `absent()`.
 
 Further reading: [Planes](/reference/planes)
-
-<!---, <a href="/reference/structures">Structures</a>-->
 
 ### Lifecycle Callbacks
 
@@ -117,3 +115,37 @@ public class UnitAgent extends AbstractAgent {
 A standalone project that combines all of these snippets and handles any remaining boilerplate is available [here](https://github.com/swimos/cookbook/tree/master/web_agents).
 
 
+<!-- 
+### Stateful
+
+Web Agents remember their state in-between operations, eliminating the need for constant database round-trips, and greatly simplifying application development by avoiding object-relational mapping.
+
+### Atomic
+
+Each Web Agent executes in a single thread at a time. Though as many distinct Web Agents execute in parallel as you have CPU cores. Combined with a built-in software transactional memory model, Web Agents are naturally atomic, without the overhead of locks or transactions.
+
+### Consistent
+
+Together, Web Agents, Lanes, and Links implement a continuous consistency model that's largely transparent developers. Web Agents applications just stays consistent. Continuously. In network real-time.
+
+### Encapsulated
+
+The only way in or out of a Web Agent is through links to its lanes. This gives Web Agents total control over the exposure of sensitive data. There's no database to compromise.
+
+### Persistent
+
+Databases aren't the only way to store data. Web Agents are internally persistent. By taking persistence off the critical path, the single biggest bottleneck to application performances instantly vanishes. While still letting you keep all the data you have space for.
+
+### Bounded
+
+Intrinsic and pervasive backpressure handling automatically adapts the behavior of your application based on network, disk, and CPU availability. And because of its continuous consistency model, developers, for the most part, don't have to care.
+
+### Decentralized
+
+Web Agents inherit the natural decentralization of the World Wide Web. Any Web Agent can link to any other, given its URI, and appropriate permissions.
+
+### Composable
+
+Unlink REST applications, which don't compose well without introducing significantly polling latency, caching overhead, and consistency problems, Web Agents frictionlessly compose, in real-time, at any scale.
+
+ -->

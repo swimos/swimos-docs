@@ -1,6 +1,7 @@
 ---
 title: Links
 layout: page
+description: ""
 redirect_from:
   - /concepts/links/
 ---
@@ -51,70 +52,3 @@ yourName.close();
 Links are point-to-point, and unbuffered, making them real-time within the latency of the network and CPU.
 
 Jump ahead to [Recon]({% link _reference/recon.md %}) to find out how lanes and links represent data internally. Dive into the [tutorials]({% link _tutorials/index.md %}) to see how links get used in a real application. Or read on to learn more about the different kinds of links, their properties, and their guarantees.
-
-<!--<h2 class="header-green">Downlinks</h2>
-<div class="feature-stack">
-  <div class="feature-block feature-block-left">
-    <div class="feature-graphic">
-    </div>
-    <div class="feature-description">
-      <h3>ValueDownlink</h3>
-      <p></p>
-    </div>
-  </div>
-  <div class="feature-block feature-block-right">
-    <div class="feature-graphic">
-    </div>
-    <div class="feature-description">
-      <h3>MapDownlink</h3>
-      <p></p>
-    </div>
-  </div>
-  <div class="feature-block feature-block-left">
-    <div class="feature-graphic">
-    </div>
-    <div class="feature-description">
-      <h3>ListDownlink</h3>
-      <p></p>
-    </div>
-  </div>
-</div>
-<h2 class="header-green">Uplinks</h2>
-<div class="feature-stack">
-  <div class="feature-block feature-block-left">
-    <div class="feature-graphic">
-    </div>
-    <div class="feature-description">
-      <h3>Uplink</h3>
-      <p></p>
-    </div>
-  </div>
-</div>
-<h2 class="header-green">Link Modems</h2>
-<div class="feature-stack">
-  <div class="feature-block feature-block-left">
-    <div class="feature-graphic">
-    </div>
-    <div class="feature-description">
-      <h3>Supply-driven links</h3>
-      <p></p>
-    </div>
-  </div>
-  <div class="feature-block feature-block-right">
-    <div class="feature-graphic">
-    </div>
-    <div class="feature-description">
-      <h3>Demand-driven links</h3>
-      <p></p>
-    </div>
-  </div>
-  <div class="feature-block feature-block-left">
-    <div class="feature-graphic">
-    </div>
-    <div class="feature-description">
-      <h3>Supply and demand-driven links</h3>
-      <p></p>
-    </div>
-  </div>
-</div>-->
-
