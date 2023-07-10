@@ -1,6 +1,7 @@
 ---
 title: Auth Policy
 layout: page
+description: "Add access control to Web Agents and lanes."
 redirect_from:
   - /tutorials/auth-policy/
 ---

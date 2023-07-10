@@ -23,7 +23,7 @@
             <!-- Expandable link section, show/hide based on state. -->
             <ul class="mt-1 px-2" id="sub-menu-1">
 
-              {% assign items = site[collection.label] | sort: "weight" %}
+              {% assign items = site[collection.label] %}
               {% for item in items %}
               {% if item.hidden != true %}
               <li>

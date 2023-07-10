@@ -1,6 +1,7 @@
 ---
 title: Timers
 layout: page
+description: "Schedule tasks for future execution in Web Agents."
 redirect_from:
   - /tutorials/timers/
 ---

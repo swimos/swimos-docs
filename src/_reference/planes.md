@@ -1,6 +1,7 @@
 ---
 title: Planes
 layout: page
+description: "Create vertically integrated, horizontally distributed Web Agent application bundles that can run almost anywhere."
 redirect_from:
   - /tutorials/planes/
 ---

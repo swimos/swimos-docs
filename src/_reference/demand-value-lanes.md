@@ -1,6 +1,7 @@
 ---
 title: Demand Value Lanes
 layout: page
+description: "Define persistent properties of Web Agents, and lazily generate events on state changes."
 redirect_from:
   - /tutorials/demand-value-lanes/
 ---

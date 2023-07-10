@@ -1,6 +1,7 @@
 ---
 title: Map Lanes
 layout: page
+description: "Define persistent collection properties of Web Agents, and consistently stream real-time updates and removes."
 redirect_from:
   - /tutorials/map-lanes/
 ---

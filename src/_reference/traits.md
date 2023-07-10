@@ -1,6 +1,7 @@
 ---
 title: Traits
 layout: page
+description: "Define and utilize 'trait' that can be used to share lanes across multiple agents."
 redirect_from:
   - /tutorials/traits/
 ---

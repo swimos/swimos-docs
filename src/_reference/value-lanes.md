@@ -1,6 +1,7 @@
 ---
 title: Value Lanes
 layout: page
+description: "Define persistent properties of Web Agents, and continuously stream real-time state changes."
 redirect_from:
   - /tutorials/value-lanes/
 ---

@@ -14,41 +14,19 @@
         {{ content }}
         <hr class="my-12 h-0.5 border-t-0 bg-vermillion-orange" />
 
-        <div class="max-w-max p-4 container flex justify-center mx-auto">
-          <div class="flex flex-row mx-auto">
-            {% if page.previous %}
-            <a href="{{ page.previous.url | absolute_url }}">
-              <button type="button"
-                class="bg-gray-800 text-white rounded-l-md border-r border-gray-100 py-2 hover:bg-red-700 hover:text-white px-3">
-                <div class="flex flex-row align-middle">
-                  <svg class="w-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                      d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                  <span class="ml-2">{{ page.previous.title }}</span>
-                </div>
-              </button>
-            </a>
-            {% endif %}
+      {% if page.toc != false %}
+      <main class="prose flex-1 max-w-prose prose-code:before:hidden prose-code:after:hidden">
+      {% else %}
+      <main class="prose flex-1 max-w-full prose-code:before:hidden prose-code:after:hidden">
+      {% endif %}
 
-            {% if page.next %}
-            <a href="{{ page.next.url | absolute_url }}">
-              <button type="button"
-                class="bg-gray-800 text-white rounded-r-md py-2 border-l border-gray-200 hover:bg-red-700 hover:text-white px-3">
-                <div class="flex flex-row align-middle">
-                  <span class="mr-2">{{ page.next.title }}</span>
-                  <svg class="w-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                      d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                </div>
-              </button>
-            </a>
-            {% endif %}
-          </div>
-        </div>
+        <h1 class="m-0 text-vermillion-orange">{{ page.title }}</h1>
+
+        {{ content | inject_anchors }}
+
+        <hr class="my-12 h-0.5 border-t-0 bg-vermillion-orange opacity-100 dark:opacity-50" />
+
+        {%- include prev-next.html -%}
 
         <div class="max-w-max p-4 container flex justify-center mx-auto">
           <div class="flex flex-row mx-auto">
@@ -63,10 +41,8 @@
 
       </main>
 
-
-
       {% if page.toc != false %}
-      <aside class="prose sticky top-8 hidden w-50 shrink-0 xl:block">
+      <aside class="sticky top-8 hidden w-50 shrink-0 xl:block">
         <h2>Table of Contents</h2>
         <div id="table-of-contents">
           {% toc %}

@@ -70,7 +70,6 @@ exclude:
   - Jenkinsfile
   - s3_website.yml
 
-
 # Every top level section is actually a collection. Their files are in a _folder in src/
 collections:
   tutorials:
@@ -78,7 +77,7 @@ collections:
     name: "Tutorials"
     order:
       - index.md
-      - quick-start.md
+      - demos.md
     weight: 1
   guides:
     output: true
@@ -91,13 +90,7 @@ collections:
     name: "Reference Docs"
     order:
       - index.md
-      - concepts.md
-      - agents.md
-      - lanes.md
-      - links.md
-      - recon.md
-      - warp.md
-      - tut-index.md
+      - swim-libraries.md
       - web-agents.md
       - web-agents-server-recon.md
       - command-lanes.md
@@ -118,13 +111,18 @@ collections:
       - http-ingress-bridges.md
       - http-lanes.md
       - auth-policy.md
+      - agents.md
+      - lanes.md
+      - links.md
+      - recon.md
+      - warp.md
     weight: 3
   concepts:
     output: true
     name: "Conceptual Guides"
     order:
       - index.md
-      - meet.md
+      - fundamentals.md
     weight: 4
   meta:
     output: true
@@ -133,7 +131,6 @@ collections:
       - index.md
       - diataxis.md
       - styles.md
-      - theme-management.md
     weight: 5
   posts:
     output: false
@@ -148,24 +145,12 @@ defaults:
       toc: true
 
 # jekyll-toc Config
-# toc:
-#   min_level: 1
-#   max_level: 2
-#   ordered_list: false
-#   no_toc_section_class: no_toc_section
-#   list_id: toc
-#   list_class: section-nav
-#   sublist_class: ''
-#   item_class: toc-entry
-#   item_prefix: toc-
-
-# jekyll-toc Config
 toc:
-  # list_id: my-toc-id # Default: "toc"
-  list_class: mt-1 px-2
-  sublist_class: my-sublist-class # Default: no class for sublists
-  item_class:  hover:bg-gray-50  block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700
-  # item_prefix: item- # Default: "toc-":
+  list_id: toc # id of the <ul> for the toc
+  list_class: mt-1 px-2 # We use TailwindCSS classes but you can also create your own
+  sublist_class: '' # We use TailwindCSS classes but you can also create your own
+  item_class: hover:text-vermillion-orange block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700 # You guessed it, more TailwindCSS classes.
+  item_prefix: toc- # Adds a toc-* class to each list item for styling. Ex. toc-h2 for list items that refer to an h2 in the doc body.
 
 # Set display to true/false to toggle announcements on/off
 # If developing locally, this requires a jekyll serve restart to test.

@@ -1,6 +1,7 @@
 ---
 title: Join Map Lanes
 layout: page
+description: "Define persistent collections of properties between multiple Web Agents, and consistently stream real-time updates."
 redirect_from:
   - /tutorials/join-map-lanes/
 ---
