@@ -11,19 +11,9 @@
         </div>
 
         <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
-          <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-          <!-- <a href="#"
-            class="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">Dashboard</a> -->
-          <!-- <a href="#"
-            class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Team</a> -->
           <a href="{{ '/' | relative_url }}"
             class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
             HOME
-          </a>
-
-          <a href="{{ '/community.html' | absolute_url }}"
-            class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
-            COMMUNITY
           </a>
 
           <div class="flex flex-1 items-center text-white border-b-2 border-transparent hover:border-vermillion-orange hover:text-vermillion-orange">
@@ -53,14 +43,14 @@
                 {% endfor %}
                 {% endif %}
 
-                <!-- <li>
-                  <a href="#" class="block hover:bg-gray-200 whitespace-no-wrap py-2 px-4">
-                    Dom <span class="text-gray-400">(no good)</span>
-                  </a>
-                </li> -->
               </ul>
             </div>
           </div>
+
+          <a href="{{ '/community.html' | absolute_url }}"
+            class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
+            COMMUNITY
+          </a>
           
         </div>
       </div>
@@ -99,10 +89,7 @@
         class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
         Home
       </a>
-      <a href="{{ '/community.html' | absolute_url }}"
-        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
-        Community
-      </a>
+      
       {% if site.collections %}
       {% assign collections = site.collections | sort: 'weight' %}
         {% for collection in collections %}
@@ -114,6 +101,11 @@
           {% endif %}
         {% endfor %}
       {% endif %}
+
+      <a href="{{ '/community.html' | absolute_url }}"
+        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+        Community
+      </a>
 
     </div>
   </div>
