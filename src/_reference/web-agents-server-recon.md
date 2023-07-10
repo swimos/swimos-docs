@@ -1,6 +1,7 @@
 ---
 title: Web Agents Server Recon
 layout: page
+description: "Learn about declaring, defining and utilizing Web Agents and their properties using configuration files."
 redirect_from:
   - /tutorials/web-agents-server-recon/
 ---
@@ -27,7 +28,7 @@ To declare a dynamic component, we prepend with a colon (:) for the agent id.Sta
 Also note a property named "propString" with their respective values are defined for the agents.
 
 ```java
-# /server.recon
+// /server.recon
 basic: @fabric {
   @plane(class: "swim.basic.BasicPlane")
   // Static Component

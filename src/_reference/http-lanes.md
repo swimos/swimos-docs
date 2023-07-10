@@ -1,6 +1,7 @@
 ---
 title: HTTP Lanes
 layout: page
+description: "Expose a HTTP endpoint for Web Agents."
 redirect_from:
   - /tutorials/http-lanes/
 ---

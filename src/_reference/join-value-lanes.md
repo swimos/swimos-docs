@@ -1,6 +1,7 @@
 ---
 title: Join Value Lanes
 layout: page
+description: "Define properties for aggregating multiple value lanes and continuously stream their state changes."
 redirect_from:
   - /tutorials/join-value-lanes/
 ---
@@ -73,7 +74,7 @@ public class BuildingAgent extends AbstractAgent {
 }
 ```
 
-**CAUTION:** If you have multiple lanes within an Agent type, ensure that their laneUris are not identical. Suppose we declare two different value lanes within our `UnitAgent` with laneUri `"info"`; how the Swim runtime know which one to set? That said, reusing laneUris **across** Agent types is perfectly acceptable, as requests corresponding to these are guaranteed to have different nodeUris.
+{% include alert.html title='Caution' text='If you have multiple lanes within an Agent type, ensure that their laneUris are not identical. Suppose we declare two different value lanes within our <strong>UnitAgent</strong> with laneUri <strong>"info"</strong>; how the Swim runtime know which one to set? That said, reusing laneUris <strong>across</strong> Agent types is perfectly acceptable, as requests corresponding to these are guaranteed to have different nodeUris.' %}
 
 ### Aggregating value lanes
 

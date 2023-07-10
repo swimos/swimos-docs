@@ -1,6 +1,7 @@
 ---
 title: Downlinks
 layout: page
+description: "Share data across Web Agents and clients through persistent, bidirectionally-streaming lane references."
 redirect_from:
   - /tutorials/downlinks/
 ---

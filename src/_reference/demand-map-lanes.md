@@ -1,6 +1,7 @@
 ---
 title: Demand Map Lanes
 layout: page
+description: "Define persistent collection properties of Web Agents, and lazily generate events on state changes."
 redirect_from:
   - /tutorials/demand-map-lanes/
 ---

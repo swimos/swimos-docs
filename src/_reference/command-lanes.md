@@ -1,6 +1,7 @@
 ---
 title: Command Lanes
 layout: page
+description: "Remotely command Web Agents to take action, and observe the actions taken by others."
 redirect_from:
   - /tutorials/command-lanes/
 ---

@@ -1,6 +1,7 @@
 ---
 title: Ingress Bridges
 layout: page
+description: "Feed data available from any network protocol into your Swim server."
 redirect_from:
   - /tutorials/ingress-bridges/
 ---

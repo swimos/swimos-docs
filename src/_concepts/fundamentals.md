@@ -1,6 +1,7 @@
 ---
 title: SwimOS Fundamentals
 layout: page
+description: "Learn about SwimOS fundamentals and concepts."
 redirect_from:
   - /fundamentals/
 ---
@@ -34,3 +35,33 @@ On top of the dramatic scalability increases by orders of magnitude, a Streaming
 Traditional UIs play out like a power point presentation or time lapsed photography video. A Real-Time UI offers the 60-frame-per-second experience, constantly but judiciously updating. Nstream’s Real-time UIs are designed for scalable real-time streaming, ensuring that the browser doesn’t get overwhelmed and that the most appropriate data is prioritized with respect to what is in view and the desired level of detail.
 
 Simply connecting the browser to an array of web sockets is a recipe for disaster when the volume of data is too large and too fast. Beneath web-developer friendly typescript APIs, SwimOS’s Real-Time UI library includes battle-tested real-time data processing components that have proven themselves at massive scale with large enterprise customers.
+
+## SwimOS Concepts
+
+Swim unifies the traditionally disparate roles of database, message broker, job manager, and application server, into a few simple constructs: **Web Agents**, **Lanes**, **Links**, **Recon**, and **WARP**.
+
+<div class="h-screen">
+  <img src="{{ '/assets/images/agents-lanes-links.svg' | absolute_url }}" class="mx-auto" alt="Agents, lanes, and links">
+</div>
+
+### Web Agents
+
+Swim applications consist of interconnected, distributed objects, called [Web Agents]({% link _reference/agents.md %}). Each Web Agent has URI address, like a REST endpoint. But unlike RESTful Web Services, Web Agents are stateful, and accessed via streaming APIs.
+
+### Lanes
+
+If Web Agents are distributed objects, then [lanes]({% link _reference/lanes.md %}) serve as the properties and methods of those objects. Lanes come in many flavors: **value lanes**, **map lanes**, **command lanes**, and **join lanes**, to name a few. Many lanes are internally persistent, acting like encapsulated database tables.
+
+### Links
+
+Distributed objects need a way to communicate. [Links]({% link _reference/links.md %}) establishes active references to lanes of Web Agents, transparently streaming bi-directional state changes to keep all parts of an application in sync, without the overhead of queries or remote procedure calls.
+
+### Recon
+
+Communication only works if all parties understand each other. Swim natively speaks a universal, structured data language, called [Recon]({% link _reference/recon.md %}). A superset of JSON, XML, Protocol Buffers, and more, Recon naturally translates into many languages. Declare, definine, and utilize Web Agents and their properties using these configuration files.
+
+### WARP
+
+The [Web Agent Remote Protocol (WARP)]({% link _reference/warp.md %}) enables bidirectional links to streaming API endpoints, called lanes, of URI-addressed distributed objects, called nodes, that run Web Agents.
+
+Continue reading to learn more about [Web Agents]({% link _reference/agents.md %}), [Lanes]({% link _reference/lanes.md %}), [Links]({% link _reference/links.md %}), and [Recon]({% link _reference/recon.md %}). Or dive into the [tutorials]({% link _tutorials/index.md %}) to learn by doing.

@@ -1,6 +1,7 @@
 ---
 title: Forms
 layout: page
+descriptions: "Parametrize your lanes with and links with custom types."
 redirect_from:
   - /tutorials/forms/
 ---
