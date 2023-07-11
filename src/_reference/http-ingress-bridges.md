@@ -107,13 +107,14 @@ A successful JSON response from the REST server takes the form
 ```json
 {
   "rates": {
-    $CURRENCY_PAIR_1: {
-      "rate": $EXCHANGE_RATE_1,
-      "timestamp": $TIMESTAMP_1
+    "$CURRENCY_PAIR_1": {
+      "rate": "$EXCHANGE_RATE_1",
+      "timestamp": "$TIMESTAMP_1"
     },
-    $CURRENCY_PAIR_2: {...},
-    ...
-    $CURRENCY_PAIR_N: {...}
+    "$CURRENCY_PAIR_2": {
+      "rate": "$EXCHANGE_RATE_1",
+      "timestamp": "$TIMESTAMP_1"
+    }
   },
   "code": 200
 }
