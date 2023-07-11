@@ -9,10 +9,6 @@
       <aside class="sticky top-8 hidden w-50 shrink-0 lg:block">
         {%- include bar.html -%}
       </aside>
-      <main class="prose flex-1 max-w-max">
-        <h1 class="text-vermillion-orange">{{ page.title }}</h1>
-        {{ content }}
-        <hr class="my-12 h-0.5 border-t-0 bg-vermillion-orange" />
 
       {% if page.toc != false %}
       <main class="prose flex-1 max-w-prose prose-code:before:hidden prose-code:after:hidden">
@@ -24,7 +20,7 @@
 
         {{ content | inject_anchors }}
 
-        <hr class="my-12 h-0.5 border-t-0 bg-vermillion-orange opacity-100 dark:opacity-50" />
+        <hr class="my-12 h-0.5 border-t-0 bg-vermillion-orange" />
 
         {%- include prev-next.html -%}
 
