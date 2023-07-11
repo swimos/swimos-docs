@@ -6,7 +6,7 @@ redirect_from:
   - /tutorials/traits/
 ---
 
-In a [previous tutorial](/reference/planes), we described a distributed object model to facilitate shared context for a group of **Web Agents**. In this tutorial we describe the concept of **'Trait'** utilized for sharing of data across multiple **Web Agents.** 
+In the [Planes guide]({% link _reference/planes.md %}), we describe a distributed object model to facilitate shared context for a group of **Web Agents**. In this guide we describe the concept of **'Trait'** utilized for sharing of data across multiple **Web Agents.** 
 
 There are two types of traits: 
 

@@ -6,7 +6,7 @@ redirect_from:
   - /tutorials/demand-value-lanes/
 ---
 
-In a [previous tutorial]({% link _reference/web-agents.md %}), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
+In the [Web Agents guide]({% link _reference/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
 
 Lanes come in many flavors, but every lane type exposes:
 

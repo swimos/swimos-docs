@@ -6,7 +6,7 @@ redirect_from:
   - /tutorials/auth-policy/
 ---
 
-Recall in the [Planes]({% link _reference/planes.md %}) tutorial, we created a security policy to only allow requests with a given token URL parameter. This tutorial will expand upon this to show how access can be restriced for given Agents and Lanes.
+In the [Planes guide]({% link _reference/planes.md %}), we created a security policy to only allow requests with a given token URL parameter. This guide will expand upon this to show how access can be restriced for given Agents and Lanes.
 
 ### Declaration and Instantiation
 

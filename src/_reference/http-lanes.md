@@ -6,7 +6,7 @@ redirect_from:
   - /tutorials/http-lanes/
 ---
 
-In previous tutorials, we have seen how Swim applications consist of interconnected [Web Agents]({% link _reference/web-agents.md %}) with properties and methods in the form of [Lanes]({% link _reference/command-lanes.md %}).
+In previous guides, we have seen how Swim applications consist of interconnected [Web Agents]({% link _reference/web-agents.md %}) with properties and methods in the form of [Lanes]({% link _reference/command-lanes.md %}).
 
 **HTTP Lanes** accept HTTP requests and respond enabling Web Agents to expose **endpoints**. This allows Web Agent's state to be viewed or modified from outside of Swim applications through the use of **REST APIs**.
 

@@ -6,7 +6,7 @@ redirect_from:
   - /tutorials/web-agents-server-recon/
 ---
 
-In a [previous tutorial]({% link _reference/web-agents.md %}), we began to describe a distributed object model where **Web Agents** are the **objects**. This tutorial explains an alternative way to declare web agents.
+In the [Web Agents guide]({% link _reference/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects**. This guide explains an alternative way to declare web agents.
 
 Swim servers utilize a general purpose distributed object model in which the objects are called **Web Agents**. Programming with this model feels like typical object-oriented programming with additional key innovations in addressability, statefulness, consistency, boundedness, and composability.
 
