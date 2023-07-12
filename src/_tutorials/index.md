@@ -6,3 +6,5 @@ description: "Building streaming data applications doesn't have to be hard. Lear
 ---
 
 These tutorials will walk you through creating a SwimOS project from start to finish.
+
+{% include tutorials.html %}
