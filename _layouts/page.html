@@ -18,7 +18,9 @@
 
         <h1 class="m-0 text-vermillion-orange">{{ page.title }}</h1>
 
-        {%- include cookbook.html -%}
+        {% if page.cookbook %}
+          {%- include cookbook.html -%}
+        {% endif %}
 
         {{ content | inject_anchors }}
 
