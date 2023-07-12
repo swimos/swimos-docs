@@ -128,6 +128,7 @@ collections:
     name: "Meta"
     order:
       - index.md
+      - contribute.md
       - diataxis.md
       - styles.md
     weight: 5
@@ -155,9 +156,9 @@ toc:
 # If developing locally, this requires a jekyll serve restart to test.
 announcement:
   display: true
-  cta: StreamCon June 1-11
-  text: Join us for things, things, and more things.
-  cta-link: https://github.com/
+  cta: "Join us at StreamCon 2023!"
+  text: "We'll be at booth #9001."
+  cta-link: "https://nstream.io/"
 
 feed:
   collections:
