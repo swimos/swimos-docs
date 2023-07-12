@@ -4,6 +4,7 @@ layout: page
 description: "Define persistent properties of Web Agents, and continuously stream real-time state changes."
 redirect_from:
   - /tutorials/value-lanes/
+cookbook: https://github.com/swimos/cookbook/tree/master/value_lanes
 ---
 
 In the [Web Agents guide]({% link _reference/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.

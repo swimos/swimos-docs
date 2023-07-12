@@ -4,6 +4,7 @@ layout: page
 description: "Learn about declaring, defining and utilizing Web Agents and their properties using configuration files."
 redirect_from:
   - /tutorials/web-agents-server-recon/
+cookbook: https://github.com/swimos/cookbook/tree/master/web_agents_server_recon
 ---
 
 In the [Web Agents guide]({% link _reference/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects**. This guide explains an alternative way to declare web agents.

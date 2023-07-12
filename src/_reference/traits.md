@@ -4,6 +4,7 @@ layout: page
 description: "Define and utilize 'trait' that can be used to share lanes across multiple agents."
 redirect_from:
   - /tutorials/traits/
+cookbook: https://github.com/swimos/cookbook/tree/master/traits
 ---
 
 In the [Planes guide]({% link _reference/planes.md %}), we describe a distributed object model to facilitate shared context for a group of **Web Agents**. In this guide we describe the concept of **'Trait'** utilized for sharing of data across multiple **Web Agents.** 

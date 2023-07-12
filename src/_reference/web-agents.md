@@ -5,6 +5,7 @@ description: "Learn about stateful, distributed objects that are the endpoints o
 redirect_from:
   - /tutorials/web-agents/
   - /concepts/agents/
+cookbook: https://github.com/swimos/cookbook/tree/master/web_agents
 ---
 
 Swim servers utilize a general purpose distributed object model in which the objects are called **Web Agents**. Programming with this model feels like typical object-oriented programming with additional key innovations in addressability, statefulness, consistency, boundedness, and composability.

@@ -4,6 +4,7 @@ layout: page
 description: "Share data across Web Agents and servers through persistent, bidirectionally-streaming lane references."
 redirect_from:
   - /tutorials/server-downlinks/
+cookbook: https://github.com/swimos/cookbook/tree/master/server_downlinks
 ---
 
 In the [Downlinks guide]({% link _reference/downlinks.md %}), we discuss **downlinks** - bidirectionally-streaming, persistent **subscriptions** to lanes - and went through an example of a client-side downlink. This guide will showcase downlinks between two Swim servers.

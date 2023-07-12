@@ -4,6 +4,7 @@ layout: page
 description: "Define persistent collection properties of Web Agents, and consistently stream real-time updates and removes."
 redirect_from:
   - /tutorials/map-lanes/
+cookbook: https://github.com/swimos/cookbook/tree/master/map_lanes
 ---
 
 In the [Web Agents guide]({% link _reference/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.

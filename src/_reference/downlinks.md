@@ -4,6 +4,7 @@ layout: page
 description: "Share data across Web Agents and clients through persistent, bidirectionally-streaming lane references."
 redirect_from:
   - /tutorials/downlinks/
+cookbook: https://github.com/swimos/cookbook/tree/master/downlinks
 ---
 
 In the [Web Agents guide]({% link _reference/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects** and **lanes** are **fields**. **Downlinks** are bidirectionally-streaming, persistent **subscriptions** to lanes.

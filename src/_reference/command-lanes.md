@@ -4,6 +4,7 @@ layout: page
 description: "Remotely command Web Agents to take action, and observe the actions taken by others."
 redirect_from:
   - /tutorials/command-lanes/
+cookbook: https://github.com/swimos/cookbook/tree/master/command_lanes
 ---
 
 In the [Web Agents guide]({% link _reference/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.

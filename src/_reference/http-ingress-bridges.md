@@ -4,6 +4,7 @@ layout: page
 description: "See our recommended approach to simple HTTP ingress."
 redirect_from:
   - /tutorials/http-ingress-bridges/
+cookbook: https://github.com/swimos/cookbook/tree/master/http_ingress_bridges
 ---
 
 Recall the **general** means to ingest into a Swim server via [ingress bridges]({% link _reference/ingress-bridges.md %}). Here, we outline one common design where the data source is HTTP server (though the concepts may generalize across other protocols). More specifically, this outlines a "pull-type" bridge where the data ingestion process and the Web Agents share a runtime.

@@ -4,6 +4,7 @@ layout: page
 description: "Define persistent properties of Web Agents, and lazily generate events on state changes."
 redirect_from:
   - /tutorials/demand-value-lanes/
+cookbook: https://github.com/swimos/cookbook/tree/master/demand_value_lanes
 ---
 
 In the [Web Agents guide]({% link _reference/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.

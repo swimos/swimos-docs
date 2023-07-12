@@ -4,6 +4,7 @@ layout: page
 description: "Expose a HTTP endpoint for Web Agents."
 redirect_from:
   - /tutorials/http-lanes/
+cookbook: https://github.com/swimos/cookbook/tree/master/http_lanes
 ---
 
 In previous guides, we have seen how Swim applications consist of interconnected [Web Agents]({% link _reference/web-agents.md %}) with properties and methods in the form of [Lanes]({% link _reference/command-lanes.md %}).

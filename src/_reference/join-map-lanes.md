@@ -4,6 +4,7 @@ layout: page
 description: "Define persistent collections of properties between multiple Web Agents, and consistently stream real-time updates."
 redirect_from:
   - /tutorials/join-map-lanes/
+cookbook: https://github.com/swimos/cookbook/tree/master/join_map_lanes
 ---
 
 The [Join Value Lanes guide]({% link _reference/join-value-lanes.md %}) demonstrates Join Value Lanes which aggregate value lanes from many agents. Similar to **Join Value Lanes**, **Join Map Lanes** aggregate **Map Lanes** across multiple agents.
