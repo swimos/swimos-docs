@@ -18,6 +18,8 @@
 
         <h1 class="m-0 text-vermillion-orange">{{ page.title }}</h1>
 
+        {%- include cookbook.html -%}
+
         {{ content | inject_anchors }}
 
         <hr class="my-12 h-0.5 border-t-0 bg-vermillion-orange" />
