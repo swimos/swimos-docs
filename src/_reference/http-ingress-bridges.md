@@ -4,6 +4,7 @@ layout: page
 description: "See our recommended approach to simple HTTP ingress."
 redirect_from:
   - /tutorials/http-ingress-bridges/
+cookbook: https://github.com/swimos/cookbook/tree/master/http_ingress_bridges
 ---
 
 Recall the **general** means to ingest into a Swim server via [ingress bridges]({% link _reference/ingress-bridges.md %}). Here, we outline one common design where the data source is HTTP server (though the concepts may generalize across other protocols). More specifically, this outlines a "pull-type" bridge where the data ingestion process and the Web Agents share a runtime.
@@ -107,13 +108,14 @@ A successful JSON response from the REST server takes the form
 ```json
 {
   "rates": {
-    $CURRENCY_PAIR_1: {
-      "rate": $EXCHANGE_RATE_1,
-      "timestamp": $TIMESTAMP_1
+    "$CURRENCY_PAIR_1": {
+      "rate": "$EXCHANGE_RATE_1",
+      "timestamp": "$TIMESTAMP_1"
     },
-    $CURRENCY_PAIR_2: {...},
-    ...
-    $CURRENCY_PAIR_N: {...}
+    "$CURRENCY_PAIR_2": {
+      "rate": "$EXCHANGE_RATE_1",
+      "timestamp": "$TIMESTAMP_1"
+    }
   },
   "code": 200
 }

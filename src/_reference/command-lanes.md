@@ -4,9 +4,10 @@ layout: page
 description: "Remotely command Web Agents to take action, and observe the actions taken by others."
 redirect_from:
   - /tutorials/command-lanes/
+cookbook: https://github.com/swimos/cookbook/tree/master/command_lanes
 ---
 
-In a [previous tutorial]({% link _reference/web-agents.md %}), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
+In the [Web Agents guide]({% link _reference/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
 
 Lanes come in many flavors, but every lane type exposes:
 
@@ -160,8 +161,7 @@ class CustomClient {
 }
 ```
 
-<!-- TODO: Callouts templates -->
-**CAUTION:** If you have multiple lanes within an Agent type, ensure that their laneUris are not identical. Suppose we declare two different command lanes within our `UnitAgent` with laneUri `"takeAction"`; how would the Swim runtime know which one to message? That said, reusing laneUris **across** Agent types is perfectly acceptable, as requests corresponding to these are guaranteed to have different nodeUris.
+{% include alert.html title='Caution' text='If you have multiple lanes within an Agent type, ensure that their laneUris are not identical. Suppose we declare two different command lanes within our <strong>UnitAgent</strong> with laneUri <strong>"takeAction"</strong>; how would the Swim runtime know which one to message? That said, reusing laneUris <strong>across</strong> Agent types is perfectly acceptable, as requests corresponding to these are guaranteed to have different nodeUris.' %}
 
 Note that the `command()` signature only allows for `swim.structure.Value` payloads. Lanes internally use *forms* to handle any necessary conversions, allowing users to treat lanes as properly parametrized data types, provided that a form for that data type exists. Even a custom Java class can be a lane type, provided that a form for that class exists. We will further discuss this topic in a more advanced cookbook.
 

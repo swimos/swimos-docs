@@ -4,9 +4,10 @@ layout: page
 description: "Share data across Web Agents and servers through persistent, bidirectionally-streaming lane references."
 redirect_from:
   - /tutorials/server-downlinks/
+cookbook: https://github.com/swimos/cookbook/tree/master/server_downlinks
 ---
 
-In a [previous tutorial]({% link _reference/downlinks.md %}), we discussed **downlinks** - bidirectionally-streaming, persistent **subscriptions** to lanes - and went through an example of a client-side downlink. This tutorial will showcase downlinks between two Swim servers.
+In the [Downlinks guide]({% link _reference/downlinks.md %}), we discuss **downlinks** - bidirectionally-streaming, persistent **subscriptions** to lanes - and went through an example of a client-side downlink. This guide will showcase downlinks between two Swim servers.
 
 Server-side downlinks provide a simple and efficient way to integrate Swim applications allowing them to be linked or chained together with ease.
 
@@ -121,7 +122,7 @@ public class CustomerAgent extends AbstractAgent {
 }
 ```
 
-Client-side downlinks have been showcased in a [previous tutorial]({% link _reference/downlinks.md %}).
+Client-side downlinks have been showcased in the [Downlinks guide]({% link _reference/downlinks.md %}).
 
 ### Try It Yourself
 

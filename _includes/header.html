@@ -86,7 +86,7 @@
   <div class="lg:hidden" id="mobile-menu" x-show="isOpen" @click.away="isOpen = false">
     <div class="space-y-1 pb-3 pt-2">
       <a href="{{ '/' | relative_url }}"
-        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
         Home
       </a>
       
@@ -95,7 +95,7 @@
         {% for collection in collections %}
           {% if collection.label != "posts" %}
             <a href="{{ collection.label | absolute_url }}"
-              class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+              class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
               {{ collection.name }}
             </a>
           {% endif %}
@@ -103,7 +103,7 @@
       {% endif %}
 
       <a href="{{ '/community.html' | absolute_url }}"
-        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
         Community
       </a>
 

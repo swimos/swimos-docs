@@ -4,9 +4,10 @@ layout: page
 description: "Define persistent properties of Web Agents, and continuously stream real-time state changes."
 redirect_from:
   - /tutorials/value-lanes/
+cookbook: https://github.com/swimos/cookbook/tree/master/value_lanes
 ---
 
-In a [previous tutorial](/reference/web-agents), we began to describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
+In the [Web Agents guide]({% link _reference/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.
 
 Lanes come in many flavors, but every lane type exposes:
 
@@ -77,7 +78,7 @@ public class UnitAgent extends AbstractAgent {
 }
 ```
 
-**CAUTION:** If you have multiple lanes within an Agent type, ensure that their laneUris are not identical. Suppose we declare two different value lanes within our `UnitAgent` with laneUri `"info"`; how does the Swim runtime know which one to set? That said, reusing laneUris **across** Agent types is perfectly acceptable, as requests corresponding to these are guaranteed to have different nodeUris.
+{% include alert.html title='Caution' text='If you have multiple lanes within an Agent type, ensure that their laneUris are not identical. Suppose we declare two different value lanes within our <strong>UnitAgent</strong> with laneUri <strong>"info"</strong>; how does the Swim runtime know which one to set? That said, reusing laneUris <strong>across</strong> Agent types is perfectly acceptable, as requests corresponding to these are guaranteed to have different nodeUris.' %}
 
 ### External Addressability
 

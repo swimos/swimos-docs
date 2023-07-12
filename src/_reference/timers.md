@@ -4,6 +4,7 @@ layout: page
 description: "Schedule tasks for future execution in Web Agents."
 redirect_from:
   - /tutorials/timers/
+cookbook: https://github.com/swimos/cookbook/tree/master/timers
 ---
 
 The ability for a Swim server to repeatedly trigger custom actions at Agent-level whim is often a desired feature in a Swim application. Swim provides the means to set timers, which enable users to both define functions (called TimerFunctions) and trigger them at desired times.

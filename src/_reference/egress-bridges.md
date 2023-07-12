@@ -4,6 +4,7 @@ layout: page
 description: "Relay your Swim server's data to any other system."
 redirect_from:
   - /tutorials/egress-bridges/
+cookbook: https://github.com/swimos/cookbook/tree/master/egress_bridges
 ---
 
 Swim's built-in networking stack enables communication with other processes--which might themselves be other Swim servers. There are two directions of data flow: from Swim to external processes, and from external processes to Swim. This article discusses the former.

@@ -4,6 +4,7 @@ layout: page
 description: "Feed data available from any network protocol into your Swim server."
 redirect_from:
   - /tutorials/ingress-bridges/
+cookbook: https://github.com/swimos/cookbook/tree/master/ingress_bridges
 ---
 
 Swim's built-in networking stack enables communication with other processes--which might themselves be other Swim servers. There are two directions of data flow: from Swim to external processes, and from external processes to Swim. This article discusses the latter.

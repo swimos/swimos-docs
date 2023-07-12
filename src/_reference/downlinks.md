@@ -4,9 +4,10 @@ layout: page
 description: "Share data across Web Agents and clients through persistent, bidirectionally-streaming lane references."
 redirect_from:
   - /tutorials/downlinks/
+cookbook: https://github.com/swimos/cookbook/tree/master/downlinks
 ---
 
-In a [previous tutorial]({% link _reference/web-agents.md %}), we began to describe a distributed object model where **Web Agents** are the **objects** and **lanes** are **fields**. **Downlinks** are bidirectionally-streaming, persistent **subscriptions** to lanes.
+In the [Web Agents guide]({% link _reference/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects** and **lanes** are **fields**. **Downlinks** are bidirectionally-streaming, persistent **subscriptions** to lanes.
 
 Downlinks come in many flavors, but there are only two broad downlink categories. An **event downlink** can subscribe to any lane and provides:
 
@@ -91,7 +92,7 @@ class CustomClient {
 }
 ```
 
-Server-side, downlinks will be showcased in a [later tutorial]({% link _reference/server-downlinks.md %}).
+Server-side, downlinks are explained in the [Server Downlinks guide]({% link _reference/server-downlinks.md %}).
 
 #### Javascript
 

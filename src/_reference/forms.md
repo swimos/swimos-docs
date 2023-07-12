@@ -4,13 +4,14 @@ layout: page
 descriptions: "Parametrize your lanes with and links with custom types."
 redirect_from:
   - /tutorials/forms/
+cookbook: https://github.com/swimos/cookbook/tree/master/forms
 ---
 
 Recall that internally, as in all previous "... Lanes" cookbooks to date, `swim.structure.Value` is the type of every lane, regardless of its parametrized type.
 
 More formally, any type -- even a custom type -- can serve as a type within a lane. The only requirement is to define a transformation for that type from Java's built-in [nominal type system](https://en.wikipedia.org/wiki/Nominal_type_system) to Swim's `swim.structure.Value`-defined [structural type system](https://en.wikipedia.org/wiki/Structural_type_system).
 
-This offers a handful of advantages, primarily that `swim.structure.Value` types have general, well-defined serializations to Recon (this also applies to JSON, XML, and more, though that is less pertinent to this tutorial).
+This offers a handful of advantages, primarily that `swim.structure.Value` types have general, well-defined serializations to Recon (this also applies to JSON, XML, and more, though that is less pertinent to this guide).
 
 In essence, this means that clients can connect to Lanes directly, and authors of Web Agents don't have to worry about explicit (de)serializations in the server-side code.
 

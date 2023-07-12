@@ -5,6 +5,7 @@ description: "Learn about stateful, distributed objects that are the endpoints o
 redirect_from:
   - /tutorials/web-agents/
   - /concepts/agents/
+cookbook: https://github.com/swimos/cookbook/tree/master/web_agents
 ---
 
 Swim servers utilize a general purpose distributed object model in which the objects are called **Web Agents**. Programming with this model feels like typical object-oriented programming with additional key innovations in addressability, statefulness, consistency, boundedness, and composability.
@@ -74,7 +75,7 @@ public class BasicPlane extends AbstractPlane {
 
 A Web Agent is only instantiated when its `nodeUri` is invoked for the first time. With the code we have so far, we can instantiate any number of `UnitAgent` simply by invoking URIs with the `"/unit/"` prefix. For example, if we invoke `"/unit/1"`, `"/unit/foo"`, and `"/unit/foo_1"`, three `UnitAgent`s will be instantiated, one for each URI.
 
-**CAUTION:** If you have multiple agent types within a plane, ensure that their URI patterns do not **clash**. This is a stricter requirement than saying that the patterns are **identical**; for example, `"/unit/:id"` and `"/unit/:foo"` clash. Suppose these same patterns annotated different agent types; how would a plane know which type of Agent to seek or instantiate for the request `"/unit/1"`?
+{% include alert.html title='Caution' text='If you have multiple agent types within a plane, ensure that their URI patterns do not <strong>clash</strong>. This is a stricter requirement than saying that the patterns are <strong>identical</strong>; for example, <strong>"/unit/:id"</strong> and <strong>"/unit/:foo"</strong> clash. Suppose these same patterns annotated different agent types; how would a plane know which type of Agent to seek or instantiate for the request <strong>"/unit/1"</strong>?' %}
 
 In addition to the `nodeUri()` method mentioned in the previous section, every Agent also has access to a `Value getProp(String prop)` convenience method. This returns a `swim.structure.Text` object containing the value of the dynamic `nodeUri` component with the name `prop`, `absent()` if it doesn't exist. For example, `getProp("id").stringValue()` will return either `"1"`, `"foo"`, or `"foo_1"`, depending on which of the above three agents we are currently running in. `getProp("foo")` will return `absent()`.
 
