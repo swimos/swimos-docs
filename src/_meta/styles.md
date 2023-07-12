@@ -71,9 +71,11 @@ toc:
 
 You can learn more about styling the TOC in the [jekyll-toc README](https://github.com/toshimaru/jekyll-toc#css-styling)
 
-## Alerts
+## Callouts & Alerts
 
-You can add alert callouts to any document by including the `alert.html` template.
+### Alerts
+
+You can add alert callouts to any document by including the `alert.html` template located at `_includes/alert.html`.
 
 {% raw %}
 ```liquid
@@ -82,3 +84,33 @@ You can add alert callouts to any document by including the `alert.html` templat
 {% endraw %}
 
 {% include alert.html title='Caution' text='This is the alert body text. You can use <strong>HTML</strong> markup in it to add emphasis.' %}
+
+### Cookbook Banner
+
+If `cookbook:` is set in a page's [front matter](https://jekyllrb.com/docs/front-matter/), a banner will render to tell readers that 
+a cookbook example exists and will link them to the cookbook repo. This banner is located in `_includes/cookbook.html` and is included in `_layouts/page.html` only if `page.cookbook` is set.
+
+{% include cookbook.html %}
+
+## Announcement Banner
+
+An announcement banner can be toggled on and off via `_config.yml`. **All options are required to be set for the banner to render properly.**
+
+- `display:` Set this to `true` to display the banner or `false` to hide it.
+- `cta: ` Set a call to action. Make this exciting!
+- `text:` This is the announcement body. Keep it short and sweet.
+- `cta-link:` Renders the banner with a link. This could be a blog post, event signup, or some other site.
+
+**When developing locally, you will need to stop and re-start the Jekyll server to see changes.**
+
+```yaml
+# Set display to true/false to toggle announcements on/off
+# If developing locally, this requires a jekyll serve restart to test.
+announcement:
+  display: true
+  cta: "Join us at StreamCon 2023!"
+  text: "We'll be at booth #9001."
+  cta-link: "https://nstream.io/"
+```
+
+The template for this banner can be found in `_includes/banner.html`.

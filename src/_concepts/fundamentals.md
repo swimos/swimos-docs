@@ -46,7 +46,7 @@ Swim unifies the traditionally disparate roles of database, message broker, job 
 
 ### Web Agents
 
-Swim applications consist of interconnected, distributed objects, called [Web Agents]({% link _reference/agents.md %}). Each Web Agent has URI address, like a REST endpoint. But unlike RESTful Web Services, Web Agents are stateful, and accessed via streaming APIs.
+Swim applications consist of interconnected, distributed objects, called [Web Agents]({% link _reference/web-agents.md %}). Each Web Agent has URI address, like a REST endpoint. But unlike RESTful Web Services, Web Agents are stateful, and accessed via streaming APIs.
 
 ### Lanes
 
@@ -64,4 +64,4 @@ Communication only works if all parties understand each other. Swim natively spe
 
 The [Web Agent Remote Protocol (WARP)]({% link _reference/warp.md %}) enables bidirectional links to streaming API endpoints, called lanes, of URI-addressed distributed objects, called nodes, that run Web Agents.
 
-Continue reading to learn more about [Web Agents]({% link _reference/agents.md %}), [Lanes]({% link _reference/lanes.md %}), [Links]({% link _reference/links.md %}), and [Recon]({% link _reference/recon.md %}). Or dive into the [tutorials]({% link _tutorials/index.md %}) to learn by doing.
+Continue reading to learn more about [Web Agents]({% link _reference/web-agents.md %}), [Lanes]({% link _reference/lanes.md %}), [Links]({% link _reference/links.md %}), and [Recon]({% link _reference/recon.md %}). Or dive into the [tutorials]({% link _tutorials/index.md %}) to learn by doing.

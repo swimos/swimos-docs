@@ -6,3 +6,5 @@ description: "Building streaming data applications doesn't have to be hard. Lear
 ---
 
 These step-by-step guides will help you accomplish a specific goal.
+
+{% include guides.html %}
