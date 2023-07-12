@@ -93,6 +93,7 @@ collections:
       - swim-libraries.md
       - web-agents.md
       - web-agents-server-recon.md
+      - lanes.md
       - command-lanes.md
       - value-lanes.md
       - map-lanes.md
@@ -102,6 +103,7 @@ collections:
       - demand-map-lanes.md
       - planes.md
       - traits.md
+      - links.md
       - downlinks.md
       - server-downlinks.md
       - forms.md
@@ -111,9 +113,6 @@ collections:
       - http-ingress-bridges.md
       - http-lanes.md
       - auth-policy.md
-      - agents.md
-      - lanes.md
-      - links.md
       - recon.md
       - warp.md
     weight: 3

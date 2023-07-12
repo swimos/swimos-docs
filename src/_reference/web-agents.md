@@ -111,12 +111,12 @@ public class UnitAgent extends AbstractAgent {
 }
 ```
 
-### Try It Yourself
+## Web Agent Principles
 
-A standalone project that combines all of these snippets and handles any remaining boilerplate is available [here](https://github.com/swimos/cookbook/tree/master/web_agents).
+### Universally Addressable
 
+Every Web Agent has a universal, logical address, in the form of a URI. By decoupling Web Agent's logical addresses from the network addresses of their host machines, Swim applications become invariant to the infrastructure on which they're deployed.
 
-<!-- 
 ### Stateful
 
 Web Agents remember their state in-between operations, eliminating the need for constant database round-trips, and greatly simplifying application development by avoiding object-relational mapping.
@@ -149,4 +149,10 @@ Web Agents inherit the natural decentralization of the World Wide Web. Any Web A
 
 Unlink REST applications, which don't compose well without introducing significantly polling latency, caching overhead, and consistency problems, Web Agents frictionlessly compose, in real-time, at any scale.
 
- -->
+As the name implies, Web Agents were designed from first principles to be first class citizens of the World Wide Web. The Web has evolved from a world-wide hypertext library, into the lingua franca of distributed applications. But the technical foundation of the Web, stateless remote procedurce calls over HTTP, is fundamentally incapable of meeting the needs of modern, autonomous, collaborative applications. Web Agents aim to fill that gap.
+
+## Try It Yourself
+
+Jump ahead to [lanes]({% link _reference/lanes.md %}) to see what goes inside a Web Agent. Dive into the [tutorials]({% link _tutorials/index.md %}) to see Web Agents in action. Or read on to learn what it really means to be a Web Agent.
+
+A standalone project that combines all of these snippets and handles any remaining boilerplate is available [here](https://github.com/swimos/cookbook/tree/master/web_agents).
