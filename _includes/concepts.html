@@ -1,9 +1,10 @@
-<ul class="prose-li:marker:text-vermillion-orange">
+<ul class="">
     {% for doc in site.concepts %}
     {% if doc.name != "index.md" %}
     <li class="">
-        <a class="no-underline hover:underline hover:text-vermillion-orange" href="{{ doc.url | absolute_url }}">{{
-            doc.title }}</a>
+        <a class="no-underline hover:underline" href="{{ doc.url | absolute_url }}">
+            {{doc.title }}
+        </a>
     </li>
     {% endif %}
     {% endfor %}

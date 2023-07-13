@@ -9,10 +9,10 @@
         <li>
           <div>
             <button type="button"
-              class="hover:bg-eggshell hover:text-vermillion-orange flex items-center w-full text-left rounded-md p-2 gap-x-3 text-sm leading-6 font-semibold text-gray-700"
+              class="hover:bg-swim-dark-blue hover:text-white flex items-center w-full text-left rounded-md p-2 gap-x-3 text-sm leading-6 font-semibold text-swim-body-text"
               aria-controls="sub-menu-1" aria-expanded="false">
               <!-- Expanded: "rotate-90 text-gray-500", Collapsed: "text-gray-400" -->
-              <svg class="text-gray-400 h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <svg class="text-swim-grey h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd"
                   d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
                   clip-rule="evenodd" />
@@ -28,7 +28,7 @@
               {% if item.hidden != true %}
               <li>
                 <a href="{{ item.url | absolute_url }}"
-                  class="{% if item.url == page.url %} bg-eggshell font-extrabold text-magenta {% else %} hover:bg-eggshell hover:text-vermillion-orange {% endif %} block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700">{{
+                  class="{% if item.url == page.url %} rounded-md border border-swim-blue font-extrabold {% else %} hover:bg-swim-grey hover:text-white {% endif %} block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-swim-body-text">{{
                   item.title }}</a>
               </li>
               {% endif %}

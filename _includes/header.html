@@ -1,22 +1,22 @@
-<nav class="bg-deep-kaimurasaki" x-data="{ isOpen: false }">
+<nav class="bg-swim-dark-blue" x-data="{ isOpen: false }">
   {%- include banner.html -%}
   <div class="mx-auto px-2 sm:px-4 lg:px-8">
-    <div class="flex h-16 justify-between">
+    <div class="flex h-20 justify-between">
       <div class="flex px-2 lg:px-0">
         <div class="flex flex-shrink-0 items-center">
-          <img class="block max-w-[195px] lg:hidden" src="{{ '/assets/images/nstream-logo.png' | absolute_url }}"
+          <img class="block max-w-[156px] max-h-[168px] lg:hidden" src="{{ '/assets/images/marlin-swim-blue.svg' | absolute_url }}"
             alt="Nstream Logo">
-          <img class="hidden max-w-[195px] lg:block" src="{{ '/assets/images/nstream-logo.png' | absolute_url }}"
+          <img class="hidden max-w-[156px] max-h-[168px] lg:block" src="{{ '/assets/images/marlin-swim-blue.svg' | absolute_url }}"
             alt="Nstream Logo">
         </div>
 
         <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
           <a href="{{ '/' | relative_url }}"
-            class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
+            class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-swim-blue hover:border-swim-blue">
             HOME
           </a>
 
-          <div class="flex flex-1 items-center text-white border-b-2 border-transparent hover:border-vermillion-orange hover:text-vermillion-orange">
+          <div class="flex flex-1 items-center text-white border-b-2 border-transparent hover:text-swim-blue hover:border-swim-blue">
             <div x-data="{ open: false }" class="relative">
               <button x-on:click="open = true"
                 class="inline-flex items-center px-1 pt-1 text-[15px] font-bold "
@@ -48,7 +48,7 @@
           </div>
 
           <a href="{{ '/community.html' | absolute_url }}"
-            class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-vermillion-orange hover:border-vermillion-orange">
+            class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-swim-blue hover:border-swim-blue">
             COMMUNITY
           </a>
           
