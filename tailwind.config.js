@@ -36,7 +36,7 @@ module.exports = {
             '--tw-prose-th-borders': theme('colors.swim-darker-teal'),
             '--tw-prose-td-borders': theme('colors.swim-grey'),
             // '--tw-prose-invert-body': theme('colors.pink[200]'), // These are dark-mode settings.
-            // '--tw-prose-invert-headings': theme('colors.white'),
+            // '--tw-prose-invert-headings': theme('colors.white'), // rounded corner radius 13.5
             // '--tw-prose-invert-lead': theme('colors.pink[300]'),
             // '--tw-prose-invert-links': theme('colors.white'),
             // '--tw-prose-invert-bold': theme('colors.white'),
@@ -64,7 +64,10 @@ module.exports = {
         'swim-dark-purple': '#D651FF',
         'swim-body-text': '#3A3C3E',
         'swim-blue': '#32C5FF', // Apatite?
-        'swim-grey': '#C1C1C1'
+        'swim-grey': '#C1C1C1',
+        'swim-darker-grey': '#A9A9A9', // Footer links
+        'swim-darkerish-grey': '#6D7278', // Footer headings
+        'swim-lighter-grey': '#E9EFF0'
       },
     },
   },
