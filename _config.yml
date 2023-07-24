@@ -80,7 +80,7 @@ collections:
       - demos.md
     weight: 1
   guides:
-    output: true
+    output: false
     name: "How-to Guides"
     order:
       - index.md
