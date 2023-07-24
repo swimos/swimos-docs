@@ -155,7 +155,7 @@ toc:
 # Set display to true/false to toggle announcements on/off
 # If developing locally, this requires a jekyll serve restart to test.
 announcement:
-  display: true
+  display: false
   cta: "Join us at StreamCon 2023!"
   text: "We'll be at booth #9001."
   cta-link: "https://nstream.io/"
