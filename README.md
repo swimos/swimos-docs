@@ -1,44 +1,24 @@
-# SwimOS Developer Documentation
+# <a href="https://www.swimos.org"><img src="https://docs.swimos.org/readme/breach-marlin-blue-wide.svg"></a> SwimOS Documentation&ensp; [![license](https://img.shields.io/github/license/swimos/swim.svg?color=blue)](https://github.com/swimos/swimos-docs/blob/main/LICENSE)
 
-## Developing Locally
+Welcome to the SwimOS documentation repository!
 
-Checkout repo
+## Getting Started
 
-### macOS
+Check out the [SwimOS tutorials](https://www.swimos.org/tutorials/) to get
+started building stateful web services with streaming APIs and real-time UIs.
 
-#### Prerequisites
+## Contributing
 
-Install `rbenv`, add it to $PATH, and install the latest version of Ruby:
+Please see the [contributing guide](https://www.swimos.org/meta/contribute.html) to get started.
 
-```bash
-brew install rbenv
-echo 'eval "$(rbenv init -)"' >> ~/.zshrc
-rbenv install 3.2.2
-rbenv local 3.2.2
-```
+### Code of Conduct
 
-#### Install Jekyll & Dependencies
+Help keep SwimOS open and inclusive to all by reading and following our
+[Code of Conduct][conduct].
 
-```bash
-gem install jekyll bundler
-```
+## License
 
-#### Install JS dependencies
+This documentation is licensed under the [Apache 2.0 License][license].
 
-```bash
-npm install
-```
-
-#### Launch Jekyll
-
-```bash
-bundle exec jekyll serve --livereload
-```
-
-**Note:** On some Ruby versions this command may fail. Add `webrick` to your dependencies and try again:
-
-```bash
-bundle add webrick
-```
-
-View the site at [http://localhost:4000/](http://localhost:4000/)
+[conduct]: CODE_OF_CONDUCT.md
+[license]: LICENSE
