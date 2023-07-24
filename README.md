@@ -21,4 +21,4 @@ Help keep SwimOS open and inclusive to all by reading and following our
 This documentation is licensed under the [Apache 2.0 License][license].
 
 [conduct]: CODE_OF_CONDUCT.md
-[license]: LICENSE
+[license]: LICENSE.md
