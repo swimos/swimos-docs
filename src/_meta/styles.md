@@ -114,3 +114,120 @@ announcement:
 ```
 
 The template for this banner can be found in `_includes/banner.html`.
+
+## "Prose" styles for Markdown
+
+Tailwind CSS has a [Typography](https://tailwindcss.com/docs/typography-plugin) plugin that implements [`prose`](https://tailwindcss.com/docs/typography-plugin#basic-usage) classes with default styles. This is useful for rendering Markdown content so that we don't have to style every block through `tailwind.config.js`.
+
+### Paragraph Lead
+
+<p class="lead">This is an example of a paragraph lead.</p>
+
+You can use this to add emphasis to the opening word or sentence of a paragraph to highlight a main point.
+
+### Horizontal Rule
+
+<hr />
+
+### Blockquote
+
+<blockquote>
+  <p>This is a really important quote from someone you should listen to.
+  </p>
+</blockquote>
+
+### Table
+
+<table>
+  <caption class="caption-top">
+    Table 3.1: Professional wrestlers and their signature moves.
+  </caption>
+  <thead>
+    <tr>
+      <th>Wrestler</th>
+      <th>Signature Move(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>"Stone Cold" Steve Austin</td>
+      <td>Stone Cold Stunner, Lou Thesz Press</td>
+    </tr>
+    <tr>
+      <td>Bret "The Hitman" Hart</td>
+      <td >The Sharpshooter</td>
+    </tr>
+    <tr>
+      <td>Razor Ramon</td>
+      <td>Razor's Edge, Fallaway Slam</td>
+    </tr>
+  </tbody>
+</table>
+
+### Code Blocks
+
+#### Inline Code
+
+You can render inline code snippets by using `<code></code>` tags or `backticks`:
+
+"This is a <code>className</code>."
+
+This is also a `className`.
+
+```
+// Two ways to render code tags inline
+"This is a <code>className</code>."
+
+This is also a `className`.
+```
+
+#### Pre Code
+
+`Pre` code blocks can be rendered by placing three backticks (```) around the beginning and the end of a piece of code. Jekyll uses the [Rouge](https://github.com/rouge-ruby/rouge) syntax highlighter to render code blocks. You can add a language name after the opening backticks to highlight code in the specified language. You can find a list of supported languages and lexers in the [Rouge Wiki](https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers). You can follow [this guide](https://github.com/rouge-ruby/rouge/wiki/Adding-a-new-lexer) to create custom lexers as well.
+
+
+```html
+<div class="rounded-md bg-swim-dark-blue p-4">
+    <div class="flex">
+        <div class="flex-shrink-0">
+            <svg class="h-8 w-8 text-swim-teal" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                    d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z"
+                    clip-rule="evenodd" />
+            </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-lg font-medium text-white mt-1 no_toc">Title</h3>
+            <div class="mt-2 text-sm text-white prose-strong:text-swim-blue">
+                <p>
+                    Example Text.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+You can also just use three backticks to render a non-hilighted code block:
+
+```code
+<div class="rounded-md bg-swim-dark-blue p-4">
+    <div class="flex">
+        <div class="flex-shrink-0">
+            <svg class="h-8 w-8 text-swim-teal" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                    d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z"
+                    clip-rule="evenodd" />
+            </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-lg font-medium text-white mt-1 no_toc">Title</h3>
+            <div class="mt-2 text-sm text-white prose-strong:text-swim-blue">
+                <p>
+                    Example Text.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+```

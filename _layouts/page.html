@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="h-full bg-alabastor" lang="{{ page.lang | default: site.lang | default: " en" }}">
+<html class="h-full bg-white" lang="{{ page.lang | default: site.lang | default: " en" }}">
 {%- include head.html -%}
 
 <body>
@@ -16,7 +16,7 @@
       <main class="prose flex-1 max-w-full prose-code:before:hidden prose-code:after:hidden">
       {% endif %}
 
-        <h1 class="m-0 text-vermillion-orange">{{ page.title }}</h1>
+        <h1 class="m-0 text-swim-dark-blue">{{ page.title }}</h1>
 
         {% if page.cookbook %}
           {%- include cookbook.html -%}
@@ -24,7 +24,7 @@
 
         {{ content | inject_anchors }}
 
-        <hr class="my-12 h-0.5 border-t-0 bg-vermillion-orange" />
+        <hr class="my-12 h-0.5 border-t-0 bg-swim-grey" />
 
         {%- include prev-next.html -%}
 
