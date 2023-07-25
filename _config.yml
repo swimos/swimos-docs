@@ -78,6 +78,7 @@ collections:
     order:
       - index.md
       - demos.md
+      - transit.md
     weight: 1
   guides:
     output: false
