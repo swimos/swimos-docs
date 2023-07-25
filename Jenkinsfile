@@ -58,18 +58,6 @@ pipeline {
                 }
             }
         }
-        stage('modify-config-temp' ) {
-            when { branch 'main' }
-            steps {
-                script {
-                    def configYaml = readYaml(file: '_config.yml')
-                    configYaml['url'] = "https://temp.swimos.org"
-                    writeYaml(file: '_config.yml', overwrite: true, data: configYaml)
-                    archiveArtifacts artifacts: '_config.yml'
-                }
-            }
-        }
-
         stage('build') {
             steps {
                 container('ruby') {
