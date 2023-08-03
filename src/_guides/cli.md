@@ -47,7 +47,7 @@ Substituting in the details of the test endpoint above:
 ```bash
 swim-cli sync -h warps://fiveg.swim.services -n /market/London -l info
 ```
-This will return the current value of the `info` lane of the `/market/London` node, and .
+This will return the current value of the `info` lane of the `/market/London` node, and continue streaming any updates to the lnae.
 (Try it yourself)
 
 
