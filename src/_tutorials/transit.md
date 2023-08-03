@@ -105,9 +105,6 @@ transit: @fabric {
         pattern: "/vehicle/:country/:state/:agency/:id"
         @agent(class: "swim.transit.agent.VehicleAgent")
     }
-    @store {
-        path: "/tmp/swim-transit/"
-    }
 }
 
 @web(port: 9001) {
@@ -267,11 +264,9 @@ We'll store three bits of Vehicle information in fields, which are referred to a
             log.info("vehicle changed from " + Recon.toString(nv) + " from " + Recon.toString(ov));
           });
 
-  @SwimTransient
   @SwimLane("speeds")
   public MapLane<Long, Integer> speeds;
 
-  @SwimTransient
   @SwimLane("accelerations")
   public MapLane<Long, Integer> accelerations;
 ```
@@ -317,7 +312,6 @@ Since the public transit API requires retrieving data for specific transportatio
 ```java
 public class AgencyAgent extends AbstractAgent {
     private static final Logger log = Logger.getLogger(AgencyAgent.class.getName());
-    @SwimTransient
     @SwimLane("vehicles")
     public MapLane<String, Value> vehicles;
 
@@ -504,9 +498,6 @@ public class TransitPlane extends AbstractPlane {
   private static final Logger log = Logger.getLogger(TransitPlane.class.getName());
 
   public TransitPlane() {}
-
-  AgentRoute<AgencyAgent> agencyAgent;
-  AgentRoute<VehicleAgent> vehicleAgent;
 
   // skip everyting else
 
