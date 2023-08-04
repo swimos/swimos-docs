@@ -9,9 +9,10 @@ All types of lanes can be streamed to the command line and so the **swim-cli** c
 
 Feel free to use our endpoint for checking:
 
-- host: `warps://fiveg.swim.services`
-- node: `/market/London`
-- lane: `info`
+- host: `warps://cellular.swim.services`
+- node: `/country/US/state/CA`
+- lane (Value): `status`
+- lane (Map): `alerts`
 
 ### Installation
 
@@ -20,6 +21,58 @@ You must have `npm` to install the Swim command line interface. To install the [
 ```bash
 npm install -g @swim/cli
 ```
+
+### Stream from a Lane
+
+The **link** and **sync** commands can both be used to stream data from Swim lanes.
+Both commands will stream any updates to a lane however **sync** will first fetch the current value of the lane.
+The commands have the following format:
+
+```bash
+swim-cli link -h {hostUri} -n {nodeUri} -l {laneUri}
+swim-cli sync -h {hostUri} -n {nodeUri} -l {laneUri}
+```
+
+Notice the `-h`, `-n`, `-l` options are for the URI of `host`, `node`, and `lane` respectively.
+Substituting in the details of the test endpoint above:
+
+```bash
+swim-cli link -h warps://cellular.swim.services -n /country/US/state/CA -l status
+swim-cli sync -h warps://cellular.swim.services -n /country/US/state/CA -l status
+```
+
+These commands will both stream any updates to the `status` lane of the `/country/US/state/CA` node, however **sync** first gets the current value of the lane. 
+(Try them yourself)
+
+_Note: The difference between sync and link becomes more obvious when streaming a map lane - see next section._
+
+#### Value vs Map
+
+When streaming from a Swim **value** lane (as the above examples), you will notice that just the value of the lane is output.
+Example output from **value** lane:
+
+```json
+{siteCount:1193,warnCount:115,alertCount:10}
+```
+
+When streaming a **map** lane,  we only send the new value of the entry that has been updated.
+This means the output of the stream must now include the key of the entry being updated (or removed).
+We can stream a **map** lane (`alerts`) as an example:
+
+```bash
+swim-cli link -h warps://cellular.swim.services -n /country/US/state/CA -l alerts
+```
+
+Output:
+
+```json
+@update(key:"/site/15550"){coordinates:{-122.308114,40.442505},severity:1.2732812701071294}
+@remove(key:"/site/20641")
+@update(key:"/site/779"){coordinates:{-120.045813,38.802205},severity:1.0512594070918895}
+```
+
+You will notice the presence of `@update` and `@remove` both referencing the key of the value being updated/removed.
+(Try it yourself)
 
 ### Fetch from a Lane
 
@@ -32,39 +85,19 @@ swim-cli get -h {hostUri} -n {nodeUri} -l {laneUri}
 Notice the `-h`, `-n`, `-l` options are for the URI of `host`, `node`, and `lane` respectively. Substituting in the details of the test endpoint above:
 
 ```bash
-swim-cli get -h warps://fiveg.swim.services -n /market/London -l info
+swim-cli get -h warps://cellular.swim.services -n /country/US/state/CA -l status
 ```
 
-This will return the current value of the `info` lane of the `/market/London` node. (Try it yourself)
-
-### Stream from a Lane
-
-The **sync** command will fetch the current value of the lane and continue to stream any lane updates.
-The command has the following format:
-
-```bash
-swim-cli sync -h {hostUri} -n {nodeUri} -l {laneUri}
-```
-
-Notice the `-h`, `-n`, `-l` options are for the URI of `host`, `node`, and `lane` respectively.
-Substituting in the details of the test endpoint above:
-
-```bash
-swim-cli sync -h warps://fiveg.swim.services -n /market/London -l info
-```
-
-This will return the current value of the `info` lane of the `/market/London` node, and continue streaming any updates to the lnae.
+This will return the current value of the `status` lane of the `/country/US/state/CA` node. 
 (Try it yourself)
 
-### Introspection
+### Formatting Output (JSON)
 
-If a Swim application uses the `swim.meta.MetaKernel` then introspection endpoints are exposed.
-The `swim:meta:mesh` node provides lanes that can be queried for various runtime information:
-
-- `nodes`: list of all running nodes
-- `pulse`: application level KPIs
+All of the above commands by default return output in a **recon** format. 
+The `-f` option can be used to specify you would like to receive the output in a **json**.
 
 ```bash
-swim-cli get -h {hostUri} -n swim:meta:mesh -l nodes
-swim-cli get -h {hostUri} -n swim:meta:mesh -l pulse
+swim-cli link -h warps://cellular.swim.services -n /country/US/state/CA -l status -f json
 ```
+
+(Try it yourself)
