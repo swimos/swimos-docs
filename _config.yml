@@ -81,10 +81,11 @@ collections:
       - transit.md
     weight: 1
   guides:
-    output: false
+    output: true
     name: "How-to Guides"
     order:
       - index.md
+      - timeseries.md
     weight: 2
   reference:
     output: true
