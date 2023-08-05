@@ -147,7 +147,7 @@ directly in Web Agent callback functions. Refer to the [`asyncStage()` reference
 
 ### Step 3: `VehicleAgent` Implementation and Routing
 
-The code so far is fully capable of consuming the topic's data. We will now create entities that can accept this data and execute business logic against it. These entities will be Web Agents, each containing a `CommandLane` (to receive messages) and a timeseries-type `MapLane` (to store them).
+The code so far is fully capable of consuming the topic's data. We will now create entities that can accept this data and execute business logic against it. These entities will be Web Agents of type `VehicleAgent`, each containing a `CommandLane` (to receive messages) and a timeseries-type `MapLane` (to store them).
 
 ```java
 // VehicleAgent.java
