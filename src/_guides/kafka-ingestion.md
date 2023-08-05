@@ -22,15 +22,18 @@ Afterward, we will discuss how to fine-tune the solution to satisfy various type
 - [Kafka Client libraries](https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients)
 - A network-accessible Kafka topic
 
-## Step 0: Example Data Definition and Business Logic Goals
+## The Common Case
 
-Let's envision a situation where uniquely identifiable vehicles continuously report their current location and speed to the Kafka topic. Messages in the topic take the following structure:
+### Step 0: Example Data Definition and Business Logic Goals
+
+Let's envision a situation where uniquely identifiable vehicles continuously report telemetry details to the Kafka topic. Messages in the topic take the following structure:
 
 - `key`: a String representing the unique 
 - `value`: a JSON string that looks like:
    ```
    {
     "id": (string),
+    "timestamp": (number (Unix timestamp))
     "latitude": (number),
     "longitude": (number),
     "speed": (number),
@@ -38,11 +41,11 @@ Let's envision a situation where uniquely identifiable vehicles continuously rep
    }
    ```
 
-We wish to track the past hour's worth of information for every vehicle using this data.
+We wish to have real-time access to present and historical data at vehicle-level granularity.
 
-## Step 1: `KafkaConsumer` Instantiation
+### Step 1: `KafkaConsumer` Instantiation
 
-Instantiate a `KafkaConsumer` -- nothing fancy here, and undoubtedly very familiar if you've worked with Kafka before.
+Instantiate a `KafkaConsumer` -- nothing fancy here, and certainly familiar if you've used Kafka before.
 
 ```java
 // Main.java
@@ -59,21 +62,21 @@ public class Main {
     props.setProperty("group.id", "your-group");
     props.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
     props.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-    // Or, load above from a .properties file
-
+    // Alternatively, load above from a .properties file
     return new KafkaConsumer<>(props);
   }
 
 }
 ```
 
-`Main.kafkaConsumer0` will be the sole data bridge between the Kafka topic and the Swim server.
+`Main.kafkaConsumer0` will be the data bridge between the Kafka topic and the Swim server.
 
-## Step 2: `KafkaConsumerAgent` Implementation
+### Step 2: `KafkaConsumerAgent` Implementation
 
 Because our Swim server will create a thread pool anyway, we will optimize for data locality and wrap all `KafkaConsumer` operations within a Web Agent that runs on the same pool.
 
 ```java
+// KafkaConsumingAgent.java
 import java.time.Duration;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -87,6 +90,7 @@ public class KafkaConsumingAgent extends AbstractAgent {
   private TimerRef kafkaPollTimer;
   private TaskRef drainTopicTask;
 
+  // Potentially highly-blocking method
   private void drain() {
     while (true) {
       final ConsumerRecords<String, String> records = Main.kafkaConsumer0.poll(Duration.ofMillis(100));
@@ -94,7 +98,7 @@ public class KafkaConsumingAgent extends AbstractAgent {
         return;
       }
       for (ConsumerRecord<String, String> record : records) {
-        // TODO: what 
+        // TODO: take an action on each record
       }
     }
   }
@@ -104,7 +108,8 @@ public class KafkaConsumingAgent extends AbstractAgent {
 
       @Override
       public void runTask() {
-        drain();
+        drain(); // properly-instantiated asyncStage() tasks may safely block
+        // Back off for two seconds if the topic is empty
         KafkaConsumingAgent.this.kafkaPollTimer.reschedule(2000L);
       }
 
@@ -140,6 +145,70 @@ while (true) {
 ```
 directly in Web Agent callback functions. Refer to the [`asyncStage()` reference](/FIXME) to understand why.
 
-By now, we have 
+### Step 3: `VehicleAgent` Implementation and Routing
 
-## Step 3: `VehicleAgent` Implementation
+The code so far is fully capable of consuming the topic's data. We will now create entities that can accept this data and execute business logic against it. These entities will be Web Agents, each containing a `CommandLane` (to receive messages) and a timeseries-type `MapLane` (to store them).
+
+```java
+// VehicleAgent.java
+import swim.api.SwimLane;
+import swim.api.agent.AbstractAgent;
+import swim.api.lane.CommandLane;
+import swim.api.lane.MapLane;
+import swim.structure.Value;
+
+public class VehicleAgent extends AbstractAgent {
+
+  @SwimLane("addMessage")
+  CommandLane<Value> addMessage = this.<Value>commandLane()
+      .onCommand(v -> {
+        this.history.put(v.get("timestamp").longValue(), v);
+      });
+
+  @SwimLane("history")
+  MapLane<Long, Value> history = this.<Long, Value>mapLane()
+      .didUpdate((k, n, o) -> {
+        System.out.println(nodeUri() + ": received " + n);
+      });
+
+}
+```
+
+Deciding that the URIs for `VehicleAgents` will take the form `/vehicle/:id`, everything is in place to fill out our earlier for-loop's TODO:
+
+```java
+// KafkaConsumingAgent.java
+// import ...
+import swim.json.Json;
+import swim.structure.Value;
+
+public class KafkaConsumingAgent extends AbstractAgent {
+  
+  // ...
+  private void drain() {
+    while (true) {
+      final ConsumerRecords<String, String> records = Main.kafkaConsumer0.poll(Duration.ofMillis(100));
+      // ...
+      for (ConsumerRecord<String, String> record : records) {
+        final String nodeUri = "/vehicle/" + record.key();
+        final Value payload = Json.parse(record.value());
+        command(nodeUri, "addMessage", payload);
+      }
+    }
+  }
+  // ...
+
+}
+```
+
+### Step 4: Wrapping It Up
+
+Minus the boilerplate that comes with every Swim application, we're completely done! A standalone, directly-runnable project can be found [here](/FIXME).
+
+## Variations
+
+### Multiple Kafka Topics
+
+### Multiple Consumers To One Topic
+
+### Multiple Processes
