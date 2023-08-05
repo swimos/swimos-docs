@@ -11,8 +11,8 @@ This guide demonstrates how to ingest data hosted in Kafka topics and process it
 
 There is no single all-purpose design to message broker ingestion. We will first build the common case solution, where:
 
-- Kafka consumption and business logic coexist within a single Swim server process
-- The runtime for Kafka consumption is itself implemented as Web Agents
+- Kafka consumption and business logic coexist within a single Swim server
+- The runtime for Kafka consumption is itself a Web Agent
 
 Afterward, we will discuss how to fine-tune the solution to satisfy various types of sizing demands.
 
@@ -26,13 +26,13 @@ Afterward, we will discuss how to fine-tune the solution to satisfy various type
 
 ### Step 0: Example Data Definition and Business Logic Goals
 
-Let's envision a situation where uniquely identifiable vehicles continuously report telemetry details to the Kafka topic. Messages in the topic take the following structure:
+Let's envision a situation where vehicles continuously report their state to the Kafka topic. Messages in the topic take the following structure:
 
-- `key`: a String representing the unique 
+- `key`: a unique String identifying this vehicle
 - `value`: a JSON string that looks like:
    ```
    {
-    "id": (string),
+    "id": (string (same as key)),
     "timestamp": (number (Unix timestamp))
     "latitude": (number),
     "longitude": (number),
@@ -45,7 +45,7 @@ We wish to have real-time access to present and historical data at vehicle-level
 
 ### Step 1: `KafkaConsumer` Instantiation
 
-Instantiate a `KafkaConsumer` -- nothing fancy here, and certainly familiar if you've used Kafka before.
+Instantiate a `KafkaConsumer` -- nothing fancy here, and certainly familiar to veteran Kafka users.
 
 ```java
 // Main.java
@@ -69,11 +69,16 @@ public class Main {
 }
 ```
 
-`Main.kafkaConsumer0` will be the data bridge between the Kafka topic and the Swim server.
+`Main.kafkaConsumer0` will be the bridge between the Kafka topic and the Swim server.
 
 ### Step 2: `KafkaConsumerAgent` Implementation
 
-Because our Swim server will create a thread pool anyway, we will optimize for data locality and wrap all `KafkaConsumer` operations within a Web Agent that runs on the same pool.
+By wrapping all `KafkaConsumer` operations within a Web Agent, we receive the following benefits and more:
+
+- No separate runtime to maintain for consumption
+- Data locality advantages
+- The option to add metrics-reporting Lanes
+- The option to stop/restart consumption via messages (e.g. using `CommandLanes`)
 
 ```java
 // KafkaConsumingAgent.java
@@ -87,10 +92,12 @@ import swim.concurrent.TimerRef;
 
 public class KafkaConsumingAgent extends AbstractAgent {
 
+  // Timer whose sole purpose is to cue the drain task. See initConsumption().
   private TimerRef kafkaPollTimer;
+  // Task that eventually re-fires kafkaPollTimer upon completion, in effect re-cueing itself.
   private TaskRef drainTopicTask;
 
-  // Potentially highly-blocking method
+  // Potentially highly-blocking method, unsafe to invoke naively...
   private void drain() {
     while (true) {
       final ConsumerRecords<String, String> records = Main.kafkaConsumer0.poll(Duration.ofMillis(100));
@@ -98,7 +105,7 @@ public class KafkaConsumingAgent extends AbstractAgent {
         return;
       }
       for (ConsumerRecord<String, String> record : records) {
-        // TODO: take an action on each record
+        // TODO: do something with record
       }
     }
   }
@@ -108,8 +115,7 @@ public class KafkaConsumingAgent extends AbstractAgent {
 
       @Override
       public void runTask() {
-        drain(); // properly-instantiated asyncStage() tasks may safely block
-        // Back off for two seconds if the topic is empty
+        drain(); // ...but proper asyncStage() delegations are fine
         KafkaConsumingAgent.this.kafkaPollTimer.reschedule(2000L);
       }
 
