@@ -86,6 +86,7 @@ collections:
     order:
       - index.md
       - cli.md
+      - kafka-ingestion.md
     weight: 2
   reference:
     output: true

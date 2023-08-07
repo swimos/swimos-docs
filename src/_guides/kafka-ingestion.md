@@ -1,20 +1,18 @@
 ---
 title: Kafka Ingestion
 layout: page
-description: "Utilize data from Kafka topics."
+description: "Process data from Kafka topics."
 redirect_from:
   - /guides/kafka-ingestion/
 cookbook: https://github.com/swimos/cookbook/tree/master/kafka_ingestion
 ---
 
-This guide demonstrates how to ingest data hosted in Kafka topics and process it using business-logic-enabled Web Agents.
+This guide illustrates how to program a Swim server to ingest data from Kafka topics and subsequently perform business logic.
 
-There is no single all-purpose design to message broker ingestion. We will first build the common case solution, where:
+We accomplish this by declaring two types of Web Agents:
 
-- Kafka consumption and business logic coexist within a single Swim server
-- The runtime for Kafka consumption is itself a Web Agent
-
-Afterward, we will discuss how to fine-tune the solution to satisfy various types of sizing demands.
+- A singleton `KafkaConsumingAgent` responsible for consuming messages from a Kafka topic and relaying them to...
+- ...a dynamic number of `VehicleAgents` whose callback functions define the business logic.
 
 ## Prerequisites
 
@@ -45,7 +43,7 @@ We wish to have real-time access to present and historical data at vehicle-level
 
 ### Step 1: `KafkaConsumer` Instantiation
 
-Instantiate a `KafkaConsumer` -- nothing fancy here, and certainly familiar to veteran Kafka users.
+Instantiate a `KafkaConsumer` -- nothing special here, and certainly familiar to veteran Kafka users.
 
 ```java
 // Main.java
@@ -73,12 +71,7 @@ public class Main {
 
 ### Step 2: `KafkaConsumerAgent` Implementation
 
-By wrapping all `KafkaConsumer` operations within a Web Agent, we receive the following benefits and more:
-
-- No separate runtime to maintain for consumption
-- Data locality advantages
-- The option to add metrics-reporting Lanes
-- The option to stop/restart consumption via messages (e.g. using `CommandLanes`)
+This is all it takes to wrap `KafkaConsumer` ingestion operations within a Web Agent:
 
 ```java
 // KafkaConsumingAgent.java
@@ -87,73 +80,45 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import swim.api.agent.AbstractAgent;
 import swim.concurrent.AbstractTask;
-import swim.concurrent.TaskRef;
-import swim.concurrent.TimerRef;
 
 public class KafkaConsumingAgent extends AbstractAgent {
 
-  // Timer whose sole purpose is to cue the drain task. See initConsumption().
-  private TimerRef kafkaPollTimer;
-  // Task that eventually re-fires kafkaPollTimer upon completion, in effect re-cueing itself.
-  private TaskRef drainTopicTask;
+  private final AbstractTask endlessConsumingTask = new AbstractTask() {
 
-  // Potentially highly-blocking method, unsafe to invoke naively...
-  private void drain() {
-    while (true) {
-      final ConsumerRecords<String, String> records = Main.kafkaConsumer0.poll(Duration.ofMillis(100));
-      if (records.isEmpty()) {
-        return;
-      }
-      for (ConsumerRecord<String, String> record : records) {
-        // TODO: do something with record
+    @Override
+    public void runTask() {
+      while (true) {
+        ConsumerRecords<String, String> records = Main.kafkaConsumer0.poll(Duration.ofMillis(100));
+        for (ConsumerRecord<String, String> record : records) {
+          // TODO: take an action on record
+        }
       }
     }
-  }
 
-  private void initConsumption() {
-    this.drainTopicTask = asyncStage().task(new AbstractTask() {
+    @Override
+    public boolean taskWillBlock() {
+      return true;
+    }
 
-      @Override
-      public void runTask() {
-        drain(); // ...but proper asyncStage() delegations are fine
-        KafkaConsumingAgent.this.kafkaPollTimer.reschedule(2000L);
-      }
-
-      @Override
-      public boolean taskWillBlock() {
-        return true;
-      }
-
-    });
-    this.kafkaPollTimer = setTimer(0L, () -> {
-      this.drainTopicTask.cue();
-    });
-  }
+  };
 
   @Override
   public void didStart() {
-    initConsumption();
+    this.endlessConsumingTask.cue();
   }
 
 }
 ```
 
-**Warning:** Never replace the above with the Kafka-recommended paradigm of
+_Note:_ because `KafkaConsumingAgent` is the only class that that actively uses the `KafkaConsumer` class, you may choose to instantiate the `KafkaConsumer` instance from `KafkaConsumingAgent` instead. The current approach has the advantage of "fast-failing" the process, avoiding any part of the Swim server from starting if there is an issue reaching the Kafka topic.
 
-```java
-// Drain the topic while nonempty, or back off every POLL_DURATION milliseconds
-while (true) {
-  ConsumerRecords<?, ?> records = kafkaConsumer.poll(POLL_DURATION);
-  for (ConsumerRecord<?, ?> record : records) {
-    // do something with record
-  }
-}
-```
-directly in Web Agent callback functions. Refer to the [`asyncStage()` reference](/FIXME) to understand why.
+**Warning:** When we configure the Web Agent nodeUri routing paths (e.g. within `server.recon`), ensure that only one instance of `KafkaConsumingAgent` can be instantiated.
+
+**Warning:** per the [`asyncStage()` reference](/FIXME), never run the infinite loop directly inside `didStart()` or another agent/lane callback function. Always delegate to `asyncStage()`.
 
 ### Step 3: `VehicleAgent` Implementation and Routing
 
-The code so far is fully capable of consuming the topic's data. We will now create entities that can accept this data and execute business logic against it. These entities will be Web Agents of type `VehicleAgent`, each containing a `CommandLane` (to receive messages) and a timeseries-type `MapLane` (to store them).
+The code so far is fully capable of consuming the topic's data. We must now create entities -- `VehicleAgents` -- that can accept and process this data. Each will merely contain a `CommandLane` (to receive messages) and a timeseries-type `MapLane` (to store them).
 
 ```java
 // VehicleAgent.java
@@ -190,31 +155,31 @@ import swim.structure.Value;
 
 public class KafkaConsumingAgent extends AbstractAgent {
   
-  // ...
-  private void drain() {
-    while (true) {
-      final ConsumerRecords<String, String> records = Main.kafkaConsumer0.poll(Duration.ofMillis(100));
-      // ...
-      for (ConsumerRecord<String, String> record : records) {
-        final String nodeUri = "/vehicle/" + record.key();
-        final Value payload = Json.parse(record.value());
-        command(nodeUri, "addMessage", payload);
+  private final AbstractTask infiniteConsumingTask = new AbstractTask() {
+
+    @Override
+    public void runTask() {
+      while (true) {
+        ConsumerRecords<String, String> records = Main.kafkaConsumer0.poll(Duration.ofMillis(100));
+        for (ConsumerRecord<String, String> record : records) {
+          final String nodeUri = "/vehicle/" + record.key();
+          final Value payload = Json.parse(record.value());
+          command(nodeUri, "addMessage", payload);
+        }
       }
     }
-  }
-  // ...
+
+    // ...
 
 }
 ```
 
 ### Step 4: Wrapping It Up
 
-Minus the boilerplate that comes with every Swim application, we're completely done! A standalone, directly-runnable project can be found [here](/FIXME).
+Minus the boilerplate that comes with every Swim application, namely:
 
-## Variations
+- A `server.recon` to configure networking, routing, and additional kernels
+- A runtime-providing `Plane`
+- A `main()` method that loads the `KafkaConsumer` and the Swim server
 
-### Multiple Kafka Topics
-
-### Multiple Consumers To One Topic
-
-### Multiple Processes
+we're completely done! A standalone, directly-runnable project can be found [here](https://github.com/swimos/cookbook/tree/master/kafka_ingestion).
