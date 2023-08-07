@@ -14,6 +14,8 @@ Feel free to use our endpoint for checking:
 - lane (Value): `status`
 - lane (Map): `alerts`
 
+_Note: The host uri uses the `warps` protocol, this is because the server uses secure websockets (TLS). For any servers using non-secure websockets (TLS not enabled) then `warp` must be used._
+
 ### Installation
 
 You must have `npm` to install the Swim command line interface. To install the [swim-cli](https://www.npmjs.com/package/@swim/cli) globally:
@@ -45,6 +47,8 @@ These commands will both stream any updates to the `status` lane of the `/countr
 (Try them yourself)
 
 _Note: The difference between sync and link becomes more obvious when streaming a map lane - see next section._
+
+The **link** and **sync** commands will continue to stream data until the command is terminated with `CTRL + C`.
 
 #### Value vs Map
 
@@ -90,6 +94,8 @@ swim-cli get -h warps://cellular.swim.services -n /country/US/state/CA -l status
 
 This will return the current value of the `status` lane of the `/country/US/state/CA` node. 
 (Try it yourself)
+
+The **get** command terminates after fetching the current value.
 
 ### Formatting Output (JSON)
 
