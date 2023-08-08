@@ -7,7 +7,7 @@ redirect_from:
 cookbook: https://github.com/swimos/cookbook/tree/master/kafka_ingestion
 ---
 
-This guide illustrates how to program a Swim server to ingest data from Kafka topics and subsequently perform business logic.
+This guide illustrates how to develop a Swim application that ingests data from Kafka topics and instantiates logic-performing Web Agents.
 
 We accomplish this by declaring two types of Web Agents:
 
@@ -46,16 +46,19 @@ We wish to have real-time access to present and historical data at vehicle-level
 Instantiate a `KafkaConsumer` -- nothing special here, and certainly familiar to veteran Kafka users.
 
 ```java
-// Main.java
+// Assets.java
 import java.util.Properties;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
-public class Main {
+public final class Assets {
 
-  private static KafkaConsumer<String, String> kafkaConsumer0;
+  private Assets() {
+  }
 
-  public static KafkaConsumer<String, String> kafkaConsumer0() {
-    return Main.kafkaConsumer0;
+  private static KafkaConsumer<String, String> kafkaConsumer;
+
+  public static KafkaConsumer<String, String> kafkaConsumer() {
+    return Assets.kafkaConsumer;
   }
 
   private static KafkaConsumer<String, String> loadKafkaConsumer() {
@@ -68,14 +71,29 @@ public class Main {
     return new KafkaConsumer<>(props);
   }
 
+  public static void init() {
+    Assets.kafkaConsumer = loadKafkaConsumer();
+  }
+
 }
 ```
 
-`Main.kafkaConsumer0` will be the bridge between the Kafka topic and the Swim server.
+`Assets.kafkaConsumer` will be the bridge between the Kafka topic and the Swim server.
 
 ### Step 2: `KafkaConsumerAgent` Implementation
 
-This is all it takes to wrap `KafkaConsumer` ingestion operations within a Web Agent:
+The Kafka-recommended pattern for consuming messages with a `KafkaConsumer` looks like:
+
+```java
+while (true) {
+  ConsumerRecords<?, ?> records = yourConsumer.poll(YOUR_POLL_DURATION_MS);
+  for (ConsumerRecord<?, ?> record : records) {
+    // Do something with record
+  }
+}
+```
+
+This is all it takes to that (clearly blocking) pattern within a Web Agent:
 
 ```java
 // KafkaConsumingAgent.java
@@ -88,12 +106,13 @@ import swim.concurrent.TaskRef;
 
 public class KafkaConsumingAgent extends AbstractAgent {
 
+  // asyncStage() can safely run blocking, long-running operations
   private final TaskRef endlessConsumingTask = asyncStage().task(new AbstractTask() {
 
         @Override
         public void runTask() {
           while (true) {
-            final ConsumerRecords<String, String> records = Main.kafkaConsumer0()
+            final ConsumerRecords<String, String> records = Assets.kafkaConsumer()
                 .poll(Duration.ofMillis(100));
             for (ConsumerRecord<String, String> record : records) {
               // TODO: take an action on record
@@ -116,7 +135,7 @@ public class KafkaConsumingAgent extends AbstractAgent {
 }
 ```
 
-_Note:_ because `KafkaConsumingAgent` is the only class that that actively uses the `KafkaConsumer` class, you may choose to instantiate the `KafkaConsumer` instance from `KafkaConsumingAgent` instead. The current approach has the advantage of "fast-failing" the process, avoiding any part of the Swim server from starting if there is an issue reaching the Kafka topic.
+_Note: because `KafkaConsumingAgent` is the only class that that actively uses the `KafkaConsumer` class, you may choose to instantiate the `KafkaConsumer` instance from `KafkaConsumingAgent` instead. The current approach has the advantage of "fast-failing" the process, avoiding any part of the Swim server from starting if there is an issue reaching the Kafka topic._
 
 **Warning:** When we configure the Web Agent nodeUri routing paths (e.g. within `server.recon`), ensure that only one instance of `KafkaConsumingAgent` can be instantiated.
 
@@ -164,7 +183,7 @@ public class KafkaConsumingAgent extends AbstractAgent {
         @Override
         public void runTask() {
           while (true) {
-            final ConsumerRecords<String, String> records = Main.kafkaConsumer0()
+            final ConsumerRecords<String, String> records = Assets.kafkaConsumer()
                 .poll(Duration.ofMillis(100));
             for (ConsumerRecord<String, String> record : records) {
               final String nodeUri = "/vehicle/" + record.key();
