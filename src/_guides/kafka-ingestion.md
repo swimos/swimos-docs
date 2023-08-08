@@ -114,8 +114,6 @@ _Note:_ because `KafkaConsumingAgent` is the only class that that actively uses 
 
 **Warning:** When we configure the Web Agent nodeUri routing paths (e.g. within `server.recon`), ensure that only one instance of `KafkaConsumingAgent` can be instantiated.
 
-**Warning:** per the [`asyncStage()` reference](/FIXME), never run the infinite loop directly inside `didStart()` or another agent/lane callback function. Always delegate to `asyncStage()`.
-
 ### Step 3: `VehicleAgent` Implementation and Routing
 
 The code so far is fully capable of consuming the topic's data. We must now create entities -- `VehicleAgents` -- that can accept and process this data. Each will merely contain a `CommandLane` (to receive messages) and a timeseries-type `MapLane` (to store them).
