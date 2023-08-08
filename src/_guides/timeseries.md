@@ -6,9 +6,9 @@ description: "How to represent and maintain time series data"
 
 A common form of data is time series data - that is data indexed by time (timestamped).
 
-### Representation
+## Representation
 
-Time series data is a perfect candidate for a Swim `MapLane`.
+Time series data is a perfect candidate for a Swim [`MapLane`]({% link _reference/map-lanes.md %}).
 Using `Long` as the key type, you can create a streaming map indexed by timestamp:
 
 ```java
@@ -19,7 +19,7 @@ public MapLane<Long, Value> history = this.<Long, Value>mapLane();
 This will create an empty map on agent instantiation with the name `history`.
 In this example the data is stored as Swim `Value`s but this can be changed to any supported type.
 
-### Adding Data
+## Adding Data
 
 Adding to a Swim `MapLane` is almost identical to adding to an ordinary Java `Map`.
 Simply call the `put(K key, V value)` method to add the key-value data into the map:
@@ -33,7 +33,7 @@ this.history.put(
 
 This will insert a dummy value into the above `history` map lane with the current time as key.
 
-### Windowing
+## Windowing
 
 We can now make use of a `MapLane`'s callback functions to maintain the map and implement a maximum record count.
 
@@ -58,7 +58,7 @@ private void trimHistory() {
 
 ```
 
-### Put It All Together
+## Put It All Together
 
 Putting all the above together, we can create a `HistoryAgent` that can be commanded to add an event to a timestamp indexed map, while maintaining a maximum record count.
 
