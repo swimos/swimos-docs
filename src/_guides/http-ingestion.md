@@ -20,7 +20,7 @@ There are only three high-level components to this application:
 ## Prerequisites
 
 - Swim server libraries
-- **Java 11+**. This guide takes advantage of `java.net.http.HttpClient`, which is only available starting Java 11.
+- **Java 11+**. This guide takes advantage of `java.net.http.HttpClient`, which is only available starting Java 11. Users of lower Java versions may either substitute with a _thread-safe_ third-party HTTP client, or manage a new `java.net.HttpUrlConnection` per request (obviating the need for the code's `Assets` class but introducing more plumbing).
 
 ## Guide
 
