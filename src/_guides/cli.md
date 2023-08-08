@@ -55,7 +55,7 @@ The **link** and **sync** commands will continue to stream data until the comman
 When streaming from a Swim **value** lane (as the above examples), you will notice that just the value of the lane is output.
 Example output from **value** lane:
 
-```json
+```
 {siteCount:1193,warnCount:115,alertCount:10}
 ```
 
@@ -69,7 +69,7 @@ swim-cli link -h warps://cellular.swim.services -n /country/US/state/CA -l alert
 
 Output:
 
-```json
+```
 @update(key:"/site/15550"){coordinates:{-122.308114,40.442505},severity:1.2732812701071294}
 @remove(key:"/site/20641")
 @update(key:"/site/779"){coordinates:{-120.045813,38.802205},severity:1.0512594070918895}
