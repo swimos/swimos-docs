@@ -7,7 +7,7 @@ redirect_from:
 cookbook: https://github.com/swimos/cookbook/tree/master/http_ingestion
 ---
 
-This guide illustrates how to program a Swim server to ingest data from HTTP sources and subsequently perform business logic.
+This guide illustrates how to develop a Swim application that ingests data from HTTP/REST APIs and instantiate Web Agents that perform business logic.
 
 Rather than relying on simulated data, we utilize the [NextBus API](https://retro.umoiq.com/xmlFeedDocs/NextBusXMLFeed.pdf), maintained by Cubic Transportation System’s Umo Mobility Platform. You may remember this API from our [Transit Tutorial](https://www.swimos.org/tutorials/transit.html).
 
@@ -41,28 +41,31 @@ We wish to have real-time access to present and historical data at vehicle-level
 
 To be nice to the API, we scope this demonstration to only two randomly-chosen agencies: `portland-sc` and `reno`. It is trivial to extend the logic to all available agencies (the aforementioned Transit Tutorial does this).
 
-### Step 1: NextBus API Wrapper
+### Step 1: HTTP API Wrapper
 
 First things first: instantiate an `HttpClient`.
 
 ```java
-// Main.java
+// Assets.java
 import java.net.http.HttpClient;
 
-public class Main {
+public final class Assets {
+
+  private Assets() {
+  }
 
   private static final HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
 
   public static HttpClient httpClient() {
-    return HTTP_CLIENT;
+    return Assets.HTTP_CLIENT;
   }
 
 }
 ```
 
-`Main.HTTP_CLIENT` will be the data bridge between NextBus and the Swim server.
+This will be the data bridge between NextBus and the Swim server.
 
-With only one endpoint to utilize, an API wrapper is very little work, even if we make things interesting by exercising nontrivial content encodings:
+With only one endpoint to utilize, an API wrapper around NextBus is very little work, even if we make things interesting by exercising nontrivial content encodings:
 
 ```java
 // NextBusApi.java
@@ -111,7 +114,7 @@ public final class NextBusApi {
 
 ### Step 2: `AgencyAgent` Implementation
 
-Polling from a Swim server is accomplished via timers. Potentially-blocking tasks (in this case, REST requests) run through `asyncStage()`. Combining these gives us the following:
+Because the NextBus endpoint is a REST endpoint, we have no choice but to poll (and per the documentation, no more than once every 10 seconds per agency). Polling from a Swim server is accomplished via timers. Potentially-blocking tasks (in this case, REST requests) run through `asyncStage()`. Combining these gives us the following:
 
 ```java
 package swim.vehicle;
@@ -135,7 +138,7 @@ public class AgencyAgent extends AbstractAgent {
     public void runTask() {
       final String aid = agencyId();
       // Make API call
-      final Value payload = NextBusApi.getVehiclesForAgency(Main.httpClient(), aid, this.lastTime);
+      final Value payload = NextBusApi.getVehiclesForAgency(Assets.httpClient(), aid, this.lastTime);
       // TODO: extract the important stuff from payload and relay appropriately
     }
 
@@ -157,7 +160,7 @@ public class AgencyAgent extends AbstractAgent {
       this.agencyPollTask.cue();
       // Placing reschedule() here is like ScheduledExecutorService#scheduleAtFixedRate.
       // Moving it to the end of agencyPollTask#runTask is like #scheduleWithFixedDelay.
-      this.timer.reschedule(15000L);
+      this.timer.reschedule(15000L); // do not lower below 10000L
     });
   }
 
@@ -168,6 +171,8 @@ public class AgencyAgent extends AbstractAgent {
 
 }
 ```
+
+_Note: this union of timers and `asyncStage()` is a common pattern for request-response-type data sources, generalizing well beyond just REST._
 
 ### Step 3: `VehicleAgent` Implementation and Routing
 
@@ -217,7 +222,7 @@ public class AgencyAgent extends AbstractAgent {
     public void runTask() {
       final String aid = agencyId();
       // Make API call
-      final Value payload = NextBusApi.getVehiclesForAgency(Main.httpClient(), aid, this.lastTime);
+      final Value payload = NextBusApi.getVehiclesForAgency(Assets.httpClient(), aid, this.lastTime);
       // Extract information for all vehicles and the payload's timestamp
       final List<Value> vehicleInfos = new ArrayList<>(payload.length());
       for (Item i : payload) {
