@@ -20,7 +20,7 @@ We accomplish this by declaring two types of Web Agents:
 - [Kafka Client libraries](https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients)
 - A network-accessible Kafka topic
 
-## The Common Case
+## Guide
 
 ### Step 0: Example Data Definition and Business Logic Goals
 
