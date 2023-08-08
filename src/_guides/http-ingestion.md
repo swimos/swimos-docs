@@ -7,7 +7,7 @@ redirect_from:
 cookbook: https://github.com/swimos/cookbook/tree/master/http_ingestion
 ---
 
-This guide illustrates how to develop a Swim application that ingests data from HTTP/REST APIs and instantiate Web Agents that perform business logic.
+This guide illustrates how to develop a Swim application that ingests data from HTTP/REST APIs and instantiates log-performing Web Agents.
 
 Rather than relying on simulated data, we utilize the [NextBus API](https://retro.umoiq.com/xmlFeedDocs/NextBusXMLFeed.pdf), maintained by Cubic Transportation System’s Umo Mobility Platform. You may remember this API from our [Transit Tutorial](https://www.swimos.org/tutorials/transit.html).
 
