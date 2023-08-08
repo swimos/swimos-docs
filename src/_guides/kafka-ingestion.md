@@ -52,7 +52,11 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 public class Main {
 
-  public static KafkaConsumer<String, String> kafkaConsumer0;
+  private static KafkaConsumer<String, String> kafkaConsumer0;
+
+  public static KafkaConsumer<String, String> kafkaConsumer0() {
+    return Main.kafkaConsumer0;
+  }
 
   private static KafkaConsumer<String, String> loadKafkaConsumer() {
     final Properties props = new Properties();
@@ -80,27 +84,29 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import swim.api.agent.AbstractAgent;
 import swim.concurrent.AbstractTask;
+import swim.concurrent.TaskRef;
 
 public class KafkaConsumingAgent extends AbstractAgent {
 
-  private final AbstractTask endlessConsumingTask = new AbstractTask() {
+  private final TaskRef endlessConsumingTask = asyncStage().task(new AbstractTask() {
 
-    @Override
-    public void runTask() {
-      while (true) {
-        ConsumerRecords<String, String> records = Main.kafkaConsumer0.poll(Duration.ofMillis(100));
-        for (ConsumerRecord<String, String> record : records) {
-          // TODO: take an action on record
+        @Override
+        public void runTask() {
+          while (true) {
+            final ConsumerRecords<String, String> records = Main.kafkaConsumer0()
+                .poll(Duration.ofMillis(100));
+            for (ConsumerRecord<String, String> record : records) {
+              // TODO: take an action on record
+            }
+          }
         }
-      }
-    }
 
-    @Override
-    public boolean taskWillBlock() {
-      return true;
-    }
+        @Override
+        public boolean taskWillBlock() {
+          return true;
+        }
 
-  };
+      });
 
   @Override
   public void didStart() {
@@ -153,22 +159,22 @@ import swim.structure.Value;
 
 public class KafkaConsumingAgent extends AbstractAgent {
   
-  private final AbstractTask infiniteConsumingTask = new AbstractTask() {
+  private final AbstractTask infiniteConsumingTask = asyncStage().task(new AbstractTask() {
 
-    @Override
-    public void runTask() {
-      while (true) {
-        ConsumerRecords<String, String> records = Main.kafkaConsumer0.poll(Duration.ofMillis(100));
-        for (ConsumerRecord<String, String> record : records) {
-          final String nodeUri = "/vehicle/" + record.key();
-          final Value payload = Json.parse(record.value());
-          command(nodeUri, "addMessage", payload);
+        @Override
+        public void runTask() {
+          while (true) {
+            final ConsumerRecords<String, String> records = Main.kafkaConsumer0()
+                .poll(Duration.ofMillis(100));
+            for (ConsumerRecord<String, String> record : records) {
+              final String nodeUri = "/vehicle/" + record.key();
+              final Value payload = Json.parse(record.value());
+              command(nodeUri, "addMessage", payload);
+            }
+          }
         }
-      }
-    }
 
-    // ...
-
+        // ...
 }
 ```
 
