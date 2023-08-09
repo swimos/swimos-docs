@@ -117,8 +117,6 @@ public final class NextBusApi {
 Because the NextBus endpoint is a REST endpoint, we have no choice but to poll (and per the documentation, no more than once every 10 seconds per agency). Polling from a Swim server is accomplished via timers. Potentially-blocking tasks (in this case, REST requests) run through `asyncStage()`. Combining these gives us the following:
 
 ```java
-package swim.vehicle;
-
 import java.util.ArrayList;
 import java.util.List;
 import swim.api.agent.AbstractAgent;
