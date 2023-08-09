@@ -85,6 +85,7 @@ collections:
     name: "How-to Guides"
     order:
       - index.md
+      - cli.md
       - timeseries.md
     weight: 2
   reference:
