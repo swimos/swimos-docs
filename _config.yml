@@ -87,6 +87,7 @@ collections:
       - index.md
       - cli.md
       - kafka-ingestion.md
+      - http-ingestion.md
     weight: 2
   reference:
     output: true
