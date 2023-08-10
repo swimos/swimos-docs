@@ -2,8 +2,6 @@
 title: Kafka Ingestion
 layout: page
 description: "Process data from Kafka topics."
-redirect_from:
-  - /guides/kafka-ingestion/
 cookbook: https://github.com/swimos/cookbook/tree/master/kafka_ingestion
 ---
 
@@ -28,16 +26,17 @@ Let's envision a situation where vehicles continuously report their state to the
 
 - `key`: a unique String identifying this vehicle
 - `value`: a JSON string that looks like:
-   ```
-   {
-    "id": (string (same as key)),
-    "timestamp": (number (Unix timestamp))
-    "latitude": (number),
-    "longitude": (number),
-    "speed": (number),
-    "bearing": (number)
-   }
-   ```
+  
+```
+{
+  "id": (string (same as key)),
+  "timestamp": (number (Unix timestamp))
+  "latitude": (number),
+  "longitude": (number),
+  "speed": (number),
+  "bearing": (number)
+}
+```
 
 We wish to have real-time access to present and historical data at vehicle-level granularity.
 
@@ -137,7 +136,7 @@ public class KafkaConsumingAgent extends AbstractAgent {
 
 _Note: because `KafkaConsumingAgent` is the only class that that actively uses the `KafkaConsumer` class, you may choose to instantiate the `KafkaConsumer` instance from `KafkaConsumingAgent` instead. The current approach has the advantage of "fast-failing" the process, avoiding any part of the Swim server from starting if there is an issue reaching the Kafka topic._
 
-**Warning:** When we configure the Web Agent nodeUri routing paths (e.g. within `server.recon`), ensure that only one instance of `KafkaConsumingAgent` can be instantiated.
+{% include alert.html title='Warning' text='When we configure the Web Agent nodeUri routing paths (e.g. within <strong>server.recon</strong>), ensure that only one instance of <strong>KafkaConsumingAgent</strong> can be instantiated.' %}
 
 ### Step 3: `VehicleAgent` Implementation and Routing
 
@@ -205,4 +204,4 @@ Minus the boilerplate that comes with every Swim application, namely:
 - A runtime-providing `Plane`
 - A `main()` method that loads the `KafkaConsumer` and the Swim server
 
-we're completely done! A standalone, directly-runnable project can be found [here](https://github.com/swimos/cookbook/tree/master/kafka_ingestion).
+We're completely done! A standalone, directly-runnable project can be found [here](https://github.com/swimos/cookbook/tree/master/kafka_ingestion).
