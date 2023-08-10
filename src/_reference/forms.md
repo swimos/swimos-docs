@@ -17,7 +17,7 @@ In essence, this means that clients can connect to Lanes directly, and authors o
 
 ### Transforming Values
 
-An instance of `<bold>swim.structure.Form<T></bold>` handles transformations between `Value` and `T`.
+An instance of `swim.structure.Form<T>` handles transformations between `Value` and `T`.
 
 When declaring a lane parametrized with a type `T`, the Swim core **always** uses some `Form<T>` to manage conversions under the hood.
 
