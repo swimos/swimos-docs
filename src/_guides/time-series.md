@@ -37,7 +37,7 @@ This will insert a dummy value into the above `history` map lane with the curren
 
 ## Windowing
 
-We can now make use of a `MapLane`'s callback functions to maintain the map and implement some form of windowing or retention policy
+We can now make use of a `MapLane`'s callback functions to maintain the map and implement some form of windowing or retention policy.
 
 ### By Record Count
 
