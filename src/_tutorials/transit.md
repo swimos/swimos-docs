@@ -473,8 +473,15 @@ boundingBox.set(bb);
 # Tutorial application source code
 
 Source code for the demo application can be found here:
-- <a href="https://github.com/swimos/tutorial-transit/blob/main/server" target="_blank">https://github.com/swimos/tutorial-transit/blob/main/server</a>
+
+<a href="https://github.com/swimos/tutorial-transit/blob/main/server" target="_blank">https://github.com/swimos/tutorial-transit/blob/main/server</a>
+
+You can run `./gradlew run` fron ther server directory to run the backend. For a visual representation, see the next section.
 
 # Real-time Map UI which Uses the Streaming API from the Web Agents
 
-Next up
+While it is reassuring to have console output of arriving data, a visiual represention is much more impactful and compelling. There is a simple HTML page provided in this tutorial's repository that you can open to see a visualization of buses moving along their routes on top of map: 
+
+<a href="https://github.com/swimos/tutorial-transit/blob/main/ui/index.html" target="_blank">https://github.com/swimos/tutorial-transit/blob/main/ui/index.html</a>
+
+By including a few SwimOS libraries, the HTML made includes a tiny bit of javascript to reference the host, the Web Agent uri, and the specific lane. Through calls to `swim.HTMLView`, `swim.MapboxView`, and `swim.GeoTreeView`, the incoming, real-time data stream from SwimOS gets plotted directly against the map.
