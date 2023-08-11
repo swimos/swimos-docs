@@ -2,11 +2,10 @@
 title: Time Series Data
 layout: page
 description: "How to represent and maintain time series data"
+cookbook: https://github.com/swimos/cookbook/tree/master/time-series
 ---
 
 A common form of data is time series data - that is data indexed by time (timestamped).
-
-All code with a running example can be found [here](https://github.com/swimos/cookbook/tree/master/time-series).
 
 ## Representation
 
@@ -143,7 +142,6 @@ Ideally we want to manage one timer and that timer needs to trigger as soon as a
 Calculating the time until the next record needs to be dropped can be done by taking the oldest record time (calling `firstKey()` on the lane) adding maximum age of a record, then subtracting the current time.
 
 Using this calculated time we can now make use of the web agent's `setTimer(long millis, TimerFunction timer)` method to handle the scheduling of `trimHistory()`.
-
 
 ```java
   private static final long MAX_HISTORY_TIME_MS = 30000L;
