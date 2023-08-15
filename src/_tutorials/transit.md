@@ -5,7 +5,7 @@ layout: page
 
 # Application Overview
 
-The Transit Tutorial walks you step-by-step through creating a small, but fully functional end-to-end, streaming data application for conveying real-time city transit information. We will retrieve live transit information via UmoIQ's <a href="https://retro.umoiq.com/" target="_blank">NextBus API</a> for 46 different transporation agencies. Then we will process this information to maintain location, speed, and acceleration information for each of the agency's vehicles. The goal of this application is demonstrate how to connect to a REST API and create a streaming API for each entity/domain object (here, Agency and Vehicle). The Streaming APIs can be consumed by third-party applications, whether browser-based applications using SwimOS's real-time map UI or standalone applications using the typescript client APIs.
+The Transit Tutorial walks you step-by-step through creating a small, but fully functional end-to-end, streaming data application for conveying real-time city transit information. We will retrieve live transit information via UmoIQ's <a href="https://retro.umoiq.com/" target="_blank">NextBus API</a> for 6 Southern California transporation agencies. Then we will process this information to maintain location, speed, and acceleration information for each of the agency's vehicles. The goal of this application is demonstrate how to connect to a REST API and create a streaming API for each entity/domain object (here, Agency and Vehicle). The Streaming APIs can be consumed by third-party applications, whether browser-based applications using SwimOS's real-time map UI or standalone applications using the typescript client APIs.
 
 # Stateful Entity Model
 
@@ -21,9 +21,9 @@ It takes no parameters and returns a list of Agency tags:
 ```xml
 <body copyright="All data copyright agencies listed below and Umo IQ 2023.">
   <agency
-    tag="jhu-apl"
-    title="APL"
-    regionTitle="Maryland"
+    tag="glendale"
+    title="Glendale Beeline"
+    regionTitle="California-Southern"
   />
   ...
 </body>
@@ -48,9 +48,9 @@ Each Agency record provides a tag, title, and regionTitle. Though tag is essenti
 
 ```java
 Value data = Record.of()
-  .slot("tag", "jhu-apl")
-  .slot("title", "APL")
-  .slog("regionTitle", "Maryland")
+  .slot("tag", "glendale")
+  .slot("title", "Glendale Beeline")
+  .slog("regionTitle", "California-Southern")
 ```
 
 #### Defining an Agency `ValueLane`
@@ -187,117 +187,100 @@ And we can take action like this:
 # Connect to Data Source
 
 ## Consuming data from a web API
-Let's start by connecting to UmoIQ's live transit API. As you saw, the data format is XML. The SwimOS platform provides `Xml.structureParser` which offers a `documentParser()` method to convert to SwimOS internal data format. We can provide a simple web API request method that takes a URL and invokes its HTTP end-point to receive XML data. We will either return a populated `Value` object, or we will return an empty one, `Value.absent()`.
+Let's start by connecting to UmoIQ's live transit API. As you saw, the data format is XML. We'll be using `java.net.http.HttpClient`, which requires Java 11. If you are using an older version of Java, you can use `java.net.HttpUrlConnection` instead as shown <a href="https://github.com/swimos/tutorial-transit/blob/main/server/src/main/java/swim/transit/NextBusHttpAPI.java" target="_blank">here</a>.
 
-```java
-    private static Value parse(URL url) {
-        final HttpURLConnection urlConnection;
-        try {
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
-            final InputStream stream = new GZIPInputStream(urlConnection.getInputStream());
-            final Value configValue = Utf8.read(stream, Xml.structureParser().documentParser());
-            return configValue;
-        } catch (Throwable e) {
-            log.severe(() -> String.format("Exception thrown:\n%s", e));
-        }
-        return Value.absent();
+This requires a wee bit of boilerplate, as shown below:
+```
+    private static HttpRequest requestForEndpoint(String endpoint) {
+        return HttpRequest.newBuilder(URI.create(endpoint))
+                .GET()
+                .headers("Accept-Encoding", "gzip")
+                .build();
     }
 ```
 
-## Parsing XML into SwimOS data structures
-We can execute this method and iterate the results returned in the `Value`` object. Since Value are objects are generic, we will also check for a header attribute the document parser produces when parsing structured information:
+With that in hand, we can invoke it when loading Agency agents as show below. The key mechanism we use to go from XML to SwimOS's internal data format is `swim.xml.Xml`, which exposes `Xml.structureParser().documentParser()``.
 
-```java
-final URL url = new URL(pollUrl);
-final Value vehicleLocs = parse(url);
-
-if (vehicleLocs.isDefined()) {
-  final Iterator<Item> it = vehicleLocs.iterator();
-  final Record vehicles = Record.of();
-
-  while (it.hasNext()) {
-    final Item item = it.next();
-    final Value header = item.getAttr("vehicle");
-
-    if (header.isDefined()) {
-      // now we know were are dealing we a vehicle record
-      final String id = header.get("id").stringValue().trim();
-      ...
-
-      // we can process all the fields for the vehicle write it's state to the info object as previously demonstrated
-      final Record vehicle = Record.of()
-                            .slot("id", id)
-                            ...;
-      vehicles.add(vehicle);  
+```
+    public static Value getVehiclesForAgency(HttpClient executor, String agency, long since) {
+        final HttpRequest request = requestForEndpoint(endpointForAgency(agency, since));
+        try {
+            final HttpResponse<InputStream> response = executor.send(request,
+                    HttpResponse.BodyHandlers.ofInputStream());
+            return Utf8.read(new GZIPInputStream(response.body()), Xml.structureParser().documentParser());
+            // Alternatively: convert GZIPInputStream to String, then invoke the more
+            // familiar Xml.parse()
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Value.absent();
+        }
     }
-  }
-
-  // do something with the vehicles
-}
-
 ```
 
 # Send to Data to Web Agents
-Because we are not working with a naturally streaming data source like Kafka or Pulsar, we have to poll to achieve continuous ingestion for an at rest data source. This is inevitable. Typically, the client application in the browser also has to poll, and there is often additional polling in the data processing network. We will suffer polling just in the required case of a non-streaming data source, then we'll provide uninterrupted streaming data all the way to the terminating browser clients without incurring non-negligible latency.
 
 ## Converting at rest data to streaming data
-Fortunately SwimOS has timer and task facilities we can make use of. First, we'll declare the corresponding variables:
-
-```java
-    private TaskRef pollVehicleInfo;
-    private TimerRef timer;
-```
-
-We will poll to obtain live transit information, and then continuously update it to enable streaming outward. Both tasks and timers provide `cancel()` methods, which we will use to stop polling. We'll also want to do this whenever we restart polling due to updating agency information. `AbstractTask` is used to define and instantiate a task. `runTask()` will define the recurring task. We instantiate a timer using `startTimer()`. In our case, we'll prepare the task via `cue()` and then set the timer with `reschedule()`.
+Because we are not working with a naturally streaming data source like Kafka or Pulsar, the only instance in which we'll need to poll is upon ingestion. Fortunately SwimOS has timer and task facilities we can make use of. Here are the declarations:
 
 ```
-    private void abortPoll() {
-        if (this.pollVehicleInfo != null) {
-            this.pollVehicleInfo.cancel();
-            this.pollVehicleInfo = null;
-        }
-        if (this.timer != null) {
-            this.timer.cancel();
-            this.timer = null;
-        }
-    }
+private TimerRef timer;
+private final TaskRef agencyPollTask = ...
+```
 
-    private void startPoll(final Value ag) {
-        abortPoll();
+To start polling, we'll define `initPoll()` to execute the TAskRef's cue() method:
 
-        // Define task
-        this.pollVehicleInfo = asyncStage().task(new AbstractTask() {
-
-            final Value agency = ag;
-            final String url = String.format("https://retro.umoiq.com/service/publicXMLFeed?command=vehicleLocations&a=%s&t=0",
-                    ag.get("id").stringValue());
-
-            @Override
-            public void runTask() {
-                // for each agency, call transit API to receive vehicles
-
-            }
-
-            @Override
-            public boolean taskWillBlock() {
-                return true;
-            }
+```
+    private void initPoll() {
+        this.timer = setTimer((long) (Math.random() * 1000), () -> {
+          this.agencyPollTask.cue();
+          this.timer.reschedule(15000L);
         });
+      }```
 
-        // Define timer to periodically reschedule task
-        if (this.pollVehicleInfo != null) {
-            this.timer = setTimer(1000, () -> {
-                this.pollVehicleInfo.cue();
-                this.timer.reschedule(POLL_INTERVAL);
-            });
-        }
-    }
+Now, we just need the TaskRef definition:
+
 ```
+    private final TaskRef agencyPollTask = asyncStage().task(new AbstractTask() {
+  
+      private long lastTime = 0L; // This will update via API responses
+  
+      @Override
+      public void runTask() {
+        final String aid = agencyId();
+        // Make API call
+        final Value payload = NextBusHttpAPI.getVehiclesForAgency(Assets.httpClient(), aid, this.lastTime);
+        // Extract information for all vehicles and the payload's timestamp
+        //final List<Value> vehicleInfos = new ArrayList<>(payload.length());
+        final Record vehicleInfos = Record.of();
+        for (Item i : payload) {
+          if (i.head() instanceof Attr) {
+            final String label = i.head().key().stringValue(null);
+            if ("vehicle".equals(label)) {
+                final Value vehicle = i.head().toValue();
+                final String vehicleUri = "/vehicle/" + aid + "/" + vehicle.get("id").stringValue();
+                final Value vehicleInfo = vehicle.updatedSlot("uri", vehicleUri);
+                vehicleInfos.add(vehicleInfo);
+            } else if ("lastTime".equals(label)) {
+              this.lastTime = i.head().toValue().get("time").longValue();
+            }
+          }
+        }
+        // Relay each vehicleInfo to the appropriate VehicleAgent
+        command("/agency/" + aid, "addVehicles", vehicleInfos);
+      }
+  
+      @Override
+      public boolean taskWillBlock() {
+        return true;
+      }
+  
+    });
+```
+
 
 ## Feeding Web Agents
 
-Web Agents are URI addressable. We send them data via commands, and we create downlinks to receive data from them. You'll recall the `addInfo` `CommandLane` from earlier. We can invoke these end-points using SwimOS's warp protocol using a `WarpRef` and passing in the URL, the `ComandLane's` name, and any input, typically a value object, but sometimes Java primatives like String and Integer that will seamlessly get converted to and from `Value` objects.
+Web Agents are URI addressable. We send them data via commands and create downlinks to receive data from them. You'll recall the `addInfo` `CommandLane` from earlier. We can invoke these end-points using SwimOS's warp protocol using a `WarpRef` and passing in the URL, the `ComandLane's` name, and any input, typically a value object, but sometimes Java primatives like String and Integer that will seamlessly get converted to and from `Value` objects.
 
 ```java
 warp.command(agencyUri, "addInfo", someValue);
@@ -350,7 +333,7 @@ transit: @fabric {
 
 ## Executing Agency logic
 
-As seen previously, the `AgencyAgent`'s identification data will be stored in the `info` `ValueLane`, which will be populated using the `addInfo` `CommandLane`. We'll maintain a count of vehicles via the `vehicleCount` `ValueLane` to compute averages, and store that average in the `avgVehicleSpeed` `ValueLane`. Another thing we'll do is maintain a geo-spatial bounding box that encompasses all active agency vehicles via the `boundingBox` `ValueLane`.
+As seen previously, the `AgencyAgent`'s identification data will be stored in the `info` `ValueLane`, which will be populated using the `addInfo` `CommandLane`. We'll maintain a count of vehicles via the `vehicleCount` `ValueLane` to compute averages, and store that average in the `avgVehicleSpeed` `ValueLane`.
 
 Our primary method for processing streaming data for the `AgencyAgent` will be through the `addVehicles` `CommandLane`.
 
@@ -360,9 +343,6 @@ public ValueLane<Integer> vehicleCount;
 
 @SwimLane("speed")
 public ValueLane<Float> avgVehicleSpeed;
-
-@SwimLane("boundingBox")
-public ValueLane<Value> boundingBox;
 
 @SwimLane("addVehicles")
 public CommandLane<Value> addVehicles = this.<Value>commandLane()
@@ -426,43 +406,6 @@ vehicleCount.set(this.vehicles.size());
 if (vehicleCount.get() > 0) {
   avgVehicleSpeed.set(((float) speedSum) / vehicleCount.get());
 }
-```
-
-Lastly, for the bounding box, we'll simply accumulate the minimum and maximum values for longitude and latitude:
-
-```java
-float minLat = Integer.MAX_VALUE,
-      minLng = Integer.MAX_VALUE,
-      maxLat = Integer.MIN_VALUE,
-      maxLng = Integer.MIN_VALUE;
-
-for (Value v : vehicleUpdates.values()) {
-  if (vehicleUri != null && !vehicleUri.equals("")) {
-    if (v.get("latitude").floatValue() < minLat) {
-      minLat = v.get("latitude").floatValue();
-    }
-
-    if (v.get("latitude").floatValue() > maxLat) {
-      maxLat = v.get("latitude").floatValue();
-    }
-
-    if (v.get("longitude").floatValue() < minLng) {
-      minLng = v.get("longitude").floatValue() ;
-    }
-
-    if (v.get("longitude").floatValue()  > maxLng) {
-      maxLng = v.get("longitude").floatValue() ;
-    }
-  }
-}
-
-Value bb = Record.of()
-  .slot("minLat", minLat)
-  .slot("maxLat", maxLat)
-  .slot("minLng", minLng)
-  .slot("maxLng", maxLng);
-
-boundingBox.set(bb);
 ```
 
 # Tutorial application source code
