@@ -28,7 +28,7 @@
                 </svg>
               </button>
               <ul x-show="open" x-on:click.away="open = false"
-                class="bg-white text-gray-700 rounded shadow-lg absolute py-2 mt-1" style="min-width:15rem">
+                class="bg-white text-gray-700 rounded shadow-lg absolute py-2 mt-1" style="min-width:15rem" x-cloak>
 
                 {% if site.collections %}
                 {% assign collections = site.collections | sort: 'weight' %}
