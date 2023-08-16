@@ -265,8 +265,7 @@ Now, we just need the TaskRef definition:
             }
           }
         }
-        // Relay each vehicleInfo to the appropriate VehicleAgent
-        command("/agency/" + aid, "addVehicles", vehicleInfos);
+        onVehicles(vehicleInfos);
       }
   
       @Override
@@ -335,7 +334,7 @@ transit: @fabric {
 
 As seen previously, the `AgencyAgent`'s identification data will be stored in the `info` `ValueLane`, which will be populated using the `addInfo` `CommandLane`. We'll maintain a count of vehicles via the `vehicleCount` `ValueLane` to compute averages, and store that average in the `avgVehicleSpeed` `ValueLane`.
 
-Our primary method for processing streaming data for the `AgencyAgent` will be through the `addVehicles` `CommandLane`.
+Our primary method for processing streaming data for the `AgencyAgent` will be through `agencyPollTask.runTask()` which invokes `onVehicles()`.
 
 ```java
 @SwimLane("count")
@@ -343,10 +342,6 @@ public ValueLane<Integer> vehicleCount;
 
 @SwimLane("speed")
 public ValueLane<Float> avgVehicleSpeed;
-
-@SwimLane("addVehicles")
-public CommandLane<Value> addVehicles = this.<Value>commandLane()
-  .onCommand(this::onVehicles);
 
 @SwimLane("addInfo")
 public CommandLane<Value> addInfo = this.<Value>commandLane()
@@ -360,7 +355,7 @@ public ValueLane<Value> info = this.<Value>valueLane()
   });
 ```
 
- As we poll the UmoIQ live transit API, we'll publish the results through `addVehicles`, which invokes a private method called `onVehicles`. First we'll iterate over the new vehicles and remove any that are no longer active:
+ As we poll the UmoIQ live transit API, we'll publish the results by invoking `onVehicles`. First we'll iterate over the new vehicles and remove any that are no longer active:
 
  ```java
 private void onVehicles(Value newVehicles) {
