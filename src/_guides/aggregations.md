@@ -96,7 +96,7 @@ The method will accept a state's name and then command the state's `addVehicle` 
   }
 ```
 
-_Note: We have to convert the vehicle's node URI to a `Value` to send it via a command. For more information on this see [Forms]({% link \_reference/forms.md %})._
+_Note: We have to convert the vehicle's node URI to a `Value` to send it via a command. For more information on this see [Forms]({% link _reference/forms.md %})._
 
 We now need to call the above method, exactly when you will want to do this will depend on the use case.
 The most common cases are:
