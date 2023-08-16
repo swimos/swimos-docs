@@ -248,7 +248,7 @@ Each one is in the [example](https://github.com/swimos/cookbook/blob/master/aggr
 
 #### Count
 
-Getting a count of all vehicles in the state is the same as getting the size of the join value lane which can be done with the`size()` method on the lane.
+Getting a count of all vehicles in the state is the same as getting the size of the join value lane which can be done with the `size()` method on the lane.
 For any other count, for example, a count of vehicles currently moving, we can loop through the map, keeping a counter of all vehicles that meet this condition.
 
 ```java
