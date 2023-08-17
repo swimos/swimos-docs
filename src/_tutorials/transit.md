@@ -5,7 +5,16 @@ layout: page
 
 # Application Overview
 
-The Transit Tutorial walks you step-by-step through creating a small, but fully functional end-to-end, streaming data application for conveying real-time city transit information. We will retrieve live transit information via UmoIQ's <a href="https://retro.umoiq.com/" target="_blank">NextBus API</a> for 6 Southern California transporation agencies. Then we will process this information to maintain location, speed, and acceleration information for each of the agency's vehicles. The goal of this application is demonstrate how to connect to a REST API and create a streaming API for each entity/domain object (here, Agency and Vehicle). The Streaming APIs can be consumed by third-party applications, whether browser-based applications using SwimOS's real-time map UI or standalone applications using the typescript client APIs.
+The Transit Tutorial walks you step-by-step through creating a small, but fully functional end-to-end, streaming data application for conveying real-time city transit information. We will retrieve live transit information via UmoIQ's <a href="https://retro.umoiq.com/" target="_blank">NextBus API</a> for 6 Southern California transporation agencies.
+
+At a high level, the flow looks like this:
+
+1.  We load agencies from CSV file to create an Agency Web Agent
+2. This triggers a poller for acessing REST APIs for each Agency Agent
+3. The REST API response is then used to update the AgencyAgent
+4. The AgencyAgent update triggers messages to the Vehicle Agent
+
+Then we will process this information to maintain location, speed, and acceleration information for each of the agency's vehicles. The goal of this application is demonstrate how to connect to a REST API and create a streaming API for each entity/domain object (here, Agency and Vehicle). The Streaming APIs can be consumed by third-party applications, whether browser-based applications using SwimOS's real-time map UI or standalone applications using the typescript client APIs.
 
 # Stateful Entity Model
 
@@ -13,21 +22,6 @@ The Transit Tutorial walks you step-by-step through creating a small, but fully 
 We determine our entities in the same way we would if doing object oriented design, data modeling, or domain driven-design. We start at a conceptual level that partitions information with respect to distinct, immutable identities that encapsulate a common behavior for state that changes over time. In our case, the UmoIQ API allows callers to obtain live vehicle information based on agency. That essentially determines our entities if we don't over thing things: Agency and Vehicle.
 
 ### Modeling the `AgencyAgent`
-We cannot call our target API without knowing the agency tags. We can retrieve this by using the following API:
-- https://retro.umoiq.com/service/publicXMLFeed?command=agencyList
-
-It takes no parameters and returns a list of Agency tags:
-
-```xml
-<body copyright="All data copyright agencies listed below and Umo IQ 2023.">
-  <agency
-    tag="glendale"
-    title="Glendale Beeline"
-    regionTitle="California-Southern"
-  />
-  ...
-</body>
-```
 
 #### Specifying the Agency Web Agent
 We will define our `AgencyAgent` by extending SwimOS's `AbstractAgent` that gives us an extensive range of capabilities with the convenience of inversion of control so we simply extend and override to express application specific details:
@@ -44,13 +38,26 @@ public class AgencyAgent extends AbstractAgent {
 ```
 
 #### Defining the Agency data structure
-Each Agency record provides a tag, title, and regionTitle. Though tag is essential, the others provide human readability, so we can add those to our Agency entity model and define our Web Agent:
+
+We will be using a <a href="https://github.com/swimos/tutorial-transit/blob/main/server/src/main/resources/agencies.csv" target="_blank">csv file</a> to specify 6 Southern California agencies:
+
+```
+west-hollywood,S-CA,US
+glendale,S-CA,US
+glendale-beeline,S-CA,US
+omnitrans,S-CA,US
+pvpta,S-CA,US
+ucla,S-CA,US
+```
+
+Each Agency record provides an id, a state (or in the case of California, Southern and Northen California), and the country. Though tag is essential, the others provide human readability, so we can add those to our Agency entity model and define our Web Agent:
+{id:jhu-apl,state:MD,country:US,index:0}
 
 ```java
 Value data = Record.of()
-  .slot("tag", "glendale")
-  .slot("title", "Glendale Beeline")
-  .slog("regionTitle", "California-Southern")
+  .slot("id", "glendale")
+  .slog("state", "S-CA")
+  .slot("country", "US")
 ```
 
 #### Defining an Agency `ValueLane`
@@ -190,7 +197,8 @@ And we can take action like this:
 Let's start by connecting to UmoIQ's live transit API. As you saw, the data format is XML. We'll be using `java.net.http.HttpClient`, which requires Java 11. If you are using an older version of Java, you can use `java.net.HttpUrlConnection` instead as shown <a href="https://github.com/swimos/tutorial-transit/blob/main/server/src/main/java/swim/transit/NextBusHttpAPI.java" target="_blank">here</a>.
 
 This requires a wee bit of boilerplate, as shown below:
-```
+
+```java
     private static HttpRequest requestForEndpoint(String endpoint) {
         return HttpRequest.newBuilder(URI.create(endpoint))
                 .GET()
@@ -201,7 +209,7 @@ This requires a wee bit of boilerplate, as shown below:
 
 With that in hand, we can invoke it when loading Agency agents as show below. The key mechanism we use to go from XML to SwimOS's internal data format is `swim.xml.Xml`, which exposes `Xml.structureParser().documentParser()``.
 
-```
+```java
     public static Value getVehiclesForAgency(HttpClient executor, String agency, long since) {
         final HttpRequest request = requestForEndpoint(endpointForAgency(agency, since));
         try {
@@ -222,14 +230,14 @@ With that in hand, we can invoke it when loading Agency agents as show below. Th
 ## Converting at rest data to streaming data
 Because we are not working with a naturally streaming data source like Kafka or Pulsar, the only instance in which we'll need to poll is upon ingestion. Fortunately SwimOS has timer and task facilities we can make use of. Here are the declarations:
 
-```
+```java
 private TimerRef timer;
 private final TaskRef agencyPollTask = ...
 ```
 
 To start polling, we'll define `initPoll()` to execute the TAskRef's cue() method:
 
-```
+```java
     private void initPoll() {
         this.timer = setTimer((long) (Math.random() * 1000), () -> {
           this.agencyPollTask.cue();
@@ -239,7 +247,7 @@ To start polling, we'll define `initPoll()` to execute the TAskRef's cue() metho
 
 Now, we just need the TaskRef definition:
 
-```
+```java
     private final TaskRef agencyPollTask = asyncStage().task(new AbstractTask() {
   
       private long lastTime = 0L; // This will update via API responses
@@ -326,6 +334,8 @@ transit: @fabric {
 }
 ```
 
+The source can be found <a href="https://github.com/swimos/tutorial-transit/blob/main/server/src/main/resources/server.recon" target="_blank">here</a>.
+
 # Continuously Evaluate Business Logic in Web Agents
 
 `ValueLane`, `MapLane`, and `CommandLane` provide a wide range of callback mechanisms for implementing business logic in response to streaming data. We will just utilize those for responding to incoming data. 
@@ -390,7 +400,7 @@ for (Value v : vehicleUpdates.values()) {
   final String vehicleUri = v.get("uri").stringValue();
 
   if (vehicleUri != null && !vehicleUri.equals("")) {
-    context.command(vehicleUri, "addVehicle", v.toValue());
+    context.command(vehicleUri, "updateVehicle", v.toValue());
     addVehicle(vehicleUri, v);
     speedSum += v.get("speed").intValue();
   }
@@ -413,8 +423,68 @@ You can run `./gradlew run` fron ther server directory to run the backend. For a
 
 # Real-time Map UI which Uses the Streaming API from the Web Agents
 
-While it is reassuring to have console output of arriving data, a visiual represention is much more impactful and compelling. There is a simple HTML page provided in this tutorial's repository that you can open to see a visualization of buses moving along their routes on top of map: 
+While it is reassuring to have console output of arriving data, a visiual represention is much more impactful and compelling. There is a simple HTML page provided in this tutorial's repository that you can open to see a visualization of buses moving along their routes on top of map. The HTML page connects to an agency's URI, streams the vehicle locations, and plots it on a map. To change agencies, you simply change the agency tag in the `nodeUri`, e.g. "glendale":
+
+```typescript
+const vehiclesLink = warp.downlinkMap({
+  hostUri: "warp://localhost:9001",
+  nodeUri: "/agency/glendale",
+  laneUri: "vehicles",
+```
+
+Here's the HTML source:
 
 <a href="https://github.com/swimos/tutorial-transit/blob/main/ui/index.html" target="_blank">https://github.com/swimos/tutorial-transit/blob/main/ui/index.html</a>
 
 By including a few SwimOS libraries, the HTML made includes a tiny bit of javascript to reference the host, the Web Agent uri, and the specific lane. Through calls to `swim.HTMLView`, `swim.MapboxView`, and `swim.GeoTreeView`, the incoming, real-time data stream from SwimOS gets plotted directly against the map.
+
+# Observing state changes via `swim-cli`
+
+The SwimOS platform provides a CLI tool, <a href="https://www.swimos.org/guides/cli.html" target="_blank">`swim-cli`</a> that makes it simple to stream data from Web Agents. It can be installed globally as follows: 
+
+```
+npm install -g @swim/cli
+```
+
+## Streaming AgencyAgent data to the command line
+Let's try retrieving values for the glendale agency (make sure the swim application is running from the server directory via `./gradlew run`):
+
+```
+swim-cli link -h warp://localhost:9001 -n /agency/glendale -l vehicles 
+```
+
+Here is some sample output, your results will vary, naturally. Note three vehicles drop off the list of vehicles and have been removed, while the next three vehicles have received updates:
+
+```
+@remove(key:"/vehicle/glendale/B73")
+@remove(key:"/vehicle/glendale/B75")
+@remove(key:"/vehicle/glendale/B79")
+@update(key:"/vehicle/glendale/B98"){id:glendale,uri:"/vehicle/glendale/B98",agency:glendale,dirId:SBrivpac,latitude:34.14249,longitude:-118.26002,speed:28,secsSinceReport:9,heading:"90"}
+@update(key:"/vehicle/glendale/B99"){id:glendale,uri:"/vehicle/glendale/B99",agency:glendale,dirId:"2britc_d",latitude:34.1261,longitude:-118.25915,speed:38,secsSinceReport:4,heading:"55"}
+@update(key:"/vehicle/glendale/B67"){id:glendale,uri:"/vehicle/glendale/B67",agency:glendale,dirId:gga,latitude:34.133774,longitude:-118.24615,speed:36,secsSinceReport:2,heading:"91"}
+```
+
+As with the web page, simple change the `nodeUri` to view data from a different agency:
+
+```
+swim-cli link -h warp://localhost:9001 -n /agency/west-hollywood -l vehicles 
+```
+
+```
+@update(key:"/vehicle/west-hollywood/116"){id:west-hollywood,uri:"/vehicle/west-hollywood/116",agency:west-hollywood,dirId:CLWB_1_var0,latitude:34.08677,longitude:-118.37749,speed:32,secsSinceReport:15,heading:"6"}
+```
+
+## Streaming VehicleAgent data to the command line
+
+To stream data to a `VehicleAgent`, you can use the following command below. You can switch out the agency id and vehicle id for the `nodeUri`. Examples can seen from the `AgencyAgent` output.
+
+``````
+swim-cli link -h warp://localhost:9001 -n /vehicle/west-hollywood/116 -l vehicle
+```
+
+which yields:
+
+```
+{id:"116",routeTag:CLEB,dirTag:CLEB_0_var0,lat:"34.083697",lon:"-118.387662",secsSinceReport:"6",predictable:true,heading:"322",speedKmHr:"11",uri:"/vehicle/west-hollywood/116"}
+{id:"116",routeTag:CLEB,dirTag:CLEB_0_var0,lat:"34.084492",lon:"-118.386684",secsSinceReport:"8",predictable:true,heading:"51",speedKmHr:"32",uri:"/vehicle/west-hollywood/116"}
+```
