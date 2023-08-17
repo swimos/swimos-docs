@@ -520,6 +520,8 @@ Here's the HTML source:
 
 By including a few SwimOS libraries, the HTML made includes a tiny bit of javascript to reference the host, the Web Agent uri, and the specific lane. Through calls to `swim.HTMLView`, `swim.MapboxView`, and `swim.GeoTreeView`, the incoming, real-time data stream from SwimOS gets plotted directly against the map.
 
+You can find directions in the top-level <a href="https://github.com/swimos/tutorial-transit/blob/main/README.md" target="_blank">README.md</a> file to run the UI.
+
 # Observing state changes via `swim-cli`
 
 The SwimOS platform provides a CLI tool, <a href="https://www.swimos.org/guides/cli.html" target="_blank">`swim-cli`</a> that makes it simple to stream data from Web Agents. It can be installed globally as follows: 
