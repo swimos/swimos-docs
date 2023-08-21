@@ -18,7 +18,8 @@ public MapLane<Long, Value> history = this.<Long, Value>mapLane();
 ```
 
 This will create an empty map on agent instantiation with the name `history`.
-In this example the data is stored as Swim `Value`s but this can be changed to any supported type.
+In this example the data is stored as Swim `Value`s, but this can be changed to any type
+(built-ins trivially, and custom types by using [`Forms`]({% link _reference/forms.md %})).
 
 ## Adding Data
 
@@ -213,3 +214,46 @@ We simply check for this and call `trimHistory()` if the number calculated is le
 This will create a `history` time series lane and drop records after 30 seconds (`MAX_HISTORY_TIME_MS`).
 
 See this in an agent in the [example](https://github.com/swimos/cookbook/blob/master/time_series/src/main/java/swim/timeseries/RecencyWindowAgent.java).
+
+## Simultaneous Events
+
+There's a catch to representing timeseries as timestamp-keyed `Maps`.
+Because any `Map` key can appear at most once, processing multiple events with the same timestamp retains only the last-processed event.
+
+### Compound Keys
+
+If the aforementioned behavior is undesirable, we recommend instead using `Value`-typed _compound keys_ that wrap both a timestamp and some (unique) event identifier.
+Two examples include:
+
+```java
+key = Record.create(2).slot("timestamp", timestamp).slot("id", id);
+```
+
+and
+
+```java
+key = Record.create(2).item(timestamp).item(id);
+```
+
+`MapLanes` are always ordered by key, and `Value`s are compared sequentially in field order (similarly to how _composite keys_ work in SQL).
+Thus, the **Windowing** section remains relevant to compound-keyed `MapLane`s; just be sure to correctly extract timestamps from keys first.
+For the above examples, this would look like
+
+```java
+key.get("timestamp").longValue();
+```
+
+and
+
+```java
+key.getItem(0).longValue();
+```
+
+respectively.
+
+### Chained Values
+
+Using compound keys precludes using `MapLane.get(timestamp)` to quickly seek entries under a provided timestamp.
+If your application requires this _uncommon_ functionality, and _only if_ iterating over the compound-keyed `MapLane` proves too inefficient, implement the timeseries as a `MapLane<Long, List<Value>>` (or similar) instead.
+
+_Note: this representation makes it trickier to both iterate over and join to the `MapLane`._
