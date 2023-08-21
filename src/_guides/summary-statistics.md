@@ -56,7 +56,7 @@ public abstract class AbstractTowerAgent extends AbstractAgent {
 ## Stream-Optimized Algorithms
 
 Efficiency is important if we call `updateSummary()` against every incoming message, especially if message rates are high.
-[Offline algorithms](https://en.wikipedia.org/wiki/Online_algorithm) against a [time series]({% link _reference/time-series.md %}) of every received message can compute _any_ (solvable) statistic of interest, but this approach incurs linearly-increasing memory and time costs.
+[Offline algorithms](https://en.wikipedia.org/wiki/Online_algorithm) against a [time series]({% link _guides/time-series.md %}) of every received message can compute _any_ (solvable) statistic of interest, but this approach incurs linearly-increasing memory and time costs.
 
 Suppose that each `TowerAgent` must report the minimum, maxium, average, and variance (i.e. squared standard deviation) of all `mean_ul_sinr` values that it ingests; as well as the sum of all `rrc_re_establishment_failures` values.
 Upon receiving a status update:
@@ -159,7 +159,7 @@ public class TowerAgent extends AbstractTowerAgent {
 }
 ```
 
-_Note: we can trivially attach a [time series]({% link _reference/time-series.md %}) of raw history to this `TowerAgent` or either of its variations below._
+_Note: we can trivially attach a [time series]({% link _guides/time-series.md %}) of raw history to this `TowerAgent` or either of its variations below._
 _Doing so (especially if the time series is configured with a windowing/retention policy) provides a set of powerful streaming APIs that inform of both comprehensive statistics and (recency-prioritized) raw events_.
 
 ## Bucketed Summaries
