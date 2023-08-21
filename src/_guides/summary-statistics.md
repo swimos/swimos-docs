@@ -160,7 +160,8 @@ public class TowerAgent extends AbstractTowerAgent {
 ```
 
 _Note: we can trivially attach a [time series]({% link _guides/time-series.md %}) of raw history to this `TowerAgent` or either of its variations below._
-_Doing so (especially if the time series is configured with a windowing/retention policy) provides a set of powerful streaming APIs that inform of both comprehensive statistics and (recency-prioritized) raw events_.
+_Doing so provides a set of powerful streaming APIs that inform of both comprehensive statistics and raw events._
+_Better still if the time series configures a retention policy, prioritizing only the important raw events._
 
 ## Bucketed Summaries
 
