@@ -2,7 +2,7 @@
 title: Time Series Data
 layout: page
 description: "How to represent and maintain time series data"
-cookbook: https://github.com/swimos/cookbook/tree/master/time-series
+cookbook: https://github.com/swimos/cookbook/tree/master/time_series
 ---
 
 A common form of data is time series data - that is data indexed by time (timestamped).
