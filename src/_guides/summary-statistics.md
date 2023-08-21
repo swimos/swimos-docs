@@ -1,7 +1,7 @@
 ---
 title: Summary Statistics
 layout: page
-description: "FIXME"
+description: "How to efficiently abridge a Web Agent's history into summary statistics"
 cookbook: https://github.com/swimos/cookbook/tree/master/summary_statistics
 ---
 
@@ -24,7 +24,7 @@ Each update might look like (JSON):
 ```
 
 Each tower needs a corresponding Web Agent capable of receiving these updates, accounting for them in the calculation of some summary.
-_In general_, it is best to assign a corresponding Web Agent to every entity being monitored.
+For any application, it will nearly always make sense to assign a corresponding Web Agent to every entity being monitored.
 
 A skeletal `AbstractTowerAgent` could look like:
 
@@ -40,10 +40,13 @@ public abstract class AbstractTowerAgent extends AbstractAgent {
   @SwimLane("addMessage")
   CommandLane<Value> addMessage = this.<Value>commandLane()
       .onCommand(v -> {
-        // t may just as easily be system time if messages lack timestamp info
-        final long t = v.get("timestamp").longValue(); // or System.currentTimeMillis();
-        updateSummary(t, v);
+        updateSummary(messageTimestamp(v), v);
       });
+
+  protected long messageTimestamp(Value v) {
+    // System.currentTimeMillis() if your incoming msgs lack time info
+    return v.get("timestamp").longValue();
+  }
 
   protected abstract void updateSummary(long timestamp, Value newValue);
 
@@ -60,7 +63,7 @@ Upon receiving a status update:
 
 - Updating the minimum and maximum is easy if we already know the old minimum and maximum (e.g. `newMin=min(oldMin, newVal)`)
 - Updating the average is easy if we already know the old running sum and the number of messages received (`newSum=oldSum+newVal; newCount+=1; newAvg=newSum/newCount`)
-- [Welford's online algorithm](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Welford's_online_algorithm) updates the variance after reading only three accumulated values.
+- [Welford's online algorithm](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Welford's_online_algorithm) outlines how to update the variance by reading only three accumulated values.
 - Updating the sum is easy if we already know the old sum (`newSum+=newFailures`)
 
 For cleanliness, let's wrap functionality in a separate class:
@@ -118,8 +121,8 @@ class TowerSummaryState {
 }
 ```
 
-_Note: The average could just as easily and efficiently have been calculated with a rolling sum divided by the count, as suggested earlier._
-_We chose this approach simply because we require `delta` to calculate variance anyway._
+_Note: The average could just as effectively have been calculated with a rolling sum divided by the count, as suggested earlier._
+_We only chose this approach because we require `delta` to calculate variance anyway._
 
 _Note: Not every statistic can be optimized this perfectly._
 _For example, any (non-heuristic) median over floating points will require reading past values at some point, leading to `O(n)` space complexity (choice of representation may still reduce time complexity)._
@@ -128,7 +131,6 @@ This yields a very compact `TowerAgent` implementation:
 
 ```java
 // TowerAgent.java
-import swim.api.SwimLane;
 import swim.api.lane.ValueLane;
 import swim.recon.Recon;
 import swim.structure.Value;
@@ -157,13 +159,17 @@ public class TowerAgent extends AbstractTowerAgent {
 }
 ```
 
+_Note: we can trivially attach a [time series]({% link _reference/time-series.md %}) of raw history to this `TowerAgent` or either of its variations below._
+_Doing so (especially if the time series is configured with a windowing/retention policy) provides a set of powerful streaming APIs that inform of both comprehensive statistics and (recency-prioritized) raw events_.
+
 ## Bucketed Summaries
 
 Currently, each `TowerAgent` computes one set of statistics that summarizes its entire lifetime.
-You may instead wish to track muliple statistics, each representing a subset of the observed entity's data.
+We can also track muliple statistics, each representing a subset of the entity's data.
 To do this, simply track a separate set of states for every such subset (as opposed to a single set like before).
 
-To create a variant of `TowerAgent` that generates separate summaries for every one-minute window, the only changes are to 1) maintain a `Map` of `TowerSummaryStates` rather than a single one 2) publish summaries to a `MapLane` instead of a `ValueLane`.
+An especially common requirement is time bucketing, i.e. maintaining a separate summary for, say, every 15-minute period.
+To create a variant of `TowerAgent` that generates separate summaries for every one-minute window, the only changes are to 1) maintain a `Map` of `TowerSummaryStates` 2) publish summaries to a `MapLane` instead of a `ValueLane`:
 
 ```java
 // BucketedTowerAgent.java
@@ -173,10 +179,16 @@ import swim.api.lane.MapLane;
 
 public class BucketedTowerAgent extends AbstractTowerAgent {
 
+  // one minute period so you can quickly test this yourself
   private static final long SAMPLE_PERIOD_MS = 60000L;
 
+  // Each key to this MapLane is the top of the minute covered by the value.
+  // For example the TowerSummaryState for the left-inclusive time period
+  //   [2023-08-21 17:09:00, 2023-08-21 17:10:00) (in UTC)
+  // will be under the key 1692637740000L.
   private Map<Long, TowerSummaryState> summaryStates;
 
+  // Same keys as the summaryStates map
   @SwimLane("summaries")
   MapLane<Long, Value> summaries = this.<Long, Value>mapLane()
       .didUpdate((k, n, o) ->
@@ -184,7 +196,7 @@ public class BucketedTowerAgent extends AbstractTowerAgent {
 
   @Override
   protected void updateSummary(long timestamp, Value v) {
-    final long key = statesKey(timestamp);
+    final long key = bucket(timestamp);
     final TowerSummaryState state = this.summaryStates.getOrDefault(key, new TowerSummaryState());
     state.addValue(v.get("mean_ul_sinr").doubleValue(),
         v.get("rrc_re_establishment_failures").intValue());
@@ -192,10 +204,10 @@ public class BucketedTowerAgent extends AbstractTowerAgent {
     this.summaryStates.put(key, state);
   }
 
-  private static long statesKey(long timestamp) {
+  private static long bucket(long timestamp) {
     // Floor div then multiplication quickly purges non-significant digits.
     // This logic may not work as expected for awkward SAMPLE_PERIOD values;
-    // make it as complicated as you need for your use case.
+    // adjust as needed for your use case.
     return timestamp / SAMPLE_PERIOD_MS * SAMPLE_PERIOD_MS;
   }
 
@@ -205,6 +217,61 @@ public class BucketedTowerAgent extends AbstractTowerAgent {
       this.summaryStates.clear();
     }
     this.summaryStates = new HashMap<>();
+  }
+
+}
+```
+
+## Windowed Summaries
+
+The logic in the previous section works even if messages come out of order, and if we receive a message whose timestamp is in the future.
+However, it requires maintaining multiple independent summary states at a time, since a new incoming message could target any one of these.
+
+If your application uses system timestamps instead of message timestamps, then these cases never happen; consequently, you only need one summary state accumulator.
+
+```java
+// WindowedTowerAgent.java
+public class WindowedTowerAgent extends AbstractTowerAgent {
+
+  private static final long SAMPLE_PERIOD_MS = 60000L;
+
+  private TowerSummaryState currentState;
+  private long currentBucket;
+
+  @SwimLane("summaries")
+  MapLane<Long, Value> summaries = this.<Long, Value>mapLane()
+      .didUpdate((k, n, o) ->
+          System.out.println(nodeUri() + ": updated summary under " + k + " to " + Recon.toString(n)));
+
+  @Override
+  protected long messageTimestamp(Value v) {
+    return System.currentTimeMillis();
+  }
+
+  @Override
+  protected void updateSummary(long timestamp, Value v) {
+    final long key = bucket(timestamp);
+    if (key != this.currentBucket) {
+      // Time has passed into a new bucket, reset accumulations
+      resetState(timestamp);
+    }
+    this.currentState.addValue(v.get("mean_ul_sinr").doubleValue(),
+        v.get("rrc_re_establishment_failures").intValue());
+    this.summaries.put(key, this.currentState.getSummary());
+  }
+
+  private void resetState(long now) {
+    this.currentState = new TowerSummaryState();
+    this.currentBucket = bucket(now);
+  }
+
+  private static long bucket(long timestamp) {
+    return timestamp / SAMPLE_PERIOD_MS * SAMPLE_PERIOD_MS;
+  }
+
+  @Override
+  public void didStart() {
+    resetState(System.currentTimeMillis());
   }
 
 }

@@ -1,7 +1,7 @@
 ---
 title: Http Ingestion
 layout: page
-description: "Process data from HTTP (REST) endpoints."
+description: "How to receive and process data from HTTP (REST) endpoints within Web Agents"
 cookbook: https://github.com/swimos/cookbook/tree/master/http_ingestion
 ---
 

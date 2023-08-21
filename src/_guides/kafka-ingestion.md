@@ -1,7 +1,7 @@
 ---
 title: Kafka Ingestion
 layout: page
-description: "Process data from Kafka topics."
+description: "How to receive and process data from Kafka topics within Web Agents"
 cookbook: https://github.com/swimos/cookbook/tree/master/kafka_ingestion
 ---
 
