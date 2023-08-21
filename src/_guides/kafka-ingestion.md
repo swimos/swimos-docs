@@ -22,7 +22,8 @@ We accomplish this by declaring two types of Web Agents:
 
 ### Step 0: Example Data Definition and Business Logic Goals
 
-Let's envision a situation where vehicles continuously report their state to the Kafka topic. Messages in the topic take the following structure:
+Let's envision a situation where vehicles continuously report their state to the Kafka topic.
+Messages in the topic take the following structure:
 
 - `key`: a unique String identifying this vehicle
 - `value`: a JSON string that looks like:
@@ -92,7 +93,7 @@ while (true) {
 }
 ```
 
-This is all it takes to that (clearly blocking) pattern within a Web Agent:
+This is all it takes to implement that (clearly blocking) pattern within a Web Agent:
 
 ```java
 // KafkaConsumingAgent.java
@@ -134,13 +135,16 @@ public class KafkaConsumingAgent extends AbstractAgent {
 }
 ```
 
-_Note: because `KafkaConsumingAgent` is the only class that that actively uses the `KafkaConsumer` class, you may choose to instantiate the `KafkaConsumer` instance from `KafkaConsumingAgent` instead. The current approach has the advantage of "fast-failing" the process, avoiding any part of the Swim server from starting if there is an issue reaching the Kafka topic._
+_Note: because `KafkaConsumingAgent` is the only class that that actively uses the `KafkaConsumer` class, you may choose to instantiate the `KafkaConsumer` instance from `KafkaConsumingAgent` instead._
+_The current approach has the advantage of "fast-failing" the process, avoiding any part of the Swim server from starting if there is an issue reaching the Kafka topic._
 
 {% include alert.html title='Warning' text='When we configure the Web Agent nodeUri routing paths (e.g. within <strong>server.recon</strong>), ensure that only one instance of <strong>KafkaConsumingAgent</strong> can be instantiated.' %}
 
 ### Step 3: `VehicleAgent` Implementation and Routing
 
-The code so far is fully capable of consuming the topic's data. We must now create entities -- `VehicleAgents` -- that can accept and process this data. Each will merely contain a `CommandLane` (to receive messages) and a timeseries-type `MapLane` (to store them).
+The code so far is fully capable of consuming the topic's data.
+We must now create entities -- `VehicleAgents` -- that can accept and process this data.
+Each will merely contain a `CommandLane` (to receive messages) and a timeseries-type `MapLane` (to store them).
 
 ```java
 // VehicleAgent.java

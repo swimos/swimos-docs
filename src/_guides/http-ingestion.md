@@ -7,7 +7,8 @@ cookbook: https://github.com/swimos/cookbook/tree/master/http_ingestion
 
 This guide illustrates how to develop a Swim application that ingests data from HTTP/REST APIs and instantiates logic-performing Web Agents.
 
-Rather than relying on simulated data, we utilize the [NextBus API](https://retro.umoiq.com/xmlFeedDocs/NextBusXMLFeed.pdf), maintained by Cubic Transportation System’s Umo Mobility Platform. You may remember this API from our [Transit Tutorial](https://www.swimos.org/tutorials/transit.html).
+Rather than relying on simulated data, we utilize the [NextBus API](https://retro.umoiq.com/xmlFeedDocs/NextBusXMLFeed.pdf), maintained by Cubic Transportation System’s Umo Mobility Platform.
+You may remember this API from our [Transit Tutorial](https://www.swimos.org/tutorials/transit.html).
 
 There are only three high-level components to this application:
 
@@ -24,7 +25,8 @@ There are only three high-level components to this application:
 
 ### Step 0: Example Data Definition and Business Logic Goals
 
-The only NextBus endpoint we utilize is the `vehicleInfo` endpoint available at `https://retro.umoiq.com/service/publicXMLFeed?command=vehicleLocations&a=%s&t=%d`. Responses take the form:
+The only NextBus endpoint we utilize is the `vehicleInfo` endpoint available at `https://retro.umoiq.com/service/publicXMLFeed?command=vehicleLocations&a=%s&t=%d`.
+Responses take the form:
 
 ```
 <body copyright="All data copyright Portland Streetcar 2023.">
@@ -37,7 +39,8 @@ The only NextBus endpoint we utilize is the `vehicleInfo` endpoint available at 
 
 We wish to have real-time access to present and historical data at vehicle-level granularity.
 
-To be nice to the API, we scope this demonstration to only two randomly-chosen agencies: `portland-sc` and `reno`. It is trivial to extend the logic to all available agencies (the aforementioned Transit Tutorial does this).
+To be nice to the NextBus servers, we scope this demonstration to only two randomly-chosen agencies: `portland-sc` and `reno`.
+It is trivial to extend the logic to all available agencies (the aforementioned Transit Tutorial does this).
 
 ### Step 1: HTTP API Wrapper
 
@@ -112,7 +115,10 @@ public final class NextBusApi {
 
 ### Step 2: `AgencyAgent` Implementation
 
-Because the NextBus endpoint is a REST endpoint, we have no choice but to poll (and per [the documentation](https://retro.umoiq.com/xmlFeedDocs/NextBusXMLFeed.pdf), no more than once every 10 seconds per agency). Polling from a Swim server is accomplished via timers. Potentially-blocking tasks (in this case, REST requests) run through `asyncStage()`. Combining these gives us the following:
+Because the NextBus endpoint is a REST endpoint, we have no choice but to poll (and per [the documentation](https://retro.umoiq.com/xmlFeedDocs/NextBusXMLFeed.pdf), no more than once every 10 seconds per agency).
+Polling from a Swim server is accomplished via [`Timers`]({% link _reference/timers.md %}).
+Potentially-blocking tasks (in this case, REST requests) run through `asyncStage()`.
+Combining these yields the following:
 
 ```java
 import java.util.ArrayList;
@@ -219,7 +225,7 @@ public class AgencyAgent extends AbstractAgent {
       final String aid = agencyId();
       // Make API call
       final Value payload = NextBusApi.getVehiclesForAgency(Assets.httpClient(), aid, this.lastTime);
-      // Extract information for all vehicles and the payload's timestamp
+      // Extract information for each vehicle, and also the payload's timestamp
       final List<Value> vehicleInfos = new ArrayList<>(payload.length());
       for (Item i : payload) {
         if (i.head() instanceof Attr) {
