@@ -87,6 +87,7 @@ collections:
       - index.md
       - cli.md
       - time-series.md
+      - aggregations.md
       - kafka-ingestion.md
       - http-ingestion.md
     weight: 2
