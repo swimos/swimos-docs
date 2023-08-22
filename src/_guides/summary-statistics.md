@@ -1,12 +1,18 @@
 ---
 title: Summary Statistics
 layout: page
-description: "How to efficiently abridge a Web Agent's history into summary statistics"
+description: "How to abridge a Web Agent's history into summary statistics"
 cookbook: https://github.com/swimos/cookbook/tree/master/summary_statistics
 ---
 
 Real-time applications frequently need to produce summaries of ingested data.
-An especially common requirement is producing multiple reports, each representing one entity within a system being monitored.
+An especially common requirement is producing multiple reports, one per entity within a system being monitored.
+
+This guide illustrates how to solve problems of this nature by using Swim to:
+
+- Model each entity of interest within the system as a Web Agent
+- Within Web Agents, efficiently compute statistics against ingested data
+- Expose the results in granular streaming APIs.
 
 ## Representation
 
@@ -23,10 +29,7 @@ Each update might look like (JSON):
 }
 ```
 
-Each tower needs a corresponding Web Agent capable of receiving these updates, accounting for them in the calculation of some summary.
-For any application, it will nearly always make sense to assign a corresponding Web Agent to every entity being monitored.
-
-A skeletal `AbstractTowerAgent` could look like:
+Each tower requires a corresponding Web Agent that can receive and process these updates. A skeletal `AbstractTowerAgent` class could look like:
 
 ```java
 // AbstractTowerAgent.java
@@ -39,12 +42,9 @@ public abstract class AbstractTowerAgent extends AbstractAgent {
 
   @SwimLane("addMessage")
   CommandLane<Value> addMessage = this.<Value>commandLane()
-      .onCommand(v -> {
-        updateSummary(messageTimestamp(v), v);
-      });
+      .onCommand(v -> updateSummary(messageTimestamp(v), v));
 
   protected long messageTimestamp(Value v) {
-    // System.currentTimeMillis() if your incoming msgs lack time info
     return v.get("timestamp").longValue();
   }
 
@@ -55,16 +55,20 @@ public abstract class AbstractTowerAgent extends AbstractAgent {
 
 ## Stream-Optimized Algorithms
 
-Efficiency is important if we call `updateSummary()` against every incoming message, especially if message rates are high.
-[Offline algorithms](https://en.wikipedia.org/wiki/Online_algorithm) against a [time series]({% link _guides/time-series.md %}) of every received message can compute _any_ (solvable) statistic of interest, but this approach incurs linearly-increasing memory and time costs.
+Efficiency is critical if we call `updateSummary()` against every incoming message, especially if message volumes are high.
+Running [offline algorithms](https://en.wikipedia.org/wiki/Online_algorithm) against a [time series]({% link _guides/time-series.md %}) that contains every received message can compute _any_ (solvable) statistic of interest, but this approach incurs linearly increasing memory and time costs.
 
-Suppose that each `TowerAgent` must report the minimum, maxium, average, and variance (i.e. squared standard deviation) of all `mean_ul_sinr` values that it ingests; as well as the sum of all `rrc_re_establishment_failures` values.
-Upon receiving a status update:
+Suppose that each `TowerAgent` must report:
 
-- Updating the minimum and maximum is easy if we already know the old minimum and maximum (e.g. `newMin=min(oldMin, newVal)`)
-- Updating the average is easy if we already know the old running sum and the number of messages received (`newSum=oldSum+newVal; newCount+=1; newAvg=newSum/newCount`)
+- the minimum, maxium, average, and variance (squared standard deviation) over all received `mean_ul_sinr` values
+- the sum over all received `rrc_re_establishment_failures` values
+
+We can accomplish this without ever reading a time series. Upon receiving a status update:
+
+- Updating the minimum and maximum only requires the old minimum and maximum (e.g. `newMin=min(oldMin, newVal)`)
+- Updating the average also only requires some state, perhaps the old running sum and the number of messages received (`newSum=oldSum+newVal; newCount+=1; newAvg=newSum/newCount`)
 - [Welford's online algorithm](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Welford's_online_algorithm) outlines how to update the variance by reading only three accumulated values.
-- Updating the sum is easy if we already know the old sum (`newSum+=newFailures`)
+- Updating the sum only requires the old sum (`newSum+=newFailures`)
 
 For cleanliness, let's wrap functionality in a separate class:
 
@@ -159,18 +163,17 @@ public class TowerAgent extends AbstractTowerAgent {
 }
 ```
 
-_Note: we can trivially attach a [time series]({% link _guides/time-series.md %}) of raw history to this `TowerAgent` or either of its variations below._
-_Doing so provides a set of powerful streaming APIs that inform of both comprehensive statistics and raw events._
-_Better still if the time series configures a retention policy, prioritizing only the important raw events._
+_Note: While we discourage reliance on it for computations, we could easily attach a [time series]({% link _guides/time-series.md %}) of message history to `TowerAgent` or its variations presented below._
+_Doing so instantiates two sets of streaming APIs: one for comprehensive statistics, and one for individual events._
+_This may be a valuable addition, especially when combined with a retention policy that retains only recent or interesting historical events._
 
 ## Bucketed Summaries
 
-Currently, each `TowerAgent` computes one set of statistics that summarizes its entire lifetime.
-We can also track muliple statistics, each representing a subset of the entity's data.
-To do this, simply track a separate set of states for every such subset (as opposed to a single set like before).
+Currently, each `TowerAgent` computes a single summary over its entire lifetime.
+We can instead choose to track muliple summaries, each representing some subset of the entity's data.
+One common motivator for this is a need for _time-based bucketing_, i.e. separate summaries that each cover a non-overlapping time period (such as every 15 minutes).
 
-An especially common requirement is time bucketing, i.e. maintaining a separate summary for, say, every 15-minute period.
-To create a variant of `TowerAgent` that generates separate summaries for every one-minute window, the only changes are to 1) maintain a `Map` of `TowerSummaryStates` 2) publish summaries to a `MapLane` instead of a `ValueLane`:
+To support this functionality, simply update `TowerAgent` to 1) maintain a `Map` of `TowerSummaryStates` (as opposed to a single `TowerSummaryState`) 2) publish summaries to a `MapLane` instead of a `ValueLane`:
 
 ```java
 // BucketedTowerAgent.java
@@ -183,10 +186,11 @@ public class BucketedTowerAgent extends AbstractTowerAgent {
   // one minute period so you can quickly test this yourself
   private static final long SAMPLE_PERIOD_MS = 60000L;
 
-  // Each key to this MapLane is the top of the minute covered by the value.
+  // Each key to this HashMap is the top of the minute covered by the value.
   // For example the TowerSummaryState for the left-inclusive time period
   //   [2023-08-21 17:09:00, 2023-08-21 17:10:00) (in UTC)
   // will be under the key 1692637740000L.
+  // Note that you could choose to expose this as a MapLane, too.
   private Map<Long, TowerSummaryState> summaryStates;
 
   // Same keys as the summaryStates map
@@ -228,7 +232,8 @@ public class BucketedTowerAgent extends AbstractTowerAgent {
 The logic in the previous section works even if messages come out of order, and if we receive a message whose timestamp is in the future.
 However, it requires maintaining multiple independent summary states at a time, since a new incoming message could target any one of these.
 
-If your application uses system timestamps instead of message timestamps, then these cases never happen; consequently, you only need one summary state accumulator.
+An application that uses _system timestamps_ instead of message timestamps never encounters these situations.
+Consequently, it only needs one summary state accumulator; just care to reset it if time has passed into a new bucket.
 
 ```java
 // WindowedTowerAgent.java
@@ -277,3 +282,19 @@ public class WindowedTowerAgent extends AbstractTowerAgent {
 
 }
 ```
+
+## Standalone Project
+
+We encourage you to experiment with the [standalone project](https://github.com/swimos/cookbook/tree/master/summary_statistics) that collects the information and code samples presented here.
+A few things to note:
+
+- Running the `Main` class runs both a Swim server _and_ a simulator that feeds with data.
+- `src/main/resources/server.recon` defines routing that activates `TowerAgent`, `BucketedTowerAgent`, and `WindowedTowerAgent` all at once to facilitate exploration; in a real application, you would likely pick a single implementation.
+
+The following `swim-cli` commands are available while the process runs:
+
+- `swim-cli sync -h warp://localhost:9001 -n /tower/$ID -l summary` to stream the `summary` lane's entry from within a `TowerAgent` instance
+- `swim-cli sync -h warp://localhost:9001 -n /bucketed/$ID -l summaries` to stream the `summaries` lane's entries from within a `BucketedTowerAgent` instance
+- `swim-cli sync -h warp://localhost:9001 -n /windowed/$ID -l summaries` to stream the `summaries` lane's entries from within a `WindowedTowerAgent` instance
+
+where `$ID` can be either `2350` or `2171`.
