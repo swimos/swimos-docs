@@ -156,7 +156,7 @@ Using this calculated time we can now make use of the web agent's `setTimer(long
   }
 ```
 
-We call the `recsheduleNextTrim()` method we just created from the `history` lane's `didUpdate` callback, this will schedule a timer to trim the map whenever a new record is added.
+We call the `rescheduleNextTrim()` method we just created from the `history` lane's `didUpdate` callback, this will schedule a timer to trim the map whenever a new record is added.
 
 Finally, we need to account for a few things:
 
