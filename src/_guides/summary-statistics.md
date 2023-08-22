@@ -238,7 +238,7 @@ The logic in the previous section works even if messages come out of order, and 
 However, it requires maintaining multiple independent summary states at a time, since a new incoming message could target any one of these.
 
 An application that uses _system timestamps_ instead of message timestamps never encounters these situations.
-Consequently, it only needs one summary state accumulator; just care to reset it if time has elapsed into a new bucket.
+Consequently, it only needs one summary state accumulator; just make sure to reset it if time has elapsed into a new bucket.
 
 ```java
 // WindowedTowerAgent.java
@@ -297,7 +297,7 @@ A few things to note:
 - Running the `Main` class runs both a Swim server _and_ a simulator that feeds with data.
 - `src/main/resources/server.recon` defines routing that activates `TowerAgent`, `BucketedTowerAgent`, and `WindowedTowerAgent` all at once to facilitate exploration; in a real application, you would likely pick a single implementation.
 
-The following `swim-cli` commands are available while the process runs:
+The following `swim-cli` commands are available while the process runs (replace `$ID` instances with either `2350` or `2171`):
 
 - Subscribing to a `TowerAgent` instance's `summary` lane
     ```
@@ -323,5 +323,3 @@ The following `swim-cli` commands are available while the process runs:
 
     (output similar to previous command)
     ```
-
-where `$ID` can be either `2350` or `2171`.
