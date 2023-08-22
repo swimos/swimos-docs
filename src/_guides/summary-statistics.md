@@ -23,9 +23,9 @@ Each update might look like (JSON):
 {
   "tower_id": (unique identifier)
   "timestamp": (epoch in ms),
-  "mean_ul_sinr": (signal-noise ratio),
-  "rrc_re_establishment_failures": (issues since previous post)
-  ...
+  "s_n_ratio": (signal-noise ratio),
+  "disconnects": (failures since previous posted update)
+  ... (possibly more fields)
 }
 ```
 
@@ -60,15 +60,15 @@ Running [offline algorithms](https://en.wikipedia.org/wiki/Online_algorithm) aga
 
 Suppose that each `TowerAgent` must report:
 
-- the minimum, maxium, average, and variance (squared standard deviation) over all received `mean_ul_sinr` values
-- the sum over all received `rrc_re_establishment_failures` values
+- the minimum, maxium, average, and variance (squared standard deviation) over all received `s_n_ratio` values
+- the sum over all received `disconnects` values
 
 We can accomplish this without ever reading a time series. Upon receiving a status update:
 
 - Updating the minimum and maximum only requires the old minimum and maximum (e.g. `newMin=min(oldMin, newVal)`)
-- Updating the average also only requires some state, perhaps the old running sum and the number of messages received (`newSum=oldSum+newVal; newCount+=1; newAvg=newSum/newCount`)
-- [Welford's online algorithm](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Welford's_online_algorithm) outlines how to update the variance by reading only three accumulated values.
-- Updating the sum only requires the old sum (`newSum+=newFailures`)
+- Updating the average also only requires some state, perhaps (but not necessarily) the old running sum and the number of messages received (`newSum=oldSum+newVal; newCount+=1; newAvg=newSum/newCount`)
+- Updating the variance can be accomplished, perhaps surprisingly, by reading only three accumulated values using [Welford's online algorithm](https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Welford's_online_algorithm)
+- Updating the sum only requires the old sum (`newSum=oldSum+newFailures`)
 
 For cleanliness, let's wrap functionality in a separate class:
 
@@ -150,8 +150,8 @@ public class TowerAgent extends AbstractTowerAgent {
 
   @Override
   protected void updateSummary(long timestamp, Value v) {
-    this.state.addValue(v.get("mean_ul_sinr").doubleValue(),
-        v.get("rrc_re_establishment_failures").intValue());
+    this.state.addValue(v.get("s_n_ratio").doubleValue(),
+        v.get("disconnects").intValue());
     this.summary.set(this.state.getSummary());
   }
 
@@ -163,7 +163,7 @@ public class TowerAgent extends AbstractTowerAgent {
 }
 ```
 
-_Note: While we discourage reliance on it for computations, we could easily attach a [time series]({% link _guides/time-series.md %}) of message history to `TowerAgent` or its variations presented below._
+_Note: While we discourage reliance on it for computations, we could easily attach a [time series]({% link _guides/time-series.md %}) of message history to `TowerAgent` (or its variations described in the upcoming sections)._
 _Doing so instantiates two sets of streaming APIs: one for comprehensive statistics, and one for individual events._
 _This may be a valuable addition, especially when combined with a retention policy that retains only recent or interesting historical events._
 
@@ -203,15 +203,20 @@ public class BucketedTowerAgent extends AbstractTowerAgent {
   protected void updateSummary(long timestamp, Value v) {
     final long key = bucket(timestamp);
     final TowerSummaryState state = this.summaryStates.getOrDefault(key, new TowerSummaryState());
-    state.addValue(v.get("mean_ul_sinr").doubleValue(),
-        v.get("rrc_re_establishment_failures").intValue());
+    state.addValue(v.get("s_n_ratio").doubleValue(),
+        v.get("disconnects").intValue());
     this.summaries.put(key, state.getSummary());
     this.summaryStates.put(key, state);
   }
 
   private static long bucket(long timestamp) {
     // Floor div then multiplication quickly purges non-significant digits.
-    // This logic may not work as expected for awkward SAMPLE_PERIOD values;
+    // For example:
+    //   2023-08-21 17:09:34 = (in epoch milliseconds) 1692637774000
+    //   1692637774000 / 60000 = 28210629
+    //   28210629 * 60000 = 1692637740000
+    // which matches the value in the summaryStates field's comment.
+    // This strategy may not work as expected for awkward SAMPLE_PERIOD values;
     // adjust as needed for your use case.
     return timestamp / SAMPLE_PERIOD_MS * SAMPLE_PERIOD_MS;
   }
@@ -233,7 +238,7 @@ The logic in the previous section works even if messages come out of order, and 
 However, it requires maintaining multiple independent summary states at a time, since a new incoming message could target any one of these.
 
 An application that uses _system timestamps_ instead of message timestamps never encounters these situations.
-Consequently, it only needs one summary state accumulator; just care to reset it if time has passed into a new bucket.
+Consequently, it only needs one summary state accumulator; just care to reset it if time has elapsed into a new bucket.
 
 ```java
 // WindowedTowerAgent.java
@@ -251,6 +256,7 @@ public class WindowedTowerAgent extends AbstractTowerAgent {
 
   @Override
   protected long messageTimestamp(Value v) {
+    // Pretend v lacks time information, so our best option is system time
     return System.currentTimeMillis();
   }
 
@@ -261,8 +267,8 @@ public class WindowedTowerAgent extends AbstractTowerAgent {
       // Time has passed into a new bucket, reset accumulations
       resetState(timestamp);
     }
-    this.currentState.addValue(v.get("mean_ul_sinr").doubleValue(),
-        v.get("rrc_re_establishment_failures").intValue());
+    this.currentState.addValue(v.get("s_n_ratio").doubleValue(),
+        v.get("disconnects").intValue());
     this.summaries.put(key, this.currentState.getSummary());
   }
 
@@ -293,8 +299,29 @@ A few things to note:
 
 The following `swim-cli` commands are available while the process runs:
 
-- `swim-cli sync -h warp://localhost:9001 -n /tower/$ID -l summary` to stream the `summary` lane's entry from within a `TowerAgent` instance
-- `swim-cli sync -h warp://localhost:9001 -n /bucketed/$ID -l summaries` to stream the `summaries` lane's entries from within a `BucketedTowerAgent` instance
-- `swim-cli sync -h warp://localhost:9001 -n /windowed/$ID -l summaries` to stream the `summaries` lane's entries from within a `WindowedTowerAgent` instance
+- Subscribing to a `TowerAgent` instance's `summary` lane
+    ```
+    % swim-cli sync -h warp://localhost:9001 -n /tower/$ID -l summary
+
+    {count:6,min:10.522381743242732,max:22.28527569332349,avg:17.403808512841756,variance:17.16435437538436,failures:1}
+    {count:7,min:10.522381743242732,max:23.042896596076552,avg:18.20939252473244,variance:18.6060973516128,failures:1}
+    {count:8,min:10.522381743242732,max:23.042896596076552,avg:17.689421621696006,variance:18.172923362692888,failures:3}
+    ...
+    ```
+- Subscribing to a `BucketedTowerAgent` instance's `summaries` lane
+    ```
+    % swim-cli sync -h warp://localhost:9001 -n /towerB/$ID -l summaries
+
+    @update(key:1692679380000){count:29,min:10.77128446925376,max:23.24959464873697,avg:16.2544517182087,variance:14.289407826056422,failures:13}
+    @update(key:1692679440000){count:30,min:13.118910710309262,max:25.28277927585947,avg:19.02977006553927,variance:12.15474919075009,failures:13}
+    @update(key:1692679500000){count:24,min:11.35274353757999,max:24.775153946326895,avg:18.213836505473765,variance:16.033697773471467,failures:12}
+    @update(key:1692679500000){count:25,min:11.35274353757999,max:24.775153946326895,avg:18.41973124051554,variance:16.409773268562738,failures:12}
+    ```
+- Subscribing to a `WindowedTowerAgent` instance's `summaries` lane
+    ```
+    % swim-cli sync -h warp://localhost:9001 -n /towerW/$ID -l summaries
+
+    (output similar to previous command)
+    ```
 
 where `$ID` can be either `2350` or `2171`.
