@@ -297,7 +297,7 @@ A few things to note:
 - Running the `Main` class runs both a Swim server _and_ a simulator that feeds with data.
 - `src/main/resources/server.recon` defines routing that activates `TowerAgent`, `BucketedTowerAgent`, and `WindowedTowerAgent` all at once to facilitate exploration; in a real application, you would likely pick a single implementation.
 
-The following [`swim-cli`]({% link _guides/cli.md %})commands are available while the process runs (replace `$ID` instances with either `2350` or `2171`):
+The following [`swim-cli`]({% link _guides/cli.md %}) commands are available while the process runs (replace `$ID` instances with either `2350` or `2171`):
 
 - Subscribing to a `TowerAgent` instance's `summary` lane
     ```
