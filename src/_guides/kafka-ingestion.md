@@ -144,7 +144,7 @@ _The current approach has the advantage of "fast-failing" the process, avoiding 
 
 The code so far is fully capable of consuming the topic's data.
 We must now create entities -- `VehicleAgents` -- that can accept and process this data.
-Each will merely contain a `CommandLane` (to receive messages) and a timeseries-type `MapLane` (to store them).
+Each will merely contain a `CommandLane` (to receive messages) and a [time series]({% link _guides/time-series.md %}) (to retain them).
 
 ```java
 // VehicleAgent.java
