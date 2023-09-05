@@ -86,6 +86,7 @@ collections:
     order:
       - index.md
       - cli.md
+      - introspection.md
       - time-series.md
       - summary-statistics.md
       - aggregations.md
