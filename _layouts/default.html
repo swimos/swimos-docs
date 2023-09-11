@@ -4,19 +4,22 @@
 {%- include head.html -%}
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4KDVZWM"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <div class="flex min-h-full flex-col">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4KDVZWM" height="0" width="0"
+            style="display:none;visibility:hidden">
+        </iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     {%- include header.html -%}
-    <div class="mx-auto flex">
-      <main class="prose flex-1 max-w-max">
+
+    <main class="">
         {{ content }}
-      </main>
-    </div>
-  </div>
-  {%- include footer.html -%}
+    </main>
+
+    {%- include footer.html -%}
+
 </body>
 
 </html>
