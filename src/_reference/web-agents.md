@@ -1,5 +1,5 @@
 ---
-title: Web Agents Server Recon
+title: Web Agents
 layout: page
 description: "Learn about declaring, defining and utilizing Web Agents and their properties using configuration files."
 redirect_from:
