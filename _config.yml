@@ -100,7 +100,6 @@ collections:
       - index.md
       - swim-libraries.md
       - web-agents.md
-      - web-agents-server-recon.md
       - lanes.md
       - command-lanes.md
       - value-lanes.md
