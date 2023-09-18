@@ -81,10 +81,17 @@ collections:
       - transit.md
     weight: 1
   guides:
-    output: false
+    output: true
     name: "How-to Guides"
     order:
       - index.md
+      - cli.md
+      - introspection.md
+      - time-series.md
+      - summary-statistics.md
+      - aggregations.md
+      - kafka-ingestion.md
+      - http-ingestion.md
     weight: 2
   reference:
     output: true
@@ -93,7 +100,6 @@ collections:
       - index.md
       - swim-libraries.md
       - web-agents.md
-      - web-agents-server-recon.md
       - lanes.md
       - command-lanes.md
       - value-lanes.md

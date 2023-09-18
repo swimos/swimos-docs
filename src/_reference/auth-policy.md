@@ -87,8 +87,8 @@ public class BasicPolicy extends AbstractPolicy {
       }
 
       //Admin tokens must be used for 'adminInfo' lanes or '/control' agents
-      <strong>if ("adminInfo".equals(envelope.laneUri().toString()) ||
-        envelope.nodeUri().toString().startsWith("/control"))</strong> {
+      if ("adminInfo".equals(envelope.laneUri().toString()) ||
+        envelope.nodeUri().toString().startsWith("/control")) {
         return forbid();
       }
 

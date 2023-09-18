@@ -180,7 +180,7 @@ At this point, all the hooks are in place to bridge between the REST data and th
 
 One way to reap the best of both worlds is to have a dedicated, singleton Web Agent that invokes `relayExchangeRates()`, but to delegate this invocation to Swim's `asyncStage()` instead of the "main" thread pool that runs the `CurrencyAgent` logic. An additional advantage of this strategy is the ability to use [Swim's built-in timers]({% link _reference/timers.md %}) to **periodically** poll the data source.
 
-We thus define a `CurrencyFetchAgent` as follows, and delegate the responsibility of ensuring this remains a singleton to the `server.recon` configuration file as outlined in a [prior cookbook]({% link _reference/web-agents-server-recon.md %}).
+We thus define a `CurrencyFetchAgent` as follows, and delegate the responsibility of ensuring this remains a singleton to the `server.recon` configuration file as outlined in a [prior cookbook]({% link _reference/web-agents.md %}).
 
 ```java
 // swim/forex/CurrencyFetchAgent.java

@@ -140,7 +140,7 @@ public class CustomClient {
 
     final String hostUri = "warp://localhost:9001";
 
-    final ValueDownlink<String> dataDownlnink =
+    final ValueDownlink<String> dataDownlink =
       swimClient.downlinkValue()
         .valueForm(Form.forString())
         .hostUri(hostUri)

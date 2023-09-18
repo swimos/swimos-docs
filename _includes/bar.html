@@ -5,7 +5,7 @@
         {% if site.collections %}
         {% assign collections = site.collections | sort: 'weight' %}
         {% for collection in collections %}
-        {% if collection.label != "posts" and collection.label != "guides" %}
+        {% if collection.label != "posts" %}
         <li>
           <div>
             <button type="button"
