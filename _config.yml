@@ -129,6 +129,7 @@ collections:
     order:
       - index.md
       - fundamentals.md
+      - lane-organization.md
     weight: 4
   meta:
     output: true
