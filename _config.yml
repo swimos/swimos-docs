@@ -129,6 +129,7 @@ collections:
     order:
       - index.md
       - fundamentals.md
+      - agent-granularity.md
     weight: 4
   meta:
     output: true
