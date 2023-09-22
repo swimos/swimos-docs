@@ -19,7 +19,7 @@ This pattern can really be extended to any kind of grouping where the members sh
 
 Throughout this guide, for demonstration, we are going to build out the vehicle example, grouping the vehicles by the state (in the USA) they are currently in.
 
-Let's take a simple vehicle agent as a starting point, the main component of which being a [`ValueLane`]({% link _reference/value-lanes.md %}) that stores the vehicle's status.
+Let's take a simple vehicle agent as a starting point, the main component of which is a [`ValueLane`]({% link _reference/value-lanes.md %}) that stores the vehicle's status.
 
 ```java
 public class VehicleAgent extends AbstractAgent {

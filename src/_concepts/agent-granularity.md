@@ -10,27 +10,33 @@ In this guide we will discuss some best practices and ideas for designing and mo
 
 ## Node Granularity
 
-**Entities** are simply identifiable separate 'things' and Swim **nodes** are addressable groupings of stateful agents which perform some logic.
+**Entities** are identifiable domain elements (the nouns) and Swim **nodes** are addressable groupings of stateful agents which perform some logic.
 Comparing the two definitions, we get a pretty good idea of how to map our entities to nodes, (almost) one-to-one.
 
 Anything **uniquely addressable** can be mapped to a node.
-This can be singleton such as a node representing the whole system (`/system`), some entity type with a globally unique id (`/vehicle/:id`), or entities where some composite unique address can be constructed (`/building/:buildingId/room/:roomId`).
+This can be singleton such as a node representing the whole system (`/system`), some entity type with a globally unique id (`/vehicle/:id`), or entities where some composite unique address can be constructed (`/building/:buildingId/room/:roomId`, since roomId is only unique to each building).
 
-As nodes are composed of one or more agents, that **have state** and **perform logic**, it follows that entities that don't perform any or much logic need not be a node.
-For example, lights in a room may be uniquely addressable however, if they are simply a boolean value of on or off, it may be worth rolling them up into a lane of the parent room node.
+As nodes are composed of one or more agents, that **have state** and **perform logic**, it follows that entities that don't have any or much behavior need not be a node.
+For example, lights in a room may be uniquely addressable however, if they are simply a boolean value of on or off, it may be cleaner to roll them up into a lane of the parent room node.
 
-Any **groupings or aggregations** of entities can also be considered for nodes themselves.
-This allows entity relationships to be modelled and aggregate statistics (counts, averages, deviations) to be calculated across the group.
+Links and by extension join lanes can be used to connect agents and therefore model **entity relationships**.
+Any **groupings or aggregations** of entities can also be considered for nodes themselves, allowing aggregate statistics (counts, averages, deviations) to be calculated across the group.
 
 One final consideration is **resource management**; nodes execute in parallel and so to make use of multicore processing and maximize **parallelization**, it is desirable to split out monolithic entities into several nodes and agents.
 While nodes and agents are lightweight, they do have some **memory overhead**, therefore when scaling to millions of entities it may be more efficient to include small entities as lanes of their parent entities.
+
+**Database comparison**:
+We can draw similarities to relational database design when modelling entities with Swim.
+Table definitions map to web agent definitions, each row in the table being and instance of the web agent.
+Web agent lanes store values and fields so are the columns. 
+Finally, the relationships between the tables (foreign keys) can be mirrored using links.
 
 **Examples:**
 
 - **100s of agencies with 1000s of vehicles each**: Create a node for each vehicle (entity agent) which join an agency node (aggregate agent). 
 
 - **1000s of users with 1-5 addresses each**: Create a node for each user (entity agent), store the addresses in lanes of the user agents.
-Addresses don't have enough behaviour or logic to need an agent of their own.
+Addresses don't have any behaviour or logic, hence don't need an agent of their own.
 
 - **100k devices with 100s of sensors each**: Create a node for each device (entity agent), store values of sensors in lanes of the device agents.
 We store the sensors in lanes to avoid creating millions of nodes and therefore a large memory footprint - if each sensor requires modelling explicitly then it may warrant a node per sensor.
@@ -45,7 +51,7 @@ This also extends to composite URIs and a room with an ID unique to a building s
 
 ## Agent Granularity
 
-Now we have our nodes and entity model it is time to populate the nodes with agents to perform some logic.
+Now we have our nodes and entity model it is time to populate the nodes with agents to perform some logic and add behavior.
 
 In object-oriented programming it is often preferable to compose classes out of smaller **reusable** component classes; this is similar to composing nodes out of agents.
 Agents should favor being smaller and re-usable instead of large and monolithic.
