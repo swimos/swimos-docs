@@ -23,7 +23,9 @@ Frequency of change should also be considered, it is not efficient to send field
 Avoid storing individual fields (a string, boolean, int) in a value lane, a single field is often not sufficient to build anything meaningful downstream and so another downlink will likely need to be opened.
 For example, street can be included in address, address in contact details, contact details in user info.
 
-Also avoid storing an entire agent's state in a single value lane, this can lead to unnecessarily large message sizes.
+At the other extreme, you should also avoid storing the entirety of an agent's state in a single value lane.
+Every subscription (i.e. downlink) to a value lane _at minimum_ transfers each new value to the lane (backpressure regulation aside).
+If your agent design stores `n` attributes in a single value lane, updates to a single attribute force downlinks to transfer the entire collection, leading to unnecessarily large message sizes for larger values of `n`.
 
 **Example**
 
