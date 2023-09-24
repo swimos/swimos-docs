@@ -1,5 +1,5 @@
 ---
-title: Agent Granularity
+title: Web Agent Design
 layout: page
 description: "How to model entities into nodes and agents"
 ---
@@ -8,7 +8,7 @@ Swim provides a framework to model business entities using distributed objects, 
 An early design decision that arises is how to distribute these objects and what should be configured as a node or an agent.
 In this guide we will discuss some best practices and ideas for designing and modelling entities.
 
-## Node Granularity
+## Entity Modeling
 
 **Entities** are identifiable domain elements (the nouns) and Swim **nodes** are addressable groupings of stateful agents which perform some logic.
 Comparing the two definitions, we get a pretty good idea of how to map our entities to nodes, (almost) one-to-one.
@@ -49,7 +49,7 @@ To avoid clashes and make clear what entity type each node is representing we re
 For example, a vehicle with a unique ID should have URI `/vehicle/:id`.
 This also extends to composite URIs and a room with an ID unique to a building should have URI `/building/:buildingID/room/:roomId` - the `/room/` part helps avoid clashes if the building were to have other children such as doors.
 
-## Agent Granularity
+## Web Agent Granularity
 
 Now we have our nodes and entity model it is time to populate the nodes with agents to perform some logic and add behavior.
 

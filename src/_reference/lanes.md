@@ -1,7 +1,7 @@
 ---
 title: Lanes
 layout: page
-description: "Add lanes to web agents"
+description: "Store state in Web Agents and trigger actions on Web Agents using Lanes"
 redirect_from:
   - /concepts/lanes/
 ---
