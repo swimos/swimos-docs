@@ -503,6 +503,25 @@ Source code for the demo application can be found here:
 
 You can run `./gradlew run` from the server directory to run the backend. For a visual representation, see the next section.
 
+# Real-time Map UI which Uses the Streaming API from the Web Agents
+
+While it is reassuring to have console output of arriving data, a visual representation is much more impactful and compelling. There is a simple HTML page provided in this tutorial's repository that you can open to see a visualization of buses moving along their routes on top of the map. The HTML page connects to an agency's URI, streams the vehicle locations, and plots it on a map. To change agencies, you simply change the agency tag in the `nodeUri`, e.g. "glendale":
+
+```typescript
+const vehiclesLink = warp.downlinkMap({
+  hostUri: "warp://localhost:9001",
+  nodeUri: "/agency/glendale",
+  laneUri: "vehicles",
+```
+
+Here's the HTML source:
+
+<a href="https://github.com/swimos/tutorial-transit/blob/main/ui/index.html" target="_blank">https://github.com/swimos/tutorial-transit/blob/main/ui/index.html</a>
+
+By including a few SwimOS libraries, the HTML made includes a tiny bit of javascript to reference the host, the Web Agent uri, and the specific lane. Through calls to `swim.HTMLView`, `swim.MapboxView`, and `swim.GeoTreeView`, the incoming, real-time data stream from SwimOS gets plotted directly against the map.
+
+You can find directions in the top-level <a href="https://github.com/swimos/tutorial-transit/blob/main/README.md" target="_blank">README.md</a> file to run the UI.
+
 # Observing state changes via `swim-cli`
 
 The SwimOS platform provides a CLI tool, <a href="https://www.swimos.org/guides/cli.html" target="_blank">`swim-cli`</a> that makes it simple to stream data from Web Agents. It can be installed globally as follows: 
