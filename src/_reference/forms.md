@@ -1,7 +1,7 @@
 ---
 title: Forms
 layout: page
-descriptions: "Parametrize your lanes with and links with custom types."
+description: "Parametrize your lanes with and links with custom types."
 redirect_from:
   - /tutorials/forms/
 cookbook: https://github.com/swimos/cookbook/tree/master/forms

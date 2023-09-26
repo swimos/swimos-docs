@@ -1,7 +1,7 @@
 ---
 title: Links
 layout: page
-description: ""
+description: "Learn how downlinks form references to the state of Web Agents."
 redirect_from:
   - /concepts/links/
 ---
