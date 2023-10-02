@@ -7,7 +7,5 @@
   <link rel="icon" type="image/png" href="{{ '/assets/images/favicon_x128.png' | absolute_url }}" />
   {%- feed_meta -%}
   <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ '/sitemap.xml' | absolute_url }}">
-  {%- if jekyll.environment == 'production' -%}
-    {%- include google-analytics.html -%}
-  {%- endif -%}
+  {%- include google-analytics.html -%}
 </head>
