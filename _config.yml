@@ -122,6 +122,7 @@ collections:
       - auth-policy.md
       - recon.md
       - warp.md
+      - flink-connector.md
     weight: 3
   concepts:
     output: true
