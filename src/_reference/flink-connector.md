@@ -10,21 +10,7 @@ For more information on Flink connectors see the [Flink documentation](https://n
 
 ## Dependency
 
-### Gradle 
-
-```gradle 
-implementation 'org.swimos:swim-flink-connector:4.1.0.12'
-```
-
-### Maven
-
-```xml
-<dependency>
-  <groupId>swimos.org</groupId>
-  <artifactId>swim-flink-connector</artifactId>
-  <version>4.1.0.12</version>
-</dependency>
-```
+The Swim Flink connector can be built from source, instructions can be found on [GitHub](https://github.com/swimos/swim-flink-connector).
 
 ## Swim Sink
 
