@@ -92,6 +92,7 @@ collections:
       - aggregations.md
       - kafka-ingestion.md
       - http-ingestion.md
+      - flink-connector.md
     weight: 2
   reference:
     output: true
@@ -122,7 +123,6 @@ collections:
       - auth-policy.md
       - recon.md
       - warp.md
-      - flink-connector.md
     weight: 3
   concepts:
     output: true
