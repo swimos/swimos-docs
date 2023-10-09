@@ -185,9 +185,3 @@ Web Agents inherit the natural decentralization of the World Wide Web. Any Web A
 Unlink REST applications, which don't compose well without introducing significantly polling latency, caching overhead, and consistency problems, Web Agents frictionlessly compose, in real-time, at any scale.
 
 As the name implies, Web Agents were designed from first principles to be first class citizens of the World Wide Web. The Web has evolved from a world-wide hypertext library, into the lingua franca of distributed applications. But the technical foundation of the Web, stateless remote procedurce calls over HTTP, is fundamentally incapable of meeting the needs of modern, autonomous, collaborative applications. Web Agents aim to fill that gap.
-
-## Try It Yourself
-
-Jump ahead to lanes to see what goes inside a Web Agent. Dive into the tutorials to see Web Agents in action. Or read on to learn what it really means to be a Web Agent.
-
-A stand
