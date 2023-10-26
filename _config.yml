@@ -92,6 +92,7 @@ collections:
       - aggregations.md
       - kafka-ingestion.md
       - http-ingestion.md
+      - mongodb-ingestion.md
       - flink-connector.md
     weight: 2
   reference:
