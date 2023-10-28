@@ -105,7 +105,7 @@ public class PulsarConsumingAgent extends AbstractAgent {
       Map.entry("topicNames", "myTopic"),
       Map.entry("subscriptionName", "mySubscription")
     );
-    return client.newConsumer(Schema.STRING)GGGGGGGGGG
+    return client.newConsumer(Schema.STRING)
         .loadConf()
         .messageListener((c, m) -> {
           asyncStage().execute(() -> {
