@@ -171,7 +171,7 @@ public class PulsarConsumingAgent extends AbstractAgent {
 
   private Consumer<String> loadPulsarConsumer(PulsarClient client) {
     // ...
-    return client.newConsumer(Schema.STRING)GGGGGGGGGG
+    return client.newConsumer(Schema.STRING)
         .loadConf(config)
         .messageListener((c, m) -> {
           asyncStage().execute(() -> {
