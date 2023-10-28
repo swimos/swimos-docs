@@ -91,9 +91,11 @@ collections:
       - summary-statistics.md
       - aggregations.md
       - kafka-ingestion.md
-      - http-ingestion.md
+      - pulsar-ingestion.md
       - mongodb-ingestion.md
       - flink-connector.md
+      - jms-ingestion.md
+      - http-ingestion.md
     weight: 2
   reference:
     output: true
