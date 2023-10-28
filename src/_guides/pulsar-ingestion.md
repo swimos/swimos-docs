@@ -59,10 +59,6 @@ public final class Assets {
     return Assets.client;
   }
 
-  public static Consumer<String> pulsarConsumer() {
-    return Assets.consumer;
-  }
-
   private static PulsarClient loadPulsarClient() {
     final Map<String, Object> config = Map.ofEntries(
       Map.entry("serviceUrl", "pulsar://localhost:6650"),
@@ -75,7 +71,6 @@ public final class Assets {
 
   public static void init() {
     Assets.client = loadPulsarClient();
-    Assets.consumer = loadPulsarConsumer();
   }
 
 }
