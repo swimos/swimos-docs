@@ -5,11 +5,11 @@ description: "How to receive and process data from Pulsar topics within Web Agen
 cookbook: https://github.com/swimos/cookbook/tree/master/pulsar_ingestion
 ---
 
-This guide illustrates how to develop a Swim application that ingests data from Kafka topics and instantiates logic-performing Web Agents.
+This guide illustrates how to develop a Swim application that ingests data from Pulsar topics and instantiates logic-performing Web Agents.
 
 We accomplish this by declaring two types of Web Agents:
 
-- A singleton `PulsarConsumingAgent` responsible for consuming messages from a Kafka topic and relaying them to...
+- A singleton `PulsarConsumingAgent` responsible for consuming messages from a Pulsar topic and relaying them to...
 - ...a dynamic number of `VehicleAgents` whose callback functions define the business logic.
 
 ## Prerequisites
@@ -22,7 +22,7 @@ We accomplish this by declaring two types of Web Agents:
 
 ### Step 0: Example Data Definition and Business Logic Goals
 
-Let's envision a situation where vehicles continuously report their state to the Kafka topic.
+Let's envision a situation where vehicles continuously report their state to the Pulsar topic.
 Messages in the (unkeyed) topic take the form of a JSON string that looks like:
 
 ```
