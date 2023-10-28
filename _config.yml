@@ -92,6 +92,7 @@ collections:
       - aggregations.md
       - kafka-ingestion.md
       - pulsar-ingestion.md
+      - mongodb-ingestion.md
       - flink-connector.md
       - jms-ingestion.md
       - http-ingestion.md
