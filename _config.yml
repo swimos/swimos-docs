@@ -80,7 +80,7 @@ collections:
       - index.md
       - demos.md
       - transit.md
-    # weight: 1
+    weight: 1
   guides:
     output: true
     name: "How-to Guides"
@@ -97,7 +97,7 @@ collections:
       - flink-connector.md
       - jms-ingestion.md
       - http-ingestion.md
-    # weight: 2
+    weight: 2
   reference:
     output: true
     name: "Reference Docs"
@@ -127,7 +127,7 @@ collections:
       - auth-policy.md
       - recon.md
       - warp.md
-    # weight: 3
+    weight: 3
   concepts:
     output: true
     name: "Conceptual Guides"
@@ -136,7 +136,7 @@ collections:
       - fundamentals.md
       - agent-design.md      
       - lane-organization.md     
-    # weight: 4
+    weight: 4
   meta:
     output: true
     name: "Meta"
@@ -145,12 +145,6 @@ collections:
       - contribute.md
       - diataxis.md
       - styles.md
-    # weight: 5
-  # posts:
-  #   name: Blog
-  #   permalink: /blog/:name/
-  #   output: true
-
 
 # The directory that contains our collections
 collections_dir: src
