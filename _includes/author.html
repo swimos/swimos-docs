@@ -1,0 +1,19 @@
+<div class="mb-6">
+    <div class="not-prose group/avatar flex items-center z-10">
+        <div
+            class="shrink-0 w-12 h-12 bg-eggshell-500 group-hover/avatar:bg-eggshell transition ease-out [clip-path:polygon(0_0,calc(100%-8px)_0,100%_8px,100%_100%,8px_100%,0_calc(100%-8px))]">
+            <img src="https://avatars.githubusercontent.com/u/{{ author.github_id }}"
+                alt="{{ author.name }}" class="w-12 h-12">
+        </div>
+        <div class="flex flex-col justify-between ml-3">
+            <p
+                class="text-sm font-medium leading-5 text-kaimurasaki-800 group-hover/avatar:text-kaimurasaki transition ease-out">
+                {{
+                author.name }}</p>
+            <p
+                class="block text-sm font-medium leading-5 text-kaimurasaki-600 group-hover/avatar:text-kaimurasaki-800 transition ease-out">
+                {{
+                author.title }}</p>
+        </div>
+    </div>
+</div>

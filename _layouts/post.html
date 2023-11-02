@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html class="w-screen min-h-full scroll-pt-[calc(48px+20px)] lg:scroll-pt-[calc(60px+20px)] scroll-smooth"
+    lang="{{ page.lang | default: site.lang | default: 'en' }}">
+{% assign author = site.data.people | find: "id", page.author %}
+{%- include head.html -%}
+
+<body class="overflow-x-hidden">
+    {%- include header.html sticky=true -%}
+    <div class="flex flex-wrap items-start bg-eggshell-100">
+        {%- include banner.html -%}
+
+        <!-- Left margin -->
+        <div class="grow lg:grow-0 xl:grow basis-[1px]"></div>
+        <aside class="hidden xl:block xl:top-[60px] xl:w-[224px] xl:py-20 overflow-x-none overflow-y-auto"></aside>
+
+        <!-- Content -->
+        <main
+            class="w-screen max-w-[768px] lg:w-[784px] lg:max-w-[784px] xl:w-[800px] xl:max-w-[800px] grow lg:grow-0 px-6 lg:px-8 xl:px-10 py-14 lg:py-20 lg:mb-14 prose prose-code:before:hidden prose-code:after:hidden">
+            <time datetime="{{ page.date | date: '%Y-%m-%d' }}"
+                class="mb-0 text-lg font-medium leading-7 text-vermilion">{{ page.date | date: "%B %e, %Y" }}</time>
+            <h1 class="mt-2 mb-6 lg:mb-10 text-4xl sm:text-5xl font-semibold text-kaimurasaki">
+                {{ page.title }}
+            </h1>
+
+            {{ content }}
+
+            <div class="flex justify-between my-4">
+                {% if page.previous.url %}
+                <a class="prev" href="{{page.previous.url}}">&laquo; Previous post</a>
+                {% endif %}
+                {% if page.next.url %}
+                <a class="next" href="{{page.next.url}}">Next post &raquo;</a>
+                {% endif %}
+            </div>
+        </main>
+
+        <!-- User details and share post side bar -->
+        <aside class="hidden lg:block lg:top-[60px] lg:w-[224px] lg:py-20 overflow-x-none overflow-y-auto">
+            {%- include author.html -%}
+
+            <div class="mb-6">
+                {%- include share-post.html -%}
+
+                <h2 class="text-kaimurasaki-800 group-hover/avatar:text-kaimurasaki">Swim Open Source</h2>
+                <hr class="pb-1" />
+                <div>
+                    <a href="https://github.com/swimos/swim" target="_blank">
+                        <img style="height: 1.4rem" src="https://img.shields.io/github/stars/swimos/swim?style=social"
+                            alt="SwimOS GitHub stars"></a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right margin -->
+        <p class="grow lg:grow-0 xl:grow basis-[1px]"></p>
+
+    </div>
+    {%- include footer.html -%}
+</body>
+
+</html>

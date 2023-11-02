@@ -1,0 +1,42 @@
+---
+layout: default
+title: Blog
+---
+
+<div>
+  {% include section-break.html %}
+
+  <h2 class="text-center sm:text-4xl font-bold">Swim Developer Blog</h2>
+
+  {% include section-break.html %}
+
+  <div class="not-prose py-6 sm:py-8">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-8 gap-y-16">
+        {% for post in paginator.posts %}
+        {% include post.html post=post %}
+        {% endfor %}
+      </div>
+
+      <div class="flex justify-between my-4">
+        {% if paginator.previous_page %}
+        <a class="prev" href="{{paginator.previous_page_path}}">&laquo; Previous page</a>
+        {% else %}
+        <a class="prev"></a>
+        {% endif %}
+
+        {% if paginator.previous_page or paginator.next_page %}
+        <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+        {% endif %}
+
+        {% if paginator.next_page %}
+        <a class="next" href="{{paginator.next_page_path}}">Next page &raquo;</a>
+        {% else %}
+        <a class="next"></a>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+
+</div>
