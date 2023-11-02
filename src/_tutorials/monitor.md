@@ -1,3 +1,8 @@
+---
+title: Monitor Tutorial
+layout: page
+---
+
 # Application Overview
 
 We will create a real-time streaming application to monitor a cluster of machines using OSHI, a free JNA-based (native) Operating System and Hardware Information library for Java. Two web agent types will be involved: one for the cluster and one for each machine in the cluster.
