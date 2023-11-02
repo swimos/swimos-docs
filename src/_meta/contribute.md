@@ -42,6 +42,12 @@ rbenv install 3.2.2
 rbenv local 3.2.2
 ```
 
+You may need to run this command to see newer versions of Ruby:
+
+```
+brew update && brew upgrade ruby-build
+```
+
 {:.no_toc}
 ##### Install Jekyll & Dependencies
 

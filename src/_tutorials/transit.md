@@ -3,87 +3,407 @@ title: Transit Tutorial
 layout: page
 ---
 
-The Transit Tutorial walks you step-by-step through creating a small, but fully functional backend application for conveying real-time city transit information. The application involves four types of business entities: vehicles, agencies, states, and countries. These entities form a simple hierarchy where each vehicle falls under exactly one of 46 agencies. Each agency likewise falls under exactly one state, and each state falls under exactly one country.
+# Application Overview
 
-Rather than simulating data, we will be utilizing an API provided by Cubic Transportation System's Umo Mobility Platform to retrieve real-time transit information -- NextBus, https://retro.umoiq.com/.
+The Transit Tutorial walks you step-by-step through creating a small, but fully functional end-to-end, streaming data application for conveying real-time city transit information. We will retrieve live transit information via UmoIQ's <a href="https://retro.umoiq.com/" target="_blank">NextBus API</a> for 6 Southern California transportation agencies.
 
-### Project Creation
+At a high level, the flow looks like this:
 
-Let’s start by creating the root project folder. We are calling the directory `transit` and the `server` sub-directory.
+1.  We load agencies from CSV file to create an Agency Web Agent
+2. This triggers a poller for acessing REST APIs for each Agency Agent
+3. The REST API response is then used to update the AgencyAgent
+4. The AgencyAgent update triggers messages to the Vehicle Agent
 
-```console
-$ mkdir -p transit/server
-$ cd transit/server
-```
+Then we will process this information to maintain location, speed, and acceleration information for each of the agency's vehicles. The goal of this application is to demonstrate how to connect to a REST API and create a streaming API for each entity/domain object (here, Agency and Vehicle). The Streaming APIs can be consumed by third-party applications, whether browser-based applications using SwimOS's real-time map UI or standalone applications using the typescript client APIs.
 
-#### Prerequisites
+# Stateful Entity Model
 
-To build this application, we'll need the JDK for <a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">Java 11+</a>. Click <a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">here</a> for JDK installation instructions. In conjunction with this, make sure your `JAVA_HOME` environment variable is pointed to your Java installation location, and that your `PATH` includes `JAVA_HOME`.
+## How to Model Web Agents from Entities
+We determine our entities in the same way we would if doing object oriented design, data modeling, or domain driven-design. We start at a conceptual level that partitions information with respect to distinct, immutable identities that encapsulate a common behavior for state that changes over time. In our case, the UmoIQ API allows callers to obtain live vehicle information based on agency. That essentially determines our entities that will be represented as Web Agents: `AgencyAgent` and `VehicleAgent`.
 
-#### Building with Gradle
+### Modeling the `AgencyAgent`
 
-We’ll be using Gradle to build the application, installation instructions can be found [here](https://gradle.org/install/). We'll start with some boilerplate that will generally require little changes across projects. First, we will download the gradle files from this <a href="https://github.com/swimos/project-starter/blob/main/java/gradle-files.tgz">tarball</a> or <a href="https://github.com/swimos/project-starter/blob/main/java/gradle-files.zip">zip archive</a>.
-
-Then extract as appropriate to the server directory:
-
-```console
-tar zxvf gradle-files.tgz # Un-tar the tarball package
-unzip gradle-files.zip # Unzip the zip file
-```
-
-### Project organization
-
-#### Directory structure
-
-From the root project directory, the directory structure should currently look like this:
-
-```
-- server
-  - build.gradle
-  - gradle
-    - wrapper
-      - gradle-wrapper.jar
-      - gradle-wrapper.properties
-  - gradlew
-  - gradlew.bat
-  - gradle.properties
-  - settings.gradle
-```
-
-To fill out the Java application structure under `server`, just do the following:
-
-```console
-mkdir -p src/main/java/swim/transit/agent
-mkdir -p src/main/resources
-```
-
-#### Creating the app configuration files
-
-We will be creating the following configuration <a href="https://github.com/swimos/tutorial-transit/blob/main/server/src/main/resources/server.recon">file</a>:
+#### Specifying the Agency Web Agent
+We will define our `AgencyAgent` by extending SwimOS's `AbstractAgent` that gives us an extensive range of capabilities with the convenience of inversion of control so we simply extend and override to express application specific details:
 
 ```java
-// server/src/main/resources/server.recon
-@kernel(class: 'swim.reflect.ReflectKernel', optional: true)
+public class AgencyAgent extends AbstractAgent {
+  private static final Logger log = Logger.getLogger(AgencyAgent.class.getName());
 
+    @Override
+    public void didStart() {
+        log.info(() -> String.format("Starting Agent:%s", nodeUri()));
+    }
+}
+```
+
+#### Defining the Agency data structure
+
+We will be using a <a href="https://github.com/swimos/tutorial-transit/blob/main/server/src/main/resources/agencies.csv" target="_blank">csv file</a> to specify 6 Southern California agencies:
+
+```
+west-hollywood,S-CA,US
+glendale,S-CA,US
+glendale-beeline,S-CA,US
+omnitrans,S-CA,US
+pvpta,S-CA,US
+ucla,S-CA,US
+```
+
+Each Agency record provides an id, a state (or in the case of California, Southern and Northern California), and the country. Though tag is essential, the others provide human readability, so we can add those to our Agency entity model and define our Web Agent:
+{id:jhu-apl,state:MD,country:US,index:0}
+
+```java
+Value data = Record.of()
+  .slot("id", "glendale")
+  .slog("state", "S-CA")
+  .slot("country", "US")
+```
+
+#### Defining an Agency `ValueLane`
+We can define a the equivalent of a member variable on the Web Agent called info and take action upon update:
+
+```java
+@SwimLane("info")
+public ValueLane<Value> info = this.<Value>valueLane()
+    .didSet((newValue, oldValue) -> {
+      // take action
+  });
+```
+
+We can update state within our Web Agent like this:
+
+```java
+this.info.set(data);
+```
+
+#### Defining an Agency `CommandLane`
+We can provide an end-point to update it externally through a command like this:
+
+```java
+
+@SwimLane("addInfo")
+public CommandLane<Value> addInfo = this.<Value>commandLane()
+  .onCommand(this::onInfo);
+
+private void onInfo(Value agency) {
+  Value oldValue = info.get();
+  info.set(agency);
+}
+```
+
+#### Storing Agency vehicles in a `MapLane``
+Since the purpose of the transit API is to retrieve vehicle information that must be retrieved with respect to Agency tag, we will also want to maintain a collection of vehicles. Let's map them by vehicle id:
+
+```java
+    @SwimLane("vehicles")
+    public MapLane<String, Value> vehicles;
+```
+
+Great, now let's get to the Vehicle entity and its corresponding Web Agent representation.
+
+### Modeling the `VehicleAgent`
+Now that we have some Agency tags to work with, we are in a position to retrieve live data for an Agency's vehicles. We can using the following API for this: 
+
+https://retro.umoiq.com/service/publicXMLFeed?command=vehicleLocations&a=ccrta&t=0
+
+```xml
+<body 
+  copyright="All data copyright APL 2023."
+>
+  <vehicle
+    id="2"
+    routeTag="internal"
+    dirTag="loop"
+    lat="39.170158"
+    lon="-76.895701"
+    secsSinceReport="4"
+    predictable="true"
+    heading="262"
+    speedKmHr="0"
+  />
+  <vehicle
+    id="9"
+    routeTag="marc"
+    dirTag="loop"
+    lat="39.160668"
+    lon="-76.897818"
+    secsSinceReport="8"
+    predictable="true"
+    heading="276"
+    speedKmHr="56"
+  />
+<lastTime time="1691616124147"/>
+</body></body>
+```
+
+#### Specifying the Vehicle Web Agent
+As with `AgencyAgent`, we will define our `VehicleAgent` by extending SwimOS's `AbstractAgent`:
+
+```java
+public class VehicleAgent extends AbstractAgent {
+  private static final Logger log = Logger.getLogger(VehicleAgent.class.getName());
+  private long lastReportedTime = 0L;
+
+    @Override
+    public void didStart() {
+    log.info(()-> String.format("Started Agent: %s", nodeUri()));
+    }
+}
+```
+
+#### Defining the Vehicle data structure
+We can directly translate this to SwimOS data format:
+
+```java
+Value data = Record.of()
+  .slot("id", "9")
+  .slot("dirTag", "loop")
+  .slot("lat", 39.160668)
+  .slot("lon", -76.897818)
+  .slot("secsSinceReport", 8)
+  .slot("predictable", true)
+  .slot("heading", "276")
+  .slot("speedKmHr", 56);
+```
+
+#### Defining a Vehicle ValueLane
+As before, we can specify a `ValueLane` on the Web Agent to represent this state:
+
+```java
+  @SwimLane("vehicle")
+  public ValueLane<Value> vehicle = this.<Value>valueLane()
+          .didSet((newValue, oldValue) -> {
+            // take action
+          });
+```
+
+We can add whatever lanes we need to manage our processing needs. In this case, we want to maintain a list of the last 10 speeds and derive the last 10 accelerations.
+
+```java
+  @SwimLane("speeds")
+  public MapLane<Long, Integer> speeds;
+
+  @SwimLane("accelerations")
+  public MapLane<Long, Integer> accelerations;
+```
+
+#### Defining a Vehicle CommandLane
+`CommandLane`s are used by clients and other Web Agents to send notifications and trigger processing. 
+
+```java
+
+  @SwimLane("updateVehicle")
+  public CommandLane<Value> updateVehicle = this.<Value>commandLane().onCommand(this::onUpdateVehicle);
+
+  private void onUpdateVehicle(Value v) {
+    final Value oldState = vehicle.get();
+    final long time = System.currentTimeMillis() - (v.get("secsSinceReport").longValue(0) * 1000L);
+    final int oldSpeed = oldState.isDefined() ? oldState.get("speed").intValue(0) : 0;
+    final int newSpeed = v.get("speed").intValue(0);
+
+    this.vehicle.set(v);
+    this.speeds.put(time, newSpeed);
+    if (this.speeds.size() > 10) {
+      this.speeds.drop(speeds.size() - 10);
+    }
+    if (lastReportedTime > 0) {
+      final float acceleration = (float) ((newSpeed - oldSpeed)) / (time - this.lastReportedTime) * 3600;
+      this.accelerations.put(time, Math.round(acceleration));
+      if (this.accelerations.size() > 10) {
+        this.accelerations.drop(accelerations.size() - 10);
+      }
+    }
+    this.lastReportedTime = time;
+  }
+```
+
+# Connect to Data Source
+
+## Consuming data from a web API
+Let's start by connecting to UmoIQ's live transit API. As you saw, the data format is XML. We'll be using `java.net.http.HttpClient`, which requires Java 11. If you are using an older version of Java, you can use `java.net.HttpUrlConnection` instead as shown <a href="https://github.com/swimos/tutorial-transit/blob/main/server/src/main/java/swim/transit/NextBusHttpAPI.java" target="_blank">here</a>.
+
+This requires a wee bit of boilerplate, as shown below:
+
+```java
+    private static HttpRequest requestForEndpoint(String endpoint) {
+        return HttpRequest.newBuilder(URI.create(endpoint))
+                .GET()
+                .headers("Accept-Encoding", "gzip")
+                .build();
+    }
+```
+
+With that in hand, we can invoke it when loading Agency agents as shown below. The key mechanism we use to go from XML to SwimOS's internal data format is `swim.xml.Xml`, which exposes `Xml.structureParser().documentParser()``.
+
+```java
+    public static Value getVehiclesForAgency(HttpClient executor, String agency, long since) {
+        final HttpRequest request = requestForEndpoint(endpointForAgency(agency, since));
+        try {
+            final HttpResponse<InputStream> response = executor.send(request,
+                    HttpResponse.BodyHandlers.ofInputStream());
+            return Utf8.read(new GZIPInputStream(response.body()), Xml.structureParser().documentParser());
+            // Alternatively: convert GZIPInputStream to String, then invoke the more
+            // familiar Xml.parse()
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Value.absent();
+        }
+    }
+```
+
+# Send to Data to Web Agents
+
+## Converting at rest data to streaming data
+Because we are not working with a naturally streaming data source like Kafka or Pulsar, the only instance in which we'll need to poll is upon ingestion. Fortunately SwimOS has timer and task facilities we can make use of. Here are the declarations:
+
+```java
+private TimerRef timer;
+private final TaskRef agencyPollTask = ...
+```
+
+To start polling, we'll define `initPoll()` to execute the TaskRef's cue() method:
+
+```java
+    private void initPoll() {
+        this.timer = setTimer((long) (Math.random() * 1000), () -> {
+          this.agencyPollTask.cue();
+          this.timer.reschedule(15000L);
+        });
+      }```
+
+Now, we just need the TaskRef definition:
+
+```java
+    private final TaskRef agencyPollTask = asyncStage().task(new AbstractTask() {
+  
+      private long lastTime = 0L; // This will update via API responses
+  
+      @Override
+      public void runTask() {
+        final String aid = agencyId();
+        // Make API call
+        final Value payload = NextBusHttpAPI.getVehiclesForAgency(Assets.httpClient(), aid, this.lastTime);
+        // Extract information for all vehicles and the payload's timestamp
+        //final List<Value> vehicleInfos = new ArrayList<>(payload.length());
+        final Record vehicleInfos = Record.of();
+        for (Item i : payload) {
+          if (i.head() instanceof Attr) {
+            final String label = i.head().key().stringValue(null);
+            if ("vehicle".equals(label)) {
+                final Value vehicle = i.head().toValue();
+                final String vehicleUri = "/vehicle/" + aid + "/" + vehicle.get("id").stringValue();
+                final Value vehicleInfo = vehicle.updatedSlot("uri", vehicleUri);
+                vehicleInfos.add(vehicleInfo);
+            } else if ("lastTime".equals(label)) {
+              this.lastTime = i.head().toValue().get("time").longValue();
+            }
+          }
+        }
+        onVehicles(vehicleInfos);
+      }
+  
+      @Override
+      public boolean taskWillBlock() {
+        return true;
+      }
+  
+    });
+```
+
+
+## Feeding Web Agents
+
+Web Agents are URI addressable. We send them data via commands and create downlinks to receive data from them. You'll recall the `addInfo` `CommandLane` from earlier. We can invoke these end-points using SwimOS's warp protocol using a `WarpRef` and passing in the URL, the `ComandLane`'s name, and any input, typically a value object, but sometimes Java primitives like String and Integer that will seamlessly get converted to and from `Value` objects.
+
+```java
+warp.command(agencyUri, "addInfo", someValue);
+```
+
+We will load static `AgencyAgent` data via our CSV file. Let's define a `loadAgencies()` method for this. Most of this is boilerplate Java. The `SwimOS` specific part involves creating a `Record` object, `agencies`, to represent a list of objects, as well as an additional `Record` object to represent the fields of each agent element. In addition to the static data from the CSV, we derive an `index` field.
+
+```
+  private static Value loadAgencies() {
+    Record agencies = Record.of();
+    InputStream is = null;
+    Scanner scanner = null;
+    try {
+      is = TransitPlane.class.getResourceAsStream("/agencies.csv");
+      scanner = new Scanner(is, "UTF-8");
+      int index = 0;
+      while (scanner.hasNextLine()) {
+        final String[] line = scanner.nextLine().split(",");
+        if (line.length >= 3) {
+          Value newAgency = Record.of().slot("id", line[0]).slot("state", line[1]).slot("country", line[2]).slot("index", index++);
+          agencies.item(newAgency);
+        }
+      }
+    } catch (Throwable t) {
+      log.severe(()->String.format("Exception thrown\n%s", t));
+    } finally {
+      try {
+        if (is != null) {
+          is.close();
+        }
+      } catch (IOException ignore) {
+      }
+      if (scanner != null) {
+        scanner.close();
+      }
+    }
+    return agencies;
+  }
+```
+
+## Materializing Web Agents
+To make use of the SwimOS runtime, we will define our application entry-point by extending `AbstractPlane`. We are calling our application space, "transit." We will create a server to activate the SwimOS runtime and associate our application space with it. After starting the runtime, we can use the `Space` object as a `WarpRef` to interact with Web Agents using SwimOS's WARP protocol based on Websockets supercharged with multicast, multiplexing and delta encoding.
+
+As this is the entry point of our application, it is a logical place to initialize static data. Here we will invoke a method to start `AgencyAgents`:
+
+```java
+public class TransitPlane extends AbstractPlane {
+  public static void main(String[] args) {
+    final Kernel kernel = ServerLoader.loadServer();
+    final Space space = kernel.getSpace("transit");
+    kernel.start();
+    log.info("Running TransitPlane...");
+    startAgencies(space);
+    kernel.run(); // blocks until termination
+  }
+}
+```
+
+Starting an agent is accomplished by simply sending a message to a known Web Agent type. We can do that by sending a command to a lane. It isn't even important if the lane exists or not. Since we are initializing state, it makes sense to invoke the `AgencyAgent`'s `addInfo` command.
+
+```java
+  private static void startAgencies(WarpRef warp) {
+    final Value agencies = loadAgencies();
+    for (Item agency : agencies) {
+      log.info(Recon.toString(agency));
+      String agencyUri = "/agency/" +
+              agency.get("id").stringValue();
+      warp.command(agencyUri, "addInfo", agency.toValue());
+    }
+    try {
+      Thread.sleep(3000);
+    } catch (InterruptedException e) {
+
+    }
+  }
+```
+
+We now have to define our application space in order to access the SwimOS runtime and make use of Web Agents. We will register our `TransitPlane` and our two Web Agents, `AgencyAgent` and `VehicleAgent` by creating a configuration file using SwimOS's JSON-like Recon format.
+
+```
 transit: @fabric {
+    @plane(class: "swim.transit.TransitPlane")
     @node {
-        pattern: "/country/:id"
-        @agent(class: "swim.transit.agent.CountryAgent")
-    }
-    @node {
-        pattern: "/state/:country/:state"
-        @agent(class: "swim.transit.agent.StateAgent")
-    }
-    @node {
-        pattern: "/agency/:country/:state/:id"
+        pattern: "/agency/:id"
         @agent(class: "swim.transit.agent.AgencyAgent")
     }
     @node {
-        pattern: "/vehicle/:country/:state/:agency/:id"
+        pattern: "/vehicle/:agency/:id"
         @agent(class: "swim.transit.agent.VehicleAgent")
-    }
-    @store {
-        path: "/tmp/swim-transit/"
     }
 }
 
@@ -96,486 +416,159 @@ transit: @fabric {
 }
 ```
 
-`@kernel` is used to specify kernel properties that determine runtime settings. Then, within the `@fabric` definition, we specify the Java class that will serve as our application entry point, `TransitPlane`. We define @store to use the file system as a lightweight backing store, though in-memory remains the primary state store.
+The source can be found <a href="https://github.com/swimos/tutorial-transit/blob/main/server/src/main/resources/server.recon" target="_blank">here</a>.
 
-Lastly, we need to configure the client-facing end-point. We do that using the @web directive where we set the port to `9001`. We tie the end-point to the fabric using the `space` property so it names the fabric’s key. We turn off websocket compression by setting `serverCompressionLevel` and `clientCompressionLevel` to 0.
+# Continuously Evaluate Business Logic in Web Agents
 
-We will be using a CSV file to load transit information for 46 transit agencies into Web Agents:
-- https://raw.githubusercontent.com/swimos/transit/master/server/src/main/resources/agencies.csv
+`ValueLane`, `MapLane`, and `CommandLane` provide a wide range of callback mechanisms for implementing business logic in response to streaming data. We will just utilize those for responding to incoming data. 
 
-This CSV data file contains the fields for each agency: `id`, `state`, and `country`. It should be saved under `server/src/main/resources/`.
+## Executing Agency logic
 
-### First Contact
+As seen previously, the `AgencyAgent`'s identification data will be stored in the `info` `ValueLane`, which will be populated using the `addInfo` `CommandLane`. We'll maintain a count of vehicles via the `vehicleCount` `ValueLane` to compute averages, and store that average in the `avgVehicleSpeed` `ValueLane`.
 
-We will implement Web Agents for each of our entities under `server/src/main/java/swim/transit/agent/`:
-- `AgencyAgent.java`
-- `CountryAgent.java`
-- `StateAgent.java`
-- `VehicleAgent.java`
-
-#### Creating a Web Agent
-
-We will now create a barebones Web Agent for the vehicle entity, <a href="https://github.com/swimos/tutorial-transit/blob/main/server/src/main/java/swim/transit/agent/VehicleAgent.java">VehicleAgent.java</a>. To do that, we’ll start by extending `AbstractAgent` and override the `didStart()` method:
+Our primary method for processing streaming data for the `AgencyAgent` will be through `agencyPollTask.runTask()` which invokes `onVehicles()`.
 
 ```java
-package swim.transit.agent;
-
-import swim.api.agent.AbstractAgent;
-import java.util.logging.Logger;
-
-public class VehicleAgent extends AbstractAgent {
-  private static final Logger log = Logger.getLogger(VehicleAgent.class.getName());
-
-  @Override
-  public void didStart() {
-    log.info(()-> String.format("Started Agent: %s", nodeUri()));
-  }
-
-}
-```
-
-#### Creating the App Plane
-
-We will define our application entry point under `server/src/main/java/swim/transit/` as <a href="https://github.com/swimos/tutorial-transit/blob/main/server/src/main/java/swim/transit/TransitPlane.java">TransitPlane.java</a>. We can do this by extending `TransitPlane` from the `AbstractPlane` base class, which will allow us to declare the application routes. The agent corresponding to each route is declared using the `@SwimAgent` annotation. The application routes are declared using the `@SwimRoute` annotation. The route itself is defined via the generic `AgentRoute` type.
-
-```java
-package swim.transit;
-
-import swim.api.*;
-import swim.api.plane.AbstractPlane;
-import swim.api.space.Space;
-import swim.kernel.Kernel;
-import swim.server.ServerLoader;
-import swim.transit.agent.VehicleAgent;
-import swim.structure.Value;
-import java.util.logging.Logger;
-
-public class TransitPlane extends AbstractPlane {
-  private static final Logger log = Logger.getLogger(TransitPlane.class.getName());
-
-  public static void main(String[] args) {
-    final Kernel kernel = ServerLoader.loadServer();
-    final Space space = kernel.getSpace("transit");
-
-    kernel.start();
-    log.info("Running TransitPlane...");
-
-    space.command("/vehicle/US/CA/poseurs/dummy", "fake", Value.empty());
-
-    kernel.run(); // blocks until termination
-  }
-}
-```
-
-#### Interacting with Web Agent
-
-Now we can run the application and confirm that the plane starts up and an agent is instantiated within the plane. From the server directory, run the following:
-```console
-./gradlew build
-./gradlew run
-```
-
-We'll see that our plane has started and that the VehicleAgent is running.
-
-#### Handling a Command
-
-We will define a CommandLane that receives commands to update the state managed by a VehicleAgent whenever new values for that state are returned by the traffic API. Our vehicle data has been stored in a `Value` object that exposes `get()` methods to retrieve data from a generic structure. We will store the `Value` by defining a `ValueLane` and adding a handler that logs each state change.
-
-```java
-import swim.api.SwimLane;
-import swim.api.lane.CommandLane;
-import swim.api.lane.ValueLane;
-import swim.recon.Recon;
-import swim.structure.Record;
-import swim.structure.Value;
-
-...
-
-  @SwimLane("vehicle")
-  public ValueLane<Value> vehicle = this.<Value>valueLane()
-          .didSet((newValue, oldValue) -> {
-            log.info("vehicle changed from " + Recon.toString(newValue) + " from " + Recon.toString(oldValue));
-          });
-
-  @SwimLane("updateVehicle")
-  public CommandLane<Value> addVehicle = this.<Value>commandLane().onCommand(this::onUpdateVehicle);
-
-  private void onUpdateVehicle(Value v) {
-    this.vehicle.set(v);
-  }
-
-```
-
-Lastly, we’ll invoke `updateVehicle` from the TransitPlane changing the command lane from `fake` to `updateVehicle` so that the line below
-
-```java
-space.command("/vehicle/US/CA/poseurs/dummy", "fake", Value.empty());
-```
-
-becomes
-
-```java
-      Record dummyVehicleInfo = Record.of()
-              .slot("id", "8888")
-              .slot("uri", "/vehicle/US/CA/poseurs/dummy/8888")
-              .slot("dirId", "outbound")
-              .slot("index", 26)
-              .slot("latitude", 34.07749)
-              .slot("longitude", -117.44896)
-              .slot("routeTag", "61")
-              .slot("secsSinceReport", 9)
-              .slot("speed", 0)
-              .slot("heading", "N");
-  
-      space.command("/vehicle/US/CA/poseurs/dummy", "updateVehicle", dummyVehicleInfo);
-```
-
-Think of `Record` as a `JSON object`, with slots being the key-value pairs. Let’s re-run now to confirm that our command has been received and the state has been stored:
-
-```console
-./gradlew build
-./gradlew run
-```
-
-#### Acting on state changes
-
-We'll now modify `VehicleAgent` a bit more to derive acceleration from time and speed, as well as store the last 10 speed and acceleration data points.
-
-```java
-  private long lastReportedTime = 0L;
-
-  @SwimLane("speeds")
-  public MapLane<Long, Integer> speeds;
-
-  @SwimLane("accelerations")
-  public MapLane<Long, Integer> accelerations;
-```
-
-You can now modify `onUpdateVehicle` to handle acceleration and speed. 
-
-```java
-import swim.api.lane.MapLane;
-
-...
-
- private void onUpdateVehicle(Value v) {
-    final Value oldState = vehicle.get();
-    final long time = System.currentTimeMillis() - (v.get("secsSinceReport").longValue(0) * 1000L);
-    final int oldSpeed = oldState.isDefined() ? oldState.get("speed").intValue(0) : 0;
-    final int newSpeed = v.get("speed").intValue(0);
-
-    this.vehicle.set(v);
-    speeds.put(time, newSpeed);
-    if (speeds.size() > 10) {
-      speeds.drop(speeds.size() - 10);
-    }
-    if (lastReportedTime > 0) {
-      final float acceleration = (float) ((newSpeed - oldSpeed)) / (time - lastReportedTime) * 3600;
-      accelerations.put(time, Math.round(acceleration));
-      if (accelerations.size() > 10) {
-        accelerations.drop(accelerations.size() - 10);
-      }
-    }
-    lastReportedTime = time;
-  }
-```
-
-Let’s re-run our code to observe recordings of speed and derivations of acceleration:
-```console
-./gradlew build
-./gradlew run
-```
-
-### Implement agents for transit domain
-
-We’ve already implemented VehicleAgent, so we’ll move on to the remaining agents for state, country, and agent.
-
-#### Implement AgencyAgent
-
-##### Implement NextBusHttpAPI transit wrapper
-
-There are two public transit APIs we will connect to from UmoIQ (https://retro.umoiq.com/xmlFeedDocs/NextBusXMLFeed.pdf):
-https://retro.umoiq.com/service/publicXMLFeed?command=routeList&a={agencyId}
-https://retro.umoiq.com/service/publicXMLFeed?command=vehicleLocations&a={agencyId}&t=0
-
-We will encapsulate this functionality with a wrapper, <a href="https://github.com/swimos/tutorial-transit/blob/main/server/src/main/java/swim/transit/NextBusHttpAPI.java">NextBusHttpAPI.java</a>, that will sit alongside TransitPlane.java under `server/src/main/java/swim/transit/NextBusHttpAPI.java`. The first end-point corresponds to the `routeList` command, and will return a route object with a `tag`, `title`, and `shortTitle`. We will make use of the tag and title fields. 
-
-```java
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Iterator;
-import java.util.logging.Logger;
-import java.util.zip.GZIPInputStream;
-import swim.codec.Utf8;
-import swim.structure.Item;
-import swim.structure.Record;
-import swim.structure.Value;
-import swim.xml.Xml;
-
-public class NextBusHttpAPI {
-    private static final Logger log = Logger.getLogger(NextBusHttpAPI.class.getName());
-    private NextBusHttpAPI() { }
-
-
-  private static Value getRoutes(Value ag) {
-      try {
-          final URL url = new URL(String.format(
-                  "https://retro.umoiq.com/service/publicXMLFeed?command=routeList&a=%s", ag.get("id").stringValue()));
-          final Value allRoutes = parse(url);
-          if (!allRoutes.isDefined()) {
-              return null;
-          }
-          final Iterator<Item> it = allRoutes.iterator();
-          final Record routes = Record.of();
-          while (it.hasNext()) {
-              final Item item = it.next();
-              final Value header = item.getAttr("route");
-              if (header.isDefined()) {
-                  final Value route = Record.of()
-                          .slot("tag", header.get("tag").stringValue())
-                          .slot("title", header.get("title").stringValue());
-                  routes.item(route);
-              }
-          }
-          return routes;
-      } catch (Exception e) {
-          log.severe(() -> String.format("Exception thrown:\n%s", e));
-      }
-      return null;
-  }
-
-
-  private static Value parse(URL url) {
-      final HttpURLConnection urlConnection;
-      try {
-          urlConnection = (HttpURLConnection) url.openConnection();
-          urlConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
-          final InputStream stream = new GZIPInputStream(urlConnection.getInputStream());
-          final Value configValue = Utf8.read(stream, Xml.structureParser().documentParser());
-          return configValue;
-      } catch (Throwable e) {
-          log.severe(() -> String.format("Exception thrown:\n%s", e));
-      }
-      return Value.absent();
-  }
-    
-}
-```
-
-The second end-point corresponds to the `vehicleLocations` command, and will return a vehicle  object with fields for `id`, `routeTag`, `dirTag`, `lat`, `long`, `secsSinceReport`, `predictable` and `heading`. 
-
-```java
-  public static Value getVehicleLocations(String pollUrl, Value ag) {
-  try {
-      final URL url = new URL(pollUrl);
-      final Value vehicleLocs = parse(url);
-      if (!vehicleLocs.isDefined()) {
-          return null;
-      }
-
-      final Iterator<Item> it = vehicleLocs.iterator();
-      final Record vehicles = Record.of();
-      while (it.hasNext()) {
-          final Item item = it.next();
-          final Value header = item.getAttr("vehicle");
-          if (header.isDefined()) {
-              final String id = header.get("id").stringValue().trim();
-              final String routeTag = header.get("routeTag").stringValue();
-              final float latitude = header.get("lat").floatValue(0.0f);
-              final float longitude = header.get("lon").floatValue(0.0f);
-              final int speed = header.get("speedKmHr").intValue(0);
-              final int secsSinceReport = header.get("secsSinceReport").intValue(0);
-              final String dir = header.get("dirTag").stringValue("");
-              final String dirId;
-              if (!dir.equals("")) {
-                  dirId = dir.contains("_0") ? "outbound" : "inbound";
-              } else {
-                  dirId = "outbound";
-              }
-
-              final int headingInt = header.get("heading").intValue(0);
-              String heading = "";
-              if (headingInt < 23 || headingInt >= 338) {
-                  heading = "E";
-              } else if (23 <= headingInt && headingInt < 68) {
-                  heading = "NE";
-              } else if (68 <= headingInt && headingInt < 113) {
-                  heading = "N";
-              } else if (113 <= headingInt && headingInt < 158) {
-                  heading = "NW";
-              } else if (158 <= headingInt && headingInt < 203) {
-                  heading = "W";
-              } else if (203 <= headingInt && headingInt < 248) {
-                  heading = "SW";
-              } else if (248 <= headingInt && headingInt < 293) {
-                  heading = "S";
-              } else if (293 <= headingInt && headingInt < 338) {
-                  heading = "SE";
-              }
-              final String uri = "/vehicle/" +
-                      ag.get("country").stringValue() +
-                      "/" + ag.get("state").stringValue() +
-                      "/" + ag.get("id").stringValue() +
-                      "/" + parseUri(id);
-              final Record vehicle = Record.of()
-                      .slot("id", id)
-                      .slot("uri", uri)
-                      .slot("dirId", dirId)
-                      .slot("index", ag.get("index").intValue())
-                      .slot("latitude", latitude)
-                      .slot("longitude", longitude)
-                      .slot("routeTag", routeTag)
-                      .slot("secsSinceReport", secsSinceReport)
-                      .slot("speed", speed)
-                      .slot("heading", heading);
-              vehicles.add(vehicle);
-          }
-      }
-      return vehicles;
-  } catch (Exception e) {
-      log.severe(() -> String.format("Exception thrown:\n%s", e));
-  }
-  return null;
-}
-
-private static String parseUri(String uri) {
-  try {
-      return java.net.URLEncoder.encode(uri, "UTF-8").toString();
-  } catch (UnsupportedEncodingException e) {
-      return null;
-  }
-}
-```
-
-#### Implement StateAgent
-
-Let’s implement <a href="https://github.com/swimos/tutorial-transit/blob/main/server/src/main/java/swim/transit/agent/StateAgent.java">StateAgent</a> to manage the agencies and vehicles operating within the State. The basic lanes we’ll create maintain high-level statistics and element collections.
-
-```java
-package swim.transit.agent;
-
-import java.util.Iterator;
-import java.util.logging.Logger;
-
-import swim.api.SwimLane;
-import swim.api.agent.AbstractAgent;
-import swim.api.lane.CommandLane;
-import swim.api.lane.JoinMapLane;
-import swim.api.lane.JoinValueLane;
-import swim.api.lane.MapLane;
-import swim.api.lane.ValueLane;
-import swim.structure.Record;
-import swim.structure.Value;
-
-import java.util.logging.Logger;
-
-public class StateAgent extends AbstractAgent {
-  private static final Logger log = Logger.getLogger(StateAgent.class.getName());
-    
-  @SwimLane("count")
-  public ValueLane<Value> count;
-
-  @SwimLane("agencyCount")
-  public MapLane<Value, Integer> agencyCount;
-
-  @SwimLane("vehicles")
-  public MapLane<String, Value> vehicles;
-
- @SwimLane("speed")
-  public ValueLane<Float> speed;
-
-  @SwimLane("agencySpeed")
-  public MapLane<Value, Float> agencySpeed;
-}
-```
-
-The join lanes allow us to link to other agents, such as Agency and Vehicle. We’ll make use of SwimOS’s `JoinValueLane` to reflect the vehicle count and average vehicle speed for each agency. We’ll reflect the topology of agencies and vehicles by aggregating each agency and each agency’s vehicles. Then, we’ll link to an agency with respect to specific lanes with `addAgency()`, while making use of AbstractAgent’s context object to send commands to other Web Agents. We will materialize the links using the downlink command exposed on all join lane types, passing in an Agency data object as the key:
-
-```java
-joinAgencySpeed.downlink(agency).nodeUri(agency.getUri()).laneUri("speed").open();
-```
-
-Here is the relevant code for the StateAgent:
-
-```java
-  @SwimLane("joinAgencyCount")
-  public JoinValueLane<Value, Integer> joinAgencyCount = this.<Value, Integer>joinValueLane()
-          .didUpdate(this::updateCounts);
-
-  public void updateCounts(Value agency, int newCount, int oldCount) {
-      int vCounts = 0;
-      final Iterator<Integer> it = joinAgencyCount.valueIterator();
-      while (it.hasNext()) {
-          final Integer next = it.next();
-          vCounts += next;
-      }
-
-      final int maxCount = Integer.max(count.get().get("max").intValue(0), vCounts);
-      count.set(Record.create(2).slot("current", vCounts).slot("max", maxCount));
-      agencyCount.put(agency, newCount);
-  }
-  
-  @SwimLane("joinStateSpeed")
-  public JoinValueLane<Value, Float> joinAgencySpeed = this.<Value, Float>joinValueLane()
-          .didUpdate(this::updateSpeeds);
-
-  public void updateSpeeds(Value agency, float newSpeed, float oldSpeed) {
-      float vSpeeds = 0.0f;
-      final Iterator<Float> it = joinAgencySpeed.valueIterator();
-      while (it.hasNext()) {
-          final Float next = it.next();
-          vSpeeds += next;
-      }
-      if (joinAgencyCount.size() > 0) {
-          speed.set(vSpeeds / joinAgencyCount.size());
-      }
-      agencySpeed.put(agency, newSpeed);
-  }
-
-  @SwimLane("joinAgencyVehicles")
-  public JoinMapLane<Value, String, Value> joinAgencyVehicles = this.<Value, String, Value>joinMapLane()
-          .didUpdate((String key, Value newEntry, Value oldEntry) -> vehicles.put(key, newEntry))
-          .didRemove((String key, Value vehicle) -> vehicles.remove(key));
-
-  @SwimLane("addAgency")
-  public CommandLane<Value> agencyAdd = this.<Value>commandLane().onCommand((Value agency) -> {
-      log.info("uri: " + agency.get("uri").stringValue());
-      joinAgencyCount.downlink(agency).nodeUri(agency.get("uri").stringValue()).laneUri("count").open();
-      joinAgencyVehicles.downlink(agency).nodeUri(agency.get("uri").stringValue()).laneUri("vehicles").open();
-      joinAgencySpeed.downlink(agency).nodeUri(agency.get("uri").stringValue()).laneUri("speed").open();
-      // String id, String state, String country, int index
-      Record newAgency = Record.of()
-              .slot("id", agency.get("id").stringValue())
-              .slot("state", agency.get("state").stringValue())
-              .slot("country", agency.get("country").stringValue())
-              .slot("index", agency.get("index").intValue())
-              .slot("stateUri", nodeUri().toString());
-      context.command("/country/" + getProp("country").stringValue(), "addAgency", newAgency);
+@SwimLane("count")
+public ValueLane<Integer> vehicleCount;
+
+@SwimLane("speed")
+public ValueLane<Float> avgVehicleSpeed;
+
+@SwimLane("addInfo")
+public CommandLane<Value> addInfo = this.<Value>commandLane()
+  .onCommand(this::onInfo);
+
+@SwimLane("info")
+public ValueLane<Value> info = this.<Value>valueLane()
+  .didSet((n, o) -> {
+    abortPoll();
+    startPoll(n);
   });
 ```
 
-#### Implement CountryAgent
+ As we poll the UmoIQ live transit API, we'll publish the results by invoking `onVehicles`. First we'll iterate over the new vehicles and remove any that are no longer active:
 
-<a href="https://github.com/swimos/tutorial-transit/blob/main/server/src/main/java/swim/transit/agent/CountryAgent.java">CountryAgent</a> will be nearly identical to StateAgent, except we’ll aggregate on the state level. `addAgency` represents the essential difference.
+ ```java
+private void onVehicles(Value newVehicles) {
+  Map<String, Value> vehicleUpdates = new HashMap<>();
+
+  for (Item v : newVehicles) {
+    vehicleUpdates.put(v.get("uri").stringValue(), v.toValue());
+  }
+
+  updateVehicles(vehicleUpdates);
+
+  // skipping other details
+}
+
+private void updateVehicles(Map<String, Value> newVehicles) {
+  final Collection<Value> currentVehicles = this.vehicles.values();
+
+  for (Value vehicle : currentVehicles) {
+    if (!newVehicles.containsKey(vehicle.get("uri").stringValue())) {
+      vehicles.remove(vehicle.get("uri").stringValue());
+    }
+  }
+}
+```
+
+We'll compute the average vehicle speed with some trivial logic, as well as send updated state to each of the agency's `VehicleAgent`s using the `context` variable provided by `AbstractAgent` as a `WarpRef`.
 
 ```java
-  @SwimLane("addAgency")
-  public CommandLane<Value> agencyAdd = this.<Value>commandLane()
-    .onCommand((Value value) -> {
-      states.put(value.get("state").stringValue(), value.get("state").stringValue());
-      joinStateCount
-        .downlink(value.get("state"))
-        .nodeUri(Uri.parse(value.get("stateUri").stringValue()))
-        .laneUri("count").open();
+int speedSum = 0;
 
-      joinStateSpeed
-        .downlink(value.get("state"))
-        .nodeUri(Uri.parse(value.get("stateUri").stringValue()))
-        .laneUri("speed").open();
+for (Value v : vehicleUpdates.values()) {
+  final String vehicleUri = v.get("uri").stringValue();
 
-      final Agency agency = Agency.form().cast(value);
-      agencies.put(agency.getUri(), agency);
-  });
+  if (vehicleUri != null && !vehicleUri.equals("")) {
+    context.command(vehicleUri, "updateVehicle", v.toValue());
+    addVehicle(vehicleUri, v);
+    speedSum += v.get("speed").intValue();
+  }
+}
+
+vehicleCount.set(this.vehicles.size());
+
+if (vehicleCount.get() > 0) {
+  avgVehicleSpeed.set(((float) speedSum) / vehicleCount.get());
+}
+```
+
+# Tutorial application source code
+
+Source code for the demo application can be found here:
+
+<a href="https://github.com/swimos/tutorial-transit/blob/main/server" target="_blank">https://github.com/swimos/tutorial-transit/blob/main/server</a>
+
+You can run `./gradlew run` from the server directory to run the backend. For a visual representation, see the next section.
+
+# Real-time Map UI which Uses the Streaming API from the Web Agents
+
+While it is reassuring to have console output of arriving data, a visual representation is much more impactful and compelling. There is a simple HTML page provided in this tutorial's repository that you can open to see a visualization of buses moving along their routes on top of the map. The HTML page connects to an agency's URI, streams the vehicle locations, and plots it on a map. To change agencies, you simply change the agency tag in the `nodeUri`, e.g. "glendale":
+
+```typescript
+const vehiclesLink = warp.downlinkMap({
+  hostUri: "warp://localhost:9001",
+  nodeUri: "/agency/glendale",
+  laneUri: "vehicles",
+```
+
+Here's the HTML source:
+
+<a href="https://github.com/swimos/tutorial-transit/blob/main/ui/index.html" target="_blank">https://github.com/swimos/tutorial-transit/blob/main/ui/index.html</a>
+
+By including a few SwimOS libraries, the HTML made includes a tiny bit of javascript to reference the host, the Web Agent uri, and the specific lane. Through calls to `swim.HTMLView`, `swim.MapboxView`, and `swim.GeoTreeView`, the incoming, real-time data stream from SwimOS gets plotted directly against the map.
+
+You can find directions in the top-level <a href="https://github.com/swimos/tutorial-transit/blob/main/README.md" target="_blank">README.md</a> file to run the UI.
+
+# Observing state changes via `swim-cli`
+
+The SwimOS platform provides a CLI tool, <a href="https://www.swimos.org/guides/cli.html" target="_blank">`swim-cli`</a> that makes it simple to stream data from Web Agents. It can be installed globally as follows: 
+
+```
+npm install -g @swim/cli
+```
+
+## Streaming `AgencyAgent`` data to the command line
+Let's try retrieving values for the glendale agency (make sure the swim application is running from the server directory via `./gradlew run`):
+
+```
+swim-cli link -h warp://localhost:9001 -n /agency/glendale -l vehicles 
+```
+
+Here is some sample output, your results will vary, naturally. Note three vehicles drop off the list of vehicles and have been removed, while the next three vehicles have received updates:
+
+```
+@remove(key:"/vehicle/glendale/B73")
+@remove(key:"/vehicle/glendale/B75")
+@remove(key:"/vehicle/glendale/B79")
+@update(key:"/vehicle/glendale/B98"){id:glendale,uri:"/vehicle/glendale/B98",agency:glendale,dirId:SBrivpac,latitude:34.14249,longitude:-118.26002,speed:28,secsSinceReport:9,heading:"90"}
+@update(key:"/vehicle/glendale/B99"){id:glendale,uri:"/vehicle/glendale/B99",agency:glendale,dirId:"2britc_d",latitude:34.1261,longitude:-118.25915,speed:38,secsSinceReport:4,heading:"55"}
+@update(key:"/vehicle/glendale/B67"){id:glendale,uri:"/vehicle/glendale/B67",agency:glendale,dirId:gga,latitude:34.133774,longitude:-118.24615,speed:36,secsSinceReport:2,heading:"91"}
+```
+
+As with the web page, simple change the `nodeUri` to view data from a different agency:
+
+```
+swim-cli link -h warp://localhost:9001 -n /agency/west-hollywood -l vehicles 
+```
+
+```
+@update(key:"/vehicle/west-hollywood/116"){id:west-hollywood,uri:"/vehicle/west-hollywood/116",agency:west-hollywood,dirId:CLWB_1_var0,latitude:34.08677,longitude:-118.37749,speed:32,secsSinceReport:15,heading:"6"}
+```
+
+## Streaming VehicleAgent data to the command line
+
+To stream data to a `VehicleAgent`, you can use the following command below. You can switch out the agency id and vehicle id for the `nodeUri`. Examples can be seen from the `AgencyAgent` output.
+
+``````
+swim-cli link -h warp://localhost:9001 -n /vehicle/west-hollywood/116 -l vehicle
+```
+
+which yields:
+
+```
+{id:"116",routeTag:CLEB,dirTag:CLEB_0_var0,lat:"34.083697",lon:"-118.387662",secsSinceReport:"6",predictable:true,heading:"322",speedKmHr:"11",uri:"/vehicle/west-hollywood/116"}
+{id:"116",routeTag:CLEB,dirTag:CLEB_0_var0,lat:"34.084492",lon:"-118.386684",secsSinceReport:"8",predictable:true,heading:"51",speedKmHr:"32",uri:"/vehicle/west-hollywood/116"}
 ```

@@ -1,7 +1,7 @@
 ---
 title: WARP
 layout: page
-description: ""
+description: "The protocol for multiplexing bi-directional streams between large numbers of URIs over a single WebSocket connection"
 toc: false
 redirect_from:
   - /concepts/warp/

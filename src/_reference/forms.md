@@ -1,7 +1,7 @@
 ---
 title: Forms
 layout: page
-descriptions: "Parametrize your lanes with and links with custom types."
+description: "Parametrize your lanes with and links with custom types."
 redirect_from:
   - /tutorials/forms/
 cookbook: https://github.com/swimos/cookbook/tree/master/forms
@@ -132,9 +132,9 @@ This is by no means required, though when used `@Member` will change the attribu
 ```java
 // swim/basic/FooType.java
 public class FooType {
-  @Member("int")
+  @Member("i")
   private int i = 0;
-  @Member("string")
+  @Member("s")
   private String s = "";
   ...
 ```

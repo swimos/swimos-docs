@@ -1,25 +1,26 @@
 ---
 title: Web Agents
 layout: page
-description: "Learn about stateful, distributed objects that are the endpoints of streaming APIs."
+description: "Learn about declaring, defining and utilizing Web Agents and their properties using configuration files."
 redirect_from:
   - /tutorials/web-agents/
-  - /concepts/agents/
 cookbook: https://github.com/swimos/cookbook/tree/master/web_agents
 ---
 
-Swim servers utilize a general purpose distributed object model in which the objects are called **Web Agents**. Programming with this model feels like typical object-oriented programming with additional key innovations in addressability, statefulness, consistency, boundedness, and composability.
+Swim servers utilize a general purpose distributed object model in which the objects are called **Web Agents**. 
+Programming with this model feels like typical object-oriented programming with additional key innovations in addressability, statefulness, consistency, boundedness, and composability.
 
 Although this analogy holds very well for the most part, there are two important catches:
 
 - Methods, while still being able to define arbitrarily complicated logic, are not directly invoked. Instead, Web agents come with **lifecycle callback** functions that are called during specified stages of a Web Agent's lifetime
 - Web Agent **instantiation** is not accomplished by invoking a constructor (at least from the programmer's perspective)
 
-Don't worry if these points feel restrictive through this article; much finer control becomes available once we discuss [lanes]({% link _reference/lanes.md %}).
+Don't worry if these points feel restrictive through this article; much finer control becomes available once we discuss **lanes**.
 
 ### Declaration
 
-Just like with (instantiable) `class` declarations in Java, **Agent declarations** in Swim define the behavior for **instances** of those Agents. Declarations alone don't actually instantiate anything.
+Just like with (instantiable) `class` declarations in Java, **Agent declarations** in Swim define the behavior for **instances** of those Agents. 
+Declarations alone don't actually instantiate anything.
 
 To declare a Web Agent, extend the `AbstractAgent` class from the `swim.api` module:
 
@@ -36,9 +37,13 @@ public class UnitAgent extends AbstractAgent {
 
 ### External Addressability
 
-Every Web Agent has a universal, logical address, in the form of a URI. The URI of a custom `PlanetAgent` might look something like `"/planet/Mercury"`. That of a singleton `SunAgent` might just look like `"/sun"`. By decoupling Web Agent's logical addresses from the network addresses of their host machines, Swim applications become invariant to the infrastructure on which they're deployed.
+Every Web Agent has a universal, logical address, in the form of a URI.
+The URI of a custom `PlanetAgent` might look something like `"/planet/Mercury"`. 
+That of a singleton `SunAgent` might just look like `"/sun"`.
+By decoupling Web Agent's logical addresses from the network addresses of their host machines, Swim applications become invariant to the infrastructure on which they're deployed.
 
-Each Web Agent is aware of its own URI, available via its `nodeUri()` method. Let's add a simple utility method to each `UnitAgent` to help us identify the Agent from which a logged message originated.
+Each Web Agent is aware of its own URI, available via its `nodeUri()` method. 
+Let's add a simple utility method to each `UnitAgent` to help us identify the Agent from which a logged message originated.
 
 ```java
 // swim/basic/UnitAgent.java
@@ -55,35 +60,61 @@ public class UnitAgent extends AbstractAgent {
 
 ### Instantiation
 
-For an Agent to know its **own** identifier is only half of the problem. To address the other half, every Swim server runs a **plane** that manages the runtime of and provides a shared context for a group of Web Agents.
+For an Agent to know its **own** identifier is only half of the problem. 
+To address the other half, every Swim server runs a **plane** that manages the runtime of and provides a shared context for a group of Web Agents.
 
-One of a plane's many responsibilities is to resolve Agent URIs for requests. To implement this functionality in your custom plane class (that extends `swim.api.plane.AbstractPlane`), annotate a field for each Agent definition with a corresponding URI **pattern** (colons (:) indicate dynamic components):
+One of a plane's many responsibilities is to resolve Agent URIs for requests.
 
-```java
-// swim/basic/BasicPlane.java
-package swim.basic;
+To declare a Web Agent's URI, simply define a node with URI in the server configuration file.
 
-import swim.api.SwimRoute;
-import swim.api.plane.AbstractPlane;
-import swim.api.agent.AgentRoute;
+To declare a dynamic component, we prepend with a colon (:) for the agent id.
 
-public class BasicPlane extends AbstractPlane {
-  @SwimRoute("/unit/:id")
-  AgentRoute<UnitAgent> unitAgentType;
+```
+# server.recon
+basic: @fabric {
+  @plane(class: "swim.basic.BasicPlane")
+  # Static Component
+  # Notice usage of 'uri' keyword for a static component.
+  @node {
+    uri: "/unit/foo"
+    @agent(class: "swim.basic.UnitAgent") 
+  }
+
+  # Dynamic Component
+  # Notice usage of 'pattern' keyword for a dynamic component. 
+  @node {
+    pattern: "/unit/:id"
+    @agent(class: "swim.basic.UnitAgent")
+  }
+}
+
+@web(port: 9001) {
+  space: "basic"
+  @websocket {
+    serverCompressionLevel: 0# -1 = default; 0 = off; 1-9 = deflate level
+    clientCompressionLevel: 0# -1 = default; 0 = off; 1-9 = deflate level
+  }
 }
 ```
 
-A Web Agent is only instantiated when its `nodeUri` is invoked for the first time. With the code we have so far, we can instantiate any number of `UnitAgent` simply by invoking URIs with the `"/unit/"` prefix. For example, if we invoke `"/unit/1"`, `"/unit/foo"`, and `"/unit/foo_1"`, three `UnitAgent`s will be instantiated, one for each URI.
+Statically defined agents (illustrated using 'uri' keyword) are automatically instantiated by the corresponding Swim Plane.
 
-{% include alert.html title='Caution' text='If you have multiple agent types within a plane, ensure that their URI patterns do not <strong>clash</strong>. This is a stricter requirement than saying that the patterns are <strong>identical</strong>; for example, <strong>"/unit/:id"</strong> and <strong>"/unit/:foo"</strong> clash. Suppose these same patterns annotated different agent types; how would a plane know which type of Agent to seek or instantiate for the request <strong>"/unit/1"</strong>?' %}
+A Dynamic Web Agent is only instantiated when its `nodeUri` is invoked for the first time. 
+With the code we have so far, we can instantiate any number of `UnitAgent`s by either defining them in the configuration file or by invoking URIs with the `"/unit/"` prefix. 
+For example, if we invoke `"/unit/1"`, `"/unit/foo"`, and `"/unit/foo_1"`, three `UnitAgent`s will be instantiated, one for each URI.
 
-In addition to the `nodeUri()` method mentioned in the previous section, every Agent also has access to a `Value getProp(String prop)` convenience method. This returns a `swim.structure.Text` object containing the value of the dynamic `nodeUri` component with the name `prop`, `absent()` if it doesn't exist. For example, `getProp("id").stringValue()` will return either `"1"`, `"foo"`, or `"foo_1"`, depending on which of the above three agents we are currently running in. `getProp("foo")` will return `absent()`.
+{% include alert.html title='Caution' text='If you have multiple agent types within a plane, ensure that their URI patterns do not **clash**. This is a stricter requirement than saying that the patterns are <strong>identical</strong>; for example, <strong>"/unit/:id"</strong> and <strong>"/unit/:foo"</strong> clash. Suppose these same patterns annotated different agent types; how would a plane know which type of Agent to seek or instantiate for the request <strong>"/unit/1"</strong>?' %}
 
-Further reading: [Planes](/reference/planes)
+In addition to the `nodeUri()` method mentioned in the previous section, every Agent also has access to a `Value getProp(String prop)` convenience method. 
+This returns a `swim.structure.Text` object containing the value of the dynamic `nodeUri` component with the name `prop`, `absent()` if it doesn't exist. 
+For example, `getProp("id").stringValue()` will return either `"1"`, `"foo"`, or `"foo_1"`, depending on which of the above three agents we are currently running in. `getProp("foo")` will return `absent()`.
+
+Further reading: [Planes]({% link _reference/planes.md %})
 
 ### Lifecycle Callbacks
 
-Recall that Web Agent methods are not directly invoked. Instead, the Swim runtime schedules and executes callbacks stages of an Agent's lifecycle. For the most part, you will only care about two:
+Recall that Web Agent methods are not directly invoked. 
+Instead, the Swim runtime schedules and executes callbacks stages of an Agent's lifecycle. For the most part, you will only care about two:
 
 - `void didStart()`: executed once immediately after this Agent has started
 - `void willStop()`: executed once immediately before this Agent will stop
@@ -110,6 +141,10 @@ public class UnitAgent extends AbstractAgent {
   }
 }
 ```
+
+### Try It Yourself
+
+A standalone project that combines all of these snippets and handles any remaining boilerplate is available [here](https://github.com/swimos/cookbook/tree/master/web_agents).
 
 ## Web Agent Principles
 
@@ -150,9 +185,3 @@ Web Agents inherit the natural decentralization of the World Wide Web. Any Web A
 Unlink REST applications, which don't compose well without introducing significantly polling latency, caching overhead, and consistency problems, Web Agents frictionlessly compose, in real-time, at any scale.
 
 As the name implies, Web Agents were designed from first principles to be first class citizens of the World Wide Web. The Web has evolved from a world-wide hypertext library, into the lingua franca of distributed applications. But the technical foundation of the Web, stateless remote procedurce calls over HTTP, is fundamentally incapable of meeting the needs of modern, autonomous, collaborative applications. Web Agents aim to fill that gap.
-
-## Try It Yourself
-
-Jump ahead to [lanes]({% link _reference/lanes.md %}) to see what goes inside a Web Agent. Dive into the [tutorials]({% link _tutorials/index.md %}) to see Web Agents in action. Or read on to learn what it really means to be a Web Agent.
-
-A standalone project that combines all of these snippets and handles any remaining boilerplate is available [here](https://github.com/swimos/cookbook/tree/master/web_agents).

@@ -1,7 +1,7 @@
 ---
 title: Recon
 layout: page
-description: ""
+description: "Learn about the structural data model called Recon, which is used by Swim to exchange streaming messages."
 redirect_from:
   - /concepts/recon/
 ---

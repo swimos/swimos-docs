@@ -91,6 +91,10 @@ collections:
       - summary-statistics.md
       - aggregations.md
       - kafka-ingestion.md
+      - pulsar-ingestion.md
+      - mongodb-ingestion.md
+      - flink-connector.md
+      - jms-ingestion.md
       - http-ingestion.md
     weight: 2
   reference:
@@ -100,7 +104,6 @@ collections:
       - index.md
       - swim-libraries.md
       - web-agents.md
-      - web-agents-server-recon.md
       - lanes.md
       - command-lanes.md
       - value-lanes.md
@@ -130,6 +133,8 @@ collections:
     order:
       - index.md
       - fundamentals.md
+      - agent-design.md      
+      - lane-organization.md     
     weight: 4
   meta:
     output: true
