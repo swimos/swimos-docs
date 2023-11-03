@@ -156,6 +156,7 @@ defaults:
     values:
       layout: "post"
       permalink: "/:year/:i_month/:i_day/:title"
+      author: "swim"
   - scope:
       path: ""
     values:
