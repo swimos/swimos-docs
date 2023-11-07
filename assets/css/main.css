@@ -5,6 +5,9 @@
 /* Import rules must be at the top */
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap");
 @import "./assets/css/syntax.css";
+@import "./node_modules/@fortawesome/fontawesome-free/css/fontawesome.css";
+@import "./node_modules/@fortawesome/fontawesome-free/css/brands.css";
+@import "./node_modules/@fortawesome/fontawesome-free/css/solid.css";
 
 @tailwind base;
 @tailwind components;
