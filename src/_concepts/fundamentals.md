@@ -1,7 +1,9 @@
 ---
 title: SwimOS Fundamentals
-layout: page
+short-title: SwimOS Fundamentals
 description: "Learn about SwimOS fundamentals and concepts."
+group: SwimOS Basics
+layout: documentation
 redirect_from:
   - /fundamentals/
 ---

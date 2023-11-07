@@ -1,6 +1,8 @@
 ---
 title: Transit Tutorial
-layout: page
+description: TODO
+group: Tutorials
+layout: documentation
 ---
 
 # Application Overview

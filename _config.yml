@@ -73,6 +73,7 @@ exclude:
 # Every top level section is actually a collection. Their files are in a _folder in src/
 collections:
   tutorials:
+    kind: docs
     output: true
     name: "Tutorials"
     order:
@@ -81,6 +82,7 @@ collections:
       - transit.md
     weight: 1
   guides:
+    kind: docs
     output: true
     name: "How-to Guides"
     order:
@@ -95,6 +97,7 @@ collections:
       - flink-connector.md
     weight: 2
   reference:
+    kind: docs
     output: true
     name: "Reference Docs"
     order:
@@ -125,6 +128,7 @@ collections:
       - warp.md
     weight: 3
   concepts:
+    kind: docs
     output: true
     name: "Conceptual Guides"
     order:
@@ -142,6 +146,40 @@ collections:
       - diataxis.md
       - styles.md
     weight: 5
+  backend:
+    kind: docs
+    output: true
+    name: "Backend"
+    description: Documentation about SwimOS fundamentals and CLI useage.
+    permalink: /backend/:name/
+    order:
+      - index.md
+      # Category 1
+      - doc1.md
+      - doc5.md
+      # Category 2
+      - doc2.md
+      # Category 3
+      - doc3.md
+      - doc4.md
+    weight: 1
+  frontend:
+    kind: docs
+    output: true
+    name: "Swim UI"
+    description: FURNTEND.
+    permalink: /frontend/:name/
+    order:
+      - index.md
+      # Category 1
+      - doc1.md
+      - doc5.md
+      # Category 2
+      - doc2.md
+      # Category 3
+      - doc3.md
+      - doc4.md
+    weight: 1
   posts:
     output: false
 

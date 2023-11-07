@@ -1,7 +1,9 @@
 ---
 title: Lane Organization
-layout: page
+short-title: Lane Organization
 description: Best practices for lane organization
+group: Lanes
+layout: documentation
 ---
 
 Lanes expose an API for agents, allowing the state of an agent to be downlinked and streamed.

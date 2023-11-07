@@ -1,0 +1,54 @@
+<!doctype html>
+<html class="w-screen min-h-full scroll-pt-[calc(48px+20px)] lg:scroll-pt-[calc(60px+20px)] bg-white scroll-smooth" lang="{{ page.lang | default: site.lang | default: 'en' }}">
+  {%- include head.html -%}
+  {%- include docs-feedback-widget.html -%}
+  <body class="overflow-x-hidden">
+    {% include google-tag-noscript.html %}
+    <div class="flex flex-wrap items-start bg-white">
+      <!-- Header -->
+      {%- include banner.html -%}
+
+
+
+      {%- include header.html sticky=false -%}
+
+
+
+
+
+      {%- include docs-header.html sticky=true -%}
+
+      <!-- Left margin -->
+      <div class="{% if page.toc %}grow lg:grow-0 xl:grow basis-[1px] lg:basis-4{% else %}grow-0 xl:grow lg:basis-4{% endif %}"></div>
+      <!-- Sidebar -->
+      <aside class="hidden lg:block lg:top-[60px] lg:w-[224px] lg:py-10 overflow-x-none overflow-y-auto">
+        {%- include docs-sidebar.html -%}
+      </aside>
+
+      <!-- Main content -->
+      <main class="w-screen{% if page.toc %} max-w-[768px] lg:w-[784px] lg:max-w-[784px] xl:w-[800px] xl:max-w-[800px] grow lg:grow-0{% else %} max-w-[1024px] xl:w-[1024px] lg:basis-0 xl:basis-auto grow xl:grow-0{% endif %} px-6{% if page.toc %} lg:px-8 xl:px-10{% else %} lg:pl-8 lg:pr-4 xl:pl-10{% endif %} py-10 lg:mb-14 prose prose-code:before:hidden prose-code:after:hidden">
+        <h1 class="text-swim-dark-blue">{{ page.title }}</h1>
+        {{ content | inject_anchors }}
+        <hr class="mb-0 border-t-vermilion"/>
+        {%- include prev-next.html -%}
+      </main>
+
+    {% if page.toc %}
+      <!-- Table of contents -->
+      <aside class="hidden xl:block xl:sticky xl:top-[60px] xl:w-[224px] xl:max-h-[calc(100vh-60px)] xl:py-10 overflow-x-none overflow-y-auto">
+        <div x-data @scroll.window="updateActiveSection">
+          <h2 class="flex items-center text-xs font-medium leading-6 tracking-wider uppercase text-kaimurasaki-800">On this page</h2>
+          {% toc %}
+        </div>
+      </aside>
+    {% endif %}
+      <!-- Right margin -->
+      <div class="{% if page.toc %}grow lg:grow-0 xl:grow basis-[1px] xl:basis-4{% else %}grow-0 xl:grow lg:basis-4{% endif %}"></div>
+
+      <!-- Footer -->
+      {%- include footer.html -%}
+    </div>
+    {%- include footer-scripts.html -%}
+    
+  </body>
+</html>
