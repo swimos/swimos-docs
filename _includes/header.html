@@ -20,7 +20,7 @@
           </button>
           <!-- Section menu popover -->
           <div role="dialog" class="absolute top-full inset-x-0 max-h-[calc(100vh-100%-40px)] flex transition ease-out" :class="{ 'drop-shadow-lg': !scrolled }" x-cloak x-show="open" x-transition:enter-start="opacity-0" x-transition:leave="delay-75" x-transition:leave-end="opacity-0">
-            <div class="flex flex-col grow border-t-2 border-t-vermilion bg-swim-dark-blue [clip-path:polygon(0_0,calc(100%-24px)_0,100%_24px,100%_100%,24px_100%,0_calc(100%-24px))] transition ease-out" :class="{ 'bg-swim-dark-blue': !scrolled, 'bg-swim-dark-blue backdrop-blur': scrolled }">
+            <div class="flex flex-col grow border-t-2 border-t-vermilion bg-swim-dark-blue rounded-b-lg transition ease-out" :class="{ 'bg-swim-dark-blue': !scrolled, 'bg-swim-dark-blue backdrop-blur': scrolled }">
               <!-- Sub-section groups -->
               <div class="grow columns-2 gap-x-8 gap-y-1 px-4{% if section.more %} pt-4 pb-2{% else %} py-4{% endif %} text-white overflow-y-auto overscroll-y-contain">
               {% for group in section.menu %}
@@ -32,7 +32,7 @@
                   <a href="{{ item.url | relative_url }}" class="group/item flex gap-x-4 p-4">
                     <div class="flex shrink-0 justify-center w-12">
                     {% if item.icon %}
-                      <svg aria-hidden="true" viewBox="0 0 24 24" class="w-6 h-6{% if page.url == item.url %} text-swim-blue{% else %} text-kaimurasaki-200 group-hover/item:text-white{% endif %} transition ease-out">
+                      <svg aria-hidden="true" viewBox="0 0 24 24" class="w-6 h-6{% if page.url == item.url %} text-swim-blue{% else %} text-white group-hover/item:text-white{% endif %} transition ease-out">
                         <path fill="currentcolor" fill-rule="evenodd" d="{{ item.icon.path }}" />
                       </svg>
                     {% endif %}
@@ -70,9 +70,9 @@
 
       </div>
       <!-- Desktop CTA -->
-      <div class="hidden lg:flex lg:items-center lg:px-4">
+      <!-- <div class="hidden lg:flex lg:items-center lg:px-4">
         <a href="https://www.swimos.org/" class="relative px-4 py-2 text-sm tracking-wider uppercase whitespace-nowrap no-underline font-medium text-eggshell-500 bg-kaimurasaki/0 hover:text-kaimurasaki hover:bg-eggshell-500 [clip-path:polygon(0_0,calc(100%-12px)_0,100%_12px,100%_100%,12px_100%,0_calc(100%-12px))] before:absolute before:inset-0 before:bg-eggshell-500 before:[clip-path:polygon(0_0,calc(100%-12px)_0,100%_12px,100%_100%,12px_100%,0_calc(100%-12px),0_0,1px_1px,1px_calc(100%-12px-0.41px),calc(12px+0.41px)_calc(100%-1px),calc(100%-1px)_calc(100%-1px),calc(100%-1px)_calc(12px+0.41px),calc(100%-12px-0.41px)_1px,1px_1px)] transition ease-out">Get started</a>
-      </div>
+      </div> -->
     </div>
 
     <!-- Mobile menu button -->
