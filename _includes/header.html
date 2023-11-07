@@ -1,4 +1,4 @@
-<nav x-data="{ shown: false, scrolled: {% if include.sticky %}window.pageYOffset >= 40{% else %}false{% endif %} }" class="{% if include.sticky %}sticky top-0 inset-x-0 {% else %}relative {% endif %}basis-full bg-swim-dark-blue z-30 transition ease-out duration-300 before:absolute before:inset-0 before:backdrop-blur before:-z-[1]" :class="{ 'bg-swim-dark-blue': !scrolled, 'bg-swim-dark-blue shadow-md': scrolled }"{% if include.sticky %} @scroll.window="scrolled = window.pageYOffset >= 40"{% endif %}>
+<nav x-cloak x-data="{ shown: false, scrolled: {% if include.sticky %}window.pageYOffset >= 40{% else %}false{% endif %} }" class="{% if include.sticky %}sticky top-0 inset-x-0 {% else %}relative {% endif %}basis-full bg-swim-dark-blue z-30 transition ease-out duration-300 before:absolute before:inset-0 before:backdrop-blur before:-z-[1]" :class="{ 'bg-swim-dark-blue': !scrolled, 'bg-swim-dark-blue shadow-md': scrolled }"{% if include.sticky %} @scroll.window="scrolled = window.pageYOffset >= 40"{% endif %}>
   <!-- Navigation bar -->
   <div class="flex max-w-screen-xl h-[60px] lg:h-[80px] mx-auto px-2 lg:px-4">
     <!-- Brand -->
@@ -140,21 +140,3 @@
     </div>
   </div>
 </nav>
-
-{% if site.collections %}
-{% assign collections = site.collections | sort: 'weight' %}
-{% for collection in collections %}
-{% if collection.label != "posts" %}
-<!-- <li>
-  <a href="{{ collection.label | absolute_url }}/index.html" class="block hover:bg-gray-200 whitespace-no-wrap py-2 px-4">
-    {{ collection.name }}
-  </a>
-</li> -->
-{% endif %}
-{% endfor %}
-{% endif %}
-
-
-{%- include header-social.html -%}
-
-

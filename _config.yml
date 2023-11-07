@@ -72,21 +72,19 @@ exclude:
 
 # Every top level section is actually a collection. Their files are in a _folder in src/
 collections:
-  tutorials:
+  backend:
     kind: docs
     output: true
-    name: "Tutorials"
+    name: "Backend"
+    description: Documentation about SwimOS fundamentals and CLI useage.
+    permalink: /backend/:name/
     order:
       - index.md
-      - demos.md
-      - transit.md
-    weight: 1
-  guides:
-    kind: docs
-    output: true
-    name: "How-to Guides"
-    order:
-      - index.md
+      # Concepts
+      - fundamentals.md
+      - lane-organization.md
+      - agent-design.md
+      # Guides
       - cli.md
       - introspection.md
       - time-series.md
@@ -98,13 +96,7 @@ collections:
       - flink-connector.md
       - jms-ingestion.md
       - http-ingestion.md
-    weight: 2
-  reference:
-    kind: docs
-    output: true
-    name: "Reference Docs"
-    order:
-      - index.md
+      # Reference
       - swim-libraries.md
       - web-agents.md
       - lanes.md
@@ -129,34 +121,6 @@ collections:
       - auth-policy.md
       - recon.md
       - warp.md
-    weight: 3
-  concepts:
-    kind: docs
-    output: true
-    name: "Conceptual Guides"
-    order:
-      - index.md
-      - fundamentals.md
-      - agent-design.md      
-      - lane-organization.md     
-    weight: 4
-  meta:
-    output: true
-    name: "Meta"
-    order:
-      - index.md
-      - contribute.md
-      - diataxis.md
-      - styles.md
-    weight: 5
-  backend:
-    kind: docs
-    output: true
-    name: "Backend"
-    description: Documentation about SwimOS fundamentals and CLI useage.
-    permalink: /backend/:name/
-    order:
-      - index.md
       # Category 1
       - doc1.md
       - doc5.md
@@ -182,7 +146,25 @@ collections:
       # Category 3
       - doc3.md
       - doc4.md
-    weight: 1
+    weight: 2
+  tutorials:
+    kind: docs
+    output: true
+    name: "Tutorials"
+    order:
+      - index.md
+      - demos.md
+      - transit.md
+    weight: 3
+  meta:
+    output: true
+    name: "Meta"
+    order:
+      - index.md
+      - contribute.md
+      - diataxis.md
+      - styles.md
+    weight: 4
   posts:
     output: false
 
@@ -214,7 +196,6 @@ announcement:
 feed:
   collections:
     - tutorials
-    - guides
-    - reference
-    - concepts
+    - backend
+    - frontend
     - meta
