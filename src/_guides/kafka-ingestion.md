@@ -55,7 +55,7 @@ public final class Assets {
   private Assets() {
   }
 
-  private static KafkaConsumer<String, String> kafkaConsumer;
+  private static KafkaConsumer<String, String> kafkaConsumer; // or other type parameters
 
   public static KafkaConsumer<String, String> kafkaConsumer() {
     return Assets.kafkaConsumer;
