@@ -145,6 +145,7 @@ collections:
       - contribute.md
       - diataxis.md
       - styles.md
+    weight: 5
 
 # The directory that contains our collections
 collections_dir: src
