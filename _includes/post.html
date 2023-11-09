@@ -1,0 +1,24 @@
+<article
+    class="group/post relative w-full max-w-xl flex drop-shadow-sm hove:filter-none hover:drop-shadow-md transition-[filter] ease-out">
+    <div
+        class="flex flex-col grow p-6 bg-eggshell-300 group-hover/post:bg-eggshell-400 transition ease-out [clip-path:polygon(0_0,calc(100%-24px)_0,100%_24px,100%_100%,24px_100%,0_calc(100%-24px))]">
+        <div class="flex items-center gap-x-4 h-7 text-xs">
+            <time datetime="{{ post.date | date: '%Y-%m-%d' }}"
+                class="text-kaimurasaki-600 group-hover/post:text-kaimurasaki-700 transition ease-out">{{ post.date |
+                date: "%b %e, %Y" }}</time>
+        </div>
+        <div class="grow">
+            <h3
+                class="mt-3 text-lg font-semibold leading-6 text-kaimurasaki-900 group-hover/post:text-kaimurasaki transition ease-out">
+                <dt><a href="{{ post.url | absolute_url }}">{{ post.title | strip_html }}</a></dt>
+            </h3>
+            <div
+                class="mt-5 line-clamp-3 text-sm leading-6 text-kaimurasaki-800 group-hover/post:text-kaimurasaki-900 transition ease-out">
+                {{ post.excerpt }}</div>
+        </div>
+        <div class="flex items-center gap-x-4 mt-8">
+            {% assign author = site.data.people | find: "id", post.author %}
+            {%- include author.html author=post.author -%}
+        </div>
+    </div>
+</article>

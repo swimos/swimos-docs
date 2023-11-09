@@ -43,6 +43,7 @@ plugins:
   - jekyll-toc
   - jekyll-redirect-from
   - jekyll-sitemap
+  - jekyll-paginate
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -145,13 +146,18 @@ collections:
       - diataxis.md
       - styles.md
     weight: 5
-  posts:
-    output: false
 
 # The directory that contains our collections
 collections_dir: src
 
 defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      permalink: "/blog/:year/:i_month/:i_day/:title:output_ext"
+      author: "swim"
   - scope:
       path: ""
     values:
@@ -180,3 +186,6 @@ feed:
     - reference
     - concepts
     - meta
+
+paginate: 9
+paginate_path: "/blog/page/:num"
