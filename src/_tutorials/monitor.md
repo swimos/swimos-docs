@@ -5,21 +5,21 @@ layout: page
 
 ## Overview
 
-We’ll be looking at a process monitoring <a href="https://github.com/swimos/tutorial-monitor">example</a> that provides data for individual machines in a cluster, as well as aggregate metrics for the cluster. The solution will consist of two separate applications. The first is a client application that runs on each machine in the cluster to collect monitoring information. The second is a SwimOS server application that processes results for each machine via a `MachineAgent`, and then aggregates cluster-level metrics across all machines via a `ClusterAgent`.
+We’ll be looking at a process monitoring <a href="https://github.com/swimos/tutorial-monitor" target="_blank">example</a> that provides data for individual machines in a cluster, as well as aggregate metrics for the cluster. The solution will consist of two separate applications. The first is a client application that runs on each machine in the cluster to collect monitoring information. The second is a SwimOS server application that processes results for each machine via a `MachineAgent`, and then aggregates cluster-level metrics across all machines via a `ClusterAgent`.
 
 ## Monitoring Client
 
-The Monitoring Client relies on the OSHI java library to extract system information from each host machine in the cluster. OSHI is a free JNA-based (native) Operating system and Hardware Information library for Java. Each client periodically reports its operational health to the server. Since the server runs on top of the SwimOS runtime, the monitoring client uses `swim.ClientRuntime` to send commands bearing monitoring data updates.
+The Monitoring Client relies on the <a href="https://www.oshi.ooo/" target="_blank">OSHI</a> java library to extract system information from each host machine in the cluster. OSHI is a free JNA-based (native) Operating system and Hardware Information library for Java. Each client periodically reports its operational health to the server. Since the server runs on top of the SwimOS runtime, the monitoring client uses `swim.client.ClientRuntime` to send commands bearing monitoring data updates.
 
 ### Monitor
 
-Though we are going to keep our example concise, we’ll still include some forward-thinking design so that you can quickly extend the example. We’ve defined an abstract base class called <a href="https://github.com/swimos/tutorial-monitor/blob/main/server/src/main/java/swim/monitor/client/Monitor.java">`Monitor`</a> that defines a `monitor()` method to initiate monitoring, along with the two methods it invokes: `sleep()`, which is implemented, and `pulse()` which will be overridden for each monitor to respond as it needs for each interval.
+Though we are going to keep our example concise, we’ll still include some forward-thinking design so that you can quickly extend the example. We’ve defined an abstract base class called <a href="https://github.com/swimos/tutorial-monitor/blob/main/server/src/main/java/swim/monitor/client/Monitor.java" target="_blank">`Monitor`</a> that defines a `monitor()` method to initiate monitoring, along with the two methods it invokes: `sleep()`, which is implemented, and `pulse()` which will be overridden for each monitor to respond as it needs for each interval.
 
 Since `Monitor` must send data to Web Agents, it maintains a `WarpRef` along with URI path info for host, node, and lane. `Monitor` also maintains an OSHI `SystemInformation` object to perform monitoring on the host as well as a configurable `pulseInterval`.
 
 ### ProcessMonitor
 
-We have a single override of `Monitor` in our example, with <a href="https://github.com/swimos/tutorial-monitor/blob/main/server/src/main/java/swim/monitor/client/ProcessMonitor.java">`ProcessMonitor`</a>, though upon perusal, you might notice it includes usage information that really belongs in a separate monitor. We’ll just look at the usage information.
+We have a single override of `Monitor` in our example, with <a href="https://github.com/swimos/tutorial-monitor/blob/main/server/src/main/java/swim/monitor/client/ProcessMonitor.java" target="_blank">`ProcessMonitor`</a>, though upon perusal, you might notice it includes usage information that really belongs in a separate monitor. We’ll just look at the usage information.
 
 ```java
   @Override
@@ -30,9 +30,8 @@ We have a single override of `Monitor` in our example, with <a href="https://git
 
   private Value getMemoryUtilization() {
     return Record.create(6)
-    .slot("total", systemInfo.getHardware().getMemory().getTotal())
-    .slot("available", systemInfo.getHardware().getMemory().getAvailable())
-;
+      .slot("total", systemInfo.getHardware().getMemory().getTotal())
+      .slot("available", systemInfo.getHardware().getMemory().getAvailable());
   }
 
   private Value getHardwareUtilization() {
@@ -44,18 +43,20 @@ We have a single override of `Monitor` in our example, with <a href="https://git
     Value hardwareInfo = getHardwareUtilization();
 
     return Record.of()
-            .slot("timestamp", System.currentTimeMillis())
+            .slot("timestamp", timestamp)
             .slot("hardware", hardwareInfo);
   }
 ```
 
 ### SwimMonitorClient
 
-In <a href="https://github.com/swimos/tutorial-monitor/blob/main/server/src/main/java/swim/monitor/client/SwimMonitorClient.java">`SwimMonitorClient`</a>, we will instantiate the SwimOS client runtime, the OSHI `SystemInfo`, and the `ProcessMonitor`.
+In <a href="https://github.com/swimos/tutorial-monitor/blob/main/server/src/main/java/swim/monitor/client/SwimMonitorClient.java" target="_blank">`SwimMonitorClient`</a>, we will instantiate the SwimOS client runtime, the OSHI `SystemInfo`, which then starts the `ProcessMonitor` to feed data to the server".
 
 ```java
-  public static void main(String[] args) {
+  public static final String HOST = System.getProperty("host", "warp://localhost:9001");
+  public static final Uri HOST_URI = Uri.parse(HOST);
 
+  public static void main(String[] args) {
     final ClientRuntime swimClient = new ClientRuntime();
     swimClient.start();
     final SystemInfo systemInfo = new SystemInfo();
@@ -82,15 +83,39 @@ The information collected for monitoring can be broken into three categories:
 - process information for each process running on the machine (static and dynamic)
 
 
-When static information is set, the <a href="https://github.com/swimos/tutorial-monitor/blob/main/server/src/main/java/swim/monitor/agent/MachineAgent.java">`MachineAgent`</a> registers with the cluster using the following command:
+When static information is set, the <a href="https://github.com/swimos/tutorial-monitor/blob/main/server/src/main/java/swim/monitor/agent/MachineAgent.java" target="_blank">`MachineAgent`</a> registers with the cluster using the following command:
 
 ```java
 command(CLUSTER_URI_PATTERN.apply("default"), ADD_MACHINE_CLUSTER_LANE_URI, Uri.form().mold(nodeUri()).toValue());
 ```
 
-By registering, the `ClusterAgent` will be able to observe when monitoring data changes for all hosts that register.
+Once machine agents register, the `ClusterAgent` can observe the direct streaming of their state changes.
+For instance, when `addUsage()` is invoked, the `usage` lane receives a new value, and in response to that, the status is set
+with the help of `StatusComputer.computeStatusFromUsage()`.
 
-Let's look how memory usage information is computed at the machine level based on monitoring input.
+```java
+  @SwimLane("addUsage")
+  CommandLane<Value> addUsage = this.<Value>commandLane()
+          .onCommand(v -> this.usage.set(v));
+
+  @SwimLane("usage")
+  ValueLane<Value> usage = this.<Value>valueLane()
+          .didSet((newValue, oldValue) -> {
+            this.status.set(StatusComputer.computeStatusFromUsage(this.status.get(), newValue));
+          });
+
+  @SwimLane("status")		
+  ValueLane<Value> status = this.<Value>valueLane()
+          .willSet(StatusComputer::computeSeverityFromStatus)
+          .didSet((newValue, oldValue) -> {
+            final long timestamp = newValue.get("timestamp").longValue(0L);
+            if (timestamp > 0L) {
+              this.statusHistory.put(timestamp, newValue.removed("timestamp"));
+            }
+          });
+```
+
+Let's look how memory usage information is computed at the machine level using `StatusComputer.computeStatusFromUsage()`.
 
 ```java
   public static Value computeStatusFromUsage(Value currentStatus, final Value usage) {
@@ -102,33 +127,9 @@ Let's look how memory usage information is computed at the machine level based o
 }
 ```
 
-This is invoked when setting the value of the `MachineAgent`’s status lane.
-
-```java
-  @SwimLane("status")
-  ValueLane<Value> status = this.<Value>valueLane()
-          .willSet(StatusComputer::computeSeverityFromStatus)
-          .didSet((nv, ov) -> {
-            final long timestamp = nv.get("timestamp").longValue(0L);
-            if (timestamp > 0L) {
-              this.statusHistory.put(timestamp, nv.removed("timestamp"));
-            }
-          });
-
-  @SwimLane("addUsage")
-  CommandLane<Value> addUsage = this.<Value>commandLane()
-          .onCommand(v -> this.usage.set(v));
-
-  @SwimLane("usage")
-  ValueLane<Value> usage = this.<Value>valueLane()
-          .didSet((newValue, oldValue) -> {
-            this.status.set(StatusComputer.computeStatusFromUsage(this.status.get(), newValue));
-          });
-```
-
 ### Cluster Web Agent
 
-The <a href="https://github.com/swimos/tutorial-monitor/blob/main/server/src/main/java/swim/monitor/agent/ClusterAgent.java">`ClusterAgent`</a> receives monitoring data for all machines that register to it via a corresponding `MachineAgent`. When a machine registers using `ClusterAgent::addMachine` command lane, the `ClusterAgent` downlinks to the `MachineAgent`’s status lane via its `machines` `JoinValueLane`:
+The <a href="https://github.com/swimos/tutorial-monitor/blob/main/server/src/main/java/swim/monitor/agent/ClusterAgent.java" target="_blank">`ClusterAgent`</a> receives monitoring data for all machines that register to it via a corresponding `MachineAgent`. When a machine registers using `ClusterAgent::addMachine` command lane, the `ClusterAgent` downlinks to the `MachineAgent`’s status lane via its `machines` `JoinValueLane`:
 
 ```java
   @SwimLane("addMachine")
@@ -141,15 +142,16 @@ The <a href="https://github.com/swimos/tutorial-monitor/blob/main/server/src/mai
 
   @SwimLane("machines")
   JoinValueLane<Value, Value> machines = this.<Value, Value>joinValueLane()
-          .didUpdate((k, nv, ov) -> {
+          .didUpdate((key, newValue, oldValue) -> {
             computeStatus();
 
-            if (nv.get("disconnected").isDefined()) {
-              this.machines.remove(k);
+            if (newValue.get("disconnected").isDefined()) {
+              this.machines.remove(key);
             }
           });
 ```
 
+For an explanation of downlinking, see <a href="https://github.com/swimos/swimos-docs/blob/main/src/_reference/downlinks.md" target="_blank">this</a>. 
 The `machines` join value lane exposes the status of individual machines with respect to system information, usage information, and process information, so that any connected client can check detail status for any machine in the cluster.
 
 `ClusterAgent` also aggregates the status of all machines and reflects that in an aggregate status to reflect the health of the cluster. The status is exposed to interested clients through the `status` value lane, and history is stored for the last 200 values. Note that since `timestamp` is the key, the field is removed from the corresponding value:
@@ -157,17 +159,16 @@ The `machines` join value lane exposes the status of individual machines with re
 ```java
   @SwimLane("status")
   ValueLane<Value> status = this.<Value>valueLane()
-          .didSet((nv, ov) -> {
-            final long timestamp = nv.get("timestamp").longValue(0L);
+          .didSet((newValue, oldValue) -> {
+            final long timestamp = newValue.get("timestamp").longValue(0L);
             if (timestamp > 0L) {
-              this.statusHistory.put(timestamp, nv.removed("timestamp"));
+              this.statusHistory.put(timestamp, newValue.removed("timestamp"));
             }
           });
 ```
 `ClusterAgent` has a `computeStatus()` method that updates the aggregate status as machine status updates stream in. We will cherry picks portions of `computeStatus()` that generate the aggregate value for memory usage:
 
 ```java
-    int machineCount = 0;
     double clusterAvgMemoryUsage = 0.0;
     double clusterAvgMemoryUsage = 0.0;
 
@@ -176,7 +177,6 @@ The `machines` join value lane exposes the status of individual machines with re
 
     final Set<Value> keys = this.machines.keySet();
     for (Value key : keys) {
-      machineCount++;
       final Value machineStatus = this.machines.get(key);
 
       if (machineStatus.get("memory_usage").isDefined()) {
@@ -192,7 +192,6 @@ The `machines` join value lane exposes the status of individual machines with re
 
     this.status.set(
             this.status.get()
-                    .updated("machine_count", machineCount)
                     .updated("average_memory_usage", avgMemoryUsage)
                     .updated("max_memory_usage", maxMemoryUsage)
     );
@@ -200,7 +199,7 @@ The `machines` join value lane exposes the status of individual machines with re
 
 ## Rendering Status Information
 
-Data can be rendered to an HTML page relatively simply. To illustrate that, we include an html file <a href="https://github.com/swimos/tutorial-monitor/blob/main/ui/index.html">`/ui/index.html`</a> that illustrates how this is done. Most of this is boilerplate for displaying a chart, but the application-specific bit is here: 
+Data can be rendered to an HTML page relatively simply. To illustrate that, we include an html file <a href="https://github.com/swimos/tutorial-monitor/blob/main/ui/index.html" target="_blank">`/ui/index.html`</a> that illustrates how this is done. Most of this is boilerplate for displaying a chart, but the application-specific bit is here: 
 
 ```java
 const histogramLink = swim.downlinkMap()
@@ -277,7 +276,3 @@ swim-cli sync -h warp://localhost:9001 -n /cluster/abc -l statusHistory
 ## Running the UI
 
 Now, under the `/ui` folder under project root, open `index.html` as a local file in your web browser to see results from monitoring your locate machine populate a chart.
-
-## Demo Application
-
-A more complete of this source code exists as the swim-monitor demo can be found <a href="https://github.com/nstreamio/swim-monitor">here</a>.
