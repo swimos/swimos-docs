@@ -1,7 +1,7 @@
 # Server Recon Explained
 
 <a href="http://docs.swim.ai/js/latest/modules/_swim_recon.html" target="_target">Recon</a> is object notation used SwimOS platform for configuration files and for communication between Web Agents.
-
+Swim servers are configured in a `server.recon` file that resides in the application's `src/main/resources` directory.
 The are three primary parts of SwimOS server configration:
 - Web attributes
 - Fabric attributes
