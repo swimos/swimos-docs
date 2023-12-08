@@ -3,9 +3,9 @@
 <a href="http://docs.swim.ai/js/latest/modules/_swim_recon.html" target="_target">Recon</a> is object notation used SwimOS platform for configuration files and for communication between Web Agents.
 
 The are three primary parts of SwimOS server configration:
-- web attributes
-- fabric attributes
-- kernel directives
+- Web attributes
+- Fabric attributes
+- Kernel directives
 
 ## Web Attributes
 
