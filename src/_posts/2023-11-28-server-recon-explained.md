@@ -13,7 +13,7 @@ The `@web` annotation is used to specify Web Attributes.
 There is a top-level field called `port` that specific the TCP/IP port being used.
 There is a field called `space` the corresponds to an application and maps to `swim.api.space.Space`.
 The value of this field will be the same name used when defining the fabric attribute.
-There is a field called `documentRoot` that optionally specifies the top-level UI directory when applicable.
+There is a field called `documentRoot` that optionally specifies the top-level UI directory for bundled UIs, when applicable.
 There is an attribute called `@websocket` that allows `serverCompressionLevel` and `clientCompressionLevel` to be specfied.
 Server compression corresponds to the Web Agent side, while client corresponds to the use of client libraries, such as through ` swim.client.ClientRuntime`.
 
