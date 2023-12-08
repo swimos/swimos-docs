@@ -14,7 +14,7 @@ There is a top-level field called `port` that specific the TCP/IP port being use
 There is a field called `space` the corresponds to an application and maps to `swim.api.space.Space`.
 The value of this field will be the same name used when defining the fabric attribute.
 There is a field called `documentRoot` that optionally specifies the top-level UI directory for bundled UIs, when applicable.
-There is an attribute called `@websocket` that allows `serverCompressionLevel` and `clientCompressionLevel` to be specfied.
+There is an attribute called `@websocket` that configures WebSocket Deflate compression levels for the server (`serverCompressionLevel`) and client (`clientCompressionLevel`).
 Server compression corresponds to the Web Agent side, while client corresponds to the use of client libraries, such as through ` swim.client.ClientRuntime`.
 
 Here is an examole:
