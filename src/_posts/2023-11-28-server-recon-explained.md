@@ -16,7 +16,7 @@ The value of this field will be the same name used when defining the fabric attr
 There is a field called `documentRoot` that optionally specifies the top-level UI directory for bundled UIs, when applicable.
 There is an attribute called `@websocket` that configures WebSocket Deflate compression levels for the server (`serverCompressionLevel`) and client (`clientCompressionLevel`).
 
-Here is an examole:
+Here is an example:
 
 ```
 @web(port: 9001) {
