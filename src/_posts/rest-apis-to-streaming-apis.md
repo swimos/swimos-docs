@@ -160,6 +160,6 @@ Once the data arrives at the Web Agent, it is then written to the corresponding 
 You may find it useful to look at this http ingestion example:
 - https://www.swimos.org/guides/http-ingestion.html
 
-This approach is utilized in our transit tutorial:
+This approach is utilized in our transit demo:
 - https://github.com/swimos/tutorial-transit
 
