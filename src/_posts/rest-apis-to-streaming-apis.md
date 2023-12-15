@@ -4,9 +4,9 @@
 
 A fine-grained streaming API provides direct access to entities and the fields they expose.
 These APIs eliminate the need for polling, by allowing clients to subscribe to entity state that should be kept up to date with minimal overhead.
-An entity will have state that drives differing use cases, and so the available data is must be sufficient for all supported cases.
+An entity will have state that drives differing use cases, and so the available data must be sufficient for all supported cases.
 With traditional coarse-grained APIs, that means more data is included than generally necessary, and re-transmitted each time an entity is updated.
-With fine-grained streaming APIs, that can be avoided because changes are streamed and reconciled on the client-side since the previous state is already available, and only a differential update is needed.
+With fine-grained streaming APIs, that can be avoided because changes are streamed and reconciled on the client side since the previous state is already available, and only a differential update is needed.
 
 ## Benefits of Fine-Grained Streaming APIs
 
@@ -26,28 +26,28 @@ Instead of N requests for N updates, Streaming API clients issue 1 subscription 
 REST APIs are request-response based, forcing clients such as web applications and microservices to poll for new data.
 With Streaming APIs, SwimOS clients can subscribe to state changes over a Websocket.
 REST APIs generally end up being coarse-grained, as a client is forced to poll an entity for state changes by making explicit requests.
-Rarely will this correspond the moment the entity has just been updated.
-Instead, the object will likely not have changed at all, making the call a waste of time for caller and callee.
+Rarely will this correspond to the moment the entity has just been updated.
+Instead, the object will likely not have changed at all, making the call a waste of time for the caller and callee.
 If it has changed, it is likely to not have just changed that very moment, so the time in between is pure suboptimal latency.
 Regardless of whether the object has just changed or changed some time ago, it is likely to be the case that only a portion of the fields have changed, meaning every such update in the system is transmitting highly redundant information. 
 
 ### Streaming API efficiency
 
-With a Streaming API, there is no need to poll, eliminating the guess work.
+With a Streaming API, there is no need to poll, eliminating the guesswork.
 Unlike Coarse-grained APIs, where a lot of unwanted information gets forced on clients, Streaming APIs allow clients to subscribe to just the subset of data they need, both regarding specific entities, as well as specific  entity fields. 
 Additionally, only the incremental changes are sent by Streaming APIs, after which the local update method gets invoked with the old and new values.
 
 ## How it works with SwimOS
 
 With SwimOS, entities are represented by Web Agents that make each entity accessible via web URIs. 
-The Web Agent definition is like a Java class, and the Web Agent instance is the instantiated object.
-A few annotations are a available to map to SwimOS runtime capabilities on the server side. 
-In a typical object, data is retrieved by calling hand-crafted methods or auto-generated accessors or even direct field access where permitted. 
+The <a href="https://www.swimos.org/reference/web-agents.html" target="_blank">Web Agent</a> definition is like a Java class, and the Web Agent instance is the instantiated object.
+A few annotations are available to map to SwimOS runtime capabilities on the server side. 
+In a typical object, data is retrieved by calling hand-crafted methods, auto-generated accessors, or even direct field access where permitted. 
 With Web Agents, data fields are themselves end-points. 
-These data fields are called lanes and come with built-in lifecycle methods to enable observing any and all transitions. 
+These data fields are called <a href=" https://www.swimos.org/reference/lanes.html" target="_blank">lanes</a> and come with built-in lifecycle methods to enable observing all transitions. 
 
 A Web Agent is instantiated the first time it is referenced by its corresponding URI.
-The may be done withiin a server appication plane, a running Web Agent, or from client APIs.
+This may be done within a server application plane, a running Web Agent, or from client APIs.
 
 There are a few basic components that identify a Web Agent and its available end-points:
 
@@ -61,14 +61,14 @@ All together, complete URIs could look like these:
 - warps://acme.com/booking/123/latest
 - warp://localhost:9001/monitor/bigbadmachine/history
 
-The current runtime uses a protocol called WARP that is a highly optimized, open-source implementation of the Websocket protocol.
-Because it is esentially a Websocket protocol, it is web native and first-nature to web applications.
+The current runtime uses a protocol called WARP which is a highly optimized, open-source implementation of the WebSocket protocol.
+Because it is essentially a WebSocket protocol, it is web-native and first nature to web applications.
 
 The following steps can be followed to create the application:
 
 1. Model your entities
-2. Poll your REST APIs using the Http Connector
-3. Parse the http response and send the data to Web Agents
+2. Poll your REST APIs using the HTTP Connector
+3. Parse the HTTP response and send the data to Web Agents
 4. Store the latest data for the Web Agent in its lane
 
 
@@ -82,7 +82,7 @@ A Web Agent is a class and an instance of it is an object that represents the st
 When an entity has a field with a primitive type, such as a string, boolean, or numeric type, the type is mapped to a SwimOS `ValueLane<DATA_TYPE>`.
 The default generic type for all fields is Value, much like the JSON Value wrapped provided in several JSON libraries.
 We can wrap Java primitives by declaring types such as `ValueLane<String>`, `ValueLane<Boolean>`, and `ValueLane<Integer>`.
-Once we do so, clients are able to automaticaly observe all state transitions automatically.
+Once we do so, clients can automatically observe all state transitions automatically.
 
 #### Object data types
 
@@ -157,7 +157,7 @@ Once the data arrives at the Web Agent, it is then written to the corresponding 
 
 ## Next steps
 
-You may find it useful to look at this http ingestion example:
+You may find it useful to look at this HTTP ingestion example:
 - https://www.swimos.org/guides/http-ingestion.html
 
 This approach is utilized in our transit demo:
