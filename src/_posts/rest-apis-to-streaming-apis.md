@@ -15,7 +15,7 @@ Fine-Grained streaming APIs achieve efficiency through elimination of:
 - API requests that provide no value and consume client and server resources
 - polling latency
 - highly redundant data
-- unwanted data on both the entitiy and field level
+- Unwanted data on both the entity and field level
 
 Clients invoke REST APIs to pull data for each update, whether the data has been updated or not.
 Streaming API clients subscribe to the information they want, and Streaming APIs ensure that the client is provided the most recent state as it changes without further client requests.
