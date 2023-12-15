@@ -46,7 +46,7 @@ In a typical object, data is retrieved by calling hand-crafted methods or auto-g
 With Web Agents, data fields are themselves end-points. 
 These data fields are called lanes and come with built-in lifecycle methods to enable observing any and all transitions. 
 
-A Web Agent comes into being the first time its referenced by its corresponding web URI.
+A Web Agent is instantiated the first time it is referenced by its corresponding URI.
 The may be done withiin a server appication plane, a running Web Agent, or from client APIs.
 
 There are a few basic components that identify a Web Agent and its available end-points:
