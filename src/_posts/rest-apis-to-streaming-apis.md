@@ -1,6 +1,6 @@
 # Transform REST APIs into Fine-Grained Streaming APIs
 
-## What is a fine-grained streaming API
+## What is a fine-grained streaming API?
 
 A fine-grained streaming API provides direct access to entities and the fields they expose.
 These APIs eliminate the need for polling, by allowing clients to subscribe to entity state that should be kept up to date with minimal overhead.
