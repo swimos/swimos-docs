@@ -10,7 +10,7 @@ With fine-grained streaming APIs, that can be avoided because changes are stream
 
 ## Benefits of Fine-Grained Streaming APIs
 
-Fine-Grained streaming APIs achieve efficiency through elimination of:
+Fine-grained streaming APIs achieve efficiency through the elimination of:
 
 - API requests that provide no value and consume client and server resources
 - Polling latency
