@@ -163,5 +163,3 @@ You may find it useful to look at this http ingestion example:
 This approach is utilized in our transit tutorial:
 - https://github.com/swimos/tutorial-transit
 
-Nstream provides a low-code HTTP connector that abstracts the polling and the routing logic using `HttpIngestingPatch`:
-- https://www.nstream.io/docs/backend/http-ingress/
