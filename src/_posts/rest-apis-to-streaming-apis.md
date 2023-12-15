@@ -13,7 +13,7 @@ With fine-grained streaming APIs, that can be avoided because changes are stream
 Fine-Grained streaming APIs achieve efficiency through elimination of:
 
 - API requests that provide no value and consume client and server resources
-- polling latency
+- Polling latency
 - Highly redundant data
 - Unwanted data on both the entity and field level
 
