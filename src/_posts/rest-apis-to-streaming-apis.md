@@ -41,10 +41,57 @@ Additionally, only the incremental changes are sent by Streaming APIs, after whi
 
 With SwimOS, entities are represented by Web Agents that make each entity accessible via web URIs. 
 The <a href="https://www.swimos.org/reference/web-agents.html" target="_blank">Web Agent</a> definition is like a Java class, and the Web Agent instance is the instantiated object.
-A few annotations are available to map to SwimOS runtime capabilities on the server side. 
 In a typical object, data is retrieved by calling hand-crafted methods, auto-generated accessors, or even direct field access where permitted. 
 With Web Agents, data fields are themselves end-points. 
-These data fields are called <a href=" https://www.swimos.org/reference/lanes.html" target="_blank">lanes</a> and come with built-in lifecycle methods to enable observing all transitions. 
+
+The core agent functionality can be obtained by extending from `swim.api.agent.AbstractAgent`. 
+The `@SwimLane` annotation is available to specify streaming API endpoints on the server:
+
+```java
+public class VehicleAgent extends AbstractAgent {
+    @SwimLane("vehicles")
+    public MapLane<String, Value> vehicles = this.<String, Value>mapLane();
+}
+```
+
+You can also make use of the `context` provided by `AbstractAgent` to send commands, as in the example below:
+
+```java
+context.command(vehicleUri, "updateVehicle", v.toValue());
+```
+
+These data fields are called <a href=" https://www.swimos.org/reference/lanes.html" target="_blank">lanes</a> and come with built-in lifecycle methods to enable observing all transitions. Here is an example of a callback on a `CommandLane`:
+
+```java
+  @SwimLane("publish")
+  CommandLane<Integer> publish = this.<Integer>commandLane()
+      .onCommand((Integer msg) -> {
+        logMessage("'publish' commanded with " + msg);
+      });
+```
+
+And here is a `ValueLane` example:
+
+```java
+  @SwimLane("vehicle")
+  public ValueLane<Value> vehicle = this.<Value>valueLane()
+          .didSet((nv, ov) -> {
+            log.info("vehicle changed from " + Recon.toString(nv) + " from " + Recon.toString(ov));
+          });
+```
+
+And here is a `MapLane` example:
+
+```java
+  @SwimLane("ports")
+  MapLane<String, String> ports = this.<String, String>mapLane()
+       .didUpdate((key, newValue, oldValue) -> {
+         logMessage("Port " + key + " value changed to " + newValue + " from " + oldValue);
+       })
+       .didRemove((key, oldValue) -> {
+         logMessage("Port removed <" + key + "," + oldValue + ">");
+       }).didClear(() -> logMessage("All ports removed"));
+```
 
 A Web Agent is instantiated the first time it is referenced by its corresponding URI.
 This may be done within a server application plane, a running Web Agent, or from client APIs.
@@ -149,7 +196,34 @@ An alternate approach is using `java.net.http.HttpClient` to periodically hit yo
 
 Web Agents get initialized on demand if they don't yet exist, so there is no need to explicitly instantiate them.
 Once the application has data for a new entity, it can simply send the requisite data, without worrying about object creation.
-The data is ultimately transmitted using SwimOS commands, which are streaming write mechanisms.
+The data is ultimately transmitted using SwimOS commands, which are streaming write mechanisms. Here's an example taken from the <a href="https://www.swimos.org/guides/http-ingestion.html" target="_blank">HTTP ingestion guide</a>:
+
+```java
+  private static final String ENDPOINT_FMT = "https://retro.umoiq.com/service/publicXMLFeed?command=vehicleLocations&a=%s&t=%d";
+
+  private static String endpointForAgency(String agency, long since) {
+    return String.format(ENDPOINT_FMT, agency, since);
+  }
+
+  private static HttpRequest requestForEndpoint(String endpoint) {
+    return HttpRequest.newBuilder(URI.create(endpoint))
+        .GET()
+        .headers("Accept-Encoding", "gzip")
+        .build();
+  }
+
+  public static Value getVehiclesForAgency(HttpClient executor, String agency, long since) {
+    final HttpRequest request = requestForEndpoint(endpointForAgency(agency, since));
+    try {
+      final HttpResponse<InputStream> response = executor.send(request, HttpResponse.BodyHandlers.ofInputStream());
+      return Utf8.read(new GZIPInputStream(response.body()), Xml.structureParser().documentParser());
+      // Alternatively: convert GZIPInputStream to String, then invoke the more familiar Xml.parse()
+    } catch (Exception e) {
+      e.printStackTrace();
+      return Value.absent();
+    }
+  }
+```
 
 ### Store the latest data for the Web Agent in its lane
 
