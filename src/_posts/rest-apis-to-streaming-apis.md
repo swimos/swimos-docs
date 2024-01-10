@@ -105,8 +105,8 @@ There are a few basic components that identify a Web Agent and its available end
 
 All together, complete URIs could look like these:
 
-- warps://acme.com/booking/123/latest
-- warp://localhost:9001/monitor/bigbadmachine/history
+- `warps://acme.com/booking/123/latest`
+- `warp://localhost:9001/monitor/bigbadmachine/history`
 
 The current runtime uses a protocol called WARP which is a highly optimized, open-source implementation of the WebSocket protocol.
 Because it is essentially a WebSocket protocol, it is web-native and first nature to web applications.
