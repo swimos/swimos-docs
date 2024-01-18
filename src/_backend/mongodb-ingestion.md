@@ -2,7 +2,7 @@
 title: MongoDB Ingestion
 short-title: MongoDB Ingestion
 description: "How to poll and process data from MongoDB within Web Agents"
-group: Guides
+group: Data Ingestion
 layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/mongodb_ingestion
 redirect_from:

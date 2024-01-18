@@ -81,16 +81,18 @@ collections:
     permalink: /backend/:name/
     order:
       - index.md
-      # Concepts
+      # Getting Started
       - fundamentals.md
       - lane-organization.md
       - agent-design.md
+      - swim-libraries.md
       # Guides
       - cli.md
       - introspection.md
       - time-series.md
       - summary-statistics.md
       - aggregations.md
+      # Data Ingestion
       - kafka-ingestion.md
       - pulsar-ingestion.md
       - mongodb-ingestion.md
@@ -98,7 +100,6 @@ collections:
       - jms-ingestion.md
       - http-ingestion.md
       # Reference
-      - swim-libraries.md
       - web-agents.md
       - lanes.md
       - command-lanes.md
@@ -122,32 +123,7 @@ collections:
       - auth-policy.md
       - recon.md
       - warp.md
-      # Category 1
-      - doc1.md
-      - doc5.md
-      # Category 2
-      - doc2.md
-      # Category 3
-      - doc3.md
-      - doc4.md
     weight: 1
-  frontend:
-    kind: docs
-    output: true
-    name: "Swim UI"
-    description: FURNTEND.
-    permalink: /frontend/:name/
-    order:
-      - index.md
-      # Category 1
-      - doc1.md
-      - doc5.md
-      # Category 2
-      - doc2.md
-      # Category 3
-      - doc3.md
-      - doc4.md
-    weight: 2
   tutorials:
     kind: docs
     output: true
@@ -156,7 +132,7 @@ collections:
       - index.md
       - demos.md
       - transit.md
-    weight: 3
+    weight: 2
   meta:
     output: true
     name: "Meta"
@@ -165,7 +141,7 @@ collections:
       - contribute.md
       - diataxis.md
       - styles.md
-    weight: 5
+    weight: 3
 
 # The directory that contains our collections
 collections_dir: src
@@ -203,7 +179,6 @@ feed:
   collections:
     - tutorials
     - backend
-    - frontend
     - meta
 
 paginate: 9

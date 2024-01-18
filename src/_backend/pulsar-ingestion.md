@@ -2,7 +2,7 @@
 title: Pulsar Ingestion
 short-title: Pulsar Ingestion
 description: "How to receive and process data from Pulsar topics within Web Agents"
-group: Guides
+group: Data Ingestion
 layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/pulsar_ingestion
 redirect_from:

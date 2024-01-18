@@ -2,7 +2,7 @@
 title: Flink Connector
 short-title: Flink Connector
 description: "Use the Flink Swim Sink to stream events to a Swim application."
-group: Guides
+group: Data Ingestion
 layout: documentation
 redirect_from:
   - /guides/flink-connector.html

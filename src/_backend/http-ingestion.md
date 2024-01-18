@@ -2,7 +2,7 @@
 title: Http Ingestion
 short-title: Http Ingestion
 description: "How to receive and process data from HTTP (REST) endpoints within Web Agents"
-group: Guides
+group: Data Ingestion
 layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/http_ingestion
 redirect_from:

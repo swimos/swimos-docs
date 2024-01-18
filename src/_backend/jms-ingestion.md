@@ -2,7 +2,7 @@
 title: JMS Ingestion
 short-title: JMS Ingestion
 description: "How to receive and process messages from JMS within Web Agents"
-group: Guides
+group: Data Ingestion
 layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/jms_ingestion
 redirect_from:

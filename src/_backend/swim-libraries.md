@@ -2,7 +2,7 @@
 title: Swim Libraries
 short-title: Swim Libraries
 description: "Use SwimOS back-end and front-end components to build streaming data applications."
-group: Reference
+group: Getting Started
 layout: documentation
 redirect_from:
   - /start/

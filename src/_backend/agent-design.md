@@ -1,7 +1,7 @@
 ---
 title: Web Agent Design
 short-title: Web Agent Design
-group: Concepts
+group: Getting Started
 description: "How to model entities into nodes and agents"
 layout: documentation
 redirect_from:
