@@ -53,6 +53,16 @@
           blurb: 
           icon: "fa-solid fa-server"
           url: /backend/
+    - group: Tutorials & Blog
+      items:
+        - title: Tutorials
+          blurb:
+          icon: "fa-solid fa-graduation-cap"
+          url: /tutorials/
+        - title: Blog
+          blurb: 
+          icon: "fa-solid fa-rss"
+          url: /blog/
     # - group: Frontend
     #   items:
     #     - title: Swim UI Documentation
@@ -63,15 +73,9 @@
     # - name: Demos
     #   icon: "fa-solid fa-laptop-code"
     #   url: /demos/
-    - name: Tutorials
-      icon: "fa-solid fa-graduation-cap"
-      url: /tutorials/
     - name: Meta
       icon: "fa-solid fa-cloud"
       url: /meta/
-    - name: Blog
-      icon: "fa-solid fa-rss"
-      url: /blog/
 - section: Community
   id: community
   menu:
