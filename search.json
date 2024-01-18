@@ -4,16 +4,15 @@
 {% if site.collections %}
     {% assign collections = site.collections | sort: 'weight' %}
     {% for collection in collections %}
-        {% if collection.label != "posts" %}
-            {% assign items = site[collection.label] %}
-            {% for item in items %}
-                {% if item.hidden != true %}
-                    {% assign listPages = listPages | push: item %}
-                {% endif %}
-            {% endfor %}
-        {% endif %}
+        {% assign items = site[collection.label] %}
+        {% for item in items %}
+            {% if item.hidden != true %}
+                {% assign listPages = listPages | push: item %}
+            {% endif %}
+        {% endfor %}
     {% endfor %}
 {% endif %}
+
 [
 {% for thing in listPages %}
     {
