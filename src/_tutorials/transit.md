@@ -1,6 +1,6 @@
 ---
 title: Transit Tutorial
-description: TODO
+description: 
 group: Tutorials
 layout: documentation
 ---

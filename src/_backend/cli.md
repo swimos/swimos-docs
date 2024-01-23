@@ -2,7 +2,7 @@
 title: Stream Data Using the swim-cli
 short-title: Swim CLI
 description: "How to stream or fetch data from a Swim application using the swim-cli"
-group: Guides
+group: Utilities
 layout: documentation
 redirect_from:
   - /guides/cli.html

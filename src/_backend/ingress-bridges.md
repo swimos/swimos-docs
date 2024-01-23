@@ -144,7 +144,7 @@ If the data source is not a Swim server and you still want something of a pull m
 
 - A secondary service pulls data, using **any networking protocol of your choice**, from the data source, then relays data to the Swim server using any of the "push-type" bridges discussed above.
 
-It is **not required** that this service run outside of the Swim server. There is a way to execute blocking calls within a server context without impacting Web Agent functionality. This feature exceeds the scope of this discussion, but a fully-worked example can be found in our [HTTP Ingress Bridge example]({% link _backend/http-ingress-bridges.md %}).
+It is **not required** that this service run outside of the Swim server. There is a way to execute blocking calls within a server context without impacting Web Agent functionality. This feature exceeds the scope of this discussion, but a fully-worked example can be found in our [HTTP ingestion example]({% link _backend/http-ingestion.md %}).
 
 ### Try It Yourself
 

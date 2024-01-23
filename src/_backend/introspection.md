@@ -2,7 +2,7 @@
 title: Introspect a Swim server
 short-title: Introspect a Swim server
 description: "How to introspect a Swim server and obtain runtime stats"
-group: Guides
+group: Utilities
 layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/introspection
 redirect_from:
