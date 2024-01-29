@@ -1,6 +1,7 @@
 ---
 title: Styles & Markup
-layout: page
+layout: documentation
+group: Theme
 description: "Configure TailwindCSS and apply styles to documents."
 ---
 

@@ -73,37 +73,34 @@ exclude:
 
 # Every top level section is actually a collection. Their files are in a _folder in src/
 collections:
-  tutorials:
+  backend:
+    kind: docs
     output: true
-    name: "Tutorials"
+    name: "Backend"
+    description: Documentation about SwimOS fundamentals and CLI useage.
+    permalink: /backend/:name/
     order:
       - index.md
-      - demos.md
-      - transit.md
-    weight: 1
-  guides:
-    output: true
-    name: "How-to Guides"
-    order:
-      - index.md
-      - cli.md
-      - introspection.md
+      # Getting Started
+      - fundamentals.md
+      - lane-organization.md
+      - agent-design.md
+      - swim-libraries.md
+      # Swim Apps
       - time-series.md
       - summary-statistics.md
       - aggregations.md
+      # Data Ingestion
       - kafka-ingestion.md
       - pulsar-ingestion.md
       - mongodb-ingestion.md
       - flink-connector.md
       - jms-ingestion.md
       - http-ingestion.md
-    weight: 2
-  reference:
-    output: true
-    name: "Reference Docs"
-    order:
-      - index.md
-      - swim-libraries.md
+      # Utilities
+      - cli.md
+      - introspection.md
+      # Reference
       - web-agents.md
       - lanes.md
       - command-lanes.md
@@ -122,21 +119,21 @@ collections:
       - timers.md
       - ingress-bridges.md
       - egress-bridges.md
-      - http-ingress-bridges.md
       - http-lanes.md
       - auth-policy.md
       - recon.md
       - warp.md
-    weight: 3
-  concepts:
+    weight: 1
+  tutorials:
+    kind: docs
     output: true
-    name: "Conceptual Guides"
+    name: "Tutorials"
     order:
       - index.md
-      - fundamentals.md
-      - agent-design.md      
-      - lane-organization.md     
-    weight: 4
+      - demos.md
+      - transit.md
+      - monitor.md
+    weight: 2
   meta:
     output: true
     name: "Meta"
@@ -145,7 +142,7 @@ collections:
       - contribute.md
       - diataxis.md
       - styles.md
-    weight: 5
+    weight: 3
 
 # The directory that contains our collections
 collections_dir: src
@@ -182,9 +179,7 @@ announcement:
 feed:
   collections:
     - tutorials
-    - guides
-    - reference
-    - concepts
+    - backend
     - meta
 
 paginate: 9
