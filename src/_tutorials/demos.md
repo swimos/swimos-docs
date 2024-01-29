@@ -1,7 +1,8 @@
 ---
-title: Demos
-layout: page
+title: Demo Apps
+layout: documentation
 description: "Learn by example through demos, cookbooks, and sample code."
+group: Demos
 redirect_from:
   - /meet/
 ---

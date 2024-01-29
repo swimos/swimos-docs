@@ -132,6 +132,7 @@ collections:
       - index.md
       - demos.md
       - transit.md
+      - monitor.md
     weight: 2
   meta:
     output: true

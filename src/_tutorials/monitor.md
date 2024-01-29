@@ -1,6 +1,8 @@
 ---
 title: Process Monitor Tutorial
-layout: page
+description:
+group: Tutorials
+layout: documentation
 ---
 
 ## Overview
