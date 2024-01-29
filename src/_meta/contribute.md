@@ -1,6 +1,7 @@
 ---
 title: Contributing Guide
-layout: page
+layout: documentation
+group: Contributing
 description: "Install the SwimOS docs site locally and contribute to the documentation project."
 ---
 
