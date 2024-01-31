@@ -24,7 +24,7 @@ If the sink is another Swim server, then the egress bridge can be as simple as s
 
 For non-Swim sinks, implementing a push-based egress bridge requires some care. Running Swim agents on a single machine "in parallel" only works because each agent executes in a thread pool. Simple push-type logic, such as HTTP POSTs or database writes, often involve **blocking** calls, which will bog down not only the current Agent but also Agents scheduled for future execution by the same thread.
 
-Therefore, fundamental to these egress bridges is a **nonblocking driver**. If your data sink is an HTTP server, this might be an [`AsyncHttpClient`](https://github.com/AsyncHttpClient/async-http-client) instance. If it is a database, you may consider a mature [ADBA](https://blogs.oracle.com/java/jdbc-next:-a-new-asynchronous-api-for-connecting-to-a-database) implementation (though the [official subset](https://github.com/oracle/oracle-db-examples/tree/master/java/AoJ) likely has everything you'll need).
+Therefore, fundamental to these egress bridges is a **nonblocking driver**. If your data sink is an HTTP server, this might be an [`AsyncHttpClient`](https://github.com/AsyncHttpClient/async-http-client) instance. If it is a database, you may consider a mature [ADBA](https://blogs.oracle.com/java/post/asynchronous-database-access-api-adba) implementation (though the [official subset](https://github.com/oracle/oracle-db-examples/tree/master/java/AoJ) likely has everything you'll need).
 
 #### Option 1: Threadsafe Connector
 

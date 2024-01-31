@@ -99,9 +99,9 @@ Server-side, downlinks are explained in the [Server Downlinks guide]({% link _ba
 
 #### Javascript
 
-The tutorial application demonstrates [using value downlinks](https://github.com/swimos/tutorial/blob/master/ui/pie.html#L58-L67) and [map downlinks](https://github.com/swimos/tutorial/blob/master/ui/chart.html#L69-L79) issued against a Swim client instance. Note the language-level loss of parametrization, but the otherwise-identical syntax to Java.
+The tutorial application demonstrates [using value downlinks](https://github.com/swimos/tutorial/blob/master/ui/pie.html#L58-L67){:data-proofer-ignore=''} and [map downlinks](https://github.com/swimos/tutorial/blob/master/ui/chart.html#L69-L79){:data-proofer-ignore=''} issued against a Swim client instance. Note the language-level loss of parametrization, but the otherwise-identical syntax to Java.
 
 ### Try It Yourself
 
-A standalone project that combines all of these snippets and handles any remaining boilerplate is available [here](https://github.com/swimos/cookbook/tree/master/downlink).
+A standalone project that combines all of these snippets and handles any remaining boilerplate is available [here](https://github.com/swimos/cookbook/tree/master/downlinks).
 

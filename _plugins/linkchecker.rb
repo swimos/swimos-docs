@@ -5,12 +5,13 @@ Jekyll::Hooks.register :site, :post_write do |site|
     :allow_hash_href => false,
     :allow_missing_href => true,
     :check_html => true,
-    :disable_external => true,
+    :disable_external => false,
     :enforce_https => false,
     :ignore_empty_alt => true,
     :ignore_missing_alt => true,
     :swap_urls => {
       Regexp.new("^" + site.config["baseurl"]) => ""
-    }
+    },
+    ignore_urls: [/localhost/,/twitter.com/,/linkedin.com/],
   }).run
 end

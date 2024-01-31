@@ -153,7 +153,7 @@ The <a href="https://github.com/swimos/tutorial-monitor/blob/main/server/src/mai
           });
 ```
 
-For an explanation of downlinking, see <a href="https://github.com/swimos/swimos-docs/blob/main/src/_reference/downlinks.md" target="_blank">this</a>. 
+For an explanation of downlinking, see [`downlinks`]({% link _backend/downlinks.md %}). 
 The `machines` join value lane exposes the status of individual machines with respect to system information, usage information, and process information, so that any connected client can check detail status for any machine in the cluster.
 
 `ClusterAgent` also aggregates the status of all machines and reflects that in an aggregate status to reflect the health of the cluster. The status is exposed to interested clients through the `status` value lane, and history is stored for the last 200 values. Note that since `timestamp` is the key, the field is removed from the corresponding value:

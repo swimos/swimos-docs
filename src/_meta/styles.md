@@ -70,7 +70,7 @@ toc:
   item_prefix: toc- # Adds a toc-* class to each list item for styling. Ex. toc-h2 for list items that refer to an h2 in the doc body.
 ```
 
-You can learn more about styling the TOC in the [jekyll-toc README](https://github.com/toshimaru/jekyll-toc#css-styling)
+You can learn more about styling the TOC in the [jekyll-toc README](https://github.com/toshimaru/jekyll-toc#css-styling){:data-proofer-ignore=''}
 
 ## Callouts & Alerts
 
