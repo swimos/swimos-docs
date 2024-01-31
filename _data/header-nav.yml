@@ -85,14 +85,7 @@
         blurb: Check out Swim’s latest projects and commits on GitHub.
         icon: "fa-brands fa-github"
         url: https://github.com/swimos/swim
-      - title: Java Docs
-        blurb: 
-        icon: "fa-brands fa-java"
-        url: https://docs.swimos.org/java/4.1.0.12/
-      - title: JavaScript
-        blurb: 
-        icon: "fa-brands fa-square-js"
-        url: https://docs.swimos.org/js/4.0.0/
+      # Java Doc & JS info is updated in header.html
     - group: Contribute
       items:
         - title: Report a Bug
