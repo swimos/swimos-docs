@@ -35,7 +35,7 @@ Traffic processes 30,000 data points per second from connected traffic intersect
 
 Transit analyzes application performance to deliver continuous insights in real-time
 
-- [View a live demo](http://transit.swim.inc/)
+- [View a live demo](https://transit.swim.inc/)
 - [Check it out on GitHub](https://github.com/swimos/transit)
 - [Download a zip](https://github.com/swimos/transit/archive/master.zip)
 
