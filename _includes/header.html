@@ -43,6 +43,36 @@
                     </div>
                   </a>
                 {% endfor %}
+
+                <!-- This jankyness exists because we can't use Jekyll variables in a .yml file and want to update version numbers in one spot. Sorry... -AF -->
+                {% if group.group == "Code" %}
+
+                <a href="https://docs.swimos.org/java/{{ site.swim-server-version }}" class="group/item flex gap-x-4 p-4">
+                  <div class="flex shrink-0 justify-center w-12">
+                    <i class="fa-brands fa-java w-6 h-6 text-white group-hover/item:text-white transition ease-out"></i>
+                  </div>
+                  <div class="flex flex-col grow justify-center">
+                    <h4 class="font-medium text-kaimurasaki-100 group-hover/item:text-white transition ease-out">Java Docs</h4>
+                    <!-- <div class="mt-1 text-sm text-kaimurasaki-200 group-hover/item:text-white transition ease-out">
+                      Blurb
+                    </div> -->
+                  </div>
+                </a>
+                
+                <a href="https://docs.swimos.org/js/{{ site.swim-js-version }}" class="group/item flex gap-x-4 p-4">
+                  <div class="flex shrink-0 justify-center w-12">
+                    <i class="fa-brands fa-square-js w-6 h-6 text-white group-hover/item:text-white transition ease-out"></i>
+                  </div>
+                  <div class="flex flex-col grow justify-center">
+                    <h4 class="font-medium text-kaimurasaki-100 group-hover/item:text-white transition ease-out">JavaScript</h4>
+                    <!-- <div class="mt-1 text-sm text-kaimurasaki-200 group-hover/item:text-white transition ease-out">
+                      Blurb
+                    </div> -->
+                  </div>
+                </a>
+
+                {% endif %}
+
                 </div>
               {% endfor %}
               </div>

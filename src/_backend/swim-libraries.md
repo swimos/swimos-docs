@@ -9,7 +9,7 @@ redirect_from:
   - /reference/swim-libraries.html
 ---
 
-Swim implements a complete, self-contained, distributed application stack in an embeddable software library. To develop server-side Swim apps, add the [swim-api](https://github.com/swimos/swim/tree/main/swim-java/swim-runtime/swim-host/swim.api) library to your Java project. To write a JavaScript client application, install the [@swim/core](https://github.com/swimos/swim/tree/main/swim-js/swim-runtime/swim-core) library from npm. To build a web application, npm install the [@swim/ui](https://github.com/swimos/swim/tree/main/swim-js/swim-toolkit/swim-ui) and [@swim/ux](https://github.com/swimos/swim/tree/main/swim-js/swim-toolkit/swim-ux) libraries. Select one of the boxes below (or scroll down) to get started with Swim.
+Swim implements a complete, self-contained, distributed application stack in an embeddable software library. To develop server-side Swim apps, add the [swim-api](https://github.com/swimos/swim/tree/main/swim-java/swim-runtime/swim-host/swim.api) library to your Java project. To write a JavaScript client application, install the [@swim/core](https://github.com/swimos/swim/tree/main/swim-js/swim-core) library from npm. To build a web application, npm install the [@swim/ui](https://github.com/swimos/swim/tree/main/swim-js/swim-ui) and [@swim/ux](https://github.com/swimos/swim/tree/main/swim-js/swim-ux) libraries. Select one of the boxes below (or scroll down) to get started with Swim.
 
 <!-- <div class="platform-case">
   <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="plane">
@@ -40,7 +40,7 @@ The Swim Java Server is a self-contained, distributed application server for sta
 ```java
 group: "org.swimos",
 name: "swim-server",
-version: "4.1.0.12"
+version: "4.2.14"
 ```
 
 
@@ -51,7 +51,7 @@ The Swim Java Client is a minimal WARP streaming API client.
 ```java
 group: "org.swimos",
 name: "swim-client",
-version: "4.1.0.12"
+version: "4.2.14"
 ```
 
 ### JavaScript Client Quick Start

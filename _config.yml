@@ -32,6 +32,10 @@ github_repository: https://github.com/swimos/swimos-docs
 permalink: none
 destination: _site
 
+# SwimOS / JS Versions
+swim-server-version: 4.2.14
+swim-js-version: 4.0.0
+
 postcss:
   cache: false
 

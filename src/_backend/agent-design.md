@@ -67,6 +67,6 @@ One possible way to identify if an agent can be split into multiple is to see if
 A good example of an independent re-usable agent would be a 'geographic point agent', this is an agent that extracts longitude and latitude, performs any geospatial processing and exposes a lane to be used by some map UI.
 This agent could then be added to any node with a longitude and latitude to be rendered on the UI as well.
 
-The Nstream [**patch**](https://www.nstream.io/docs/backend/patches/) system provides multiple examples of re-usable agents that can be used to compose nodes.
+The Nstream [**patch**](https://www.nstream.io/docs/backend/agent-relationship/) system provides multiple examples of re-usable agents that can be used to compose nodes.
 
 _Note: Keep in mind that as with objects in Java, each agent created will have a small memory overhead._

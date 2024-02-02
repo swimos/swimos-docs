@@ -28,7 +28,7 @@ Several methods implemented in the `BarType` class handle these transformations 
   
 #### Types of Forms
 
-The `swim.structure.form` package contains many out-of-the-box Forms already for a variety of common [types](https://github.com/swimos/swim/tree/master/swim-system-java/swim-core-java/swim.structure/src/main/java/swim/structure/form), such as LongForm, CharacterForm, and StringForm. This is why one can declare, for example, a `MapLane<String, Long>` that works without any additional effort.
+The `swim.structure.form` package contains many out-of-the-box Forms already for a variety of common [types](https://github.com/swimos/swim/tree/main/swim-java/swim-runtime/swim-core/swim.structure/src/main/java/swim/structure/form), such as LongForm, CharacterForm, and StringForm. This is why one can declare, for example, a `MapLane<String, Long>` that works without any additional effort.
 
 For other types (e.g. custom pojos), you need to implement your own Form for that type, and tag the static accessor with @Kind.
 
@@ -180,7 +180,7 @@ public class BazType {
 }
 ```
   
-This clean composability also enables some of the more complicated forms that were [linked](https://github.com/swimos/swim/tree/master/swim-system-java/swim-core-java/swim.structure/src/main/java/swim/structure/form) earlier. For example, one can get a working `Form<List<FooType>` handle by simply doing `Form<List<FooType> = Form.forList(FooType.form())` (see [here](https://github.com/swimos/swim/blob/master/swim-system-java/swim-core-java/swim.structure/src/main/java/swim/structure/Form.java#L223-L246)). Even something like a `Form<List<List<BazType>` could be created similarly!
+This clean composability also enables some of the more complicated forms that were [linked](https://github.com/swimos/swim/tree/main/swim-java/swim-runtime/swim-core/swim.structure/src/main/java/swim/structure/form) earlier. For example, one can get a working `Form<List<FooType>` handle by simply doing `Form<List<FooType> = Form.forList(FooType.form())` (see [here](https://github.com/swimos/swim/blob/main/swim-java/swim-runtime/swim-core/swim.structure/src/main/java/swim/structure/Form.java#L221-L246){:data-proofer-ignore=''}). Even something like a `Form<List<List<BazType>` could be created similarly!
 
 
 ### Try It Yourself
