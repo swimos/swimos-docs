@@ -21,7 +21,7 @@
       {% for item in group.items %}
       {% unless item.hidden %}
         <li>
-          <a href="{{ item.url | relative_url }}" class="block -ml-px pl-4 border-l{% if item.url == page.url %} border-l-vermilion{% else %} border-l-transparent hover:border-l-kaimurasaki{% endif %} text-sm leading-6{% if item.url == page.url %} text-swim-blue{% else %} text-kaimurasaki-700 hover:text-kaimurasaki{% endif %} transition ease-out">{{ item.short-title | default: item.title }}</a>
+          <a href="{{ item.url | absolute_url }}" class="block -ml-px pl-4 border-l{% if item.url == page.url %} border-l-vermilion{% else %} border-l-transparent hover:border-l-kaimurasaki{% endif %} text-sm leading-6{% if item.url == page.url %} text-swim-blue{% else %} text-kaimurasaki-700 hover:text-kaimurasaki{% endif %} transition ease-out">{{ item.short-title | default: item.title }}</a>
         </li>
       {% endunless %}
       {% endfor %}
