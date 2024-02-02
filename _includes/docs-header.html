@@ -12,7 +12,7 @@
 
     <div class="flex shrink-0 px-2">
       <!-- Site home -->
-      <a href="{{ '/' | absolute_url }}" class="flex shrink-0 items-center px-2 text-swim-blue transition-[margin-left,opacity] ease-out" x-cloak x-show="scrolled" x-transition:enter-start="-ml-[40px] -sm:ml-[48px]opacity-0" x-transition:leave-end="-ml-[40px] -sm:ml-[48px] opacity-0">
+      <a href="{{ '/' | relative_url }}" class="flex shrink-0 items-center px-2 text-swim-blue transition-[margin-left,opacity] ease-out" x-cloak x-show="scrolled" x-transition:enter-start="-ml-[40px] -sm:ml-[48px]opacity-0" x-transition:leave-end="-ml-[40px] -sm:ml-[48px] opacity-0">
         <svg aria-hidden="true" class="w-6 h-6 lg:w-8 lg:h-8" viewBox="0 0 240 260" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <polygon fill="#008ac5" points="143.064921 229.500725 171.060474 257.04816 154.922273 251.046557"></polygon>
             <polygon fill="#004868" points="114.534564 215.200291 133.631757 212.321023 154.910228 251.044915"></polygon>
@@ -40,7 +40,7 @@
       </a>
       <div class="flex shrink-0">
         <!-- Desktop Documentation home TODO: Link to docs landing page -->
-        <a href="{{ '/' | absolute_url }}" class="hidden lg:flex shrink-0 items-center pl-2 text-base font-medium tracking-wider whitespace-nowrap text-white hover:text-swim-blue transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Documentation</a>
+        <a href="{{ '/' | relative_url }}" class="hidden lg:flex shrink-0 items-center pl-2 text-base font-medium tracking-wider whitespace-nowrap text-white hover:text-swim-blue transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Documentation</a>
         <!-- Mobile menu button -->
         <button type="button" aria-controls="docs-mobile-menu" aria-expanded="false" class="group lg:hidden flex shrink-0 items-center pl-2" @click="shown = !shown">
           <span class="text-sm font-medium tracking-wider whitespace-nowrap group-hover:text-swim-blue transition ease-out" :class="{ 'text-kaimurasaki-900': !scrolled, 'text-kaimurasaki-100': scrolled, '!text-swim-blue': shown }">{{ "Documentation" }}</span>
@@ -55,7 +55,7 @@
       <!-- Desktop menu -->
       <div class="hidden lg:flex">
       {% for collection in collections | where: "output", true %}
-        <a href="{{ collection.docs[0].url | absolute_url }}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">{{ collection.name }}</a>
+        <a href="{{ collection.docs[0].url | relative_url }}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">{{ collection.name }}</a>
       {% endfor %}
       </div>
     </div>
@@ -76,7 +76,7 @@
 
         <div class="py-8 space-y-2">
         {% for collection in collections %}
-          <a href="{{ collection.docs[0].url | absolute_url }}" class="flex px-6 text-base leading-7{% if collection.label == page.collection %} text-swim-blue{% else %} text-kaimurasaki-800 hover:text-kaimurasaki{% endif %} transition ease-out"{% unless collection.label == page.collection %} :class="{ 'text-kaimurasaki-800 hover:text-kaimurasaki': !scrolled, 'text-kaimurasaki-200 hover:text-white': scrolled }"{% endunless %}>{{ collection.name }}</a>
+          <a href="{{ collection.docs[0].url | relative_url }}" class="flex px-6 text-base leading-7{% if collection.label == page.collection %} text-swim-blue{% else %} text-kaimurasaki-800 hover:text-kaimurasaki{% endif %} transition ease-out"{% unless collection.label == page.collection %} :class="{ 'text-kaimurasaki-800 hover:text-kaimurasaki': !scrolled, 'text-kaimurasaki-200 hover:text-white': scrolled }"{% endunless %}>{{ collection.name }}</a>
         {% endfor %}
         </div>
 
@@ -90,7 +90,7 @@
             {% for item in group.items %}
             {% unless item.hidden %}
               <li>
-                <a href="{{ item.url | absolute_url }}" class="block -ml-px pl-4 border-l{% if item.url == page.url %} border-l-bltext-swim-blue{% else %} border-l-transparent hover:border-l-kaimurasaki{% endif %} text-base leading-7{% if item.url == page.url %} text-swim-blue{% else %} text-kaimurasaki-800 hover:text-kaimurasaki{% endif %} transition ease-out"{% unless item.url == page.url %} :class="{ 'hover:border-l-kaimurasaki text-kaimurasaki-800 hover:text-kaimurasaki': !scrolled, 'hover:border-l-kaimurasaki-400 text-kaimurasaki-200 hover:text-white': scrolled }"{% endunless %}>{{ item.short-title | default: item.title }}</a>
+                <a href="{{ item.url | relative_url }}" class="block -ml-px pl-4 border-l{% if item.url == page.url %} border-l-bltext-swim-blue{% else %} border-l-transparent hover:border-l-kaimurasaki{% endif %} text-base leading-7{% if item.url == page.url %} text-swim-blue{% else %} text-kaimurasaki-800 hover:text-kaimurasaki{% endif %} transition ease-out"{% unless item.url == page.url %} :class="{ 'hover:border-l-kaimurasaki text-kaimurasaki-800 hover:text-kaimurasaki': !scrolled, 'hover:border-l-kaimurasaki-400 text-kaimurasaki-200 hover:text-white': scrolled }"{% endunless %}>{{ item.short-title | default: item.title }}</a>
               </li>
             {% endunless %}
             {% endfor %}
