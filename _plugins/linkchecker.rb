@@ -9,9 +9,9 @@ Jekyll::Hooks.register :site, :post_write do |site|
     :enforce_https => false,
     :ignore_empty_alt => true,
     :ignore_missing_alt => true,
-    :swap_urls => {
-      Regexp.new("^" + site.config["baseurl"]) => ""
-    },
+    # :swap_urls => {
+    #   Regexp.new("^" + site.config["baseurl"]) => ""
+    # },
     ignore_urls: [/localhost/,/twitter.com/,/linkedin.com/],
     ignore_status_codes: [403, 500]
   }).run
