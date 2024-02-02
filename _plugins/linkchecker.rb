@@ -13,5 +13,6 @@ Jekyll::Hooks.register :site, :post_write do |site|
       Regexp.new("^" + site.config["baseurl"]) => ""
     },
     ignore_urls: [/localhost/,/twitter.com/,/linkedin.com/],
+    ignore_status_codes: [403, 500]
   }).run
 end
