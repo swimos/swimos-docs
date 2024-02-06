@@ -77,6 +77,28 @@ exclude:
 
 # Every top level section is actually a collection. Their files are in a _folder in src/
 collections:
+  devguide:
+    kind: docs
+    output: true
+    name: "Developer Guide"
+    description: An ordered guide through SwimOS.
+    permalink: /developer-guide/:name/
+    order:
+      - index.md
+      # 1. Introduction
+      - 1-introduction.md
+      # 2. Getting Started
+      - 2-getting-started.md
+      - 2.1-swim-create.md
+      - 2.2-project-setup.md
+      - 2.3-hello-world.md
+      - 2.4-hello-agent.md
+      - 2.5-hello-lane.md
+      # 3. Agents
+      # 3.1 Agent Details (parallel, atomic, no constructor, logging)
+      # 3.1 Agent URIs
+      # 3.2 Agent Properties
+      # 3.3 Traits
   backend:
     kind: docs
     output: true
