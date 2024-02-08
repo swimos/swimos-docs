@@ -81,7 +81,7 @@ collections:
     kind: docs
     output: true
     name: "Backend"
-    description: Documentation about SwimOS fundamentals and CLI useage.
+    description: Documentation about SwimOS fundamentals and CLI usage.
     permalink: /backend/:name/
     order:
       - index.md

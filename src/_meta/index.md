@@ -9,6 +9,6 @@ This section contains information on managing and contributing to this docs port
 
 - **Installation:** Please see installation instructions in the [Contributing Guide]({% link _meta/contribute.md %})
 - **[Diátaxis Framework]({% link _meta/diataxis.md %}):** Information on how documents are organized and which types of content belong in which sections.
-- **[Styles]({% link _meta/styles.md %}):** Configure Tailwind CSS and see previews/useage information for callouts (info, warning, note, etc) and other CSS styles.
+- **[Styles]({% link _meta/styles.md %}):** Configure Tailwind CSS and see previews/usage information for callouts (info, warning, note, etc) and other CSS styles.
 
 {% include docs-listing.html %}
