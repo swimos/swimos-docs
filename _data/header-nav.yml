@@ -53,6 +53,10 @@
           blurb: 
           icon: "fa-solid fa-server"
           url: /backend/
+        - title: Developer Guide
+          blurb: Learn SwimOS from the start
+          icon: "fa-brands fa-java"
+          url: /developer-guide/
     - group: Frontend
       items:
         - title: Frontend Documentation
