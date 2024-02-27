@@ -31,13 +31,7 @@ There are two big things to manage when dealing with downlinks: **data** and **c
 
 ### Declaration
 
-#### Java
-
 All downlink classes can be imported from package `swim.api.downlink`.
-
-#### Javascript
-
-All downlink types are available after including `swim-core.js`, available from https://cdn.swimos.org/js/3.9.0/swim-core.js.
 
 ### Usage
 
@@ -46,7 +40,7 @@ Downlinks must be instantiated against Swim refs, i.e. specific server-side or c
 1. Invoke `downlink()` against your ref for an event downlink, or `downlinkFoo()` for a foo downlink (e.g. `downlinkMap()` for a map downlink)
 1. Build the downlink's `hostUri` using `hostUri()` (this step can only be omitted if your Swim ref is server-side, and you are targeting a lane within the same server), the downlink's `nodeUri` using `nodeUri()`, and the downlink's `laneUri` using `laneUri()`
 1. Override any lifecycle callback functions, which default to no-ops
-1. In strongly-typed languages (Java, Typescript), optionally parametrize the downlink
+1. Optionally parametrize the downlink
 1. Optionally set the **keepSynced** (pull all existing data from a lane before processing new updates; defaults to `false`) and **keepLinked** (enable consistent **reads** from the downlink (unnecessary for write-only downlinks); defaults to `true`) flags
 1. Invoke `open()` on the downlink to initiate data flow
 1. When finished, invoke `close()` on the downlink to stop data flow
@@ -97,9 +91,11 @@ class CustomClient {
 
 Server-side, downlinks are explained in the [Server Downlinks guide]({% link _backend/server-downlinks.md %}).
 
-#### Javascript
+### JavaScript
 
-The tutorial application demonstrates [using value downlinks](https://github.com/swimos/tutorial/blob/master/ui/pie.html#L58-L67){:data-proofer-ignore=''} and [map downlinks](https://github.com/swimos/tutorial/blob/master/ui/chart.html#L69-L79){:data-proofer-ignore=''} issued against a Swim client instance. Note the language-level loss of parametrization, but the otherwise-identical syntax to Java.
+For details on using downlinks with JavaScript, visit the [**downlinks**]({% link _frontend/downlinks.md %}) article in our [**frontend documentation**](/frontend)
+
+Furthermore, the tutorial application demonstrates [using value downlinks](https://github.com/swimos/tutorial/blob/master/ui/pie.html#L58-L67){:data-proofer-ignore=''} and [map downlinks](https://github.com/swimos/tutorial/blob/master/ui/chart.html#L69-L79){:data-proofer-ignore=''} issued against a Swim client instance. Note the language-level loss of parametrization, but the otherwise-identical syntax to Java.
 
 ### Try It Yourself
 

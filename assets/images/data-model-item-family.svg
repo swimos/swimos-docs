@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="280px" height="400px" viewBox="0 0 280 400" fill="none" stroke="none" stroke-width="1" font-family="-apple-system, system-ui, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <polyline stroke="#959da5" points="140 40 140 50 60 50 60 60"/>
+  <polyline stroke="#959da5" points="140 40 140 50 220 50 220 60"/>
+  <path stroke="#959da5" d="M60,100 L60,120"/>
+  <path stroke="#959da5" d="M220,100 L220,120"/>
+  <rect fill="#ffffff" stroke="#d1d5da" x="80.5" y="0.5" width="119" height="39" rx="3"/>
+  <text fill="#24292e" text-anchor="middle" x="140" y="26">Item</text>
+  <rect fill="#ffffff" stroke="#d1d5da" x="0.5" y="60.5" width="119" height="39" rx="3"/>
+  <text fill="#24292e" text-anchor="middle" x="60" y="86">Field</text>
+  <rect fill="#ffffff" stroke="#d1d5da" x="0.5" y="120.5" width="119" height="79" rx="3"/>
+  <path stroke="#e1e4e8" d="M1,160 L119,160"/>
+  <text fill="#24292e" text-anchor="middle" x="60" y="146">Attr</text>
+  <text fill="#24292e" text-anchor="middle" x="60" y="186">Slot</text>
+  <rect fill="#ffffff" stroke="#d1d5da" x="160.5" y="60.5" width="119" height="39" rx="3"/>
+  <text fill="#24292e" text-anchor="middle" x="220" y="86">Value</text>
+  <rect fill="#ffffff" stroke="#d1d5da" x="160.5" y="120.5" width="119" height="279" rx="3"/>
+  <path stroke="#e1e4e8" d="M161,160 L279,160"/>
+  <path stroke="#e1e4e8" d="M161,200 L279,200"/>
+  <path stroke="#e1e4e8" d="M161,240 L279,240"/>
+  <path stroke="#e1e4e8" d="M161,280 L279,280"/>
+  <path stroke="#e1e4e8" d="M161,320 L279,320"/>
+  <path stroke="#e1e4e8" d="M161,360 L279,360"/>
+  <text fill="#24292e" text-anchor="middle" x="220" y="146">Record</text>
+  <text fill="#24292e" text-anchor="middle" x="220" y="186">Data</text>
+  <text fill="#24292e" text-anchor="middle" x="220" y="226">Text</text>
+  <text fill="#24292e" text-anchor="middle" x="220" y="266">Num</text>
+  <text fill="#24292e" text-anchor="middle" x="220" y="306">Bool</text>
+  <text fill="#24292e" text-anchor="middle" x="220" y="346">Extant</text>
+  <text fill="#24292e" text-anchor="middle" x="220" y="386">Absent</text>
+</svg>

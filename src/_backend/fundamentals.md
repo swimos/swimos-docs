@@ -57,7 +57,7 @@ If Web Agents are distributed objects, then [lanes]({% link _backend/lanes.md %}
 
 ### Links
 
-Distributed objects need a way to communicate. [Links]({% link _backend/links.md %}) establishes active references to lanes of Web Agents, transparently streaming bi-directional state changes to keep all parts of an application in sync, without the overhead of queries or remote procedure calls.
+Distributed objects need a way to communicate. [Links]({% link _backend/links.md %}) establishes active references to lanes of Web Agents, transparently streaming bidirectional state changes to keep all parts of an application in sync, without the overhead of queries or remote procedure calls.
 
 ### Recon
 

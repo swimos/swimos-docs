@@ -1,7 +1,7 @@
 ---
 title: WARP
 short-title: WARP
-description: "The protocol for multiplexing bi-directional streams between large numbers of URIs over a single WebSocket connection"
+description: "The protocol for multiplexing bidirectional streams between large numbers of URIs over a single WebSocket connection"
 group: Reference
 layout: documentation
 redirect_from:
@@ -15,7 +15,7 @@ Things that continuously evolve — like smart cities, autonomous control system
 
 In recent years, the WebSocket protocol has emerged, enabling us to open streaming connections to URIs. This is great. But it only solves part of the problem. Applications need to open a new WebSocket connection for every URI to which they want to connect. This limitation prevents WebSockets alone from serving as a streaming layer of the World Wide Web. But that's OK; that's not WebSocket's role.
 
-WARP is a protocol for multiplexing bi-directional streams between large numbers of URIs over a single WebSocket connection. Multiplexed streams within a WARP connection are called **links**. Just as the World Wide Web has hypertext links between Web Pages, WARP enables actively streaming links between Web Agents.
+WARP is a protocol for multiplexing bidirectional streams between large numbers of URIs over a single WebSocket connection. Multiplexed streams within a WARP connection are called **links**. Just as the World Wide Web has hypertext links between Web Pages, WARP enables actively streaming links between Web Agents.
 
 WARP connections exchange WebSocket frames encoded as Recon structures. The use of Recon enables efficient parsing and routing, while preserving the flexibility and extensibility of protocols like HTTP. And the expressiveness of Recon avoids the explosion of specialized grammars and parsers that has caused the originally simple and elegant HTTP protocol to become bloated and complex. It's also worth noting that, although HTTP/2 introduces a limited form of multiplexing, it multiplexes RPC calls, not full-duplex streams.
 

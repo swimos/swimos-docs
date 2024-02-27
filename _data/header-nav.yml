@@ -53,6 +53,12 @@
           blurb: 
           icon: "fa-solid fa-server"
           url: /backend/
+    - group: Frontend
+      items:
+        - title: Frontend Documentation
+          blurb: 
+          icon: "fa-solid fa-code"
+          url: /frontend/
     - group: Tutorials & Blog
       items:
         - title: Tutorials
