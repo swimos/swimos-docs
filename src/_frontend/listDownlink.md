@@ -7,7 +7,7 @@ layout: documentation
 redirect_from:
 ---
 
-_This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior._
+{% include alert.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
 
 A ListDownlink synchronizes a shared real-time list with a remote list lane. In addition to the standard Downlink callbacks, ListDownlink supports registering `willUpdate`, `didUpdate`, `willMove`, `didMove`, `willRemove`, and `didRemove` callbacks to observe all changes to downlinked list state — whether remote or local.
 
