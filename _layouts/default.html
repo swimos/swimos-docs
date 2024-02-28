@@ -1,25 +1,20 @@
 <!doctype html>
-<html class="h-full bg-white" lang="{{ page.lang | default: site.lang | default: " en" }}">
+<html class="w-screen min-h-full scroll-pt-[calc(48px+20px)] lg:scroll-pt-[calc(60px+20px)] bg-white scroll-smooth" lang="{{ page.lang | default: site.lang | default: 'en' }}">
+  {%- include head.html -%}
+  <body class="overflow-x-hidden">
+    {% include google-tag-noscript.html %}
+      <!-- Header -->
+      {%- include banner.html -%}
+      {%- include header.html sticky=true -%}
 
-{%- include head.html -%}
-
-<body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4KDVZWM" height="0" width="0"
-            style="display:none;visibility:hidden">
-        </iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-    {%- include header.html -%}
-
-    <main class="">
+      <!-- Main content -->
+      <main class="w-screen h-full">
         {{ content }}
-    </main>
+      </main>
 
-    {%- include footer.html -%}
-
-</body>
-
+      <!-- Footer -->
+      {%- include footer.html -%}
+    {%- include footer-scripts.html -%}
+    
+  </body>
 </html>

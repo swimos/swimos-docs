@@ -1,0 +1,106 @@
+{% assign collections = site.collections | where: "kind", "docs" | where: "output", true | sort: "weight" %}
+{% if include.collection %}
+  {% assign collection = include.collection %}
+{% else %}
+  {% assign collection = site[page.collection] %}
+{% endif %}
+{% assign groups = collection | where_exp: "item", "item.group" | group_by: "group" %}
+
+<nav x-data="{ shown: false, scrolled: window.pageYOffset >= 120 }" class="{% if include.sticky %}sticky top-0 inset-x-0 {% else %}relative {% endif %}basis-full bg-swim-dark-blue z-20 transition ease-out duration-300 before:absolute before:inset-0 before:backdrop-blur before:-z-[1]" :class="{ 'bg-swim-dark-blue': !scrolled, 'bg-swim-dark-blue shadow-md': scrolled }" @scroll.window="scrolled = window.pageYOffset >= 120">
+  <!-- Documentation bar -->
+  <div class="flex max-w-screen-xl h-[48px] lg:h-[60px] mx-auto px-2 lg:px-4">
+
+    <div class="flex shrink-0 px-2">
+      <!-- Site home -->
+      <a href="{{ '/' | relative_url }}" class="flex shrink-0 items-center px-2 text-swim-blue transition-[margin-left,opacity] ease-out" x-cloak x-show="scrolled" x-transition:enter-start="-ml-[40px] -sm:ml-[48px]opacity-0" x-transition:leave-end="-ml-[40px] -sm:ml-[48px] opacity-0">
+        <svg aria-hidden="true" class="w-6 h-6 lg:w-8 lg:h-8" viewBox="0 0 240 260" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <polygon fill="#008ac5" points="143.064921 229.500725 171.060474 257.04816 154.922273 251.046557"></polygon>
+            <polygon fill="#004868" points="114.534564 215.200291 133.631757 212.321023 154.910228 251.044915"></polygon>
+            <polygon fill="#1db0ef" points="171.464234 165.853845 133.631757 212.316999 115.519057 207.927444"></polygon>
+            <polygon fill="#008ac5" points="171.474378 165.853845 156.144039 184.681085 188.885112 162.952217"></polygon>
+            <polygon fill="#008ac5" points="98.4385402 217.634711 133.631757 212.316999 71.883589 196.54764"></polygon>
+            <polygon fill="#008ac5" points="81.7067095 214.858298 98.4499445 217.643327 92.9805032 228.96184"></polygon>
+            <polygon fill="#46c7ff" points="96.6926654 190.517679 82.1653596 199.177891 98.3244973 203.325075"></polygon>
+            <polygon fill="#004868" points="30.7463449 206.40409 98.4499445 217.638618 40.1692759 171.373357"></polygon>
+            <polygon fill="#008ac5" points="51.7085301 128.495391 15.3440004 136.099595 30.7471298 206.40409"></polygon>
+            <polygon fill="#004868" points="30.7386758 206.408565 0.352150028 136.112163 15.3441162 136.112163"></polygon>
+            <polygon fill="#004a6a" points="108.450905 100.93058 109.989402 114.762752 51.7083943 128.501506 15.3440004 136.099595"></polygon>
+            <polygon fill="#46c7ff" points="108.455555 100.929929 15.3440004 136.099595 69.4766425 49.7130774"></polygon>
+            <polygon fill="#008ac5" points="42.1736238 76.266095 69.483725 49.7119857 15.3440004 136.099595"></polygon>
+            <polygon fill="#0076a9" points="0.365294636 136.112163 43.6405325 73.7271709 15.3451805 136.112163"></polygon>
+            <polygon fill="#46c7ff" points="90.6670195 119.306154 109.980118 114.751203 98.0360409 173.469183"></polygon>
+            <polygon fill="#004868" points="129.265795 101.038638 135.664128 144.091638 119.31281 108.108277"></polygon>
+            <polygon fill="#00557a" points="108.445176 100.919843 158.428182 80.30142 109.980118 114.753991"></polygon>
+            <polygon fill="#008ac5" points="99.757741 54.5038886 108.455555 100.929929 69.4766876 49.7119857"></polygon>
+            <polygon fill="#004868" points="43.6405325 12.067586 69.4624773 49.7119857 41.4401695 77.3542054"></polygon>
+            <polygon fill="#46c7ff" points="35.9392621 3 99.7695236 54.5038886 69.467169 49.7040099"></polygon>
+            <path fill="#0076a9" d="M99.7497886,54.5038886 L145.161903,73.646981 L140.539826,87.6809835 L108.445447,100.917783 L99.7497886,54.5038886 Z M132.079618,80.0156473 C133.508322,80.0156473 134.666516,78.8574536 134.666516,77.4287493 C134.666516,76.0000451 133.508322,74.8418514 132.079618,74.8418514 C130.650913,74.8418514 129.49272,76.0000451 129.49272,77.4287493 C129.49272,78.8574536 130.650913,80.0156473 132.079618,80.0156473 Z"/>
+            <polygon fill="#46c7ff" points="145.16193 73.6693463 239.301894 47.6125232 140.53721 87.6812091"></polygon>
+          </svg>
+      </a>
+      <div class="flex shrink-0">
+        <!-- Desktop Documentation home TODO: Link to docs landing page -->
+        <a href="{{ '/' | relative_url }}" class="hidden lg:flex shrink-0 items-center pl-2 text-base font-medium tracking-wider whitespace-nowrap text-white hover:text-swim-blue transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Documentation</a>
+        <!-- Mobile menu button -->
+        <button type="button" aria-controls="docs-mobile-menu" aria-expanded="false" class="group lg:hidden flex shrink-0 items-center pl-2" @click="shown = !shown">
+          <span class="text-sm font-medium tracking-wider whitespace-nowrap group-hover:text-swim-blue transition ease-out" :class="{ 'text-kaimurasaki-900': !scrolled, 'text-kaimurasaki-100': scrolled, '!text-swim-blue': shown }">{{ "Documentation" }}</span>
+          <svg aria-hidden="true" class="lg:hidden shrink-0 w-5 h-5 mx-1.5 group-hover:text-swim-blue transition ease-out" :class="{ 'text-kaimurasaki-900': !scrolled, 'text-kaimurasaki-100': scrolled, '!text-swim-blue -rotate-180': shown }" viewBox="0 0 20 20">
+            <path fill="currentcolor" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="relative flex grow justify-end">
+      <!-- Desktop menu -->
+      <div class="hidden lg:flex">
+      {% for collection in collections | where: "output", true %}
+        <a href="{{ collection.docs[0].url | relative_url }}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">{{ collection.name }}</a>
+      {% endfor %}
+      </div>
+    </div>
+
+    <!-- Search button -->
+    <div class="flex px-2">
+      <button type="button" class="flex justify-center items-center w-12 text-kaimurasaki-900 hover:text-swim-blue transition ease-out" :class="{ 'text-kaimurasaki-900': !scrolled, 'text-kaimurasaki-100': scrolled }">
+        <span class="sr-only">Search</span>
+        <svg viewBox="0 0 24 24" class="block w-6 h-6">
+          <path fill="currentcolor" d="M19.6,21L13.3,14.7C12.8,15.1,12.22,15.42,11.57,15.65C10.93,15.88,10.23,16,9.5,16C7.68,16,6.15,15.37,4.89,14.11C3.63,12.85,3,11.32,3,9.5C3,7.68,3.63,6.15,4.89,4.89C6.15,3.63,7.68,3,9.5,3C11.32,3,12.85,3.63,14.11,4.89C15.37,6.15,16,7.68,16,9.5C16,10.23,15.88,10.93,15.65,11.57C15.42,12.22,15.1,12.8,14.7,13.3L21,19.6L19.6,21ZM9.5,14C10.75,14,11.81,13.56,12.69,12.69C13.56,11.81,14,10.75,14,9.5C14,8.25,13.56,7.19,12.69,6.31C11.81,5.44,10.75,5,9.5,5C8.25,5,7.19,5.44,6.31,6.31C5.44,7.19,5,8.25,5,9.5C5,10.75,5.44,11.81,6.31,12.69C7.19,13.56,8.25,14,9.5,14Z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="docs-mobile-menu" role="dialog" aria-modal="true" class="lg:hidden absolute w-full inset-x-0 top-full -bottom-[calc(100vh-100%)] bg-black/20 backdrop-blur-sm transition ease-out" x-cloak x-show="shown" x-transition:enter-start="opacity-0" x-transition:leave-end="opacity-0">
+      <div class="absolute w-[320px] max-w-[calc(100%-24px)] left-0 inset-y-0 border-t-2 border-t-bltext-swim-blue pb-12 flex flex-col bg-eggshell-500 overflow-y-auto overscroll-y-contain transition ease-out" :class="{ 'pb-36 bg-eggshell-500': !scrolled, 'pb-12 bg-kaimurasaki-950/90': scrolled }" @click.away="shown = false">
+
+        <div class="py-8 space-y-2">
+        {% for collection in collections %}
+          <a href="{{ collection.docs[0].url | relative_url }}" class="flex px-6 text-base leading-7{% if collection.label == page.collection %} text-swim-blue{% else %} text-kaimurasaki-800 hover:text-kaimurasaki{% endif %} transition ease-out"{% unless collection.label == page.collection %} :class="{ 'text-kaimurasaki-800 hover:text-kaimurasaki': !scrolled, 'text-kaimurasaki-200 hover:text-white': scrolled }"{% endunless %}>{{ collection.name }}</a>
+        {% endfor %}
+        </div>
+
+        <ul class="space-y-8">
+        {% for group in groups %}
+          <li>
+            <!-- Group header -->
+            <span class="flex items-center pl-4 text-sm font-medium leading-7 tracking-wider uppercase text-kaimurasaki-700" :class="{ 'text-kaimurasaki-700': !scrolled, 'text-kaimurasaki-300': scrolled }">{{ group.name }}</span>
+            <!-- Group items -->
+            <ul class="mt-2 ml-4 border-l border-l-kaimurasaki-200 space-y-2" :class="{ 'border-l-kaimurasaki-200': !scrolled, 'border-l-kaimurasaki-800': scrolled }">
+            {% for item in group.items %}
+            {% unless item.hidden %}
+              <li>
+                <a href="{{ item.url | relative_url }}" class="block -ml-px pl-4 border-l{% if item.url == page.url %} border-l-bltext-swim-blue{% else %} border-l-transparent hover:border-l-kaimurasaki{% endif %} text-base leading-7{% if item.url == page.url %} text-swim-blue{% else %} text-kaimurasaki-800 hover:text-kaimurasaki{% endif %} transition ease-out"{% unless item.url == page.url %} :class="{ 'hover:border-l-kaimurasaki text-kaimurasaki-800 hover:text-kaimurasaki': !scrolled, 'hover:border-l-kaimurasaki-400 text-kaimurasaki-200 hover:text-white': scrolled }"{% endunless %}>{{ item.short-title | default: item.title }}</a>
+              </li>
+            {% endunless %}
+            {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+</nav>
