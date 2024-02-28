@@ -5,7 +5,7 @@
   "main": "postcss.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "launch": "bundle exec jekyll serve --livereload"
+    "dev": "bundle exec jekyll serve --livereload"
   },
   "author": "",
   "license": "ISC",
