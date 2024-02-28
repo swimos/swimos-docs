@@ -32,6 +32,10 @@ github_repository: https://github.com/swimos/swimos-docs
 permalink: none
 destination: _site
 
+# SwimOS / JS Versions
+swim-server-version: 4.2.14
+swim-js-version: 4.0.0
+
 postcss:
   cache: false
 
@@ -73,37 +77,56 @@ exclude:
 
 # Every top level section is actually a collection. Their files are in a _folder in src/
 collections:
-  tutorials:
+  devguide:
+    kind: docs
     output: true
-    name: "Tutorials"
+    name: "Developer Guide"
+    description: An ordered guide through SwimOS.
+    permalink: /developer-guide/:name/
     order:
       - index.md
-      - demos.md
-      - transit.md
-    weight: 1
-  guides:
+      # 1. Introduction
+      - 1-introduction.md
+      # 2. Getting Started
+      - 2-getting-started.md
+      - 2.1-swim-create.md
+      - 2.2-project-setup.md
+      - 2.3-hello-world.md
+      - 2.4-hello-agent.md
+      - 2.5-hello-lane.md
+      # 3. Agents
+      # 3.1 Agent Details (parallel, atomic, no constructor, logging)
+      # 3.1 Agent URIs
+      # 3.2 Agent Properties
+      # 3.3 Traits
+  backend:
+    kind: docs
     output: true
-    name: "How-to Guides"
+    name: "Backend"
+    description: Documentation about SwimOS fundamentals and CLI useage.
+    permalink: /backend/:name/
     order:
       - index.md
-      - cli.md
-      - introspection.md
+      # Getting Started
+      - fundamentals.md
+      - lane-organization.md
+      - agent-design.md
+      - swim-libraries.md
+      # Swim Apps
       - time-series.md
       - summary-statistics.md
       - aggregations.md
+      # Data Ingestion
       - kafka-ingestion.md
       - pulsar-ingestion.md
       - mongodb-ingestion.md
       - flink-connector.md
       - jms-ingestion.md
       - http-ingestion.md
-    weight: 2
-  reference:
-    output: true
-    name: "Reference Docs"
-    order:
-      - index.md
-      - swim-libraries.md
+      # Utilities
+      - cli.md
+      - introspection.md
+      # Reference
       - web-agents.md
       - lanes.md
       - command-lanes.md
@@ -122,21 +145,21 @@ collections:
       - timers.md
       - ingress-bridges.md
       - egress-bridges.md
-      - http-ingress-bridges.md
       - http-lanes.md
       - auth-policy.md
       - recon.md
       - warp.md
-    weight: 3
-  concepts:
+    weight: 1
+  tutorials:
+    kind: docs
     output: true
-    name: "Conceptual Guides"
+    name: "Tutorials"
     order:
       - index.md
-      - fundamentals.md
-      - agent-design.md      
-      - lane-organization.md     
-    weight: 4
+      - demos.md
+      - transit.md
+      - monitor.md
+    weight: 2
   meta:
     output: true
     name: "Meta"
@@ -145,7 +168,7 @@ collections:
       - contribute.md
       - diataxis.md
       - styles.md
-    weight: 5
+    weight: 3
 
 # The directory that contains our collections
 collections_dir: src
@@ -182,9 +205,7 @@ announcement:
 feed:
   collections:
     - tutorials
-    - guides
-    - reference
-    - concepts
+    - backend
     - meta
 
 paginate: 9

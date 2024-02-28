@@ -1,117 +1,172 @@
-<nav class="bg-swim-dark-blue" x-data="{ isOpen: false }">
-  {%- include banner.html -%}
-  <div class="mx-auto px-2 sm:px-4 lg:px-8">
-    <div class="flex h-20 justify-between">
-      <div class="flex px-2 lg:px-0">
-        <div class="flex flex-shrink-0 items-center">
-          <img class="block max-w-[156px] max-h-[168px] lg:hidden" src="{{ '/assets/images/marlin-swim-blue.svg' | absolute_url }}"
-            alt="Nstream Logo">
-          <img class="hidden max-w-[156px] max-h-[168px] lg:block" src="{{ '/assets/images/marlin-swim-blue.svg' | absolute_url }}"
-            alt="Nstream Logo">
-        </div>
+<nav x-cloak x-data="{ shown: false, scrolled: {% if include.sticky %}window.pageYOffset >= 40{% else %}false{% endif %} }" class="{% if include.sticky %}sticky top-0 inset-x-0 {% else %}relative {% endif %}basis-full bg-swim-dark-blue z-30 transition ease-out duration-300 before:absolute before:inset-0 before:backdrop-blur before:-z-[1]" :class="{ 'bg-swim-dark-blue': !scrolled, 'bg-swim-dark-blue shadow-md': scrolled }"{% if include.sticky %} @scroll.window="scrolled = window.pageYOffset >= 40"{% endif %}>
+  <!-- Navigation bar -->
+  <div class="flex max-w-screen-xl h-[60px] lg:h-[80px] mx-auto px-2 lg:px-4">
+    <!-- Brand -->
+    <a href="{{ '/' | relative_url }}" class="flex items-center basis-[218px] px-4">
+      <img class="grow max-w-[186px] px-4" src="{{ '/assets/images/marlin-swim-blue.svg' | absolute_url }}" alt="SwimOS Logo">
+    </a>
 
-        <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
-          <a href="{{ '/' | relative_url }}"
-            class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-swim-blue hover:border-swim-blue">
-            HOME
-          </a>
-
-          <div class="flex flex-1 items-center text-white border-b-2 border-transparent hover:text-swim-blue hover:border-swim-blue">
-            <div x-data="{ open: false }" class="relative">
-              <button x-on:click="open = true"
-                class="inline-flex items-center px-1 pt-1 text-[15px] font-bold "
-                type="button">
-                <span class="mr-1">DOCUMENTATION</span>
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                  style="margin-top:3px">
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </button>
-              <ul x-show="open" x-on:click.away="open = false"
-                class="bg-white text-gray-700 rounded shadow-lg absolute py-2 mt-1" style="min-width:15rem" x-cloak>
-
-                {% if site.collections %}
-                {% assign collections = site.collections | sort: 'weight' %}
-                {% for collection in collections %}
-                {% if collection.label != "posts" %}
-                <li>
-                  <a href="{{ collection.label | absolute_url }}/index.html" class="block hover:bg-gray-200 whitespace-no-wrap py-2 px-4">
-                    {{ collection.name }}
+    <div class="relative flex grow justify-end">
+      <!-- Desktop menu -->
+      <div class="hidden lg:flex">
+      {% for section in site.data.header-nav %}
+        <div x-cloak x-data="{ open: false }" class="group flex" @mouseenter="open = true" @mouseleave="open = false">
+          <!-- Section menu button -->
+          <button class="relative flex items-center px-4 cursor-pointer">
+            <span class="mr-1 text-sm tracking-wider font-medium uppercase whitespace-nowrap text-white group-hover:text-swim-blue transition ease-out">{{ section.section }}</span>
+            <svg aria-hidden="true" viewBox="0 0 20 20" class="absolute w-5 h-5 bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2{% if page.section == section.id %} text-white group-hover:text-swim-blue{% else %} text-swim-blue{% endif %} transition ease-out"{% if page.section != section.id %} x-cloak x-show="open" x-transition:enter-start="opacity-0" x-transition:leave-end="opacity-0"{% endif %}>
+              <path fill="currentcolor" d="M1.51,7L3.64,4.88L7.88,9.12L5.76,11.24L1.51,7ZM7.88,13.36L16.36,4.88L18.49,7L10,15.49L7.88,13.36Z"/>
+            </svg>
+          </button>
+          <!-- Section menu popover -->
+          <div role="dialog" class="absolute top-full inset-x-0 max-h-[calc(100vh-100%-40px)] flex transition ease-out" :class="{ 'drop-shadow-lg': !scrolled }" x-cloak x-show="open" x-transition:enter-start="opacity-0" x-transition:leave="delay-75" x-transition:leave-end="opacity-0">
+            <div class="flex flex-col grow border-t-2 border-t-vermilion bg-swim-dark-blue rounded-b-lg transition ease-out" :class="{ 'bg-swim-dark-blue': !scrolled, 'bg-swim-dark-blue backdrop-blur': scrolled }">
+              <!-- Sub-section groups -->
+              <div class="grow columns-2 gap-x-8 gap-y-1 px-4{% if section.more %} pt-4 pb-2{% else %} py-4{% endif %} text-white overflow-y-auto overscroll-y-contain">
+              {% for group in section.menu %}
+                <div class="py-2 break-inside-avoid">
+                {% if group.group %}
+                  <h3 class="px-4 text-xs font-medium leading-6 tracking-wider uppercase text-kaimurasaki-400">{{ group.group }}</h3>
+                {% endif %}
+                {% for item in group.items %}
+                  <a href="{{ item.url | relative_url }}" class="group/item flex gap-x-4 p-4">
+                    <div class="flex shrink-0 justify-center w-12">
+                    {% if item.icon %}
+                      <i class="{{ item.icon }} w-6 h-6{% if page.url == item.url %} text-swim-blue{% else %} text-white group-hover/item:text-white{% endif %} transition ease-out"></i>
+                    {% endif %}
+                    </div>
+                    <div class="flex flex-col grow justify-center">
+                      <h4 class="font-medium{% if page.url == item.url %} text-swim-blue{% else %} text-kaimurasaki-100 group-hover/item:text-white{% endif %} transition ease-out">{{ item.title }}</h4>
+                    {% if item.blurb %}
+                      <div class="mt-1 text-sm{% if page.url == item.url %} text-swim-blue{% else %} text-kaimurasaki-200 group-hover/item:text-white{% endif %} transition ease-out">{{ item.blurb | markdownify }}</div>
+                    {% endif %}
+                    </div>
                   </a>
-                </li>
-                {% endif %}
                 {% endfor %}
+
+                <!-- This jankyness exists because we can't use Jekyll variables in a .yml file and want to update version numbers in one spot. Sorry... -AF -->
+                {% if group.group == "Code" %}
+
+                <a href="https://docs.swimos.org/java/{{ site.swim-server-version }}" class="group/item flex gap-x-4 p-4">
+                  <div class="flex shrink-0 justify-center w-12">
+                    <i class="fa-brands fa-java w-6 h-6 text-white group-hover/item:text-white transition ease-out"></i>
+                  </div>
+                  <div class="flex flex-col grow justify-center">
+                    <h4 class="font-medium text-kaimurasaki-100 group-hover/item:text-white transition ease-out">Java Docs</h4>
+                    <!-- <div class="mt-1 text-sm text-kaimurasaki-200 group-hover/item:text-white transition ease-out">
+                      Blurb
+                    </div> -->
+                  </div>
+                </a>
+                
+                <a href="https://docs.swimos.org/js/{{ site.swim-js-version }}" class="group/item flex gap-x-4 p-4">
+                  <div class="flex shrink-0 justify-center w-12">
+                    <i class="fa-brands fa-square-js w-6 h-6 text-white group-hover/item:text-white transition ease-out"></i>
+                  </div>
+                  <div class="flex flex-col grow justify-center">
+                    <h4 class="font-medium text-kaimurasaki-100 group-hover/item:text-white transition ease-out">JavaScript</h4>
+                    <!-- <div class="mt-1 text-sm text-kaimurasaki-200 group-hover/item:text-white transition ease-out">
+                      Blurb
+                    </div> -->
+                  </div>
+                </a>
+
                 {% endif %}
 
-              </ul>
+                </div>
+              {% endfor %}
+              </div>
+              <!-- Section more bar -->
+            {% if section.more %}
+              <div class="flex shrink-0 gap-x-8 px-8 pb-0.5 border-t border-t-white/10 text-white whitespace-nowrap">
+              {% for item in section.more %}
+                <a href="{{ item.url | relative_url }}" class="group/item flex basis-0 grow justify-center items-center gap-x-2.5 px-4 py-3 text-sm font-medium leading-6 text-kaimurasaki-200 hover:text-white transition ease-out">
+                {% if item.icon %}
+                  <i class="{{ item.icon }} w-5 h-5 shrink-0 text-kaimurasaki-200 group-hover/item:text-white transition ease-out"></i>
+                {% endif %}
+                  {{ item.name }}
+                </a>
+              {% endfor %}
+              </div>
+            {% endif %}
             </div>
           </div>
-
-          <a href="{{ '/blog/' | absolute_url }}"
-            class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-swim-blue hover:border-swim-blue">
-            BLOG
-          </a>
-
-          <a href="{{ '/community.html' | absolute_url }}"
-            class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-[15px] font-bold text-white hover:text-swim-blue hover:border-swim-blue">
-            COMMUNITY
-          </a>
-
         </div>
-      </div>
-
-      {%- include search.html -%}
-
-      <!-- Mobile menu button -->
-      <div class="flex items-center lg:hidden">
-        <button @click="isOpen = !isOpen"
-          class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-vermillion-orange"
-          aria-controls="mobile-menu" aria-expanded="false">
-          <span class="sr-only">Open main menu</span>
-          <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
-          <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      <div class="hidden lg:ml-4 lg:flex lg:items-center">
-
-        {%- include header-social.html -%}
+      {% endfor %}
 
       </div>
+      <!-- Desktop CTA -->
+      <!-- <div class="hidden lg:flex lg:items-center lg:px-4">
+        <a href="https://www.swimos.org/" class="relative px-4 py-2 text-sm tracking-wider uppercase whitespace-nowrap no-underline font-medium text-eggshell-500 bg-kaimurasaki/0 hover:text-kaimurasaki hover:bg-eggshell-500 [clip-path:polygon(0_0,calc(100%-12px)_0,100%_12px,100%_100%,12px_100%,0_calc(100%-12px))] before:absolute before:inset-0 before:bg-eggshell-500 before:[clip-path:polygon(0_0,calc(100%-12px)_0,100%_12px,100%_100%,12px_100%,0_calc(100%-12px),0_0,1px_1px,1px_calc(100%-12px-0.41px),calc(12px+0.41px)_calc(100%-1px),calc(100%-1px)_calc(100%-1px),calc(100%-1px)_calc(12px+0.41px),calc(100%-12px-0.41px)_1px,1px_1px)] transition ease-out">Get started</a>
+      </div> -->
+    </div>
+
+    <!-- Mobile menu button -->
+    <div class="flex lg:hidden px-2">
+      <button type="button" aria-controls="mobile-menu" aria-expanded="false" class="flex justify-center items-center w-12 text-white hover:text-swim-blue transition ease-out" @click="shown = !shown">
+        <span class="sr-only">Open main menu</span>
+        <svg viewBox="0 0 24 24" class="block w-6 h-6">
+          <path fill="currentcolor" d="M1,5L23,5L20.4,8L1,8L1,5ZM1,11L17.8,11L15.21,14L1,14L1,11ZM1,17L12.61,17L10.01,20L1,20L1,17Z"/>
+        </svg>
+      </button>
     </div>
   </div>
 
   <!-- Mobile menu -->
-  <div class="lg:hidden" id="mobile-menu" x-show="isOpen" @click.away="isOpen = false">
-    <div class="space-y-1 pb-3 pt-2">
-      <a href="{{ '/' | relative_url }}"
-        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
-        Home
-      </a>
-      
-      {% if site.collections %}
-      {% assign collections = site.collections | sort: 'weight' %}
-        {% for collection in collections %}
-          {% if collection.label != "posts" %}
-            <a href="{{ collection.label | absolute_url }}/index.html"
-              class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
-              {{ collection.name }}
+  <div id="mobile-menu" role="dialog" aria-modal="true" class="lg:hidden absolute w-full inset-x-0 top-full -bottom-[calc(100vh-100%)] border-t-2 border-vermilion bg-kaimurasaki text-white" x-cloak x-show="shown" x-collapse @click.away="shown = false">
+    <div class="absolute flow-root inset-0 pt-3 pb-12 overflow-y-auto overscroll-y-contain">
+    {% for section in site.data.header-nav %}
+      <div class="px-2" x-data="{ expanded: {% if page.section == section.id %}true{% else %}false{% endif %} }">
+        <!-- Mobile section disclosure button -->
+        <button type="button" aria-controls="disclosure-{{ section.id }}" aria-expanded="false" class="flex justify-between items-center w-full py-3 pr-2 pl-4 text-base leading-7 tracking-wider uppercase whitespace-nowrap text-kaimurasaki-200" @click="expanded = !expanded">
+          {{ section.section }}
+          <div class="flex justify-center items-center w-12 shrink-0">
+            <svg aria-hidden="true" viewBox="0 0 20 20" class="w-6 h-6 shrink-0 transition ease-out" :class="{ '-rotate-180': expanded }">
+              <path fill="currentcolor" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" />
+            </svg>
+          </div>
+        </button>
+        <!-- Mobile sub-section groups -->
+        <div id="disclosure-{{ section.id }}" x-cloak x-show="expanded" x-collapse class="py-2" :class="{ 'border-b border-b-white/10': expanded }">
+          <div class="space-y-2">
+          {% for group in section.menu %}
+            <div>
+            {% if group.group %}
+              <h3 class="px-4 text-xs font-medium leading-6 tracking-wider uppercase text-kaimurasaki-400">{{ group.group }}</h3>
+            {% endif %}
+            {% for item in group.items %}
+              <a href="{{ item.url | relative_url }}" class="group/item flex gap-x-2 px-2 py-4">
+                <div class="flex shrink-0 justify-center w-12">
+                {% if item.icon %}
+                  <svg aria-hidden="true" viewBox="0 0 24 24" class="w-6 h-6{% if page.url == item.url %} text-swim-blue{% else %} text-kaimurasaki-200 group-hover/item:text-white{% endif %} transition ease-out">
+                    <path fill="currentcolor" fill-rule="evenodd" d="{{ item.icon.path }}" />
+                  </svg>
+                {% endif %}
+                </div>
+                <h4 class="grow {% if page.url == item.url %} text-swim-blue{% else %} text-kaimurasaki-100 group-hover/item:text-white{% endif %} transition ease-out">{{ item.title }}</h4>
+              </a>
+            {% endfor %}
+            </div>
+          {% endfor %}
+          </div>
+          <!-- Mobile section more bar -->
+        {% if section.more %}
+          <div class="flex flex-wrap justify-between gap-x-4 px-12 pt-2 pb-4">
+          {% for item in section.more %}
+            <a href="{{ item.url | relative_url }}" class="group/item flex items-center basis-0 grow gap-x-2.5 px-4 py-3 text-sm font-medium leading-6 text-kaimurasaki-200 hover:text-white whitespace-nowrap transition ease-out">
+            {% if item.icon %}
+              <svg aria-hidden="true" viewBox="0 0 24 24" class="w-5 h-5 shrink-0 text-kaimurasaki-200 group-hover/item:text-white transition ease-out">
+                <path fill="currentcolor" fill-rule="evenodd" d="{{ item.icon.path }}" />
+              </svg>
+            {% endif %}
+              {{ item.name }}
             </a>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-
-      <a href="{{ '/community.html' | absolute_url }}"
-        class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-white font-medium hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
-        Community
-      </a>
-
+          {% endfor %}
+          </div>
+        {% endif %}
+        </div>
+      </div>
+    {% endfor %}
     </div>
   </div>
 </nav>

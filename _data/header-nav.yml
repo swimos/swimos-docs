@@ -1,0 +1,119 @@
+# Header navigation menu
+
+# - section: Why SwimOS
+#   id: why-swimos
+#   menu:
+#     - group: Capabilities
+#       items:
+#         - title: Maintain Real-Time State
+#           blurb: "Take queries off the critical performance path"
+#           icon:
+#           url: /real-time-state/
+#         - title: Sense and Respond to Change
+#           blurb: "Don't wait for a request before taking action"
+#           icon:
+#           url: /sense-and-respond/
+#         - title: Streaming Data Applications
+#           blurb: Observe real-time changes without polling
+#           icon:
+#           url: /streaming-data-applications/
+#         - title: Humans Not Excluded
+#           blurb: Keep humans in-the-loop
+#           icon:
+#           url: /humans-not-excluded/
+#     - group: Benefits
+#       items:
+#         - title: Fastest Time to Value
+#           blurb: 10x faster than alternative approaches
+#           icon:
+#           url: /time-to-value/
+#         - title: Streamlined Architecture
+#           blurb: Reduce TCO without compromising performance
+#           icon:
+#           url: /streamlined-architecture/
+#   more:
+#    - name: Demos
+#      icon:
+#        path: "M2,20L2,17L4,17L4,6C4,5.45,4.2,4.98,4.59,4.59C4.98,4.2,5.45,4,6,4L21,4L21,6L6,6L6,17L12,17L12,20L2,20ZM15,20C14.72,20,14.48,19.9,14.29,19.71C14.1,19.52,14,19.28,14,19L14,9C14,8.72,14.1,8.48,14.29,8.29C14.48,8.1,14.72,8,15,8L21,8C21.28,8,21.52,8.1,21.71,8.29C21.9,8.48,22,8.72,22,9L22,19C22,19.28,21.9,19.52,21.71,19.71C21.52,19.9,21.28,20,21,20L15,20ZM16,17L20,17L20,10L16,10L16,17ZM16,17.04L20,17.04L16,17.04Z"
+#      url: /demos/
+#    - name: Benchmarks
+#      icon:
+#        path: "M10.45,15.5C10.85,15.9,11.37,16.1,12,16.09C12.63,16.08,13.1,15.85,13.4,15.4L19,7L10.6,12.6C10.15,12.9,9.91,13.36,9.89,13.97C9.86,14.59,10.05,15.1,10.45,15.5ZM12,4C12.98,4,13.93,4.14,14.84,4.41C15.75,4.69,16.6,5.1,17.4,5.65L15.5,6.85C14.95,6.57,14.38,6.35,13.79,6.21C13.2,6.07,12.6,6,12,6C9.78,6,7.9,6.78,6.34,8.34C4.78,9.9,4,11.78,4,14C4,14.7,4.1,15.39,4.29,16.07C4.48,16.76,4.75,17.4,5.1,18L18.9,18C19.28,17.37,19.56,16.71,19.74,16.02C19.91,15.34,20,14.63,20,13.9C20,13.3,19.93,12.72,19.79,12.15C19.65,11.58,19.43,11.03,19.15,10.5L20.35,8.6C20.85,9.38,21.25,10.22,21.54,11.1C21.83,11.98,21.98,12.9,22,13.85C22.02,14.8,21.91,15.71,21.68,16.57C21.44,17.44,21.1,18.27,20.65,19.05C20.47,19.35,20.22,19.58,19.9,19.75C19.58,19.92,19.25,20,18.9,20L5.1,20C4.75,20,4.42,19.92,4.1,19.75C3.78,19.58,3.53,19.35,3.35,19.05C2.92,18.3,2.58,17.5,2.35,16.66C2.12,15.82,2,14.93,2,14C2,12.62,2.26,11.32,2.79,10.11C3.31,8.9,4.03,7.85,4.94,6.94C5.85,6.03,6.91,5.31,8.13,4.79C9.34,4.26,10.63,4,12,4Z"
+#      url: /benchmarks/
+#    - name: Comparisons
+#      icon:
+#        path: "M10,23L10,21L5,21C4.45,21,3.98,20.8,3.59,20.41C3.2,20.02,3,19.55,3,19L3,5C3,4.45,3.2,3.98,3.59,3.59C3.98,3.2,4.45,3,5,3L10,3L10,1L12,1L12,23L10,23ZM5,18L10,18L10,12L5,18ZM14,21L14,12L19,18L19,5L14,5L14,3L19,3C19.55,3,20.02,3.2,20.41,3.59C20.8,3.98,21,4.45,21,5L21,19C21,19.55,20.8,20.02,20.41,20.41C20.02,20.8,19.55,21,19,21L14,21Z"
+#      url: /comparisons/
+- section: Documentation
+  id: documentation
+  menu:
+    - group: Backend
+      items:
+        - title: Backend Documentation
+          blurb: 
+          icon: "fa-solid fa-server"
+          url: /backend/
+        - title: Developer Guide
+          blurb: Learn SwimOS from the start
+          icon: "fa-brands fa-java"
+          url: /developer-guide/
+    - group: Tutorials & Blog
+      items:
+        - title: Tutorials
+          blurb:
+          icon: "fa-solid fa-graduation-cap"
+          url: /tutorials/
+        - title: Blog
+          blurb: 
+          icon: "fa-solid fa-rss"
+          url: /blog/
+    # - group: Frontend
+    #   items:
+    #     - title: Swim UI Documentation
+    #       blurb: 
+    #       icon: "fa-solid fa-display"
+    #       url: /frontend/
+  more:
+    # - name: Demos
+    #   icon: "fa-solid fa-laptop-code"
+    #   url: /demos/
+    - name: Meta
+      icon: "fa-solid fa-cloud"
+      url: /meta/
+- section: Community
+  id: community
+  menu:
+    - group: Code
+      items:
+      - title: GitHub
+        blurb: Check out Swim’s latest projects and commits on GitHub.
+        icon: "fa-brands fa-github"
+        url: https://github.com/swimos/swim
+      # Java Doc & JS info is updated in header.html
+    - group: Contribute
+      items:
+        - title: Report a Bug
+          blurb: Report issues with SwimOS
+          icon: "fa-solid fa-bug"
+          url: https://github.com/swimos/swim/issues/new
+        - title: Code of Conduct
+          blurb: 
+          icon: "fa-solid fa-people-roof"
+          url: https://github.com/swimos/swimos-docs/blob/main/CODE_OF_CONDUCT.md
+        - title: Contributor's Guide
+          blurb: Learn how to contribute to SwimOS and SwimOS docs.
+          icon: "fa-solid fa-screwdriver-wrench"
+          url: https://www.swimos.org/meta/contribute.html
+  more:
+    - name: YouTube
+      icon: "fa-brands fa-youtube"
+      url: https://www.youtube.com/@swim258/videos
+    - name: Reddit
+      icon: "fa-brands fa-reddit"
+      url: https://www.reddit.com/r/swimos
+    - name: LinkedIn
+      icon: "fa-brands fa-linkedin"
+      url: https://linkedin.com/company/nstreamio
+    - name: Twitter
+      icon: "fa-brands fa-twitter"
+      url: https://twitter.com/nstreamio

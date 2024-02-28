@@ -1,6 +1,7 @@
 ---
 title: Diátaxis Framework
-layout: page
+layout: documentation
+group: Contributing
 description: "Diátaxis Framework and doc organization"
 ---
 
