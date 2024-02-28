@@ -9,7 +9,7 @@ redirect_from:
 
 _This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior._
 
-A MapDownlink synchronizes a shared real-time key-value map with a remote [**map lane**]({% link _backend/map-lanes.md }). MapDownlinks are also the downlink best suited for use with [**join value lanes**]. Much like a map lane, join value lanes are key-value maps where each value is itself a link to another value lane. In addition to the standard Downlink callbacks, MapDownlink supports registering `willUpdate`, `didUpdate`, `willRemove`, and `didRemove` callbacks to observe all changes to downlinked map state — whether remote or local.
+A MapDownlink synchronizes a shared real-time key-value map with a remote [**map lane**]({% link _backend/map-lanes.md %}). MapDownlinks are also the downlink best suited for use with [**join value lanes**]. Much like a map lane, join value lanes are key-value maps where each value is itself a link to another value lane. In addition to the standard Downlink callbacks, MapDownlink supports registering `willUpdate`, `didUpdate`, `willRemove`, and `didRemove` callbacks to observe all changes to downlinked map state — whether remote or local.
 
 Create a MapDownlink with a WARP client's `downlinkMap` method.
 
