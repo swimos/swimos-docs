@@ -86,6 +86,19 @@ You can add alert callouts to any document by including the `alert.html` templat
 
 {% include alert.html title='Caution' text='This is the alert body text. You can use <strong>HTML</strong> markup in it to add emphasis.' %}
 
+### Callouts
+
+You can also use a generic callout which has more subtle styling for less urgent messages. Include the `callout.html` template located at `_includes/callout.html`.
+The information icon can be optionally swapped out for another.
+
+{% raw %}
+```liquid
+{% include callout.html title='Tip' text='Don\'t forget to add text and body fields. You can still use <strong>HTML</strong> markup to add emphasis.' %}
+```
+{% endraw %}
+
+{% include callout.html title='Tip' text='Don\'t forget to add text and body fields. You can still use <strong>HTML</strong> markup to add emphasis.' %}
+
 ### Cookbook Banner
 
 If `cookbook:` is set in a page's [front matter](https://jekyllrb.com/docs/front-matter/), a banner will render to tell readers that 
