@@ -37,7 +37,7 @@ There are two unit types: `Extant`, and `Absent`. Extant represents a thing that
 
 ### Composite Value Type
 
-A `Record` is a simple container of Item members, and is the only composite structure type. A Record containing only Field members is analogous to a JSON object—though unlike JSON, its keys are not restricted to strings. A Record containing only Value members is similar to a JSON array. A Record with a leading Attr bears resemblance to an XML element. And a Record with a mixture of Field and Value members acts like a partially keyed list.
+A `Record` is a simple container of Item members, and is the only composite structure type. A Record containing only Field members is analogous to a JSON object — though, unlike JSON, its keys are not restricted to strings. A Record containing only Value members is similar to a JSON array. A Record with a leading Attr bears resemblance to an XML element. And a Record with a mixture of Field and Value members acts like a partially keyed list.
 
 ## Item Reference
 
