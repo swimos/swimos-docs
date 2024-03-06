@@ -11,7 +11,7 @@ redirect_from:
 
 A Downlink provides a virtual bidirectional stream between the client and a lane of a remote Web Agent. WARP clients transparently multiplex all links to [**Web Agents**]({% link _backend/web-agents.md %}) on a given host over a single WebSocket connection.
 
-Downlinks come in several flavors, depending on the WARP subprotocol to which they conform. A [**ValueDownlink**]({% link _frontend/valueDownlink.md %}) synchronizes a structured value with a remote value lane. A [**MapDownlink**]({% link _frontend/mapDownlink.md %}) implements the WARP map subprotocol to synchronize key-value state with a remote map lane. A [**ListDownlink**]({% link _frontend/listDownlink.md %}) implements the WARP list subprotocol to to synchronize sequential list state with a remote list lane. And an [**EventDownlink**]({% link _frontend/eventDownlink.md %}) observes raw WARP events, and can be used to observe lanes of any kind.
+Downlinks come in several flavors, depending on the WARP subprotocol to which they conform. A [**ValueDownlink**]({% link _frontend/valueDownlink.md %}) synchronizes a value with a remote value lane. A [**MapDownlink**]({% link _frontend/mapDownlink.md %}) implements the WARP map subprotocol to synchronize key-value state with a remote map lane. A [**ListDownlink**]({% link _frontend/listDownlink.md %}) implements the WARP list subprotocol to to synchronize sequential list state with a remote list lane. And an [**EventDownlink**]({% link _frontend/eventDownlink.md %}) observes raw WARP events, and can be used to observe lanes of any kind.
 
 This article will focus on the properties and methods which all types of downlinks have in common. Later articles on specific types of downlinks will go into detail on what is unique to each of them.
 
@@ -56,11 +56,9 @@ const lightingDownlink = client
 
 In addition to `hostUri`, `nodeUri`, and `laneUri`, there are a few other options available for customizing a downlink's behavior.
 
-The `relinks` option determines whether or not a downlink should be automatically reopened after a network failure; it defaults to true.
+The `relinks` option determines whether or not a downlink should be automatically reopened after a network failure; it defaults to `true`.
 
-The `syncs` parameter determines whether or not a downlink should synchronize with the remote lane when opened; it defaults to true for stateful lanes. When set to true, a newly opened downlink will be sent the lane's current state and will be subscribed to all future updates. When set to false, a downlink will receive future updates but will not be provided the lane's state at the time of opening.
-
-<!-- A downlink may also be configured with a relative priority (`prio`), a max rate in milliseconds at which to accept updates (`rate`), and an optional body structure that can contain query or other link parameters to be passed to the remote lane (`body`). -->
+The `syncs` parameter determines whether or not a downlink should synchronize with the remote lane when opened; it defaults to `true` for stateful lanes. When set to `true`, a newly opened downlink will be sent the lane's current state and will be subscribed to all future updates. When set to `false`, a downlink will receive future updates but will not be provided the lane's state at the time of opening.
 
 ```javascript
 const client = new WarpClient();
@@ -95,16 +93,124 @@ Closing a downlink does not necessarily close the underlying WARP link. The WARP
 
 ## Downlink State and Lifecycle Callbacks
 
-A number of methods are made available for retrieving key pieces of a downlink's state. Optional callbacks may also be registered for reacting to changes in these states or other key lifecycle events. Callbacks may be included in the options object passed when creating a downlink, or set individually after a downlink has been initialized.
+A number of methods are made available for retrieving key pieces of a downlink's state. Optional callbacks may also be registered for reacting to changes in these states or other key lifecycle events. Callbacks may be included in the options object passed when creating a downlink or set individually after a downlink has been initialized.
 
-The `connected` method returns true if the underlying connection to the remote host is currently open. `didConnect` registers an observer callback that gets invoked whenever a successful connection is made. Likewise, `didDisconnect` registers an observer callback which gets invoked when a connection has ended.
+### Connections
 
-The `linked` method returns true if the logical WARP link is currently open. Changes to the link's state may be observed by registering callbacks with `willLink`, `didLink`, `willUnlink`, or `didUnlink`.
+The `connected` method returns `true` if the underlying connection to the remote host is currently open. `didConnect` registers an observer callback that gets invoked whenever a successful connection is made. Likewise, `didDisconnect` and `didClose` register observer callbacks which gets invoked when a connection has ended. The difference between the two is that `didDisconnect` is triggered when the host severs the connection and `didClose` is triggered when the client initiates the disconnection.
 
-The `synced` method returns true if the WARP link is currently synchronized with the state of the remote lane. Users may observe synchronization using the `willSync` and `didSync` methods.
+Here is an example of a downlink being opened with some registered callbacks for listening to connection status.
 
-The `opened` method returns true if the downlink has been opened. This is not necessarily always the same value as `linked`. Providing a downlink with an invalid hostUri, for example, could result in `opened` returning true and `linked` returning false. `didClose` gets invoked when `close` is called on a downlink.
+```javascript
+const downlink = client.current.downlink({
+  hostUri: "warp://example.com",
+  nodeUri: "hotel/room/123",
+  laneUri: "status",
+  didConnect: () => { console.log("didConnect"); },
+  didDisconnect: () => { console.log("didDisconnect"); },
+  didClose: () => { console.log("didClose"); },
+})
+.open();
 
-The `authenticated` method returns true if the underlying connection to the remote host is currently authenticated.
+setTimeout(() => { downlink.close(); }, 1000);
 
-And finally, all downlinks support registering `onEvent` and `onCommand` callbacks. The `onCommand` method accepts a callback used for observing outgoing command messages. The `onEvent` method registers a callback for observing all incoming events. `onEvent` is the rawest form of handling WARP messages. In most cases, users will be better off handling incoming updates with specialized observer callbacks defined on downlink subtypes because they provide better context about the type of message being received, allowing us to handle them more appropriately. More on this in later sections.
+/* Output:
+  didConnect
+  didClose */
+```
+
+Here is what the same example would look like if, instead of calling `downlink.close()`, the client began to experience network issues or if the host suddenly went offline.
+
+```javascript
+const downlink = client.current.downlink({
+  hostUri: "warp://example.com",
+  nodeUri: "hotel/room/123",
+  laneUri: "status",
+  didConnect: () => { console.log("didConnect"); },
+  didDisconnect: () => { console.log("didDisconnect"); },
+  didClose: () => { console.log("didClose"); },
+})
+.open();
+
+/* (some network issues) */
+
+/* Output:
+  didConnect
+  didDisconnect */
+```
+
+### Linking and Syncing
+
+The `linked` method returns `true` if the logical WARP link is currently open. Changes to the link's state may be observed by registering callbacks with `willLink` or `didLink`.
+
+The `synced` method returns `true` if the WARP link is currently synchronized with the state of the remote lane. Users may observe synchronization using the `willSync` and `didSync` methods.
+
+`willLink` and `willSync` are both preemptive observers; they will be called regardless of the success or failure of the subsequent linking or syncing operations. Furthermore, because of the WARP messages the client sends to open a downlink, only one of either `willLink` or `willSync` will be invoked when a downlink is opened. Which observer gets called depends on the value of [`syncs`](/frontend/downlinks#other-options). When the value of `syncs` is `false`, a WARP message with the "@link" tag is sent to the host; when `syncs` is `true`, a message with the "@sync" tag is sent instead. When the host receives a "@sync" WARP message it understands that it must perform all of the logic triggered by a "@link" message and, additionally, sync state between it and the new client.
+
+Take this example of opening a simple `ValueDownlink`. Notice that `syncs` is set to `false` so we see "willLink" logged to output.
+
+```javascript
+const downlink = client.current.downlinkValue({
+  hostUri: "warp://example.com",
+  nodeUri: "hotel/room/123",
+  laneUri: "status",
+  syncs: true,
+  willLink: () => { console.log("willLink"); },
+  didLink: () => { console.log("didLink"); },
+  willSync: () => { console.log("willSync"); },
+  didSync: () => { console.log("didSync"); },
+  didSet: () => { console.log("didSet"); },
+  didClose: () => { console.log("didClose"); },
+})
+.open();
+
+setTimeout(() => { downlink.close(); }, 1000);
+
+/* Output:
+  willLink
+  didLink
+  didClose */
+```
+
+When `syncs` is set to `true`, "didSync" appears and "willSyncs" replaces "willLink". 
+
+```javascript
+const downlink = client.current.downlinkValue({
+  hostUri: "warp://example.com",
+  nodeUri: "hotel/room/123",
+  laneUri: "status",
+  syncs: true,
+  willLink: () => { console.log("willLink"); },
+  didLink: () => { console.log("didLink"); },
+  willSync: () => { console.log("willSync"); },
+  didSync: () => { console.log("didSync"); },
+  didSet: () => { console.log("didSet"); },
+  didClose: () => { console.log("didClose"); },
+})
+.open();
+
+setTimeout(() => { downlink.close(); }, 1000);
+
+/* Output:
+  willSync
+  didLink
+  didSet
+  didSync
+  didClose */
+```
+
+Notice the callbacks registered for `didLink` and `didSync` both always get called (assuming the link opened successfulfully). This is because the host sends back a separate message after each of these events occur. In the second example, we also see "didSet" appear in the output. `didSet` is called each time a `ValueDownlink` receives an update to the value shared between the client and host. When `syncs` is set to `true`, we will always receive at least the initial value, assuring `didSet` gets called at least once. When `syncs` is set to `false`, this is not guaranteed. We'll cover all of this in more detail later in the [**valueDownlinks**]({% link _frontend/valueDownlink.md %}) article.
+
+The `opened` method returns `true` if the downlink has been opened. This is not necessarily always the same value as `linked`. Providing a downlink with an invalid `hostUri`, for example, could result in `opened` returning `true` and `linked` returning `false`.
+
+### Authentication
+
+The `authenticated` method returns `true` if the underlying connection to the remote host is currently authenticated.
+
+### Bidirectional Communication
+
+And finally, all downlinks support registering `onEvent` and `onCommand` callbacks.
+
+The `onCommand` method accepts a callback used for observing outgoing command messages.
+
+The `onEvent` method registers a callback for observing all incoming events. `onEvent` is the rawest form of handling WARP messages. In most cases, users will be better off handling incoming updates with specialized observer callbacks defined on downlink subtypes. Specialized downlink subtypes provide better context about the type of message being received, allowing us to handle them more appropriately. More on this in later sections.
