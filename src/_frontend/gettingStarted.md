@@ -43,13 +43,6 @@ import { WarpClient } from "@swim/client";
 import { Value } from "@swim/structure";
 ```
 
-<!-- ### CommonJS/Node.js
-`@swim/system` can also be used as a CommonJS module in Node.js applications. All child framework libraries are re-exported by the umbrella `@swim/system` module.
-
-```typescript
-var swim = require("@swim/system");
-``` -->
-
 <span style="font-size:20px;font-weight:600">**Browser / CDN**</span>
 
 The swim.js script bundles exports from `@swim/client`, its Swim dependencies, and a number of additional Swim libraries useful for building real time UIs, including tools for making charts and maps. When loaded by a web browser, the swim.js script adds all library exports to the global `swim` namespace.
@@ -63,17 +56,6 @@ const client = new swim.WarpClient();
 Typescript definition files are provided in the libraries.
 
 All downlink variants support the ability to provide type information for incoming and outgoing WARP messages. The exception to this is [EventDownlink]({% link _frontend/eventDownlink.md %}), which should rarely be used. See our article on [**Forms**]({% link _frontend/form.md %}) for more details and an example of how to provide downlinks with type information.
-<!-- ## Features -->
-<!-- Declarative data: Just declare what data each component needs and Relay will handle the loading states.
-Co-location and composability: Each component declares its own data needs; Relay combines them into efficient queries. When you re-use a component on a different screen, your queries are automatically updated.
-Pre-fetching: Relay analyses your code so you can start fetching queries before your code even downloads or runs.
-UI patterns: Relay implements loading states, pagination, refetching, optimistic updates, rollbacks, and other common UI behaviors that are tricky to get right.
-Consistent updates: Relay maintains a normalized data store, so components that observe the same data stay in sync even if they reach it by different queries.
-Streaming and deferred data: Declaratively defer parts of your query and Relay will progressively re-render your UI as the data streams in.
-Great developer experience: Relay provides autocompletion and go-to-definition for your GraphQL schema.
-Type safety: Relay generates type definitions so that mistakes are caught statically, not at runtime.
-Manage local data: Use the same API for server data and local client state.
-Hyper-optimized runtime: Relay is relentlessly optimized. Its JIT-friendly runtime processes incoming data faster by statically determining what payloads to expect. -->
 
 ## Quick Start
 
