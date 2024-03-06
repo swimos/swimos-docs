@@ -1,7 +1,7 @@
 ---
 title: Value Downlink
 short-title: Value Downlink
-description: "A WARP connection which synchronizes a shares real-time, scalar value with a remote value lane"
+description: "A WARP connection which synchronizes a shared real-time, scalar value with a remote value lane"
 group: Connections
 layout: documentation
 redirect_from:

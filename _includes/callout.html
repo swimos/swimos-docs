@@ -1,0 +1,33 @@
+{% if include.title or include.text %}
+<div class="rounded-md bg-white p-4 my-5 border border-swim-blue">
+  <div class="flex">
+      <div class="flex-shrink-0">
+          {% if include.image %}
+              {{ include.image }}
+          {% else %}
+            <svg class="h-8 w-8 text-swim-dark-blue" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true">
+              <path
+                fill-rule="evenodd"
+                d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          {% endif %}
+      </div>
+      <div class="ml-3">
+          {% if include.title %}
+              <h3 class="text-lg font-medium text-swim-dark-blue mt-1 no_toc">
+                  {{ include.title }}
+              </h3>
+          {% endif %}
+          {% if include.text %}
+              <div class="mt-2 text-sm text-swim-body-text">
+                  <p>
+                    {{ include.text }}
+                  </p>
+              </div>
+          {% endif %}
+      </div>
+  </div>
+</div>
+{% endif %}

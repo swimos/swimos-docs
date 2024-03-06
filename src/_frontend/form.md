@@ -11,7 +11,7 @@ redirect_from:
 
 A Form defines a conversion between a structural type, and some nominal JavaScript type. The `mold` method converts a nominal JavaScript type to an Item. And the `cast` method converts an Item to a nominal JavaScript type, if possible.
 
-Here is an example of a custom Form which defines how the conversion of an entity representing a stock might look. Custom Forms should extend `Form`, which can be imported from `@swim/structure`. This library should automatically be present in your bundle as a dependency of `@swim/client`.
+Here is an example of a custom Form which defines how the conversion of an entity representing how a stock might look. Custom Forms should extend `Form`, which can be imported from `@swim/structure`. This library should automatically be present in your bundle as a dependency of `@swim/client`.
 
 ```typescript
 import { Form, Item } from "@swim/structure";

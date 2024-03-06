@@ -15,7 +15,8 @@ Things that continuously evolve — like smart cities, autonomous control system
 
 In recent years, the WebSocket protocol has emerged, enabling us to open streaming connections to URIs. This is great. But it only solves part of the problem. Applications need to open a new WebSocket connection for every URI to which they want to connect. This limitation prevents WebSockets alone from serving as a streaming layer of the World Wide Web. But that's OK; that's not WebSocket's role.
 
-## WARP
+## WARP (Web Agent Remote Protocol)
+
 
 WARP is a protocol for multiplexing bidirectional streams between large numbers of URIs over a single WebSocket connection. Multiplexed streams within a WARP connection are called **links**. Just as the World Wide Web has hypertext links between Web Pages, WARP enables actively streaming links between [**Web Agents**]({% link _backend/web-agents.md %}) and a browser client or another Web Agent. WARP is like pub-sub without the broker, enabling every state of a Web API to be streamed, without interference from billions of queues. Whether you have a UI trying to display the most up-to-date state, or a Web Agent aggregating real-time data from multiple sources into something more meaningful, lighning fast two-way communication through multiple data streams is made possible over a single WebSocket connection with WARP.
 
