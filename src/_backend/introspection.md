@@ -1,6 +1,6 @@
 ---
 title: Introspect a Swim server
-short-title: Introspect a Swim server
+short-title: Swim Meta APIs
 description: "How to introspect a Swim server and obtain runtime stats"
 group: Utilities
 layout: documentation
@@ -151,4 +151,4 @@ Output:
 Swim provides a general purpose Introspection GUI, this is built upon the concepts above.
 It can be used to visualise a Swim server including nodes, lanes and pulse stats.
 
-Check out [`https://continuum.swim.inc/introspect/?host=warp://localhost:9001`](https://continuum.swim.inc/introspect/?host=warp://localhost:9001) while running the introspection cookbook or change the host parameter to point at your Swim server.
+Check out [`https://introspection.nstream.io/?host=warp://localhost:9001`](https://introspection.nstream.io/?host=warp://localhost:9001) while running the introspection cookbook or change the host parameter to point at your Swim server.

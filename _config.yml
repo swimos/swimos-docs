@@ -125,6 +125,7 @@ collections:
       - http-ingestion.md
       # Utilities
       - cli.md
+      - swim-create.md
       - introspection.md
       # Reference
       - web-agents.md
