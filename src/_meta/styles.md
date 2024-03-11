@@ -1,6 +1,7 @@
 ---
 title: Styles & Markup
-layout: page
+layout: documentation
+group: Theme
 description: "Configure TailwindCSS and apply styles to documents."
 ---
 
@@ -69,7 +70,7 @@ toc:
   item_prefix: toc- # Adds a toc-* class to each list item for styling. Ex. toc-h2 for list items that refer to an h2 in the doc body.
 ```
 
-You can learn more about styling the TOC in the [jekyll-toc README](https://github.com/toshimaru/jekyll-toc#css-styling)
+You can learn more about styling the TOC in the [jekyll-toc README](https://github.com/toshimaru/jekyll-toc#css-styling){:data-proofer-ignore=''}
 
 ## Callouts & Alerts
 
@@ -84,6 +85,19 @@ You can add alert callouts to any document by including the `alert.html` templat
 {% endraw %}
 
 {% include alert.html title='Caution' text='This is the alert body text. You can use <strong>HTML</strong> markup in it to add emphasis.' %}
+
+### Callouts
+
+You can also use a generic callout which has more subtle styling for less urgent messages. Include the `callout.html` template located at `_includes/callout.html`.
+The information icon can be optionally swapped out for another.
+
+{% raw %}
+```liquid
+{% include callout.html title='Tip' text='Don\'t forget to add text and body fields. You can still use <strong>HTML</strong> markup to add emphasis.' %}
+```
+{% endraw %}
+
+{% include callout.html title='Tip' text='Don\'t forget to add text and body fields. You can still use <strong>HTML</strong> markup to add emphasis.' %}
 
 ### Cookbook Banner
 

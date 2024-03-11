@@ -1,0 +1,32 @@
+{% if include.collection %}
+  {% assign collection = include.collection %}
+{% else %}
+  {% assign collection = site[page.collection] %}
+{% endif %}
+{% assign index = collection | first %}
+{% assign groups = collection | where_exp: "item", "item.group" | group_by: "group" %}
+
+<nav>
+{% if index and index.group == nil %}
+  <!-- Collection header -->
+  <a href="{{ index.url }}" class="flex items-center pl-4 mb-3 text-sm font-medium leading-6 tracking-wider{% if index.url == page.url %} text-swim-blue{% else %} text-kaimurasaki-800 hover:text-swim-blue{% endif %} transition ease-out">{{ index.title }}</a>
+{% endif %}
+  <ul class="space-y-6">
+  {% for group in groups %}
+    <li>
+      <!-- Group header -->
+      <span class="flex items-center pl-4 text-xs font-medium leading-6 tracking-wider uppercase text-kaimurasaki-600">{{ group.name }}</span>
+      <!-- Group items -->
+      <ul class="mt-2 ml-4 border-l border-l-kaimurasaki-200 space-y-2">
+      {% for item in group.items %}
+      {% unless item.hidden %}
+        <li>
+          <a href="{{ item.url | relative_url }}" class="block -ml-px pl-4 border-l{% if item.url == page.url %} border-l-vermilion{% else %} border-l-transparent hover:border-l-kaimurasaki{% endif %} text-sm leading-6{% if item.url == page.url %} text-swim-blue{% else %} text-kaimurasaki-700 hover:text-kaimurasaki{% endif %} transition ease-out">{{ item.short-title | default: item.title }}</a>
+        </li>
+      {% endunless %}
+      {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+  </ul>
+</nav>

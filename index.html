@@ -77,7 +77,7 @@ layout: default
             </div>
 
             <div class="mt-10 flex items-center gap-x-6">
-                <a href="{% link _tutorials/index.md %}"
+                <a href="{% link _devguide/index.md %}"
                     class="no-underline rounded-full bg-swim-dark-blue px-4 py-2.5 text-sm font-semibold text-swim-teal shadow-sm ring-1 ring-inset ring-swim-teal hover:bg-swim-teal hover:text-swim-dark-blue">Get
                     started</a>
                 <a href="#demos" class="text-sm font-semibold leading-6 text-swim-teal no-underline hover:underline">See
@@ -167,7 +167,7 @@ layout: default
                         Learn concepts and ideas that will help you understand how SwimOS fits in to your existing infrastructure.
                     </p>
                     <div class="mt-10 mb-10 pt-12 text-center">
-                        <a href="{% link _concepts/index.md %}"
+                        <a href="{% link _backend/index.md %}"
                             class="no-underline rounded-full px-4 py-2.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-white hover:bg-white hover:text-swim-dark-blue">Get
                             started</a>
                     </div>
@@ -205,15 +205,15 @@ layout: default
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
                     </svg>
-                    <div class="text-xl leading-6">How-to Guides</div>
+                    <div class="text-xl leading-6">Developer Guide</div>
                 </div>
                 <div class="px-6 py-4 pt-12 leading-6">
                     <h3 class="font-bold text-white">Take a guided tour of SwimOS</h3>
                     <p class="mt-2 text-sm">
-                        These guides will help you accomplish a specific goal.
+                        This developer guide will help you learn SwimOS from the start.
                     </p>
                     <div class="mt-10 mb-10 pt-12 text-center">
-                        <a href="{% link _guides/index.md %}"
+                        <a href="{% link _devguide/index.md %}"
                             class="no-underline rounded-full px-4 py-2.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-white hover:bg-white hover:text-swim-dark-blue">Get
                             started</a>
                     </div>
@@ -222,8 +222,6 @@ layout: default
 
             <li class="flex flex-col justify-between overflow-hidden rounded-xl border border-swim-purple bg-swim-dark-blue text-white">
                 <div class="flex items-center gap-x-4 border-b border-gray-900/5 p-6">
-
-
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor"
                         class="text-swim-purple h-12 w-12 p-2 flex-none rounded-lg object-cover ring-2 ring-swim-purple">
@@ -238,7 +236,7 @@ layout: default
                         Refer to our reference documentation to see how SwimOS works under the hood
                     </p>
                     <div class="mt-10 mb-10 pt-12 text-center">
-                        <a href="{% link _reference/index.md %}"
+                        <a href="{% link _backend/index.md %}"
                             class="no-underline rounded-full px-4 py-2.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-white hover:bg-white hover:text-swim-dark-blue">Get
                             started</a>
                     </div>
@@ -247,7 +245,6 @@ layout: default
 
             <li class=" flex flex-col justify-between overflow-hidden rounded-xl border border-swim-teal bg-swim-dark-blue text-white">
                 <div class="flex items-center gap-x-4 border-b border-gray-900/5 p-6">
-
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor"
                         class="text-swim-teal h-12 w-12 p-2 flex-none rounded-lg object-cover ring-2 ring-swim-teal">
@@ -273,6 +270,9 @@ layout: default
     </div>
 </div>
 <!-- /Documentation Section -->
+
+<!-- Docs Categories -->
+{%- include docs-categories.html -%}
 
 <!-- Demo Section -->
 <div class="w-screen mt-32 bg-swim-dark-blue pt-8 pb-24 border-t-4 border-swim-purple">
@@ -360,7 +360,7 @@ layout: default
                 </div>
                 <div class="max-w-xl pt-6">
                     <div class="group relative">
-                        <a href="http://transit.swim.inc/"
+                        <a href="https://transit.swim.inc/"
                             class="mt-3 text-lg font-semibold leading-6 no-underline text-white group-hover:text-swim-blue">
                             <span class="absolute inset-0"></span>
                             Transit
@@ -399,13 +399,13 @@ layout: default
             <h2 class="text-3xl font-bold tracking-tight text-swim-dark-blue sm:text-4xl">
                 Ready to dive in?
                 <br />
-                Get started with a tutorial.
+                Get started with our developer guide.
             </h2>
             <div class="mt-10 flex items-center gap-x-6 lg:mt-0 lg:flex-shrink-0">
-                <a href="{% link _tutorials/index.md %}"
+                <a href="{% link _devguide/index.md %}"
                     class="no-underline rounded-full bg-swim-dark-blue px-4 py-2.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-white hover:bg-swim-teal hover:text-swim-dark-blue">Get
                     started</a>
-                <a href="{% link _reference/index.md %}"
+                <a href="{% link _backend/index.md %}"
                     class="text-sm font-semibold leading-6 text-swim-dark-blue no-underline hover:underline">View
                     Reference
                     Docs

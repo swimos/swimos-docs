@@ -1,6 +1,6 @@
 ---
-title: Overview
-layout: page
+title: Tutorials
+layout: documentation
 toc: false
 redirect_from:
   - /tutorials
@@ -11,4 +11,4 @@ These tutorials will walk you through creating a SwimOS project from start to fi
 
 {% include tutorials.html %}
 
-{% include cli.html %}
+{% include docs-listing.html %}
