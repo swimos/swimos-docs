@@ -28,7 +28,8 @@ bSocket Deflate compression levels for the server (`serverCompressionLevel`) and
 #### Server Recon Explained
 
 <a href="http://docs.swim.ai/js/latest/modules/_swim_recon.html" target="_target">Recon</a> is object notation used SwimOS platform for configuration files and for communication between Web Agents.
-Swim servers are configured in a `server.recon` file that resides in the application's `src/main/resources` directory.
+Swim servers are typically configured in a `server.recon` file that resides in the application's `src/main/resources` directory, but the Swim Server looks for the `server.recon` in the classpath as well. 
+Additionally, the config file can be loaded using the `swim.config` system property as well.
 The are three primary parts of SwimOS server configration:
 - Web attributes
 - Fabric attributes
@@ -39,8 +40,7 @@ The are three primary parts of SwimOS server configration:
 The `@web` annotation is used to specify Web Attributes. 
 There is a top-level field called `port` that specific the TCP/IP port being used.
 There is a field called `space` the corresponds to an application and maps to `swim.api.space.Space`.
-The value of this field will be the same name used when defining the fabric attribute.
-There is a field called `documentRoot` that optionally specifies the top-level UI directory for bundled UIs, when applicable.
+The value of this field will be the same name used when defining the fabric attribute; **this is extremely important, as things will not work otherwise**.
 There is an attribute called `@websocket` that configures WebSocket Deflate compression levels for the server (`serverCompressionLevel`) and client (`clientCompressionLevel`).
 
 Here is an example:
@@ -58,7 +58,7 @@ Here is an example:
 
 #### Fabric Attributes
 
-A name should be specified when defining a fabric attribute, such as "yourspace":
+A name should be specified when defining a fabric attribute, such as "yourspace". Again, **this has to match the name specified under `@web` with the `space` field**:
 
 ```
 yourspace: @fabric {
@@ -82,7 +82,7 @@ yourspace: @fabric {
 }
 ```
 
-The classname can be named as any valid Java class name. When the server is run, the plane's main() method will be invoked to instantiate the server application, including initializing any web agents.
+The classname can be named as any valid Java class name. Often the plane's main() method will load the kernel using ServerLoader to instantiate the server application, including initializing any web agents, but the main method can be defined in any case, per normal. For more information about the ServerLoader, see the **Instantiation** section of the <a target="_blank" href="https://www.swimos.org/backend/planes/">Planes<a/> documentation.
 
 **Node Attributes**
 
