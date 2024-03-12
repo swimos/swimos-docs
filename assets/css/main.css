@@ -24,6 +24,44 @@
 .max-h-select {
     max-height: 300px;
 }
+
+/** * Codeblock. */
+pre.highlight {
+    padding: 8px 12px;
+    position: relative;
+}
+pre.highlight > code {
+    border: 0;
+    overflow-x: auto;
+    padding-right: 0;
+    padding-left: 0;
+}
+pre.highlight.highlight {
+    /* border-left: 15px solid #35383c; */
+    /* color: #c1c2c3; */
+    overflow: auto;
+    white-space: pre;
+    word-wrap: normal;
+}
+pre.highlight.highlight, pre.highlight.highlight code {
+    background-color: #222;
+}
+pre.highlight .copy {
+    color: white;
+    position: absolute;
+    right: 1.2rem;
+    top: 0.5rem;
+    opacity: 0;
+}
+pre.highlight .copy:active, pre.highlight .copy:focus, pre.highlight .copy:hover {
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 1;
+}
+pre.highlight:active .copy, pre.highlight:focus .copy, pre.highlight:hover .copy {
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 1;
+}
+
 /* Custom styles above this line */
 
 @tailwind utilities;
