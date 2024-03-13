@@ -37,29 +37,31 @@ pre.highlight > code {
     padding-left: 0;
 }
 pre.highlight.highlight {
-    /* border-left: 15px solid #35383c; */
-    /* color: #c1c2c3; */
     overflow: auto;
     white-space: pre;
     word-wrap: normal;
 }
-pre.highlight.highlight, pre.highlight.highlight code {
-    background-color: #222;
-}
-pre.highlight .copy {
-    color: white;
-    position: absolute;
-    right: 1.2rem;
-    top: 0.5rem;
+pre.highlight .copy-button {
+    height: 22px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+    font-weight: 500;
     opacity: 0;
+    pointer-events: all;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    padding: 2px 5px;
+    border-radius: 5px;
+    background-color: #222222;
+    transition: opacity 0.2s, background-color 0.2s;
+    font-family: "Sora", sans-serif;
 }
-pre.highlight .copy:active, pre.highlight .copy:focus, pre.highlight .copy:hover {
-    background: rgba(0, 0, 0, 0.7);
+pre.highlight:active .copy-button, pre.highlight:focus .copy-button, pre.highlight:hover .copy-button {
     opacity: 1;
 }
-pre.highlight:active .copy, pre.highlight:focus .copy, pre.highlight:hover .copy {
-    background: rgba(0, 0, 0, 0.7);
+pre.highlight .copy-button:active, pre.highlight .copy-button:focus, pre.highlight .copy-button:hover {
     opacity: 1;
+    background-color: #333333;
 }
 
 /* Custom styles above this line */
