@@ -59,7 +59,7 @@ All downlink variants support the ability to provide type information for incomi
 
 ## Quick Start
 
-Connecting to a remote Web Agent with the WARP client can be done in just a few lines.
+Connecting to a lane of a remote Web Agent with the WARP client can be done in just a few lines.
 
 Import and initialize an instance of `WarpClient`.
 
@@ -75,7 +75,7 @@ Next, create a link for connecting to your remote Web Agent.
 const downlink = client.downlink();
 ```
 
-Then provide your link with the URI of the Web Agent to which you wish to connect.
+Then provide your link with the `nodeUri` and `laneUri of the Web Agent to which you wish to connect.
 
 ```typescript
 downlink.setHostUri("warp://example.com");

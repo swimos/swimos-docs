@@ -9,7 +9,7 @@ redirect_from:
 
 {% include alert.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
 
-A ValueDownlink synchronizes a shared real-time value with a remote value lane. In addition to the standard Downlink callbacks, ValueDownlink supports registering `willSet` and `didSet` callbacks to observe all changes to downlinked state — whether remote or local.
+A ValueDownlink synchronizes a shared real-time value with a remote value lane. In addition to the standard Downlink callbacks, ValueDownlink supports registering a `didSet` callback to observe changes to downlinked state — whether remote or local.
 
 Create a ValueDownlink with a WARP client's `downlinkValue` method.
 
@@ -39,7 +39,7 @@ valueDownlink.didSet = (newValue) => {
 
 ## State Type Disambiguation
 
-A ValueDownlink views its state as a [**Value**]({% link _frontend/structures.md %}) by default. Use the `valueForm` option to create a typed projection of a ValueDownlink that automatically transforms its state using a [**Form**]({% link _frontend/form.md %}). The `Form` class comes with a number of ready-to-use instances for basic use cases. For example, you can use `Form.forBoolean()` to coerce a ValueDownlink's state to a boolean; and you can also use `Form.forAny()` to create a ValueDownlink that coerces its state to a plain old JavaScript value. Forms for coercing state to a string, number, `Value`, and `Item` are also provided. 
+A ValueDownlink views its state as a [**Value**]({% link _frontend/structures.md %}) by default. Use the `valueForm` option to create a typed projection of a ValueDownlink that automatically transforms its state using a [**Form**]({% link _frontend/form.md %}). The `Form` class comes with a number of ready-to-use instances for basic use cases. For example, you can use `Form.forBoolean()` to coerce a ValueDownlink's state to a boolean. `Form.forAny()` can be used to create a MapDownlink that coerces its state to an untyped JavaScript value; it's able to recognize primitive JavaScript values as well as arrays and plain old JavaScript objects, including nested objects. Forms for coercing state to a string, number, `Value`, and `Item` are also provided. 
 
 ```typescript
 const light = client.downlinkValue({

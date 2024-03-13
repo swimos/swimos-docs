@@ -32,13 +32,13 @@ export class StockForm extends Form<Stock | undefined> {
   override cast(item: Item): Stock | undefined {
     if (
       item.tag === "update" && // make sure message is an update
-      item.getAttr("update").get("key").stringValue("") && // find key
+      item.get("update").get("key").stringValue("") && // find key
       item.get("price").isDefinite() && // ensure all fields are present
       item.get("volume").isDefinite() &&
       item.get("movement").isDefinite()
     ) {
       return {
-        symbol: item.getAttr("update").get("key").stringValue(""),
+        symbol: item.get("update").get("key").stringValue(""),
         price: item.get("price").numberValue(0),
         volume: item.get("volume").numberValue(0),
         dailyChange: item.get("dailyChange").numberValue(0),

@@ -11,7 +11,7 @@ redirect_from:
 
 A Downlink provides a virtual bidirectional stream between the client and a lane of a remote Web Agent. WARP clients transparently multiplex all links to [**Web Agents**]({% link _backend/web-agents.md %}) on a given host over a single WebSocket connection.
 
-Downlinks come in several flavors, depending on the WARP subprotocol to which they conform. A [**ValueDownlink**]({% link _frontend/valueDownlink.md %}) synchronizes a value with a remote value lane. A [**MapDownlink**]({% link _frontend/mapDownlink.md %}) implements the WARP map subprotocol to synchronize key-value state with a remote map lane. A [**ListDownlink**]({% link _frontend/listDownlink.md %}) implements the WARP list subprotocol to to synchronize sequential list state with a remote list lane. And an [**EventDownlink**]({% link _frontend/eventDownlink.md %}) observes raw WARP events, and can be used to observe lanes of any kind.
+Downlinks come in several flavors, depending on the WARP subprotocol to which they conform. A [**ValueDownlink**]({% link _frontend/valueDownlink.md %}) synchronizes a value with a remote value lane. A [**MapDownlink**]({% link _frontend/mapDownlink.md %}) implements the WARP map subprotocol to synchronize key-value state with a remote map lane. And an [**EventDownlink**]({% link _frontend/eventDownlink.md %}) observes raw WARP events, and can be used to observe lanes of any kind.
 
 This article will focus on the properties and methods which all types of downlinks have in common. Later articles on specific types of downlinks will go into detail on what is unique to each of them.
 
@@ -137,6 +137,17 @@ const downlink = client.current.downlink({
 /* Output:
   didConnect
   didDisconnect */
+```
+
+In the case that a downlink attempts to connect with a node (web agent) or lane which does not exist, the behavior would be almost exactly the same as the example above. The output from the callbacks would be identical, the only difference being that the "@unlinked" WARP message received by the client would include an error tag.
+
+```javascript
+// WARP message received after network connection issue
+"@unlink(node:\"/hotel/room/123\",lane:status)"
+// WARP message received after web agent not found
+"@unlinked(node:\"/hotel/room/invalid_room_number\",lane:status)@nodeNotFound"
+// WARP message received after lane not found
+"@unlinked(node:\"/hotel/room/123\",lane:invalid_lane_name)@laneNotFound"
 ```
 
 ### Linking and Syncing
