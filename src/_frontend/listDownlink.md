@@ -1,11 +1,11 @@
----
+<!-- ---
 title: List Downlink
 short-title: List Downlink
 description: "A WARP connection which synchronizes a shares real-time list with a remote list lane. It behaves similar to a JavaScript array."
 group: Connections
 layout: documentation
 redirect_from:
----
+--- -->
 
 {% include alert.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
 
@@ -26,8 +26,8 @@ const listDownlink = client.downlinkList({
 .open();
 
 listDownlink.get(0); // get the first item in the list
-listDownlink.set(0, { arrival: 1707956415650, nights: 1, guestName: "Jeff Lebowski" }); // locally and remotely update an item
-listDownlink.push({ arrival: 1707748815650, nights: 2, guestName: "Walter Sobchak" }); // locally and remotely append an item
+listDownlink.set(0, { arrival: "2024-04-01T15:00:00Z", nights: 1, guestName: "Jeff Lebowski" }); // locally and remotely update an item
+listDownlink.push({ arrival: "2024-04-02T15:00:00Z", nights: 2, guestName: "Walter Sobchak" }); // locally and remotely append an item
 ```
 
 For the most part, client code can treat a ListDownlink like an ordinary JavaScript list; the WARP client will ensure that the downlink is continuously made consistent with the remote lane. Using `didUpdate`, `didMove`, and `didRemove` callbacks, applications can update UI list views and other dependent components to keep them consistent with the shared state of the remote list lane in network real-time.
