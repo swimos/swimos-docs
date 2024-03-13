@@ -59,6 +59,93 @@ Returns `true` if this `Item` is not one of: an empty `Record`, `False`, `Extant
 
 Returns `true` if this `Item` always <a href="#evaluate">`evaluates`</a> to the same `Item`.
 
+<span style="font-size: 18px" id="stringValue">`stringValue(): string | undefined;`</span>
+
+Converts this `Item` into a `string` value, if possible; otherwise returns
+`undefined` if this `Item` can't be converted into a `string` value.
+
+```typescript
+// WARP message
+// @event(node:"/home/electricityMeter",lane:status){currentReading:8432.7,model:"Single Phase 4P Din Rail Energy Meter",normalOperation:true,timestamp:1710272571408}
+
+console.log(item.get("model")) // {value: 'Single Phase 4P Din Rail Energy Meter', hashValue: undefined, ...}
+console.log(item.get("model").stringValue()) // "Single Phase 4P Din Rail Energy Meter"
+console.log(item.get("currentReading").stringValue()) // "8432.7"
+console.log(item.get("normalOperation").stringValue()) // "true"
+```
+
+<span style="font-size: 18px" id="stringValue">`stringValue<T>(orElse: T): string | T;`</span>
+
+Converts this `Item` into a `string` value, if possible; otherwise returns
+`orElse` if this `Item` can't be converted into a `string` value.
+
+```typescript
+// WARP message
+// @event(node:"/home/electricityMeter",lane:status){currentReading:8432.7,model:"Single Phase 4P Din Rail Energy Meter",normalOperation:true,timestamp:1710272571408}
+
+console.log(item.get("foo")) // Absent {}
+console.log(item.get("foo").stringValue()) // undefined
+console.log(item.get("foo").stringValue("fallback")) // "fallback"
+```
+
+<span style="font-size: 18px" id="numberValue">`numberValue(): number | undefined;`</span>
+
+Converts this `Item` into a `number` value, if possible; otherwise returns
+`undefined` if this `Item` can't be converted into a `number` value.
+
+```typescript
+// WARP message
+// @event(node:"/home/electricityMeter",lane:status){currentReading:8432.7,model:"Single Phase 4P Din Rail Energy Meter",normalOperation:true,timestamp:1710272571408}
+
+console.log(item.get("currentReading")) // {value: 8432.7, hashValue: undefined, ...}
+console.log(item.get("currentReading").numberValue()) // 8432.7
+console.log(item.get("model").numberValue()) // undefined
+console.log(item.get("normalOperation").numberValue()) // undefined
+```
+
+<span style="font-size: 18px" id="numberValue">`numberValue<T>(orElse: T): number | T;`</span>
+
+Converts this `Item` into a `number` value, if possible; otherwise returns
+`orElse` if this `Item` can't be converted into a `number` value.
+
+```typescript
+// WARP message
+// @event(node:"/home/electricityMeter",lane:status){currentReading:8432.7,model:"Single Phase 4P Din Rail Energy Meter",normalOperation:true,timestamp:1710272571408}
+
+console.log(item.get("foo")) // Absent {}
+console.log(item.get("foo").numberValue()) // undefined
+console.log(item.get("foo").numberValue(0)) // 0
+```
+
+<span style="font-size: 18px" id="booleanValue">`booleanValue(): boolean | undefined;`</span>
+
+Converts this `Item` into a `boolean` value, if possible; otherwise returns
+`undefined` if this `Item` can't be converted into a `boolean` value.
+
+```typescript
+// WARP message
+// @event(node:"/home/electricityMeter",lane:status){currentReading:8432.7,model:"Single Phase 4P Din Rail Energy Meter",normalOperation:true,timestamp:1710272571408}
+
+console.log(item.get("normalOperation")) // {value: true, hashValue: undefined, ...}
+console.log(item.get("normalOperation").booleanValue()) // true
+console.log(item.get("currentReading").booleanValue()) // true
+console.log(item.get("model").booleanValue()) // undefined
+```
+
+<span style="font-size: 18px" id="booleanValue">`booleanValue<T>(orElse: T): boolean | T;`</span>
+
+Converts this `Item` into a `boolean` value, if possible; otherwise returns
+`orElse` if this `Item` can't be converted into a `boolean` value.
+
+```typescript
+// WARP message
+// @event(node:"/home/electricityMeter",lane:status){currentReading:8432.7,model:"Single Phase 4P Din Rail Energy Meter",normalOperation:true,timestamp:1710272571408}
+
+console.log(item.get("foo")) // Absent {}
+console.log(item.get("foo").booleanValue()) // undefined
+console.log(item.get("foo").booleanValue(false)) // false
+```
+
 <span style="font-size: 18px" id="key">`readonly key: Value;`</span>
 
 Returns the key component of this `Item`, if this `Item` is a Field; otherwise returns Absent if this `Item` is a `Value`.
@@ -69,10 +156,30 @@ Returns the value component of this `Item`, if this `Item` is a Field; otherwise
 
 <span style="font-size: 18px" id="tag">`readonly tag: string | undefined;`</span>
 
-Returns the <a href="#key">`key`</a> string of the first member of this `Item`, if this `Item`
+Returns the key string of the first member of this `Item`, if this `Item`
 is a Record, and its first member is an Attr; otherwise returns
 `undefined` if this `Item` is not a `Record`, or if this `Item` is a `Record` whose first member is not an `Attr`.
-Used to concisely get the name of the discriminating attribute of a structure. The <a href="#tag">`tag`</a> can be used to discern the nominal type of a polymorphic structure, similar to an XML element tag.
+Used to concisely get the name of the discriminating attribute of a structure. The tag can be used to discern the nominal type of a polymorphic structure, similar to an XML element tag.
+
+```typescript
+/* 
+   WARP message; update to value lane's synced value
+   @event(node:"/home/electricityMeter",lane:status){currentReading:8432.7,model:"Single Phase 4P Din Rail Energy Meter",normalOperation:true,timestamp:1710272571408}
+*/
+console.log(item.tag); // undefined
+
+/* 
+   WARP message; key updated or added to map-based lane
+   @event(node:"/user/1234",lane:orders)@update(key:"/order/123456"){timestamp:1710295106760,totalPrice:29.98,cart:[{itemId:"/item/789012",qty:2,unitPrice:14.99}]}
+*/
+console.log(item.tag); // "update"
+
+/* 
+   WARP message; key removed from map-based lane
+   @event(node:"/user/1234",lane:orders)@remove(key:"/order/456789")
+*/
+console.log(item.tag); // "remove"
+```
 
 <span style="font-size: 18px" id="target">`readonly target: Value;`</span>
 
@@ -100,6 +207,15 @@ containing just this `Item`, if this `Item` is  <a href="#isDistinct">`distinct`
 Returns the value of the first member of this `Item`, if this `Item` is a
 Record, and its first member is an Attr whose <a href="#key">`key`</a> string is equal to <a href="#tag">`tag`</a>; otherwise returns Absent if this `Item` is not a `Record`, or if this `Item` is a `Record` whose first member is not an `Attr`, or if this `Item` is a `Record` whose first member is an `Attr` whose <a href="#key">`key`</a> does not equal the <a href="#tag">`tag`</a>. Used to conditionally get the value of the head `Attr` of a structure, if and only if the key string of the head `Attr` is equal to the <a href="#tag">`tag`</a>. Can be used to check if a structure might conform to a nominal type named <a href="#tag">`tag`</a>, while simultaneously getting the value of the <a href="#tag">`tag`</a> attribute.
 
+```typescript
+// WARP message
+// @event(node:"/user/1234",lane:orders)@update(key:"/order/123456"){timestamp:1710295106760,totalPrice:29.98,cart:[{itemId:"/item/789012",qty:2,unitPrice:14.99}]}
+
+value.header('update'); // RecordMap {length: 1, fieldCount: 1, ...}
+value.header('update').get('key'); // "/order/123456"
+value.header('replace').get('key'); // Absent {}
+```
+
 <span style="font-size: 18px" id="headers">`headers(tag: string): Record | undefined;`</span>
 
 Returns the <a href="#unflattened">`unflattened`</a> <a href="#header">`header`</a> of
@@ -125,69 +241,97 @@ Returns the `flattened` `tail` of this
 Returns the number of members contained in this `Item`, if this `Item` is
 a Record; otherwise returns `0` if this `Item` is not a `Record`.
 
+```typescript
+// WARP message
+// @event(node:"/home/electricityMeter",lane:status){currentReading:8432.7,model:"Single Phase 4P Din Rail Energy Meter",normalOperation:true,timestamp:1710272571408}
+
+console.log(item.length) // 4
+```
+
 <span style="font-size: 18px" id="has">`has(key: ValueLike): boolean;`</span>
 
 Returns `true` if this `Item` is a Record that has a Field member
-with a key that is equal to the given <a href="#key">`key`</a>; otherwise returns `false` if this `Item` is not a `Record`, or if this `Item` is a `Record`, but has no `Field` member with a key equal to the given <a href="#key">`key`</a>.
+with a key that is equal to the given key; otherwise returns `false` if this `Item` is not a `Record`, or if this `Item` is a `Record`, but has no `Field` member with a key equal to the given key.
+
+```typescript
+// WARP message
+// @event(node:"/home/electricityMeter",lane:status){currentReading:8432.7,model:"Single Phase 4P Din Rail Energy Meter",normalOperation:true,timestamp:1710272571408}
+
+console.log(item.has("model")) // true
+console.log(item.has("currentReading")) // true
+console.log(item.has("foo")) // false
+```
 
 <span style="font-size: 18px" id="get">`get(key: ValueLike): Value;`</span>
 
 Returns the value of the last Field member of this `Item` whose key
-is equal to the given <a href="#key">`key`</a>; returns Absent if this `Item` is not a Record, or if this `Item` is a `Record`, but has no `Field` member with a key equal to the given <a href="#key">`key`</a>.
+is equal to the given key; returns Absent if this `Item` is not a Record, or if this `Item` is a `Record`, but has no `Field` member with a key equal to the given key.
+
+```typescript
+// WARP message
+// @event(node:"/home/electricityMeter",lane:status){currentReading:8432.7,model:"Single Phase 4P Din Rail Energy Meter",normalOperation:true,timestamp:1710272571408}
+
+console.log(item.get("model")) // {value: 8432.7, hashValue: undefined, ...}
+console.log(item.get("currentReading").numberValue()) // 8432.7
+console.log(item.get("model").stringValue()) // "Single Phase 4P Din Rail Energy Meter"
+console.log(item.get("normalOperation").booleanValue()) // true
+```
 
 <span style="font-size: 18px" id="getAttr">`getAttr(key: TextLike): Value;`</span>
 
 Returns the value of the last Attr member of this `Item` whose key
 is equal to the given <a href="#key">`key`</a>; returns Absent if this `Item` is not a Record, or if this `Item` is a `Record`, but has no `Attr` member with a key equal to the given <a href="#key">`key`</a>.
 
+```typescript
+// WARP message
+// @event(node:"/user/1234",lane:orders)@update(key:"/order/123456"){timestamp:1710295106760,totalPrice:29.98,cart:[{itemId:"/item/789012",qty:2,unitPrice:14.99}]}
+
+console.log(item.getAttr("update").get("key").stringValue()); // "/order/123456"
+console.log(item.get("update").get("key").stringValue()); // "/order/123456"
+
+console.log(item.getAttr("totalPrice").numberValue()); // undefined
+console.log(item.get("totalPrice").numberValue()); // 29.98
+```
+
 <span style="font-size: 18px" id="getSlot">`getSlot(key: ValueLike): Value;`</span>
 
 Returns the value of the last Slot member of this `Item` whose key
 is equal to the given <a href="#key">`key`</a>; returns Absent if this `Item` is not a Record, or if this `Item` is a `Record`, but has no `Slot` member with a key equal to the given <a href="#key">`key`</a>.
 
+```typescript
+// WARP message
+// @event(node:"/user/1234",lane:orders)@update(key:"/order/123456"){timestamp:1710295106760,totalPrice:29.98,cart:[{itemId:"/item/789012",qty:2,unitPrice:14.99}]}
+
+console.log(item.get("totalPrice").numberValue()); // 29.98
+console.log(item.getSlot("totalPrice").numberValue()); // 29.98
+
+console.log(item.get("update").get("key").stringValue()); // "/order/123456"
+console.log(item.getSlot("update").get("key").stringValue()); // "/order/123456"
+```
+
 <span style="font-size: 18px" id="getField">`getField(key: ValueLike): Field | undefined;`</span>
 
 Returns the last Field member of this `Item` whose key is equal to the
-given <a href="#key">`key`</a>; returns `undefined` if this `Item` is not a Record, or if this `Item` is a `Record`, but has no `Field` member with a <a href="#key">`key`</a> equal to the given <a href="#key">`key`</a>.
+given key; returns `undefined` if this `Item` is not a Record, or if this `Item` is a `Record`, but has no `Field` member with a key equal to the given key.
 
 <span style="font-size: 18px" id="getItem">`getItem(index: NumLike): Item;`</span>
 
 Returns the member of this `Item` at the given <a href="#index">`index`</a>, if this `Item` is
 a Record, and the <a href="#index">`index`</a> is greater than or equal to zero, and less than the <a href="length">`length`</a> of the `Record`; otherwise returns Absent if this `Item` is not a `Record`, or if this `Item` is a `Record`, but the <a href="#index">`index`</a> is out of bounds.
 
+```typescript
+// WARP message
+// @event(node:"/user/1234",lane:orders)@update(key:"/order/123456"){timestamp:1710295106760,totalPrice:29.98,cart:[{itemId:"/item/789012",qty:2,unitPrice:14.99}]}
+
+console.log(item.getItem(0).key.stringValue()) // "update"
+console.log(item.getItem(1).numberValue()) // 1710295106760
+console.log(item.getItem(2).numberValue()) // 8432.7
+console.log(item.getItem(99).stringValue()) // Absent {}
+```
+
 <span style="font-size: 18px" id="evaluate">`evaluate(interpreter: InterpreterLike): Item;`</span>
 
 Returns a new `Item` with all nested expressions interpreted in lexical order and scope.
-
-<span style="font-size: 18px" id="stringValue">`stringValue(): string | undefined;`</span>
-
-Converts this `Item` into a `string` value, if possible; otherwise returns
-`undefined` if this `Item` can't be converted into a `string` value.
-
-<span style="font-size: 18px" id="stringValue">`stringValue<T>(orElse: T): string | T;`</span>
-
-Converts this `Item` into a `string` value, if possible; otherwise returns
-`orElse` if this `Item` can't be converted into a `string` value.
-
-<span style="font-size: 18px" id="numberValue">`numberValue(): number | undefined;`</span>
-
-Converts this `Item` into a `number` value, if possible; otherwise returns
-`undefined` if this `Item` can't be converted into a `number` value.
-
-<span style="font-size: 18px" id="numberValue">`numberValue<T>(orElse: T): number | T;`</span>
-
-Converts this `Item` into a `number` value, if possible; otherwise returns
-`orElse` if this `Item` can't be converted into a `number` value.
-
-<span style="font-size: 18px" id="booleanValue">`booleanValue(): boolean | undefined;`</span>
-
-Converts this `Item` into a `boolean` value, if possible; otherwise returns
-`undefined` if this `Item` can't be converted into a `boolean` value.
-
-<span style="font-size: 18px" id="booleanValue">`booleanValue<T>(orElse: T): boolean | T;`</span>
-
-Converts this `Item` into a `boolean` value, if possible; otherwise returns
-`orElse` if this `Item` can't be converted into a `boolean` value.
 
 <span style="font-size: 18px" id="readonly">`readonly typeOrder: number;`</span>
 Returns the heterogeneous sort order of this `Item`. Used to impose a
