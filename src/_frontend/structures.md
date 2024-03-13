@@ -146,6 +146,51 @@ console.log(item.get("foo").booleanValue()) // undefined
 console.log(item.get("foo").booleanValue(false)) // false
 ```
 
+<span style="font-size: 18px" id="toLike">`toLike: ItemLike`</span>
+
+Converts this `Item` into the most appropriate JavaScript object. It will parse out strings, numbers, booleans, Arrays, or plain old JavaScript object. Nested structures are supported. `Absent` is coerced to undefined and `Extant` is coerced to null.
+
+```typescript
+// WARP message
+// @event(node:"/user/1234",lane:orders)@update(key:"/order/123456"){timestamp:1710295106760,totalPrice:29.98,cart:[{itemId:"/item/789012",qty:2,unitPrice:14.99}]}
+
+console.log(item.get('totalPrice').toLike()) // 29.98
+console.log(item.get('foo').toLike()) // undefined
+console.log(item.header('update').toLike()) // { key: "/order/123456" }
+console.log(item.toLike())
+/* {
+    @update: { key: "/order/123456" },
+    timestamp: 1710295106760,
+    totalPrice: 29.98,
+    cart: [
+      {
+        itemId: "/item/789012",
+        qty: 2,
+        unitPrice: 14.99
+      }
+    ]
+  } */
+```
+
+<span style="font-size: 18px" id="fromLike">`static fromLike: Item`</span>
+
+Converts a JavaScript object into an item. Essentially the reverse of <a href="#toLike">`toLike`</a>. Nested structures are supported. BigInt and Symbols types are not supported. Undefined is converted to `Absent` and null type is converted to `Extant`. Values of NaN are preserved.
+
+```typescript
+console.log(Item.fromLike(null)) // Extant {}
+
+const obj = {
+  string: "Hello, world!",
+  number: "123456",
+  boolean: true,
+  nan: NaN,
+  array: ["a", 2, { three: 3 }],
+};
+console.log(Item.fromLike().toString()) // Record.of(Slot.of("string", "Hello, world!"), Slot.of("number", "123456"), Slot.of("boolean", true), Slot.of("nan", NaN), Slot.of("array", Record.of("a", 2, Record.of(Slot.of("three", 3)))))
+console.log(Item.fromLike().toLike()) // identical to original obj object
+
+```
+
 <span style="font-size: 18px" id="key">`readonly key: Value;`</span>
 
 Returns the key component of this `Item`, if this `Item` is a Field; otherwise returns Absent if this `Item` is a `Value`.
@@ -163,20 +208,20 @@ Used to concisely get the name of the discriminating attribute of a structure. T
 
 ```typescript
 /* 
-   WARP message; update to value lane's synced value
-   @event(node:"/home/electricityMeter",lane:status){currentReading:8432.7,model:"Single Phase 4P Din Rail Energy Meter",normalOperation:true,timestamp:1710272571408}
+  WARP message; update to value lane's synced value
+  @event(node:"/home/electricityMeter",lane:status){currentReading:8432.7,model:"Single Phase 4P Din Rail Energy Meter",normalOperation:true,timestamp:1710272571408}
 */
 console.log(item.tag); // undefined
 
 /* 
-   WARP message; key updated or added to map-based lane
-   @event(node:"/user/1234",lane:orders)@update(key:"/order/123456"){timestamp:1710295106760,totalPrice:29.98,cart:[{itemId:"/item/789012",qty:2,unitPrice:14.99}]}
+  WARP message; key updated or added to map-based lane
+  @event(node:"/user/1234",lane:orders)@update(key:"/order/123456"){timestamp:1710295106760,totalPrice:29.98,cart:[{itemId:"/item/789012",qty:2,unitPrice:14.99}]}
 */
 console.log(item.tag); // "update"
 
 /* 
-   WARP message; key removed from map-based lane
-   @event(node:"/user/1234",lane:orders)@remove(key:"/order/456789")
+  WARP message; key removed from map-based lane
+  @event(node:"/user/1234",lane:orders)@remove(key:"/order/456789")
 */
 console.log(item.tag); // "remove"
 ```
@@ -328,6 +373,10 @@ console.log(item.getItem(1).numberValue()) // 1710295106760
 console.log(item.getItem(2).numberValue()) // 8432.7
 console.log(item.getItem(99).stringValue()) // Absent {}
 ```
+
+<span style="font-size: 18px" id="forEach">`forEach(callback: (item: Item, index: number) => void)): undefined;`</span>
+
+Iterates over every `Attribute` or `Slot` of an Item and executes the provided callback on it, receiving the individual `Attribute` or `Slot` and its index as arguments. If `forEach` is called on either `Absent` or an empty `Record`, the callback is never invoked as the `Item` does not contain a valid `Attribute` or `Slot`. If `forEach` is called on `Extant`, the callback gets invoked a single time with the `Extant` unit type.
 
 <span style="font-size: 18px" id="evaluate">`evaluate(interpreter: InterpreterLike): Item;`</span>
 
