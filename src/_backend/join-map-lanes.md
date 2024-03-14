@@ -12,7 +12,7 @@ redirect_from:
 
 The [Join Value Lanes guide]({% link _backend/join-value-lanes.md %}) demonstrates Join Value Lanes which aggregate value lanes from many agents. Similar to **Join Value Lanes**, **Join Map Lanes** aggregate **Map Lanes** across multiple agents.
 
-A **Join Map Lane** uses [downlinks]({% link _backend/links.md %}) to create permanent links to **Map Lanes** and exhibits the same behaviour as [Map Lanes]({% link _backend/map-lanes.md %}). Some additional properties are present:
+A **Join Map Lane** uses [downlinks]({% link _backend/downlinks.md %}) to create permanent links to **Map Lanes** and exhibits the same behaviour as [Map Lanes]({% link _backend/map-lanes.md %}). Some additional properties are present:
 
 - Operations performed on a **Map Lane** are propagated via downlinks to the **Join Map Lane**.
 - A **link form** must be specified.

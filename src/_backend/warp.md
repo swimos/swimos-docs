@@ -2,7 +2,7 @@
 title: WARP
 short-title: WARP
 description: "The protocol for multiplexing bidirectional streams between large numbers of URIs over a single WebSocket connection"
-group: Reference
+group: Getting Started
 layout: documentation
 redirect_from:
   - /concepts/warp/
