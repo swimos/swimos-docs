@@ -15,7 +15,7 @@ Native machine pointers also trigger transparent message passing between CPU cor
 
 Links unify edges in an object graph, pointers in a cache coherency system, and subscriptions to mesaging topics, into a single, ultra high performance, easy to use programming primitive.
 
-Links are bi-directional. Either end of a link can update its implicitly shared state in an eventually consistent manner. A link has a downlink side, and an uplink side. The **downlink** side is the one held by the endpoint that opened the link. The **uplink** side is the one held by the endpoint that received the link request.
+Links are bidirectional. Either end of a link can update its implicitly shared state in an eventually consistent manner. A link has a downlink side, and an uplink side. The **downlink** side is the one held by the endpoint that opened the link. The **uplink** side is the one held by the endpoint that received the link request.
 
 To open a link, you create a downlink, and specify the address of the Web Agent (called the **node URI**), and the name of the lane (called the **lane URI**) to which you want to link. It's easier than it sounds. Here's what opening a link to a `ValueLane` looks like:
 

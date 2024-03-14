@@ -9,7 +9,7 @@ redirect_from:
   - /reference/swim-libraries.html
 ---
 
-Swim implements a complete, self-contained, distributed application stack in an embeddable software library. To develop server-side Swim apps, add the [swim-api](https://github.com/swimos/swim/tree/main/swim-java/swim-runtime/swim-host/swim.api) library to your Java project. To write a JavaScript client application, install the [@swim/core](https://github.com/swimos/swim/tree/main/swim-js/swim-core) library from npm. To build a web application, npm install the [@swim/ui](https://github.com/swimos/swim/tree/main/swim-js/swim-ui) and [@swim/ux](https://github.com/swimos/swim/tree/main/swim-js/swim-ux) libraries. Select one of the boxes below (or scroll down) to get started with Swim.
+Swim implements a complete, self-contained, distributed application stack in an embeddable software library. To develop server-side Swim apps, add the [swim-api](https://github.com/swimos/swim/tree/main/swim-java/swim-runtime/swim-host/swim.api) library to your Java project. To write a JavaScript client application, install the [@swim/client](https://www.npmjs.com/package/@swim/client) library from NPM. Select one of the boxes below (or scroll down) to get started with Swim.
 
 <!-- <div class="platform-case">
   <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="plane">
@@ -56,20 +56,13 @@ version: "4.2.14"
 
 ### JavaScript Client Quick Start
 
-The Swim JavaScript Client is a WARP streaming API client for Node.js and Browser applications.
+The Swim JavaScript Client is a WARP streaming API client for Node.js and browser applications.
 
 ```console
-npm i @swim/core
+npm i @swim/client@dev
 ```
 
-### Web UI Quick Start
-
-The Swim Web UI framework is a dependency-free user interface toolkit for pervasively real-time web applications. It provides everything you need to bind user interface components to WARP streaming APIs. The Swim UX framework implements easy-to-use, procedurally animatable gauges, pies, charts, maps, and more.
-
-```console
-npm i @swim/ui
-npm i @swim/ux
-```
+Visit the [**frontend documentation**](/frontend) for more on how to write a JavaScript client application.
 
 ### Next Steps
 

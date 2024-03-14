@@ -103,7 +103,7 @@ collections:
     kind: docs
     output: true
     name: "Backend"
-    description: Documentation about SwimOS fundamentals and CLI useage.
+    description: Documentation about SwimOS fundamentals and CLI usage.
     permalink: /backend/:name/
     order:
       - index.md
@@ -150,6 +150,36 @@ collections:
       - auth-policy.md
       - recon.md
       - warp.md
+    weight: 1
+  frontend:
+    kind: docs
+    output: true
+    name: "Frontend"
+    description: Documentation about streaming data from SwimOS apps for use in UIs.
+    permalink: /frontend/:name/
+    order:
+      - index.md
+      # Introduction
+      - whatIsWarp.md
+      - gettingStarted.md
+      # Connections
+      - warpClient.md
+      - downlinks.md
+      - valueDownlink.md
+      - mapDownlink.md
+      # - listDownlink.md
+      - eventDownlink.md
+      # - property.md
+      # - demandLanes.md
+      # - authentication.md
+      # Data
+      - dataModel.md
+      - structures.md
+      - form.md
+      # - structures.md
+      # Examples/Demos
+      # Integrations
+      # - react.md
     weight: 1
   tutorials:
     kind: docs
