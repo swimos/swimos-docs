@@ -2,7 +2,7 @@
 title: Summary Statistics
 short-title: Summary Statistics
 description: "How to abridge a Web Agent's history into summary statistics"
-group: Swim App Templates
+group: Common Patterns
 layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/summary_statistics
 redirect_from:

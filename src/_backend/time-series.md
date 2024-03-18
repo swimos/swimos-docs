@@ -2,7 +2,7 @@
 title: Time Series Data
 short-title: Time Series Data
 description: "How to represent and maintain time series data"
-group: Swim App Templates
+group: Common Patterns
 layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/time_series
 redirect_from:

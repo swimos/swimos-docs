@@ -3,7 +3,7 @@ title: Group and Aggregate Agents
 short-title: Agent Groups
 description: "How to group agents and calculate aggregate stats"
 cookbook: https://github.com/swimos/cookbook/tree/master/aggregations
-group: Swim App Templates
+group: Common Patterns
 layout: documentation
 redirect_from:
   - /guides/aggregations.html
