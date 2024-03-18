@@ -49,15 +49,15 @@ Swim unifies the traditionally disparate roles of database, message broker, job 
 
 ### Web Agents
 
-Swim applications consist of interconnected, distributed objects, called [Web Agents]({% link _backend/web-agents.md %}). Each Web Agent has URI address, like a REST endpoint. But unlike RESTful Web Services, Web Agents are stateful, and accessed via streaming APIs.
+Swim applications consist of interconnected, distributed objects, called [Web Agents]({% link _backend/web-agents-intro.md %}). Each Web Agent has URI address, like a REST endpoint. But unlike RESTful Web Services, Web Agents are stateful, and accessed via streaming APIs.
 
 ### Lanes
 
-If Web Agents are distributed objects, then [lanes]({% link _backend/lanes.md %}) serve as the properties and methods of those objects. Lanes come in many flavors: **value lanes**, **map lanes**, **command lanes**, and **join lanes**, to name a few. Many lanes are internally persistent, acting like encapsulated database tables.
+If Web Agents are distributed objects, then [lanes]({% link _backend/lanes-intro.md %}) serve as the properties and methods of those objects. Lanes come in many flavors: **value lanes**, **map lanes**, **command lanes**, and **join lanes**, to name a few. Many lanes are internally persistent, acting like encapsulated database tables.
 
 ### Links
 
-Distributed objects need a way to communicate. [Links]({% link _backend/links.md %}) establishes active references to lanes of Web Agents, transparently streaming bidirectional state changes to keep all parts of an application in sync, without the overhead of queries or remote procedure calls.
+Distributed objects need a way to communicate. [Links]({% link _backend/links-intro.md %}) establishes active references to lanes of Web Agents, transparently streaming bidirectional state changes to keep all parts of an application in sync, without the overhead of queries or remote procedure calls.
 
 ### Recon
 
@@ -67,4 +67,4 @@ Communication only works if all parties understand each other. Swim natively spe
 
 The [Web Agent Remote Protocol (WARP)]({% link _backend/warp.md %}) enables bidirectional links to streaming API endpoints, called lanes, of URI-addressed distributed objects, called nodes, that run Web Agents.
 
-Continue reading to learn more about [Web Agents]({% link _backend/web-agents.md %}), [Lanes]({% link _backend/lanes.md %}), [Links]({% link _backend/links.md %}), and [Recon]({% link _backend/recon.md %}). Or dive into the [tutorials]({% link _tutorials/index.md %}) to learn by doing.
+Continue reading to learn more about [Web Agents]({% link _backend/web-agents-intro.md %}), [Lanes]({% link _backend/lanes-intro.md %}), [Links]({% link _backend/links-intro.md %}), and [Recon]({% link _backend/recon.md %}). Or dive into the [tutorials]({% link _tutorials/index.md %}) to learn by doing.

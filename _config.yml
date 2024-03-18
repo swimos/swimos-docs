@@ -109,10 +109,16 @@ collections:
       - index.md
       # Getting Started
       - fundamentals.md
-      - lane-organization.md
-      - agent-design.md
+      - web-agents-intro.md
+      - lanes-intro.md
+      - links-intro.md
+      - recon.md
+      - warp.md     
       - swim-libraries.md
-      # Swim Apps
+      # Design Guidelines
+      - agent-design.md
+      - lane-organization.md
+      # Swim App Templates
       - time-series.md
       - summary-statistics.md
       - aggregations.md
@@ -139,7 +145,6 @@ collections:
       - demand-map-lanes.md
       - planes.md
       - traits.md
-      - links.md
       - downlinks.md
       - server-downlinks.md
       - forms.md
@@ -148,8 +153,6 @@ collections:
       - egress-bridges.md
       - http-lanes.md
       - auth-policy.md
-      - recon.md
-      - warp.md
     weight: 1
   frontend:
     kind: docs

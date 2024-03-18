@@ -2,7 +2,7 @@
 title: Lane Organization
 short-title: Lane Organization
 description: Best practices for lane organization
-group: Getting Started
+group: Design Guidelines
 layout: documentation
 redirect_from:
   - /concepts/lane-organization.html

@@ -2,7 +2,7 @@
 title: Recon
 short-title: Recon
 description: "Learn about the structural data model called Recon, which is used by Swim to exchange streaming messages."
-group: Reference
+group: Getting Started
 layout: documentation
 redirect_from:
   - /concepts/recon/

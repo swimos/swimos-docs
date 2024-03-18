@@ -2,7 +2,7 @@
 title: Links
 short-title: Links
 description: "Learn how downlinks form references to the state of Web Agents."
-group: Reference
+group: Getting Started
 layout: documentation
 redirect_from:
   - /concepts/links/
