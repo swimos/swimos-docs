@@ -77,12 +77,13 @@ exclude:
 
 # Every top level section is actually a collection. Their files are in a _folder in src/
 collections:
-  devguide:
+  java_devguide:
+    label: Java Developer Guide
     kind: docs
     output: true
-    name: "Developer Guide"
-    description: An ordered guide through SwimOS.
-    permalink: /developer-guide/:name/
+    name: "Java Developer Guide"
+    description: An ordered guide through SwimOS Java.
+    permalink: /java/developer-guide/:name/
     order:
       - index.md
       # 1. Introduction
@@ -99,12 +100,87 @@ collections:
       # 3.1 Agent URIs
       # 3.2 Agent Properties
       # 3.3 Traits
-  backend:
+  rust_devguide:
+    label: Rust Developer Guide
     kind: docs
     output: true
-    name: "Backend"
-    description: Documentation about SwimOS fundamentals and CLI usage.
-    permalink: /backend/:name/
+    name: "Rust Developer Guide"
+    description: An ordered guide through SwimOS Rust.
+    permalink: /rust/developer-guide/:name/
+    order:
+      - index.md
+      # 1. Introduction
+      - 1-introduction.md
+      # 2. Getting Started
+      - 2-getting-started.md
+      - 2.1-swim-create.md
+      - 2.2-project-setup.md
+      - 2.3-hello-world.md
+      - 2.4-hello-agent.md
+      - 2.5-hello-lane.md
+      # 3. Agents
+      # 3.1 Agent Details (parallel, atomic, no constructor, logging)
+      # 3.1 Agent URIs
+      # 3.2 Agent Properties
+      # 3.3 Traits
+  java_backend:
+    kind: docs
+    output: true
+    name: "Java Backend"
+    description: Documentation about SwimOS Java fundamentals and CLI usage.
+    permalink: /java/backend/:name/
+    order:
+      - index.md
+      # Getting Started
+      - fundamentals.md
+      - lane-organization.md
+      - agent-design.md
+      - swim-libraries.md
+      # Swim Apps
+      - time-series.md
+      - summary-statistics.md
+      - aggregations.md
+      # Data Ingestion
+      - kafka-ingestion.md
+      - pulsar-ingestion.md
+      - mongodb-ingestion.md
+      - flink-connector.md
+      - jms-ingestion.md
+      - http-ingestion.md
+      # Utilities
+      - cli.md
+      - swim-create.md
+      - introspection.md
+      # Reference
+      - web-agents.md
+      - lanes.md
+      - command-lanes.md
+      - value-lanes.md
+      - map-lanes.md
+      - join-value-lanes.md
+      - join-map-lanes.md
+      - demand-value-lanes.md
+      - demand-map-lanes.md
+      - planes.md
+      - traits.md
+      - links.md
+      - downlinks.md
+      - server-downlinks.md
+      - forms.md
+      - timers.md
+      - ingress-bridges.md
+      - egress-bridges.md
+      - http-lanes.md
+      - auth-policy.md
+      - recon.md
+      - warp.md
+    weight: 1
+  rust_backend:
+    kind: docs
+    output: true
+    name: "Rust Backend"
+    description: Documentation about SwimOS Rust fundamentals.
+    permalink: /rust/backend/:name/
     order:
       - index.md
       # Getting Started
@@ -181,10 +257,22 @@ collections:
       # Integrations
       # - react.md
     weight: 1
-  tutorials:
+  java_tutorials:
     kind: docs
     output: true
-    name: "Tutorials"
+    name: "Java Tutorials"
+    permalink: /java/tutorials/:name/
+    order:
+      - index.md
+      - demos.md
+      - transit.md
+      - monitor.md
+    weight: 2
+  rust_tutorials:
+    kind: docs
+    output: true
+    name: "Rust Tutorials"
+    permalink: /rust/tutorials/:name/
     order:
       - index.md
       - demos.md
@@ -221,7 +309,7 @@ defaults:
 toc:
   list_id: toc # id of the <ul> for the toc
   list_class: mt-1 px-2 # We use TailwindCSS classes but you can also create your own
-  sublist_class: '' # We use TailwindCSS classes but you can also create your own
+  sublist_class: "" # We use TailwindCSS classes but you can also create your own
   item_class: hover:text-swim-blue block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-swim-body-text # You guessed it, more TailwindCSS classes.
   item_prefix: toc- # Adds a toc-* class to each list item for styling. Ex. toc-h2 for list items that refer to an h2 in the doc body.
 
@@ -235,8 +323,10 @@ announcement:
 
 feed:
   collections:
-    - tutorials
-    - backend
+    - java_tutorials
+    - java_backend
+    - rust_tutorials
+    - rust_backend
     - meta
 
 paginate: 9

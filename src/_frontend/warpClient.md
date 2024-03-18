@@ -9,7 +9,7 @@ redirect_from:
 
 {% include alert.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
 
-**WarpClient** is the class which behaves as the primary mechanism for handling connection management and link routing. WARP clients transparently multiplex all links to [**Web Agents**]({% link _backend/web-agents.md %}) on a given host over a single WebSocket connection, and automatically manage the network connection to each host, including reconnection and resynchronization after a network failure. Key lifecycle events may also be observed through the registration of callbacks.
+**WarpClient** is the class which behaves as the primary mechanism for handling connection management and link routing. WARP clients transparently multiplex all links to [**Web Agents**]({% link _java_backend/web-agents.md %}) on a given host over a single WebSocket connection, and automatically manage the network connection to each host, including reconnection and resynchronization after a network failure. Key lifecycle events may also be observed through the registration of callbacks.
 
 Besides managing connections and opening links (from here on called [**downlinks**]({% link _frontend/downlinks.md %})) to Web Agents, WARP clients do many other things. They can be used to send arbitrary WARP commands, provide authentication credentials for hosts, and create HostRef, NodeRef, and LaneRef scopes to facilitate downlink management. Additionally, when multiple downlinks are opened to the same lane of the same remote Web Agent, WARP clients seamlessly handle multicast event routing.
 
@@ -35,7 +35,7 @@ const globalClient = WarpClient.global();
 
 A [**downlink**]({% link _frontend/downlinks.md %}) provides a virtual bidirectional stream over which data can be synchronized between the client and a lane of a remote Web Agent. WARP clients transparently multiplex all links to Web Agents on a given host over a single WebSocket connection. A downlink represents one link in this scenario.
 
-`WarpClient` includes three methods that open different kinds of downlinks. The `downlink` method creates an EventDownlink for streaming raw events from any Web Agent lane. The `valueDownlink` method creates a ValueDownlink for synchronizing state with a Web Agent [value lane]({% link _backend/value-lanes.md %}). A ValueDownlink views its state as a @swim/structure [**Value**](/frontend/structures#value) by default, which itself may represent any kind of JavaScript value, be it primitive or composite. `Value`s may be coerced into a strongly-typed value by passing a `Form` to the `valueForm` option.  The `mapDownlink` method creates a MapDownlink. This type of downlink is useful for synchronizing state with any Web Agent lane backed by a map. In addition to [**map lanes**]({% link _backend/map-lanes.md %}), this includes [**join value lanes**]({% link _backend/join-value-lanes.md %}) and [**join map lanes**]({% link _backend/join-map-lanes.md %}), which are maps of other value lanes and maps lanes, respectively.
+`WarpClient` includes three methods that open different kinds of downlinks. The `downlink` method creates an EventDownlink for streaming raw events from any Web Agent lane. The `valueDownlink` method creates a ValueDownlink for synchronizing state with a Web Agent [value lane]({% link _java_backend/value-lanes.md %}). A ValueDownlink views its state as a @swim/structure [**Value**](/frontend/structures#value) by default, which itself may represent any kind of JavaScript value, be it primitive or composite. `Value`s may be coerced into a strongly-typed value by passing a `Form` to the `valueForm` option. The `mapDownlink` method creates a MapDownlink. This type of downlink is useful for synchronizing state with any Web Agent lane backed by a map. In addition to [**map lanes**]({% link _java_backend/map-lanes.md %}), this includes [**join value lanes**]({% link _java_backend/join-value-lanes.md %}) and [**join map lanes**]({% link _java_backend/join-map-lanes.md %}), which are maps of other value lanes and maps lanes, respectively.
 
 Here is an example of opening an EventDownlink. We will go into further detail on all of the downlink types in subsequent sections.
 
@@ -43,12 +43,11 @@ Here is an example of opening an EventDownlink. We will go into further detail o
 import { WarpClient } from "@swim/client";
 
 const client = new WarpClient();
-const downlink = client
-  .downlink({
-    hostUri: "warp://example.com",
-    nodeUri: "/building/1",
-    laneUri: "status"
-  })
+const downlink = client.downlink({
+  hostUri: "warp://example.com",
+  nodeUri: "/building/1",
+  laneUri: "status",
+});
 ```
 
 ## Observing Lifecycle Events
@@ -61,19 +60,19 @@ import { WarpClient } from "@swim/client";
 const client = new WarpClient();
 client.hostDidConnect = (host) => {
   console.log("connected to", host);
-}
+};
 client.hostDidDisconnect = (host) => {
   console.log("disconnected from", host);
-}
+};
 client.hostDidAuthenticate = (session, host) => {
   console.log("authenticated to", host, "with session", session.toLike());
-}
+};
 client.hostDidDeauthenticate = (reason, host) => {
   console.log("deauthenticated from", host, "because", reason.toLike());
-}
+};
 client.hostDidFail = (error, host) => {
   console.log("host", host, "failed because", error);
-}
+};
 ```
 
 ## Authentication
@@ -84,7 +83,7 @@ The `authenticate` method associates a credentials structure with a particular h
 import { WarpClient } from "@swim/client";
 
 const client = new WarpClient();
-client.authenticate("warps://example.com", {"@openId": jwt});
+client.authenticate("warps://example.com", { "@openId": jwt });
 ```
 
 Distinct `WarpClient` instances can be used to create isolated connection pools for different security domains.
@@ -93,10 +92,10 @@ Distinct `WarpClient` instances can be used to create isolated connection pools 
 import { WarpClient } from "@swim/client";
 
 const userClient = new WarpClient();
-userClient.authenticate("warps://example.com", {"@openId": userJwt});
+userClient.authenticate("warps://example.com", { "@openId": userJwt });
 
 const toolClient = new WarpClient();
-toolClient.authenticate("warps://example.com", {"@oauth": toolJwt});
+toolClient.authenticate("warps://example.com", { "@oauth": toolJwt });
 ```
 
 ## Sending Commands
@@ -128,11 +127,12 @@ A `HostRef` only needs a `hostUri` to be initialized.
 import { WarpClient } from "@swim/client";
 
 const hostRef = client.hostRef("warp://example.com");
-hostRef.downlink({
-  nodeUri: "house/kitchen",
-  laneUri: "light"
-})
-.open();
+hostRef
+  .downlink({
+    nodeUri: "house/kitchen",
+    laneUri: "light",
+  })
+  .open();
 ```
 
 The `HostRef.nodeRef` and `HostRef.laneRef` instance methods can be used to create further resolved WARP scopes.

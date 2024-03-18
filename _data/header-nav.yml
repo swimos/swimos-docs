@@ -47,36 +47,45 @@
 - section: Documentation
   id: documentation
   menu:
-    - group: Backend
+    - group: Java Backend
       items:
         - title: Backend Documentation
-          blurb: 
+          blurb:
           icon: "fa-solid fa-server"
-          url: /backend/
+          url: /java/backend/
         - title: Developer Guide
-          blurb: Learn SwimOS from the start
+          blurb: Learn SwimOS Java from the start
           icon: "fa-brands fa-java"
-          url: /developer-guide/
-    - group: Frontend
-      items:
-        - title: Frontend Documentation
-          blurb: 
-          icon: "fa-solid fa-code"
-          url: /frontend/
-    - group: Tutorials & Blog
-      items:
+          url: /java/developer-guide/
         - title: Tutorials
           blurb:
           icon: "fa-solid fa-graduation-cap"
-          url: /tutorials/
-        - title: Blog
-          blurb: 
-          icon: "fa-solid fa-rss"
-          url: /blog/
+          url: /java/tutorials/
+    - group: Rust Backend
+      items:
+        - title: Backend Documentation
+          blurb:
+          icon: "fa-solid fa-server"
+          url: /rust/backend/
+        - title: Rust Developer Guide
+          blurb: Learn SwimOS Rust from the start
+          icon: "fa-brands fa-java"
+          url: /rust/developer-guide/
+        - title: Tutorials
+          blurb:
+          icon: "fa-solid fa-graduation-cap"
+          url: /rust/tutorials/
+    - group: Frontend
+      items:
+        - title: Frontend Documentation
+          blurb:
+          icon: "fa-solid fa-code"
+          url: /frontend/
+
     # - group: Frontend
     #   items:
     #     - title: Swim UI Documentation
-    #       blurb: 
+    #       blurb:
     #       icon: "fa-solid fa-display"
     #       url: /frontend/
   more:
@@ -91,10 +100,10 @@
   menu:
     - group: Code
       items:
-      - title: GitHub
-        blurb: Check out Swim’s latest projects and commits on GitHub.
-        icon: "fa-brands fa-github"
-        url: https://github.com/swimos/swim
+        - title: GitHub
+          blurb: Check out Swim's latest projects and commits on GitHub.
+          icon: "fa-brands fa-github"
+          url: https://github.com/swimos/swim
       # Java Doc & JS info is updated in header.html
     - group: Contribute
       items:
@@ -103,7 +112,7 @@
           icon: "fa-solid fa-bug"
           url: https://github.com/swimos/swim/issues/new
         - title: Code of Conduct
-          blurb: 
+          blurb:
           icon: "fa-solid fa-people-roof"
           url: https://github.com/swimos/swimos-docs/blob/main/CODE_OF_CONDUCT.md
         - title: Contributor's Guide

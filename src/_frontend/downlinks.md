@@ -9,7 +9,7 @@ redirect_from:
 
 {% include alert.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
 
-A Downlink provides a virtual bidirectional stream between the client and a lane of a remote Web Agent. WARP clients transparently multiplex all links to [**Web Agents**]({% link _backend/web-agents.md %}) on a given host over a single WebSocket connection.
+A Downlink provides a virtual bidirectional stream between the client and a lane of a remote Web Agent. WARP clients transparently multiplex all links to [**Web Agents**]({% link _java_backend/web-agents.md %}) on a given host over a single WebSocket connection.
 
 Downlinks come in several flavors, depending on the WARP subprotocol to which they conform. A [**ValueDownlink**]({% link _frontend/valueDownlink.md %}) synchronizes a value with a remote value lane. A [**MapDownlink**]({% link _frontend/mapDownlink.md %}) implements the WARP map subprotocol to synchronize key-value state with a remote map lane. And an [**EventDownlink**]({% link _frontend/eventDownlink.md %}) observes raw WARP events, and can be used to observe lanes of any kind.
 
@@ -18,11 +18,12 @@ This article will focus on the properties and methods which all types of downlin
 ## Addressing Downlinks
 
 Before opening, a downlink must be addressed with the `hostUri`, `nodeUri`, and `laneUri` to which it should connect.
-* The `hostUri` is the domain name of the host application. It must always be prepended by either `warp://` or `warps://`.
-* The `nodeUri` is the path to the Web Agent to which you wish to connect. If following our [**recommended design**]({% link _backend/agent-design.md %}), Web Agents will represent identifiable domain elements (think, a noun) and include the name of the entity type in the node URI, possibly alongside an ID (e.g. `/hotel/room/:roomId`).
-* The `laneUri` is the most specific part of a downlink's address. A lane exposes a subset of a Web Agent's properties and methods. Lane content will vary greatly from lane to lane and will be heavily influenced by the subtype of lane to which it conforms.
 
-For an overview of Web Agents, lanes, and the general structure of a Swim application, visit [**SwimOS Concepts**]({% link _backend/fundamentals.md %}).
+- The `hostUri` is the domain name of the host application. It must always be prepended by either `warp://` or `warps://`.
+- The `nodeUri` is the path to the Web Agent to which you wish to connect. If following our [**recommended design**]({% link _java_backend/agent-design.md %}), Web Agents will represent identifiable domain elements (think, a noun) and include the name of the entity type in the node URI, possibly alongside an ID (e.g. `/hotel/room/:roomId`).
+- The `laneUri` is the most specific part of a downlink's address. A lane exposes a subset of a Web Agent's properties and methods. Lane content will vary greatly from lane to lane and will be heavily influenced by the subtype of lane to which it conforms.
+
+For an overview of Web Agents, lanes, and the general structure of a Swim application, visit [**SwimOS Concepts**]({% link _java_backend/fundamentals.md %}).
 
 The simplest and most common way to address a downlink is to pass an options object with the `hostUri`, `nodeUri`, and `laneUri` during initialization.
 
@@ -31,12 +32,11 @@ import { WarpClient } from "@swim/client";
 
 const client = new WarpClient();
 // set address within the downlink
-const hvacDownlink = client
-  .downlink({
-    hostUri: "warp://example.com",
-    nodeUri: "/hotel/room/123",
-    laneUri: "hvac",
-  });
+const hvacDownlink = client.downlink({
+  hostUri: "warp://example.com",
+  nodeUri: "/hotel/room/123",
+  laneUri: "hvac",
+});
 ```
 
 Additionally, all or part of a downlink's address can be inherited from the `WarpClient` which is being used to open the downlink. This approach can be useful to avoid repeating oneself or when working with a large number of links.
@@ -46,10 +46,9 @@ const client = new WarpClient();
 client.hostUri.set("warp://example.com");
 client.nodeUri.set("/hotel/room/123");
 // inherit hostUri and nodeUri defined on client
-const lightingDownlink = client
-  .downlink({
-    laneUri: "lighting",
-  });
+const lightingDownlink = client.downlink({
+  laneUri: "lighting",
+});
 ```
 
 ## Other Options
@@ -62,14 +61,13 @@ The `syncs` parameter determines whether or not a downlink should synchronize wi
 
 ```javascript
 const client = new WarpClient();
-const hvacDownlink = client
-  .downlink({
-    hostUri: "warp://example.com",
-    nodeUri: "/hotel/room/123",
-    laneUri: "hvac",
-    relinks: true, // will automatically attempt to reconnect after a network failure
-    syncs: false, // will not sychronize with remote lane state when opened; updates only
-  });
+const hvacDownlink = client.downlink({
+  hostUri: "warp://example.com",
+  nodeUri: "/hotel/room/123",
+  laneUri: "hvac",
+  relinks: true, // will automatically attempt to reconnect after a network failure
+  syncs: false, // will not sychronize with remote lane state when opened; updates only
+});
 ```
 
 ## Opening a Downlink
@@ -82,7 +80,7 @@ const downlink = client
   .downlink({
     hostUri: "warp://example.com",
     nodeUri: "/hotel/floor/1",
-    laneUri: "status"
+    laneUri: "status",
   })
   .open();
 
@@ -102,17 +100,26 @@ The `connected` method returns `true` if the underlying connection to the remote
 Here is an example of a downlink being opened with some registered callbacks for listening to connection status.
 
 ```javascript
-const downlink = client.current.downlink({
-  hostUri: "warp://example.com",
-  nodeUri: "hotel/room/123",
-  laneUri: "status",
-  didConnect: () => { console.log("didConnect"); },
-  didDisconnect: () => { console.log("didDisconnect"); },
-  didClose: () => { console.log("didClose"); },
-})
-.open();
+const downlink = client.current
+  .downlink({
+    hostUri: "warp://example.com",
+    nodeUri: "hotel/room/123",
+    laneUri: "status",
+    didConnect: () => {
+      console.log("didConnect");
+    },
+    didDisconnect: () => {
+      console.log("didDisconnect");
+    },
+    didClose: () => {
+      console.log("didClose");
+    },
+  })
+  .open();
 
-setTimeout(() => { downlink.close(); }, 1000);
+setTimeout(() => {
+  downlink.close();
+}, 1000);
 
 /* Output:
   didConnect
@@ -122,15 +129,22 @@ setTimeout(() => { downlink.close(); }, 1000);
 Here is what the same example would look like if, instead of calling `downlink.close()`, the client began to experience network issues or if the host suddenly went offline.
 
 ```javascript
-const downlink = client.current.downlink({
-  hostUri: "warp://example.com",
-  nodeUri: "hotel/room/123",
-  laneUri: "status",
-  didConnect: () => { console.log("didConnect"); },
-  didDisconnect: () => { console.log("didDisconnect"); },
-  didClose: () => { console.log("didClose"); },
-})
-.open();
+const downlink = client.current
+  .downlink({
+    hostUri: "warp://example.com",
+    nodeUri: "hotel/room/123",
+    laneUri: "status",
+    didConnect: () => {
+      console.log("didConnect");
+    },
+    didDisconnect: () => {
+      console.log("didDisconnect");
+    },
+    didClose: () => {
+      console.log("didClose");
+    },
+  })
+  .open();
 
 /* (some network issues) */
 
@@ -143,11 +157,11 @@ In the case that a downlink attempts to connect with a node (web agent) or lane 
 
 ```javascript
 // WARP message received after network connection issue
-"@unlink(node:\"/hotel/room/123\",lane:status)"
+"@unlink(node:\"/hotel/room/123\",lane:status)";
 // WARP message received after web agent not found
-"@unlinked(node:\"/hotel/room/invalid_room_number\",lane:status)@nodeNotFound"
+"@unlinked(node:\"/hotel/room/invalid_room_number\",lane:status)@nodeNotFound";
 // WARP message received after lane not found
-"@unlinked(node:\"/hotel/room/123\",lane:invalid_lane_name)@laneNotFound"
+"@unlinked(node:\"/hotel/room/123\",lane:invalid_lane_name)@laneNotFound";
 ```
 
 ### Linking and Syncing
@@ -161,21 +175,36 @@ The `synced` method returns `true` if the WARP link is currently synchronized wi
 Take this example of opening a simple `ValueDownlink`. Notice that `syncs` is set to `false` so we see "willLink" logged to output.
 
 ```javascript
-const downlink = client.current.downlinkValue({
-  hostUri: "warp://example.com",
-  nodeUri: "hotel/room/123",
-  laneUri: "status",
-  syncs: true,
-  willLink: () => { console.log("willLink"); },
-  didLink: () => { console.log("didLink"); },
-  willSync: () => { console.log("willSync"); },
-  didSync: () => { console.log("didSync"); },
-  didSet: () => { console.log("didSet"); },
-  didClose: () => { console.log("didClose"); },
-})
-.open();
+const downlink = client.current
+  .downlinkValue({
+    hostUri: "warp://example.com",
+    nodeUri: "hotel/room/123",
+    laneUri: "status",
+    syncs: true,
+    willLink: () => {
+      console.log("willLink");
+    },
+    didLink: () => {
+      console.log("didLink");
+    },
+    willSync: () => {
+      console.log("willSync");
+    },
+    didSync: () => {
+      console.log("didSync");
+    },
+    didSet: () => {
+      console.log("didSet");
+    },
+    didClose: () => {
+      console.log("didClose");
+    },
+  })
+  .open();
 
-setTimeout(() => { downlink.close(); }, 1000);
+setTimeout(() => {
+  downlink.close();
+}, 1000);
 
 /* Output:
   willLink
@@ -183,24 +212,39 @@ setTimeout(() => { downlink.close(); }, 1000);
   didClose */
 ```
 
-When `syncs` is set to `true`, "didSync" appears and "willSyncs" replaces "willLink". 
+When `syncs` is set to `true`, "didSync" appears and "willSyncs" replaces "willLink".
 
 ```javascript
-const downlink = client.current.downlinkValue({
-  hostUri: "warp://example.com",
-  nodeUri: "hotel/room/123",
-  laneUri: "status",
-  syncs: true,
-  willLink: () => { console.log("willLink"); },
-  didLink: () => { console.log("didLink"); },
-  willSync: () => { console.log("willSync"); },
-  didSync: () => { console.log("didSync"); },
-  didSet: () => { console.log("didSet"); },
-  didClose: () => { console.log("didClose"); },
-})
-.open();
+const downlink = client.current
+  .downlinkValue({
+    hostUri: "warp://example.com",
+    nodeUri: "hotel/room/123",
+    laneUri: "status",
+    syncs: true,
+    willLink: () => {
+      console.log("willLink");
+    },
+    didLink: () => {
+      console.log("didLink");
+    },
+    willSync: () => {
+      console.log("willSync");
+    },
+    didSync: () => {
+      console.log("didSync");
+    },
+    didSet: () => {
+      console.log("didSet");
+    },
+    didClose: () => {
+      console.log("didClose");
+    },
+  })
+  .open();
 
-setTimeout(() => { downlink.close(); }, 1000);
+setTimeout(() => {
+  downlink.close();
+}, 1000);
 
 /* Output:
   willSync

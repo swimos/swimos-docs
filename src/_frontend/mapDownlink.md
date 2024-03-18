@@ -9,7 +9,7 @@ redirect_from:
 
 {% include alert.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
 
-A MapDownlink synchronizes a shared real-time key-value map with with any Web Agent lane backed by a map. In addition to [**map lanes**]({% link _backend/map-lanes.md %}), this includes [**join value lanes**]({% link _backend/join-value-lanes.md %}) and [**join map lanes**]({% link _backend/join-map-lanes.md %}), which are maps where each entry is its own value lane or maps lane, respectively. In addition to the standard Downlink callbacks, MapDownlink supports registering `didUpdate`, and `didRemove` callbacks for observing changes to downlinked map state — whether remote or local. `didUpdate` is invoked when an existing map key is updated or a new key is added. `didRemove` gets called when a map key is removed.
+A MapDownlink synchronizes a shared real-time key-value map with with any Web Agent lane backed by a map. In addition to [**map lanes**]({% link _java_backend/map-lanes.md %}), this includes [**join value lanes**]({% link _java_backend/join-value-lanes.md %}) and [**join map lanes**]({% link _java_backend/join-map-lanes.md %}), which are maps where each entry is its own value lane or maps lane, respectively. In addition to the standard Downlink callbacks, MapDownlink supports registering `didUpdate`, and `didRemove` callbacks for observing changes to downlinked map state — whether remote or local. `didUpdate` is invoked when an existing map key is updated or a new key is added. `didRemove` gets called when a map key is removed.
 
 Create a MapDownlink with a WARP client's `downlinkMap` method.
 
@@ -18,12 +18,13 @@ MapDownlink implements the standard JavaScript Map interface. Use the `get` meth
 ```typescript
 import { WarpClient } from "@swim/client";
 
-const mapDownlink = client.downlinkMap({
-  hostUri: "warp://example.com",
-  nodeUri: "/hotel/lobby",
-  laneUri: "elevators"
-})
-.open();
+const mapDownlink = client
+  .downlinkMap({
+    hostUri: "warp://example.com",
+    nodeUri: "/hotel/lobby",
+    laneUri: "elevators",
+  })
+  .open();
 mapDownlink.get("guest"); // get the locally cached value associated with the key
 mapDownlink.set("service", newElevator); // locally and remotely insert a new entry
 mapDownlink.delete("parking"); // locally and remotely remove an existing entry
@@ -38,10 +39,10 @@ mapDownlink.didUpdate = (key, value) => {
   } else {
     // insert new UI view for key
   }
-}
+};
 mapDownlink.didRemove((key) => {
   // remove UI view for key
-})
+});
 ```
 
 ## State Type Disambiguation
@@ -69,14 +70,15 @@ MapDownlink state may also be given a type annotation. All that is required is f
 import { WarpClient } from "@swim/client";
 import { Form } from "@swim/structure";
 
-const elevators = client.downlinkValue<Record<string, Elevator>>({
-  hostUri: "warp://example.com",
-  nodeUri: "/hotel/lobby",
-  laneUri: "elevators",
-  keyForm: Form.forString(),
-  valueForm: new ElevatorForm(),
-})
-.open();
+const elevators = client
+  .downlinkValue<Record<string, Elevator>>({
+    hostUri: "warp://example.com",
+    nodeUri: "/hotel/lobby",
+    laneUri: "elevators",
+    keyForm: Form.forString(),
+    valueForm: new ElevatorForm(),
+  })
+  .open();
 
 // typed Elevators object
 elevators.get("guest"); // { id: 12345, currentFloor: 1, occupied: false, lastInspection: 1707216815650 }
