@@ -18,5 +18,5 @@ While we'll cover the 'how' of building streaming apps, if you're interested in 
 
 # Who This Guide Is For
 
-This guide assumes that you've written code in Java before, as such we will not explain any Java specific features or syntax.
+This guide assumes that you've written code in Rust before, as such we will not explain any Rust specific features or syntax.
 We will focus on features of the SwimOS framework which by design aren't overly complex to use, although some background knowledge of software development technologies is required.

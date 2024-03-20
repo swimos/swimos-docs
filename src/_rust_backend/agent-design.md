@@ -14,11 +14,11 @@ In this guide we will discuss some best practices and ideas for designing and mo
 
 ## Entity Modeling
 
-**Entities** are identifiable domain elements (the nouns) and Swim **nodes** are addressable groupings of stateful agents which perform some logic.
+**Entities** are identifiable domain elements and Swim **nodes** are addressable groupings of stateful agents which perform some logic.
 Comparing the two definitions, we get a pretty good idea of how to map our entities to nodes, (almost) one-to-one.
 
 Anything **uniquely addressable** can be mapped to a node.
-This can be singleton such as a node representing the whole system (`/system`), some entity type with a globally unique id (`/vehicle/:id`), or entities where some composite unique address can be constructed (`/building/:buildingId/room/:roomId`, since roomId is only unique to each building).
+This can be singleton such as a node representing the whole system (`/system`), some entity type with a globally unique id (`/vehicle/:id`), or entities where some composite unique address can be constructed (`/building/:buildingId/room/:roomId`, since `roomId` is only unique to each building).
 
 As nodes are composed of one or more agents, that **have state** and **perform logic**, it follows that entities that don't have any or much behavior need not be a node.
 For example, lights in a room may be uniquely addressable however, if they are simply a boolean value of on or off, it may be cleaner to roll them up into a lane of the parent room node.
