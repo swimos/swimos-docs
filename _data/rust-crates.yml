@@ -1,6 +1,7 @@
 # SwimOS crates
 swimos-version: 0.1.0
 swimos-client-version: 0.1.0
+swimos-form-version: 0.1.0
 
 # Support crates
 tokio-version: 1.3
