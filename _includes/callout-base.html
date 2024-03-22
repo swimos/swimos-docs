@@ -1,0 +1,30 @@
+
+{% if include.title or include.text %}
+<div class="rounded-md {{ include.backgroundColor }} p-4 my-5 border {{ include.borderColor }}">
+  <div class="flex">
+      <div class="flex-shrink-0">
+          {% if include.icon %}
+            <div class="callout-icon-container h-8 w-8 flex justify-center items-center">
+              <i class="text-[24px] h-6 w-6 {{ include.icon }} {{ include.iconColor }}" />
+            </div>
+          {% else %}
+            <p>include.icon not found</p>
+          {% endif %}
+      </div>
+      <div class="ml-3">
+          {% if include.title %}
+              <h3 class="text-lg font-medium {{ include.textStyle or 'text-swim-body-text' }} mt-1 no_toc">
+                  {{ include.title }}
+              </h3>
+          {% endif %}
+          {% if include.text %}
+              <div class="mt-2 text-sm {{ include.textStyle or 'text-swim-body-text' }}">
+                  <p>
+                    {{ include.text }}
+                  </p>
+              </div>
+          {% endif %}
+      </div>
+  </div>
+</div>
+{% endif %}

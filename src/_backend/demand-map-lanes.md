@@ -84,7 +84,7 @@ public class UnitAgent extends AbstractAgent {
 }
 ```
 
-{% include alert.html title='Caution' text='If you have multiple lanes within an Agent type, ensure that their laneUris are not identical. Suppose we declare two different value lanes within our <strong>UnitAgent</strong> with laneUri <strong>"info"</strong>; how does the Swim runtime know which one to set? That said, reusing laneUris <strong>across</strong> Agent types is perfectly acceptable, as requests corresponding to these are guaranteed to have different nodeUris.' %}
+{% include callout-warning.html title='Caution' text='If you have multiple lanes within an Agent type, ensure that their laneUris are not identical. Suppose we declare two different value lanes within our <strong>UnitAgent</strong> with laneUri <strong>"info"</strong>; how does the Swim runtime know which one to set? That said, reusing laneUris <strong>across</strong> Agent types is perfectly acceptable, as requests corresponding to these are guaranteed to have different nodeUris.' %}
 
 ### Linking to Map Lane and `cue(K key)`
 

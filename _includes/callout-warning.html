@@ -1,0 +1,19 @@
+{% capture passThroughTitle %}
+{{ include.title }}
+{% endcapture %}
+
+{% capture passThroughText %}
+{{ include.text }}
+{% endcapture %}
+
+{% include
+  callout-base.html
+  icon="fa-solid fa-triangle-exclamation"
+  iconColor="text-swim-teal"
+  backgroundColor="bg-swim-dark-blue"
+  borderColor="border-none"
+  title=passThroughTitle
+  titleStyles='text-white'
+  text=passThroughText
+  textStyle='text-white [&_strong]:text-swim-teal [&_a]:text-swim-teal'
+%}

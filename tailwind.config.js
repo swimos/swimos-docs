@@ -4,6 +4,7 @@ module.exports = {
     './_includes/**/*.html',
     './_layouts/**/*.html',
     './_posts/*.md',
+    './_meta/*.md',
     './*.md',
     './*.html',
   ],
@@ -109,6 +110,12 @@ module.exports = {
       },
     },
   },
+  safelist: [
+    // include all possible tailwind color and border options in production build; supports passing custom styles to callout-base.html
+    { pattern: /bg-+/ },
+    { pattern: /border-+/ },
+    { pattern: /text-+/ },
+  ],
   plugins: [
       require('@tailwindcss/forms'),
       require('@tailwindcss/typography'),

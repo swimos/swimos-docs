@@ -7,7 +7,7 @@ layout: documentation
 redirect_from:
 ---
 
-{% include alert.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
+{% include callout-warning.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
 
 A Form defines a conversion between a structural type, and some nominal JavaScript type. The `mold` method converts a nominal JavaScript type to an Item. And the `cast` method converts an Item to a nominal JavaScript type, if possible.
 
