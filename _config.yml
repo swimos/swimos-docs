@@ -77,12 +77,28 @@ exclude:
 
 # Every top level section is actually a collection. Their files are in a _folder in src/
 collections:
-  devguide:
+# Server Documentation
+  getting-started:
+    kind: docs
+    output: true
+    name: "Java Server Getting Started"
+    description: Getting started guide
+    permalink: /server/getting-started/:name
+    order:
+      - index.md
+      - fundamentals.md
+      - web-agents-intro.md
+      - lanes-intro.md
+      - links-intro.md
+      - recon.md
+      - warp.md     
+      - swim-libraries.md
+  java-server-devguide:
     kind: docs
     output: true
     name: "Developer Guide"
     description: An ordered guide through SwimOS.
-    permalink: /developer-guide/:name/
+    permalink: /server/java/developer-guide/:name
     order:
       - index.md
       # 1. Introduction
@@ -99,22 +115,25 @@ collections:
       # 3.1 Agent URIs
       # 3.2 Agent Properties
       # 3.3 Traits
-  backend:
+  java-server-tutorials:
     kind: docs
     output: true
-    name: "Backend"
-    description: Documentation about SwimOS fundamentals and CLI usage.
-    permalink: /backend/:name/
+    name: "Tutorials"
+    description: Java Tutorials
+    permalink: /server/java/tutorials/:name
     order:
       - index.md
-      # Getting Started
-      - fundamentals.md
-      - web-agents-intro.md
-      - lanes-intro.md
-      - links-intro.md
-      - recon.md
-      - warp.md     
-      - swim-libraries.md
+      - demos.md
+      - transit.md
+      - monitor.md
+  java-server:
+    kind: docs
+    output: true
+    name: "Java Server"
+    description: Java server docs
+    permalink: /server/java/:name
+    order:
+      - index.md
       # Design Guidelines
       - agent-design.md
       - lane-organization.md
@@ -153,13 +172,38 @@ collections:
       - egress-bridges.md
       - http-lanes.md
       - auth-policy.md
-    weight: 1
-  frontend:
+  # Rust Server
+  rust-server:
     kind: docs
     output: true
-    name: "Frontend"
+    name: "Rust Server"
+    description: Documentation for SwimOS Java Client
+    permalink: /server/rust/:name
+    order:
+      - index.md
+  rust-server-devguide:
+    kind: docs
+    output: true
+    name: "Rust Server Dev Guide"
+    description: Documentation for SwimOS Java Client
+    permalink: /server/rust/developer-guide/:name
+    order:
+      - index.md
+  rust-server-tutorials:
+    kind: docs
+    output: true
+    name: "Rust Server Tutorials"
+    description: Documentation for SwimOS Java Client
+    permalink: /server/rust/tutorials/:name
+    order:
+      - index.md
+# Client Docs
+  typescript-client:
+    kind: docs
+    output: true
+    name: "Client"
     description: Documentation about streaming data from SwimOS apps for use in UIs.
-    permalink: /frontend/:name/
+    permalink: /client/typescript/:name
     order:
       - index.md
       # Introduction
@@ -183,17 +227,22 @@ collections:
       # Examples/Demos
       # Integrations
       # - react.md
-    weight: 1
-  tutorials:
+  java-client:
     kind: docs
     output: true
-    name: "Tutorials"
+    name: "Java Client"
+    description: Documentation for SwimOS Java Client
+    permalink: /client/java/:name
     order:
       - index.md
-      - demos.md
-      - transit.md
-      - monitor.md
-    weight: 2
+  rust-client:
+    kind: docs
+    output: true
+    name: "Rust Client"
+    description: Documentation for SwimOS Java Client
+    permalink: /client/rust/:name
+    order:
+      - index.md
   meta:
     output: true
     name: "Meta"
@@ -202,7 +251,6 @@ collections:
       - contribute.md
       - diataxis.md
       - styles.md
-    weight: 3
 
 # The directory that contains our collections
 collections_dir: src
@@ -236,11 +284,11 @@ announcement:
   text: "We'll be at booth #9001."
   cta-link: "https://nstream.io/"
 
-feed:
-  collections:
-    - tutorials
-    - backend
-    - meta
+# feed:
+#   collections:
+#     - tutorials
+#     - server
+#     - meta
 
 paginate: 9
 paginate_path: "/blog/page/:num"

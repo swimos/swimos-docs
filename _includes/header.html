@@ -10,7 +10,7 @@
       <!-- Desktop menu -->
       <div class="hidden lg:flex">
       {% for section in site.data.header-nav %}
-        <div x-cloak x-data="{ open: false }" class="group flex" @mouseenter="open = true" @mouseleave="open = false">
+        <div x-data="{ open: false }" class="group flex" @mouseenter="open = true" @mouseleave="open = false">
           <!-- Section menu button -->
           <button class="relative flex items-center px-4 cursor-pointer">
             <span class="mr-1 text-sm tracking-wider font-medium uppercase whitespace-nowrap text-white group-hover:text-swim-blue transition ease-out">{{ section.section }}</span>

@@ -54,21 +54,49 @@
     <div class="relative flex grow justify-end">
       <!-- Desktop menu -->
       <div class="hidden lg:flex">
-      {% for collection in collections | where: "output", true %}
+
+        {% if page.url contains "/getting-started/" %}
+        <a href="{% link _java-server/index.md %}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Java</a>
+        <a href="{% link _rust-server/index.md %}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Rust</a>
+      {% endif %}
+
+      {% if page.url contains "/server/java/" %}
+        <a href="{% link _getting-started/index.md %}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Getting Started</a>
+        <a href="{% link _java-server-devguide/index.md %}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Dev Guide</a>
+        <a href="{% link _java-server-tutorials/index.md %}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Tutorials</a>
+        <a href="{% link _java-server/index.md %}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Reference</a>
+      {% endif %}
+
+      {% if page.url contains "/server/rust/" %}
+        <a href="{% link _getting-started/index.md %}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Getting Started</a>
+        <a href="{% link _rust-server-devguide/index.md %}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Dev Guide</a>
+        <a href="{% link _rust-server-tutorials/index.md %}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Tutorials</a>
+        <a href="{% link _rust-server/index.md %}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Reference</a>
+      {% endif %}
+
+      {% if page.url contains "/client/" %}
+        <a href="{% link _typescript-client/index.md %}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Typescript</a>
+        <a href="{% link _java-client/index.md %}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Java</a>
+        <a href="{% link _rust-client/index.md %}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">Rust</a>
+      {% endif %}
+
+
+
+      <!-- {% for collection in collections | where: "output", true %}
         <a href="{{ collection.docs[0].url | relative_url }}" class="flex items-center px-4 text-sm tracking-wide whitespace-nowrap text-white hover:text-swim-blue cursor-pointer transition ease-out" :class="{ 'text-swim-teal': !scrolled, 'text-swim-teal': scrolled }">{{ collection.name }}</a>
-      {% endfor %}
+      {% endfor %} -->
       </div>
     </div>
 
-    <!-- Search button -->
-    <div class="flex px-2">
+    <!-- TODO: Search button -->
+    <!-- <div class="flex px-2">
       <button type="button" class="flex justify-center items-center w-12 text-kaimurasaki-900 hover:text-swim-blue transition ease-out" :class="{ 'text-kaimurasaki-900': !scrolled, 'text-kaimurasaki-100': scrolled }">
         <span class="sr-only">Search</span>
         <svg viewBox="0 0 24 24" class="block w-6 h-6">
           <path fill="currentcolor" d="M19.6,21L13.3,14.7C12.8,15.1,12.22,15.42,11.57,15.65C10.93,15.88,10.23,16,9.5,16C7.68,16,6.15,15.37,4.89,14.11C3.63,12.85,3,11.32,3,9.5C3,7.68,3.63,6.15,4.89,4.89C6.15,3.63,7.68,3,9.5,3C11.32,3,12.85,3.63,14.11,4.89C15.37,6.15,16,7.68,16,9.5C16,10.23,15.88,10.93,15.65,11.57C15.42,12.22,15.1,12.8,14.7,13.3L21,19.6L19.6,21ZM9.5,14C10.75,14,11.81,13.56,12.69,12.69C13.56,11.81,14,10.75,14,9.5C14,8.25,13.56,7.19,12.69,6.31C11.81,5.44,10.75,5,9.5,5C8.25,5,7.19,5.44,6.31,6.31C5.44,7.19,5,8.25,5,9.5C5,10.75,5.44,11.81,6.31,12.69C7.19,13.56,8.25,14,9.5,14Z"/>
         </svg>
       </button>
-    </div>
+    </div> -->
 
     <!-- Mobile menu -->
     <div id="docs-mobile-menu" role="dialog" aria-modal="true" class="lg:hidden absolute w-full inset-x-0 top-full -bottom-[calc(100vh-100%)] bg-black/20 backdrop-blur-sm transition ease-out" x-cloak x-show="shown" x-transition:enter-start="opacity-0" x-transition:leave-end="opacity-0">
