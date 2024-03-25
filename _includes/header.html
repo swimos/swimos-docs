@@ -1,4 +1,4 @@
-<nav x-cloak x-data="{ shown: false, scrolled: {% if include.sticky %}window.pageYOffset >= 40{% else %}false{% endif %} }" class="{% if include.sticky %}sticky top-0 inset-x-0 {% else %}relative {% endif %}basis-full bg-swim-dark-blue z-30 transition ease-out duration-300 before:absolute before:inset-0 before:backdrop-blur before:-z-[1]" :class="{ 'bg-swim-dark-blue': !scrolled, 'bg-swim-dark-blue shadow-md': scrolled }"{% if include.sticky %} @scroll.window="scrolled = window.pageYOffset >= 40"{% endif %}>
+<nav x-data="{ shown: false, scrolled: {% if include.sticky %}window.pageYOffset >= 40{% else %}false{% endif %} }" class="{% if include.sticky %}sticky top-0 inset-x-0 {% else %}relative {% endif %}basis-full bg-swim-dark-blue z-30 transition ease-out duration-300 before:absolute before:inset-0 before:backdrop-blur before:-z-[1]" :class="{ 'bg-swim-dark-blue': !scrolled, 'bg-swim-dark-blue shadow-md': scrolled }"{% if include.sticky %} @scroll.window="scrolled = window.pageYOffset >= 40"{% endif %}>
   <!-- Navigation bar -->
   <div class="flex max-w-screen-xl h-[60px] lg:h-[80px] mx-auto px-2 lg:px-4">
     <!-- Brand -->
@@ -10,17 +10,17 @@
       <!-- Desktop menu -->
       <div class="hidden lg:flex">
       {% for section in site.data.header-nav %}
-        <div x-cloak x-data="{ open: false }" class="group flex" @mouseenter="open = true" @mouseleave="open = false">
+        <div x-data="{ open: false }" class="group flex" @mouseenter="open = true" @mouseleave="open = false">
           <!-- Section menu button -->
           <button class="relative flex items-center px-4 cursor-pointer">
             <span class="mr-1 text-sm tracking-wider font-medium uppercase whitespace-nowrap text-white group-hover:text-swim-blue transition ease-out">{{ section.section }}</span>
-            <svg aria-hidden="true" viewBox="0 0 20 20" class="absolute w-5 h-5 bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2{% if page.section == section.id %} text-white group-hover:text-swim-blue{% else %} text-swim-blue{% endif %} transition ease-out"{% if page.section != section.id %} x-cloak x-show="open" x-transition:enter-start="opacity-0" x-transition:leave-end="opacity-0"{% endif %}>
+            <svg aria-hidden="true" viewBox="0 0 20 20" class="hidden absolute w-5 h-5 bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white group-hover:text-swim-blue group-hover:block transition ease-out">
               <path fill="currentcolor" d="M1.51,7L3.64,4.88L7.88,9.12L5.76,11.24L1.51,7ZM7.88,13.36L16.36,4.88L18.49,7L10,15.49L7.88,13.36Z"/>
             </svg>
           </button>
           <!-- Section menu popover -->
-          <div role="dialog" class="absolute top-full inset-x-0 max-h-[calc(100vh-100%-40px)] flex transition ease-out" :class="{ 'drop-shadow-lg': !scrolled }" x-cloak x-show="open" x-transition:enter-start="opacity-0" x-transition:leave="delay-75" x-transition:leave-end="opacity-0">
-            <div class="flex flex-col grow border-t-2 border-t-vermilion bg-swim-dark-blue rounded-b-lg transition ease-out" :class="{ 'bg-swim-dark-blue': !scrolled, 'bg-swim-dark-blue backdrop-blur': scrolled }">
+          <div x-cloak x-show="open" role="dialog" class="absolute top-full inset-x-0 max-h-[calc(100vh-100%-40px)] flex transition ease-out" :class="{ 'drop-shadow-lg': !scrolled }" x-transition:enter-start="opacity-0" x-transition:leave="delay-75" x-transition:leave-end="opacity-0">
+            <div class="flex flex-col grow border-t-2 border-t-swim-blue bg-swim-dark-blue rounded-b-lg transition ease-out" :class="{ 'bg-swim-dark-blue': !scrolled, 'bg-swim-dark-blue backdrop-blur': scrolled }">
               <!-- Sub-section groups -->
               <div class="grow columns-2 gap-x-8 gap-y-1 px-4{% if section.more %} pt-4 pb-2{% else %} py-4{% endif %} text-white overflow-y-auto overscroll-y-contain">
               {% for group in section.menu %}
