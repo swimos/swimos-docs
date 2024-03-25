@@ -1,3 +1,8 @@
+---
+redirect_from:
+  - /blog/2024/1/16/fine-grained-streaming-apis-from-a-kafka-topic.html
+---
+
 # Fine-Grained Streaming APIs from a Kafka Topic
 
 ## What is a fine-grained streaming API?
