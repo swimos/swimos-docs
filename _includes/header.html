@@ -1,5 +1,4 @@
 <nav
-  x-cloak
   x-data="{ shown: false, scrolled: {% if include.sticky %}window.pageYOffset >= 40{% else %}false{% endif %} }"
   class="{% if include.sticky %}sticky top-0 inset-x-0 {% else %}relative {% endif %}basis-full bg-swim-dark-blue z-30 transition ease-out duration-300 before:absolute before:inset-0 before:backdrop-blur before:-z-[1]"
   :class="{ 'bg-swim-dark-blue': !scrolled, 'bg-swim-dark-blue shadow-md': scrolled }"
