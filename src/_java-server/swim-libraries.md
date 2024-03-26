@@ -62,7 +62,7 @@ The Swim JavaScript Client is a WARP streaming API client for Node.js and browse
 npm i @swim/client@dev
 ```
 
-Visit the [**frontend documentation**](/frontend) for more on how to write a JavaScript client application.
+Visit the [**frontend documentation**]({% link _typescript-client/index.md %}) for more on how to write a JavaScript client application.
 
 ### Next Steps
 

@@ -7,6 +7,7 @@ layout: documentation
 redirect_from:
   - /concepts/links/
   - /reference/links.html
+toc: false
 ---
 
 Central to programming is the ability to create pointers, or references, to things. Pointers are much more than memory addresses. Pointers often represent usage restrictions (think `const`, or `volatile`). And modern CPUs even use pointers as caching hints, pre-fetching data that might eventually be used in a computation. Swim takes the idea of pointers to the next level, enabling streaming references to the lanes of remote Web Agents, with strong consistency guarantees.
@@ -54,4 +55,4 @@ yourName.close();
 
 Links are point-to-point, and unbuffered, making them real-time within the latency of the network and CPU.
 
-Jump ahead to [Recon]({% link _getting-started/recon.md %}) to find out how lanes and links represent data internally. Dive into the [tutorials]({% link _java-server-tutorials/index.md %}) to see how links get used in a real application. Or read on to learn more about the different kinds of links, their properties, and their guarantees.
+Jump ahead to [Recon]({% link _swimos-concepts/recon.md %}) to find out how lanes and links represent data internally. Dive into the [tutorials]({% link _java-server-tutorials/index.md %}) to see how links get used in a real application. Or read on to learn more about the different kinds of links, their properties, and their guarantees.

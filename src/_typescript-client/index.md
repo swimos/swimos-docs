@@ -1,8 +1,8 @@
 ---
-title: Frontend
+title: Client
 permalink: /client/typescript/
 layout: documentation
-description: "Frontend SwimOS"
+description: "Typescript Client for SwimOS"
 toc: false
 ---
 

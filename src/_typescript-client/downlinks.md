@@ -22,7 +22,7 @@ Before opening, a downlink must be addressed with the `hostUri`, `nodeUri`, and 
 * The `nodeUri` is the path to the Web Agent to which you wish to connect. If following our [**recommended design**]({% link _java-server/agent-design.md %}), Web Agents will represent identifiable domain elements (think, a noun) and include the name of the entity type in the node URI, possibly alongside an ID (e.g. `/hotel/room/:roomId`).
 * The `laneUri` is the most specific part of a downlink's address. A lane exposes a subset of a Web Agent's properties and methods. Lane content will vary greatly from lane to lane and will be heavily influenced by the subtype of lane to which it conforms.
 
-For an overview of Web Agents, lanes, and the general structure of a Swim application, visit [**SwimOS Concepts**]({% link _getting-started/fundamentals.md %}).
+For an overview of Web Agents, lanes, and the general structure of a Swim application, visit [**SwimOS Concepts**]({% link _swimos-concepts/fundamentals.md %}).
 
 The simplest and most common way to address a downlink is to pass an options object with the `hostUri`, `nodeUri`, and `laneUri` during initialization.
 
@@ -156,7 +156,7 @@ The `linked` method returns `true` if the logical WARP link is currently open. C
 
 The `synced` method returns `true` if the WARP link is currently synchronized with the state of the remote lane. Users may observe synchronization using the `willSync` and `didSync` methods.
 
-`willLink` and `willSync` are both preemptive observers; they will be called regardless of the success or failure of the subsequent linking or syncing operations. Furthermore, because of the WARP messages the client sends to open a downlink, only one of either `willLink` or `willSync` will be invoked when a downlink is opened. Which observer gets called depends on the value of [`syncs`](/frontend/downlinks#other-options). When the value of `syncs` is `false`, a WARP message with the "@link" tag is sent to the host; when `syncs` is `true`, a message with the "@sync" tag is sent instead. When the host receives a "@sync" WARP message it understands that it must perform all of the logic triggered by a "@link" message and, additionally, sync state between it and the new client.
+`willLink` and `willSync` are both preemptive observers; they will be called regardless of the success or failure of the subsequent linking or syncing operations. Furthermore, because of the WARP messages the client sends to open a downlink, only one of either `willLink` or `willSync` will be invoked when a downlink is opened. Which observer gets called depends on the value of [`syncs`]({% link _typescript-client/downlinks.md %}). When the value of `syncs` is `false`, a WARP message with the "@link" tag is sent to the host; when `syncs` is `true`, a message with the "@sync" tag is sent instead. When the host receives a "@sync" WARP message it understands that it must perform all of the logic triggered by a "@link" message and, additionally, sync state between it and the new client.
 
 Take this example of opening a simple `ValueDownlink`. Notice that `syncs` is set to `false` so we see "willLink" logged to output.
 

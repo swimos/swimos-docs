@@ -93,7 +93,7 @@ Server-side, downlinks are explained in the [Server Downlinks guide]({% link _ja
 
 ### JavaScript
 
-For details on using downlinks with JavaScript, visit the [**downlinks**]({% link _typescript-client/downlinks.md %}) article in our [**frontend documentation**](/frontend)
+For details on using downlinks with JavaScript, visit the [**downlinks**]({% link _typescript-client/downlinks.md %}) article in our [**frontend documentation**]({% link _typescript-client/index.md %})
 
 Furthermore, the tutorial application demonstrates [using value downlinks](https://github.com/swimos/tutorial/blob/master/ui/pie.html#L58-L67){:data-proofer-ignore=''} and [map downlinks](https://github.com/swimos/tutorial/blob/master/ui/chart.html#L69-L79){:data-proofer-ignore=''} issued against a Swim client instance. Note the language-level loss of parametrization, but the otherwise-identical syntax to Java.
 

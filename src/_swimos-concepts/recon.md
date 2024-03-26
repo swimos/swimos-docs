@@ -7,6 +7,7 @@ layout: documentation
 redirect_from:
   - /concepts/recon/
   - /reference/recon.html
+toc: false
 ---
 
 Web Agents and their lanes define the entities and associated operations of a streaming API. But this definition is incomplete without also defining the data structures supported by each operation. Swim uses a simple, structural data model, called **Recon**, to exchange streaming messages.
@@ -20,4 +21,4 @@ Recon was designed to meet a number of key requirements:
 - **simple grammar** to facilitate many compatible implementations
 - **universal data type** compatible with JSON, XML, and other popular data languages
 
-Jump ahead to [WARP]({% link _getting-started/warp.md %}) to see how Recon is used as the wire format for a multiplexed streaming network protocol. Dive into the [tutorials]({% link _java-server-tutorials/index.md %}) to see how Recon is used in practice to serialize application objects. Or read on to learn more about the unique properties of Recon.
+Jump ahead to [WARP]({% link _swimos-concepts/warp.md %}) to see how Recon is used as the wire format for a multiplexed streaming network protocol. Dive into the [tutorials]({% link _java-server-tutorials/index.md %}) to see how Recon is used in practice to serialize application objects. Or read on to learn more about the unique properties of Recon.

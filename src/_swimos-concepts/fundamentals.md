@@ -49,22 +49,22 @@ Swim unifies the traditionally disparate roles of database, message broker, job 
 
 ### Web Agents
 
-Swim applications consist of interconnected, distributed objects, called [Web Agents]({% link _getting-started/web-agents-intro.md %}). Each Web Agent has URI address, like a REST endpoint. But unlike RESTful Web Services, Web Agents are stateful, and accessed via streaming APIs.
+Swim applications consist of interconnected, distributed objects, called [Web Agents]({% link _swimos-concepts/web-agents-intro.md %}). Each Web Agent has URI address, like a REST endpoint. But unlike RESTful Web Services, Web Agents are stateful, and accessed via streaming APIs.
 
 ### Lanes
 
-If Web Agents are distributed objects, then [lanes]({% link _getting-started/lanes-intro.md %}) serve as the properties and methods of those objects. Lanes come in many flavors: **value lanes**, **map lanes**, **command lanes**, and **join lanes**, to name a few. Many lanes are internally persistent, acting like encapsulated database tables.
+If Web Agents are distributed objects, then [lanes]({% link _swimos-concepts/lanes-intro.md %}) serve as the properties and methods of those objects. Lanes come in many flavors: **value lanes**, **map lanes**, **command lanes**, and **join lanes**, to name a few. Many lanes are internally persistent, acting like encapsulated database tables.
 
 ### Links
 
-Distributed objects need a way to communicate. [Links]({% link _getting-started/links-intro.md %}) establishes active references to lanes of Web Agents, transparently streaming bidirectional state changes to keep all parts of an application in sync, without the overhead of queries or remote procedure calls.
+Distributed objects need a way to communicate. [Links]({% link _swimos-concepts/links-intro.md %}) establishes active references to lanes of Web Agents, transparently streaming bidirectional state changes to keep all parts of an application in sync, without the overhead of queries or remote procedure calls.
 
 ### Recon
 
-Communication only works if all parties understand each other. Swim natively speaks a universal, structured data language, called [Recon]({% link _getting-started/recon.md %}). A superset of JSON, XML, Protocol Buffers, and more, Recon naturally translates into many languages. Declare, definine, and utilize Web Agents and their properties using these configuration files.
+Communication only works if all parties understand each other. Swim natively speaks a universal, structured data language, called [Recon]({% link _swimos-concepts/recon.md %}). A superset of JSON, XML, Protocol Buffers, and more, Recon naturally translates into many languages. Declare, definine, and utilize Web Agents and their properties using these configuration files.
 
 ### WARP
 
-The [Web Agent Remote Protocol (WARP)]({% link _getting-started/warp.md %}) enables bidirectional links to streaming API endpoints, called lanes, of URI-addressed distributed objects, called nodes, that run Web Agents.
+The [Web Agent Remote Protocol (WARP)]({% link _swimos-concepts/warp.md %}) enables bidirectional links to streaming API endpoints, called lanes, of URI-addressed distributed objects, called nodes, that run Web Agents.
 
-Continue reading to learn more about [Web Agents]({% link _getting-started/web-agents-intro.md %}), [Lanes]({% link _getting-started/lanes-intro.md %}), [Links]({% link _getting-started/links-intro.md %}), and [Recon]({% link _getting-started/recon.md %}). Or dive into the [tutorials]({% link _java-server-tutorials/index.md %}) to learn by doing.
+Continue reading to learn more about [Web Agents]({% link _swimos-concepts/web-agents-intro.md %}), [Lanes]({% link _swimos-concepts/lanes-intro.md %}), [Links]({% link _swimos-concepts/links-intro.md %}), and [Recon]({% link _swimos-concepts/recon.md %}). Or dive into the [tutorials]({% link _java-server-tutorials/index.md %}) to learn by doing.

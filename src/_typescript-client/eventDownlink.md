@@ -25,7 +25,7 @@ const downlink = client.downlink({
 .open();
 ```
 
-Note the term that is used to refer to the kinds of events which trigger `onEvent`: "updates". Think of this as events which involve some state change. This could mean adding or removing keys to or from a map-based lane, or updating a ValueDownlink's synced value. WARP messages related to a downlink's connection state, such as those with the "link", "linked", "sync", "synced", "unlink", and "unlinked" tags, are not processed by the `onEvent` callback. `onEvent` is passed a single parameter of type [**Value**]( /frontend/structures#value ).
+Note the term that is used to refer to the kinds of events which trigger `onEvent`: "updates". Think of this as events which involve some state change. This could mean adding or removing keys to or from a map-based lane, or updating a ValueDownlink's synced value. WARP messages related to a downlink's connection state, such as those with the "link", "linked", "sync", "synced", "unlink", and "unlinked" tags, are not processed by the `onEvent` callback. `onEvent` is passed a single parameter of type [**Value**]({% link _typescript-client/structures.md %}).
 
 An application may update UI views and other dependent components in response to any messages received from the Web Agent within the `onEvent` callback. Extending the EventDownlink created above, here is an example where we update some DOM element to display the amount of electricity a home has consumed this month. In this example, the remote web agent lane is a value lane.
 

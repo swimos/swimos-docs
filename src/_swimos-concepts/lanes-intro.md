@@ -7,6 +7,7 @@ layout: documentation
 redirect_from:
   - /concepts/lanes/
   - /reference/lanes.html
+toc: false
 ---
 
 Distributed objects aren't very useful without properties to store state, and methods to trigger actions. Enter **lanes**. Each Web Agent has a set of named lanes, representing the properties and methods of the Web Agent.
@@ -51,4 +52,4 @@ class Person {
 
 Not much difference. But the former instantiates distributable, automatically persistent, continuously consistent Web Agents, accessible via multiplexed streaming APIs. And the latter instantiates ephemeral Java objects.
 
-Jump ahead to [links]({% link _getting-started/links-intro.md %}) to find out more about streaming APIs. Dive into the [tutorials]({% link _java-server-tutorials/index.md %}) to see how lanes are used in practice. Or read on to learn more about the various kinds of lanes available in Swim.
+Jump ahead to [links]({% link _swimos-concepts/links-intro.md %}) to find out more about streaming APIs. Dive into the [tutorials]({% link _java-server-tutorials/index.md %}) to see how lanes are used in practice. Or read on to learn more about the various kinds of lanes available in Swim.

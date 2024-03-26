@@ -7,6 +7,7 @@ layout: documentation
 redirect_from:
   - /concepts/warp/
   - /reference/warp.html
+toc: false
 ---
 
 The internet routes packets between physical or virtual machines, identified by IP addresses. On top of the internet sits the World Wide Web you're using right now, which routes requests and responses for Web Resources, identified by URIs. The Web was built for documents. But treating everything like a document is quite limiting. A smart city isn't a document; it's a continuously evolving digital mirror of reality.
