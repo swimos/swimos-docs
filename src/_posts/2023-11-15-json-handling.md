@@ -1,3 +1,8 @@
+---
+redirect_from:
+  - /blog/2023/11/15/json-handling.html
+---
+
 # Handling JSON data with SwimOS
 
 ## Overview

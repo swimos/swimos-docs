@@ -64,6 +64,8 @@ pre.highlight .copy-button:active, pre.highlight .copy-button:focus, pre.highlig
     background-color: #333333;
 }
 
+[x-cloak] { display: none !important; }
+
 /* Custom styles above this line */
 
 @tailwind utilities;

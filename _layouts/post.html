@@ -5,9 +5,12 @@
 {%- include head.html -%}
 
 <body class="overflow-x-hidden">
-    {%- include header.html sticky=true -%}
-    <div class="flex flex-wrap items-start bg-eggshell-100">
+    {% include google-tag-noscript.html %}
+
+    <div class="flex flex-wrap items-start bg-white">
+        <!-- Header -->
         {%- include banner.html -%}
+        {%- include header.html sticky=true -%}
 
         <!-- Left margin -->
         <div class="grow lg:grow-0 xl:grow basis-[1px]"></div>
@@ -18,20 +21,14 @@
             class="w-screen max-w-[768px] lg:w-[784px] lg:max-w-[784px] xl:w-[800px] xl:max-w-[800px] grow lg:grow-0 px-6 lg:px-8 xl:px-10 py-14 lg:py-20 lg:mb-14 prose prose-code:before:hidden prose-code:after:hidden">
             <time datetime="{{ page.date | date: '%Y-%m-%d' }}"
                 class="mb-0 text-lg font-medium leading-7 text-vermilion">{{ page.date | date: "%B %e, %Y" }}</time>
-            <h1 class="mt-2 mb-6 lg:mb-10 text-4xl sm:text-5xl font-semibold text-kaimurasaki">
+            <h1 class="mt-2 mb-6 lg:mb-10 text-4xl sm:text-5xl font-semibold text-swim-dark-blue">
                 {{ page.title }}
             </h1>
-
             {{ content }}
-
-            <div class="flex justify-between my-4">
-                {% if page.previous.url %}
-                <a class="prev" href="{{ page.previous.url | absolute_url }}">&laquo; Previous post</a>
-                {% endif %}
-                {% if page.next.url %}
-                <a class="next" href="{{ page.next.url | absolute_url }}">Next post &raquo;</a>
-                {% endif %}
-            </div>
+            
+            
+            <hr class="mb-0 border-t-swim-dark-blue"/>
+            {%- include prev-next.html -%}
         </main>
 
         <!-- User details and share post side bar -->
@@ -52,7 +49,7 @@
         </aside>
 
         <!-- Right margin -->
-        <p class="grow lg:grow-0 xl:grow basis-[1px]"></p>
+        <div class="grow lg:grow-0 xl:grow basis-[1px] xl:basis-4"></div>
 
     </div>
     {%- include footer.html -%}
