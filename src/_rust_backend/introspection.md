@@ -80,7 +80,7 @@ Output:
 ```
 
 We see that the server has several `building` and `room` nodes, we have a URI, start time and agent list for each.
-Notice the room nodes have two agents, a `RoomAgent` and `RoomSimulatorAgent` - see more on multiple agents in the [`traits`]({% link _rust_backend/traits.md %}) reference.
+Notice the room nodes have two agents, a `RoomAgent` and `RoomSimulatorAgent`.
 
 This lane can also list all child node URIs of a parent, giving the ability to list all nodes of a given type.
 We can do this by adding a parameter onto the `nodes` lane with `#` followed by the pattern of a node URI, ending with `/`.

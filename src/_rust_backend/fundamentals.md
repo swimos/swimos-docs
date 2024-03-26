@@ -61,10 +61,10 @@ Distributed objects need a way to communicate. [Links]({% link _rust_backend/lin
 
 ### Recon
 
-Communication only works if all parties understand each other. Swim natively speaks a universal, structured data language, called [Recon]({% link _rust_backend/recon.md %}). A superset of JSON, XML, Protocol Buffers, and more, Recon naturally translates into many languages. Declare, definine, and utilize Web Agents and their properties using these configuration files.
+Communication only works if all parties understand each other. Swim natively speaks a universal, structured data language, called Recon. A superset of JSON, XML, Protocol Buffers, and more, Recon naturally translates into many languages. Declare, definine, and utilize Web Agents and their properties using these configuration files.
 
 ### WARP
 
-The [Web Agent Remote Protocol (WARP)]({% link _rust_backend/warp.md %}) enables bidirectional links to streaming API endpoints, called lanes, of URI-addressed distributed objects, called nodes, that run Web Agents.
+The Web Agent Remote Protocol (WARP) enables bidirectional links to streaming API endpoints, called lanes, of URI-addressed distributed objects, called nodes, that run Web Agents.
 
-Continue reading to learn more about [Web Agents]({% link _rust_backend/web-agents.md %}), [Lanes]({% link _rust_backend/lanes.md %}), [Links]({% link _rust_backend/links.md %}), and [Recon]({% link _rust_backend/recon.md %}). Or dive into the [tutorials]({% link _rust_tutorials/index.md %}) to learn by doing.
+Continue reading to learn more about [Web Agents]({% link _rust_backend/web-agents.md %}), [Lanes]({% link _rust_backend/lanes.md %}), [Links]({% link _rust_backend/links.md %}), and Recon. Or dive into the [tutorials]({% link _rust_tutorials/index.md %}) to learn by doing.

@@ -52,6 +52,4 @@ When you're no longer interested in the state of a remote lane, you can close a 
 yourName.close();
 ```
 
-Links are point-to-point, and unbuffered, making them real-time within the latency of the network and CPU.
-
-Jump ahead to [Recon]({% link _rust_backend/recon.md %}) to find out how lanes and links represent data internally. Dive into the [tutorials]({% link _rust_tutorials/index.md %}) to see how links get used in a real application. Or read on to learn more about the different kinds of links, their properties, and their guarantees.
+Links are point-to-point, and unbuffered, making them real-time within the latency of the network and CPU. Dive into the [tutorials]({% link _rust_tutorials/index.md %}) to see how links get used in a real application. Or read on to learn more about the different kinds of links, their properties, and their guarantees.

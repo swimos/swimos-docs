@@ -188,22 +188,8 @@ collections:
       - lane-organization.md
       - agent-design.md
       - swim-libraries.md
-      # Swim Apps
-      - time-series.md
-      - summary-statistics.md
-      - aggregations.md
-      # Data Ingestion
-      - kafka-ingestion.md
-      - pulsar-ingestion.md
-      - mongodb-ingestion.md
-      - flink-connector.md
-      - jms-ingestion.md
-      - http-ingestion.md
-      # Utilities
-      - cli.md
-      - swim-create.md
-      - introspection.md
       # Reference
+      - server.md
       - web-agents.md
       - lanes.md
       - command-lanes.md
@@ -214,18 +200,20 @@ collections:
       - demand-value-lanes.md
       - demand-map-lanes.md
       - planes.md
-      - traits.md
       - links.md
       - downlinks.md
       - server-downlinks.md
       - forms.md
       - timers.md
-      - ingress-bridges.md
-      - egress-bridges.md
       - http-lanes.md
-      - auth-policy.md
-      - recon.md
-      - warp.md
+      - persistence.md
+      # Swim Apps
+      - time-series.md
+      - summary-statistics.md
+      - aggregations.md
+      # Utilities
+      - cli.md
+      - introspection.md
     weight: 1
   frontend:
     kind: docs

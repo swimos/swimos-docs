@@ -22,169 +22,123 @@ Don't worry if these points feel restrictive through this article; much finer co
 
 ### Declaration
 
-Just like with (instantiable) `class` declarations in Java, **Agent declarations** in Swim define the behavior for **instances** of those Agents.
+Just like with (instantiable) `struct` declarations in Rust, **Agent declarations** in Swim define the behavior for **instances** of those Agents.
 Declarations alone don't actually instantiate anything.
 
-To declare a Web Agent, extend the `AbstractAgent` class from the `swim.api` module:
+To declare a Web Agent, both agent and lifecycle structs must be declared:
 
-```java
-// swim/basic/UnitAgent.java
-package swim.basic;
+```rust
+use swim_os::agent::{projections, AgentLaneModel, lifecycle};
 
-import swim.api.agent.AbstractAgent;
+#[derive(AgentLaneModel)]
+#[projections]
+pub struct ExampleAgent {
+    lane: ValueLane<i32>,
+}
 
-public class UnitAgent extends AbstractAgent {
+#[derive(Clone)]
+pub struct ExampleLifecycle;
 
+#[lifecycle(ExampleAgent)]
+impl ExampleLifecycle;
+```
+
+`#[derive(AgentLaneModel)]` derives the necessary traits for the agent; its schema and a constructor. To interact with lanes and their state, operations are performed through lifecycle handlers which provide access to a `HandlerContext` which requires a projection to the lane that you wish to perform some action against; this is covered in more detail in the [lanes]({% link _rust_backend/lanes.md %}) page. The `#[projections]` macro generates these projections for you which in the above example generates:
+
+```rust
+impl ExampleAgent {
+    pub LANE: fn(&ExampleAgent) -> &ValueLane<i32>
 }
 ```
 
-### External Addressability
+If the lifecycle contains no fields, then the `#[lifecycle(ExampleAgent)]` macro is used to automatically generate the specified agent's lifecycle. Agents must **only** contain lanes and no other state. If this is required, it must be placed within the lifecycle of the agent and its constructor must be manually provided - which is covered later in this guide.
 
-Every Web Agent has a universal, logical address, in the form of a URI.
-The URI of a custom `PlanetAgent` might look something like `"/planet/Mercury"`.
-That of a singleton `SunAgent` might just look like `"/sun"`.
-By decoupling Web Agent's logical addresses from the network addresses of their host machines, Swim applications become invariant to the infrastructure on which they're deployed.
+### Addressability
 
-Each Web Agent is aware of its own URI, available via its `nodeUri()` method.
-Let's add a simple utility method to each `UnitAgent` to help us identify the Agent from which a logged message originated.
+A Web Agent is only instantiated when it's `nodeUri` is invoked for the first time through addressing one of the lanes contained within the agent; though, an incorrectly addressed lane will still cause the agent to be instantiated.
 
-```java
-// swim/basic/UnitAgent.java
-package swim.basic;
+Node addresses come in two flavours:
 
-import swim.api.agent.AbstractAgent;
+- Static: such as `"/sensors"`. If a static path is used, only one agent will ever exist at that address.
+- Dynamic: such as `"/sensor/:id`. For each unique address, a new agent will be instantiated. It is possible to get the route parameters (in our example, `"id`) that the agent was started with through the `HandlerContext` which is provided to agent lifecycle functions.
 
-public class UnitAgent extends AbstractAgent {
-  private void logMessage(Object msg) {
-    System.out.println(nodeUri() + ": " + msg);
-  }
+When designing your Web Agents, carefully consider how you will be producing and consuming your data. If you were designing a system that contained a large number of sensors, it may make more sense to have sensor be its own Web Agent that is addressed through a dynamic address of `"/sensor/:id"` rather than rolling them all up into a static path. This would allow for a subscriber to receive only the specific state updates that they require rather than subscribing to the state changes of every sensor.
+
+### Agent Lifecycle Callbacks
+
+There are two lifecycle callbacks associated with a Web Agent:
+
+`on_start`: executed once immediately after this Agent has started:
+
+```rust
+use swim_os::agent::agent_lifecycle::utility::HandlerContext;
+
+impl ExampleAgent {
+    #[on_start]
+    pub fn on_start(
+        &self,
+        context: HandlerContext<ExampleAgent>,
+    ) -> impl EventHandler<ExampleAgent> {
+        context.get_agent_uri().and_then(move |uri| {
+            context.effect(move || {
+                println!("Starting agent at: {}", uri);
+            })
+        })
+    }
 }
 ```
 
-### Instantiation
+`on_stop`: executed once immediately before this Agent will stop:
 
-For an Agent to know its **own** identifier is only half of the problem.
-To address the other half, every Swim server runs a **plane** that manages the runtime of and provides a shared context for a group of Web Agents.
+```rust
+use swim_os::agent::agent_lifecycle::utility::HandlerContext;
 
-One of a plane's many responsibilities is to resolve Agent URIs for requests.
-
-To declare a Web Agent's URI, simply define a node with URI in the server configuration file.
-
-To declare a dynamic component, we prepend with a colon (:) for the agent id.
-
-```
-# server.recon
-basic: @fabric {
-  @plane(class: "swim.basic.BasicPlane")
-  # Static Component
-  # Notice usage of 'uri' keyword for a static component.
-  @node {
-    uri: "/unit/foo"
-    @agent(class: "swim.basic.UnitAgent")
-  }
-
-  # Dynamic Component
-  # Notice usage of 'pattern' keyword for a dynamic component.
-  @node {
-    pattern: "/unit/:id"
-    @agent(class: "swim.basic.UnitAgent")
-  }
-}
-
-@web(port: 9001) {
-  space: "basic"
-  @websocket {
-    serverCompressionLevel: 0# -1 = default; 0 = off; 1-9 = deflate level
-    clientCompressionLevel: 0# -1 = default; 0 = off; 1-9 = deflate level
-  }
+impl ExampleAgent {
+    #[on_start]
+    pub fn on_stop(
+        &self,
+        context: HandlerContext<ExampleAgent>,
+    ) -> impl EventHandler<ExampleAgent> {
+        context.get_agent_uri().and_then(move |uri| {
+            context.effect(move || {
+                println!("Stopping at: {}", uri);
+            })
+        })
+    }
 }
 ```
 
-Statically defined agents (illustrated using 'uri' keyword) are automatically instantiated by the corresponding Swim Plane.
+A Web Agent may stop if it has not received a message after a configurable period of time has elapsed; this is configurable through (todo rust doc link). If an agent has stopped and it receives a message, then the agent will restart and the `on_start` method will be invoked.
 
-A Dynamic Web Agent is only instantiated when its `nodeUri` is invoked for the first time.
-With the code we have so far, we can instantiate any number of `UnitAgent`s by either defining them in the configuration file or by invoking URIs with the `"/unit/"` prefix.
-For example, if we invoke `"/unit/1"`, `"/unit/foo"`, and `"/unit/foo_1"`, three `UnitAgent`s will be instantiated, one for each URI.
+### Persistence
 
-{% include alert.html title='Caution' text='If you have multiple agent types within a plane, ensure that their URI patterns do not **clash**. This is a stricter requirement than saying that the patterns are <strong>identical</strong>; for example, <strong>"/unit/:id"</strong> and <strong>"/unit/:foo"</strong> clash. Suppose these same patterns annotated different agent types; how would a plane know which type of Agent to seek or instantiate for the request <strong>"/unit/1"</strong>?' %}
+When enabled, messages propagated by a lane are guaranteed to have been persisted to the configured store. By default, all lanes within a Web Agent will have their state persisted to the store. If this is not desired, it is possible to disable persistence for a lane by applying the `#[lane(transient)]` attribute to a lane or apply disable persistence at the agent level by using `#[agent(transient)]`
 
-In addition to the `nodeUri()` method mentioned in the previous section, every Agent also has access to a `Value getProp(String prop)` convenience method.
-This returns a `swim.structure.Text` object containing the value of the dynamic `nodeUri` component with the name `prop`, `absent()` if it doesn't exist.
-For example, `getProp("id").stringValue()` will return either `"1"`, `"foo"`, or `"foo_1"`, depending on which of the above three agents we are currently running in. `getProp("foo")` will return `absent()`.
+For a single lane:
 
-Further reading: [Planes]({% link _rust_backend/planes.md %})
+```rust
+use swim_os::{agent::lanes::MapLane, AgentLaneModel};
 
-### Lifecycle Callbacks
-
-Recall that Web Agent methods are not directly invoked.
-Instead, the Swim runtime schedules and executes callbacks stages of an Agent's lifecycle. For the most part, you will only care about two:
-
-- `void didStart()`: executed once immediately after this Agent has started
-- `void willStop()`: executed once immediately before this Agent will stop
-
-```java
-// swim/basic/UnitAgent.java
-package swim.basic;
-
-import swim.api.agent.AbstractAgent;
-
-public class UnitAgent extends AbstractAgent {
-  @Override
-  public void didStart() {
-    logMessage("didStart");
-  }
-
-  @Override
-  public void willStop() {
-    logMessage("willStop");
-  }
-
-  private void logMessage(Object msg) {
-    System.out.println(nodeUri() + ": " + msg);
-  }
+#[derive(AgentLaneModel)]
+pub struct ExampleAgent {
+    #[lane(transient)]
+    temporary: MapLane<String, i32>
 }
 ```
 
-### Try It Yourself
+To disable persistence for every lane you could apply the `#[lane(transient)]` attribute to every lane or use:
 
-A standalone project that combines all of these snippets and handles any remaining boilerplate is available [here](https://github.com/swimos/cookbook/tree/master/web_agents).
+```rust
+use swim_os::{agent::{lanes::MapLane, ValueLane}, AgentLaneModel};
 
-## Web Agent Principles
+#[derive(AgentLaneModel)]
+#[agent(transient)]
+pub struct ExampleAgent {
+    count: ValueLane<i32>,
+    names: MapLane<String, String>
+}
+```
 
-### Universally Addressable
+When an agent first starts, it will attempt to load the state of all the lanes from the configured store. Any lanes marked as `transient` will not have any state reloaded.
 
-Every Web Agent has a universal, logical address, in the form of a URI. By decoupling Web Agent's logical addresses from the network addresses of their host machines, Swim applications become invariant to the infrastructure on which they're deployed.
-
-### Stateful
-
-Web Agents remember their state in-between operations, eliminating the need for constant database round-trips, and greatly simplifying application development by avoiding object-relational mapping.
-
-### Atomic
-
-Each Web Agent executes in a single thread at a time. Though as many distinct Web Agents execute in parallel as you have CPU cores. Combined with a built-in software transactional memory model, Web Agents are naturally atomic, without the overhead of locks or transactions.
-
-### Consistent
-
-Together, Web Agents, Lanes, and Links implement a continuous consistency model that's largely transparent developers. Web Agents applications just stays consistent. Continuously. In network real-time.
-
-### Encapsulated
-
-The only way in or out of a Web Agent is through links to its lanes. This gives Web Agents total control over the exposure of sensitive data. There's no database to compromise.
-
-### Persistent
-
-Databases aren't the only way to store data. Web Agents are internally persistent. By taking persistence off the critical path, the single biggest bottleneck to application performances instantly vanishes. While still letting you keep all the data you have space for.
-
-### Bounded
-
-Intrinsic and pervasive backpressure handling automatically adapts the behavior of your application based on network, disk, and CPU availability. And because of its continuous consistency model, developers, for the most part, don't have to care.
-
-### Decentralized
-
-Web Agents inherit the natural decentralization of the World Wide Web. Any Web Agent can link to any other, given its URI, and appropriate permissions.
-
-### Composable
-
-Unlink REST applications, which don't compose well without introducing significantly polling latency, caching overhead, and consistency problems, Web Agents frictionlessly compose, in real-time, at any scale.
-
-As the name implies, Web Agents were designed from first principles to be first class citizens of the World Wide Web. The Web has evolved from a world-wide hypertext library, into the lingua franca of distributed applications. But the technical foundation of the Web, stateless remote procedurce calls over HTTP, is fundamentally incapable of meeting the needs of modern, autonomous, collaborative applications. Web Agents aim to fill that gap.
+For more details on Web Agent persistence see the [persistence]({% link _rust_backend/persistence.md %}) page.
