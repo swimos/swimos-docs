@@ -1,8 +1,8 @@
 ---
-title: Server - Getting Started
+title: SwimOS Concepts
 layout: documentation
 description: "Getting Started with SwimOS"
-permalink: /server/getting-started/
+permalink: /swimos-concepts/
 toc: false
 ---
 
