@@ -1,3 +1,8 @@
+---
+redirect_from:
+  - /blog/2024/1/11/rest-apis-to-streaming-apis.html
+---
+
 # Transform REST APIs into Fine-Grained Streaming APIs
 
 ## What is a fine-grained streaming API?
