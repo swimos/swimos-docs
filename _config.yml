@@ -213,8 +213,9 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      permalink: "/blog/:year/:i_month/:i_day/:title:output_ext"
+      permalink: "/blog/:year/:i_month/:i_day/:title"
       author: "swim"
+      toc: false
   - scope:
       path: ""
     values:
