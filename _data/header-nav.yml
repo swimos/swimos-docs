@@ -109,7 +109,7 @@
         - title: Contributor's Guide
           blurb: Learn how to contribute to SwimOS and SwimOS docs.
           icon: "fa-solid fa-screwdriver-wrench"
-          url: https://www.swimos.org/meta/contribute.html
+          url: /meta/contribute.html
   more:
     - name: YouTube
       icon: "fa-brands fa-youtube"
