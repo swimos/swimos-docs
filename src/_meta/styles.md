@@ -88,18 +88,6 @@ You can add informational callouts to any document by including the `callout-inf
 
 {% include callout-info.html title='FYI' text='Here is something you might want to know. You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
 
-### Warnings
-
-You can add warning callouts to any document by including the `callout-warning.html` template located at `_includes/callout-warning.html`.
-
-{% raw %}
-```liquid
-{% include callout-warning.html title='Look out!' text='This is the warning body text. You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
-```
-{% endraw %}
-
-{% include callout-warning.html title='Look out!' text='This is the warning body text. You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
-
 ### OK
 
 When things are going well you can call attention to it by including the `callout-ok.html` template located at `_includes/callout-ok.html`.
@@ -111,6 +99,18 @@ When things are going well you can call attention to it by including the `callou
 {% endraw %}
 
 {% include callout-ok.html title='Huzzah!' text='All of my code works and I actually understand why! You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
+
+### Warnings
+
+You can add warning callouts to any document by including the `callout-warning.html` template located at `_includes/callout-warning.html`.
+
+{% raw %}
+```liquid
+{% include callout-warning.html title='Look out!' text='This is the warning body text. You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
+```
+{% endraw %}
+
+{% include callout-warning.html title='Look out!' text='This is the warning body text. You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
 
 ### Errors and Other Bad Stuff
 
@@ -126,15 +126,15 @@ Inversely, when something is bad or has gone wrong, you can use the `callout-bad
 
 ### Custom Callouts
 
-For custom callouts you may use the base callout template located at `_includes/callout-base.html`. Since no pre-defined variant is being used, individual callout properties must each be provided, including: `icon`, `iconColor`, `borderColor`, `backgroundColor`, `title`, `titleStyles`, `text`, and `textStyles`. For the `icon` property, provide the font-awesome CSS classes which correspond to the desired icon. Lastly, be aware that with some background colors you may encounter contrast issues with some of the markup text (e.g. links on a royal blue background).
+For custom callouts you may use the base callout template located at `_includes/callout-base.html`. Since no pre-defined variant is being used, individual callout properties must each be provided, including: `icon`, `iconColor`, `border`, `backgroundColor`, `title`, `titleStyles`, `text`, and `textStyles`. For the `icon` property, provide the font-awesome CSS classes which correspond to the desired icon. Lastly, be aware that with some background colors you may encounter contrast issues with some of the markup text (e.g. links on a royal blue background), so please be sure to address that.
 
 {% raw %}
 ```liquid
-{% include callout-base.html icon='fa-solid fa-circle-question' iconColor='text-purple-500' borderColor='border-purple-500 border-4' backgroundColor='bg-purple-300' title='A Special Case' text='Feel free to apply any combination of text, border, or background Tailwind styles here.' %}
+{% include callout-base.html icon='fa-solid fa-circle-question' iconColor='text-purple-500' border='border-purple-500 border-4 border-dashed' backgroundColor='bg-purple-300' title='A Special Case' text='Feel free to apply any combination of text, border, or background Tailwind styles here.' %}
 ```
 {% endraw %}
 
-{% include callout-base.html icon='fa-solid fa-circle-question' iconColor='text-purple-500' borderColor='border-purple-500 border-4' backgroundColor='bg-purple-300' title='A Special Case' text='Feel free to apply any combination of text, border, or background Tailwind styles here.' %}
+{% include callout-base.html icon='fa-solid fa-circle-question' iconColor='text-purple-500' border='border-purple-500 border-4 border-dashed' backgroundColor='bg-purple-300' title='A Special Case' text='Feel free to apply any combination of text, border, or background Tailwind styles here.' %}
 
 ## Cookbook Banner
 
