@@ -69,12 +69,12 @@
     #       blurb: 
     #       icon: "fa-solid fa-code"
     #       url: /client/
-    - group: Rust
-      items:
-        - title: Server Documentation
-          blurb:
-          icon: "fa-solid fa-graduation-cap"
-          url: /server/rust/
+    # - group: Rust
+    #   items:
+    #     - title: Server Documentation
+    #       blurb:
+    #       icon: "fa-solid fa-graduation-cap"
+    #       url: /server/rust/
     # - group: Tutorials & Blog
     #   items:
     #     - title: Tutorials
@@ -107,18 +107,18 @@
           blurb: 
           icon: "fa-solid fa-display"
           url: /client/typescript/
-    - group: Java
-      items:
-        - title: Java Documentation
-          blurb: 
-          icon: "fa-solid fa-display"
-          url: /client/java/
-    - group: Rust
-      items:
-        - title: Rust Documentation
-          blurb:
-          icon: "fa-solid fa-display"
-          url: /client/rust/
+    # - group: Java
+    #   items:
+    #     - title: Java Documentation
+    #       blurb: 
+    #       icon: "fa-solid fa-display"
+    #       url: /client/java/
+    # - group: Rust
+    #   items:
+    #     - title: Rust Documentation
+    #       blurb:
+    #       icon: "fa-solid fa-display"
+    #       url: /client/rust/
 # - section: Documentation
 #   id: documentation
 #   menu:
