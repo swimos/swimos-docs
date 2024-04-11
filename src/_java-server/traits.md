@@ -8,6 +8,7 @@ cookbook: https://github.com/swimos/cookbook/tree/master/traits
 redirect_from:
   - /tutorials/traits/
   - /reference/traits.html
+  - /backend/traits/
 ---
 
 In the [Planes guide]({% link _java-server/planes.md %}), we describe a distributed object model to facilitate shared context for a group of **Web Agents**. In this guide we describe the concept of **'Trait'** utilized for sharing of data across multiple **Web Agents.** 

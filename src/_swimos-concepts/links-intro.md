@@ -7,6 +7,7 @@ layout: documentation
 redirect_from:
   - /concepts/links/
   - /reference/links.html
+  - /backend/links-intro/
 toc: false
 ---
 

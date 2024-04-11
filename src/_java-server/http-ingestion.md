@@ -7,6 +7,7 @@ layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/http_ingestion
 redirect_from:
   - /guides/http-ingestion.html
+  - /backend/http-ingestion/
 ---
 
 This guide illustrates how to develop a Swim application that ingests data from HTTP/REST APIs and instantiates logic-performing Web Agents.

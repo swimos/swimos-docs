@@ -7,6 +7,7 @@ layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/mongodb_ingestion
 redirect_from:
   - /guides/mongodb-ingestion.html
+  - /backend/mongodb-ingestion/
 ---
 
 This guide illustrates how to develop a Swim application that polls data from MongoDB and instantiates logic-performing Web Agents.

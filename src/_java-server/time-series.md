@@ -7,6 +7,7 @@ layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/time_series
 redirect_from:
   - /guides/time-series.html
+  - /backend/time-series/
 ---
 
 A common form of data is time series data - that is data indexed by time (timestamped).

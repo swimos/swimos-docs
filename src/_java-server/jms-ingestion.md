@@ -7,6 +7,7 @@ layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/jms_ingestion
 redirect_from:
   - /guides/jms-ingestion.html
+  - /backend/jms-ingestion/
 ---
 
 This guide illustrates how to develop a Swim application that receives data from JMS and instantiates logic-performing Web Agents.

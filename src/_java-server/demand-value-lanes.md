@@ -8,6 +8,7 @@ cookbook: https://github.com/swimos/cookbook/tree/master/demand_value_lanes
 redirect_from:
   - /tutorials/demand-value-lanes/
   - /reference/demand-value-lanes.html
+  - /backend/demand-value-lanes/
 ---
 
 In the [Web Agents guide]({% link _java-server/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.

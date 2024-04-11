@@ -8,6 +8,7 @@ cookbook: https://github.com/swimos/cookbook/tree/master/downlinks
 redirect_from:
   - /tutorials/downlinks/
   - /reference/downlinks.html
+  - /backend/downlinks/
 ---
 
 In the [Web Agents guide]({% link _java-server/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects** and **lanes** are **fields**. **Downlinks** are bidirectionally-streaming, persistent **subscriptions** to lanes.

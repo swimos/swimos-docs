@@ -6,6 +6,7 @@ group: Data Ingestion
 layout: documentation
 redirect_from:
   - /guides/flink-connector.html
+  - /backend/flink-connector/
 ---
 
 Swim provides a Flink connector for writing data from Flink jobs to Swim servers.

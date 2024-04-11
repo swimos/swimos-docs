@@ -7,6 +7,7 @@ layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/introspection
 redirect_from:
   - /guides/introspection.html
+  - /backend/introspection/
 ---
 
 Introspection allows you to obtain runtime information about a Swim server, including:

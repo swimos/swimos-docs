@@ -7,6 +7,7 @@ layout: documentation
 redirect_from:
   - /concepts/warp/
   - /reference/warp.html
+  - /backend/warp/
 toc: false
 ---
 

@@ -8,6 +8,7 @@ cookbook: https://github.com/swimos/cookbook/tree/master/forms
 redirect_from:
   - /tutorials/forms/
   - /reference/forms.html
+  - /backend/forms/
 ---
 
 Recall that internally, as in all previous "... Lanes" cookbooks to date, `swim.structure.Value` is the type of every lane, regardless of its parametrized type.

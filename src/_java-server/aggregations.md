@@ -7,6 +7,7 @@ group: Common Patterns
 layout: documentation
 redirect_from:
   - /guides/aggregations.html
+  - /backend/aggregations/
 ---
 
 It is common to want to group agents together and calculate some aggregate stats across that set of agents.

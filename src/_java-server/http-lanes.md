@@ -8,6 +8,7 @@ cookbook: https://github.com/swimos/cookbook/tree/master/http_lanes
 redirect_from:
   - /tutorials/http-lanes/
   - /reference/http-lanes.html
+  - /backend/http-lanes/
 ---
 
 In previous guides, we have seen how Swim applications consist of interconnected [Web Agents]({% link _java-server/web-agents.md %}) with properties and methods in the form of [Lanes]({% link _java-server/command-lanes.md %}).

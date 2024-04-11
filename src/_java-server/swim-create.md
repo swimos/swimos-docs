@@ -6,6 +6,7 @@ group: Utilities
 layout: documentation
 redirect_from:
   - /guides/swim-create.html
+  - /backend/swim-create/
 ---
 
 The swim-create CLI tool lets you get started quickly by creating a basic skeleton for a swim project.

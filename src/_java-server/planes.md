@@ -8,6 +8,7 @@ cookbook: https://github.com/swimos/cookbook/tree/master/planes
 redirect_from:
   - /tutorials/planes/
   - /reference/planes.html
+  - /backend/planes/
 ---
 
 In the [Web Agents guide]({% link _java-server/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects** and **lanes** are **fields**. Swim **planes** can, loosely, be seen as a **shared context** for a group of Web Agents, somewhat analogous to **scopes** but with more runtime responsibilities.

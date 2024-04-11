@@ -7,6 +7,7 @@ layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/summary_statistics
 redirect_from:
   - /guides/summary-statistics.html
+  - /backend/summary-statistics/
 ---
 
 Real-time applications frequently need to produce summaries of ingested data.

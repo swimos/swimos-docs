@@ -6,6 +6,7 @@ description: "How to model entities into nodes and agents"
 layout: documentation
 redirect_from:
   - /concepts/agent-design.html
+  - /backend/agent-design/
 ---
 
 Swim provides a framework to model business entities using distributed objects, the objects being **Web Agents**.

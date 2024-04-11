@@ -8,6 +8,7 @@ cookbook: https://github.com/swimos/cookbook/tree/master/value_lanes
 redirect_from:
   - /tutorials/value-lanes/
   - /reference/value-lanes.html
+  - /backend/value-lanes/
 ---
 
 In the [Web Agents guide]({% link _java-server/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.

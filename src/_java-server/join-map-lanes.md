@@ -8,6 +8,7 @@ cookbook: https://github.com/swimos/cookbook/tree/master/join_map_lanes
 redirect_from:
   - /tutorials/join-map-lanes/
   - /reference/join-map-lanes.html
+  - /backend/join-map-lanes/
 ---
 
 The [Join Value Lanes guide]({% link _java-server/join-value-lanes.md %}) demonstrates Join Value Lanes which aggregate value lanes from many agents. Similar to **Join Value Lanes**, **Join Map Lanes** aggregate **Map Lanes** across multiple agents.

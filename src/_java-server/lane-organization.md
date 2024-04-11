@@ -6,6 +6,7 @@ group: Design Guidelines
 layout: documentation
 redirect_from:
   - /concepts/lane-organization.html
+  - /backend/lane-organization/
 ---
 
 Lanes expose an API for agents, allowing the state of an agent to be downlinked and streamed.

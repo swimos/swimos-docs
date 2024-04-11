@@ -7,6 +7,7 @@ layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/kafka_ingestion
 redirect_from:
   - /guides/kafka-ingestion.html
+  - /backend/kafka-ingestion/
 ---
 
 This guide illustrates how to develop a Swim application that ingests data from Kafka topics and instantiates logic-performing Web Agents.

@@ -8,6 +8,7 @@ cookbook: https://github.com/swimos/cookbook/tree/master/server_downlinks
 redirect_from:
   - /tutorials/server-downlinks/
   - /reference/server-downlinks.html
+  - /backend/server-downlinks/
 ---
 
 In the [Downlinks guide]({% link _java-server/downlinks.md %}), we discuss **downlinks** - bidirectionally-streaming, persistent **subscriptions** to lanes - and went through an example of a client-side downlink. This guide will showcase downlinks between two Swim servers.

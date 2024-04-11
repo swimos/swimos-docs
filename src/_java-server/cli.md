@@ -6,6 +6,7 @@ group: Utilities
 layout: documentation
 redirect_from:
   - /guides/cli.html
+  - /backend/cli/
 ---
 
 The [**swim-cli**](https://www.npmjs.com/package/@swim/cli) is the simplest way to fetch or stream data from a Swim application.

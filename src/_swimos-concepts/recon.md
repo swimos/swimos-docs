@@ -7,6 +7,7 @@ layout: documentation
 redirect_from:
   - /concepts/recon/
   - /reference/recon.html
+  - /backend/recon/
 toc: false
 ---
 

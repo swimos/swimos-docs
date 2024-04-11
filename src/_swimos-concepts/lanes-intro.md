@@ -7,6 +7,7 @@ layout: documentation
 redirect_from:
   - /concepts/lanes/
   - /reference/lanes.html
+  - /backend/lanes-intro/
 toc: false
 ---
 

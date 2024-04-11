@@ -8,6 +8,7 @@ cookbook: https://github.com/swimos/cookbook/tree/master/map_lanes
 redirect_from:
   - /tutorials/map-lanes/
   - /reference/map-lanes.html
+  - /backend/map-lanes/
 ---
 
 In the [Web Agents guide]({% link _java-server/web-agents.md %}), we describe a distributed object model where **Web Agents** are the **objects**. The **fields** in this model are called **lanes**.

@@ -8,6 +8,7 @@ cookbook: https://github.com/swimos/cookbook/tree/master/web_agents
 redirect_from:
   - /tutorials/web-agents/
   - /reference/web-agents.html
+  - /backend/web-agents/
 ---
 
 Swim servers utilize a general purpose distributed object model in which the objects are called **Web Agents**. 

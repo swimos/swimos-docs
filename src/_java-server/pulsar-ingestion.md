@@ -7,6 +7,7 @@ layout: documentation
 cookbook: https://github.com/swimos/cookbook/tree/master/pulsar_ingestion
 redirect_from:
   - /guides/pulsar-ingestion.html
+  - /backend/pulsar-ingestion/
 ---
 
 This guide illustrates how to develop a Swim application that ingests data from Pulsar topics and instantiates logic-performing Web Agents.

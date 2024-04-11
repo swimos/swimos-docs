@@ -7,6 +7,7 @@ layout: documentation
 redirect_from:
   - /start/
   - /reference/swim-libraries.html
+  - /backend/swim-libraries/
 ---
 
 Swim implements a complete, self-contained, distributed application stack in an embeddable software library. To develop server-side Swim apps, add the [swim-api](https://github.com/swimos/swim/tree/main/swim-java/swim-runtime/swim-host/swim.api) library to your Java project. To write a JavaScript client application, install the [@swim/client](https://www.npmjs.com/package/@swim/client) library from NPM. Select one of the boxes below (or scroll down) to get started with Swim.
