@@ -12,7 +12,7 @@ redirect_from:
 
 Swim is a full stack **streaming application platform** for building stateful services, streaming APIs, and real-time UIs. Streaming applications push differential state changes through the full application stack, eliminating the need for polling and streaming only what each client chooses to observe. Real-time UIs render live views of distributed application state.
 
-Creating a real-time UI starts with [**WARP Client**]({% link _typescript-client/warpClient.md %}), a streaming API client for consuming multiplexed streaming APIs. It opens links to lanes of stateful Web Agents using the [**WARP**]({% link _typescript-client/whatIsWarp.md %}) protocol, enabling massively real-time applications that continuously synchronize all shared states with half ping latency. The client requires no configuration and makes opening links to Web Agents a cinch. It is UI framework-agnostic and works in both browser and Node.js runtime environments.
+Creating a real-time UI starts with [**WARP Client**]({% link _typescript-client/warp-client.md %}), a streaming API client for consuming multiplexed streaming APIs. It opens links to lanes of stateful Web Agents using the [**WARP**]({% link _typescript-client/what-is-warp.md %}) protocol, enabling massively real-time applications that continuously synchronize all shared states with half ping latency. The client requires no configuration and makes opening links to Web Agents a cinch. It is UI framework-agnostic and works in both browser and Node.js runtime environments.
 
 ## Installation
 
@@ -56,7 +56,7 @@ const client = new swim.WarpClient();
 
 Typescript definition files are provided in the libraries.
 
-All downlink variants support the ability to provide type information for incoming and outgoing WARP messages. The exception to this is [EventDownlink]({% link _typescript-client/eventDownlink.md %}), which should rarely be used. See our article on [**Forms**]({% link _typescript-client/form.md %}) for more details and an example of how to provide downlinks with type information.
+All downlink variants support the ability to provide type information for incoming and outgoing WARP messages. The exception to this is [EventDownlink]({% link _typescript-client/event-downlink.md %}), which should rarely be used. See our article on [**Forms**]({% link _typescript-client/form.md %}) for more details and an example of how to provide downlinks with type information.
 
 ## Quick Start
 

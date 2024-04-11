@@ -12,7 +12,7 @@ redirect_from:
 
 A Downlink provides a virtual bidirectional stream between the client and a lane of a remote Web Agent. WARP clients transparently multiplex all links to [**Web Agents**]({% link _java-server/web-agents.md %}) on a given host over a single WebSocket connection.
 
-Downlinks come in several flavors, depending on the WARP subprotocol to which they conform. A [**ValueDownlink**]({% link _typescript-client/valueDownlink.md %}) synchronizes a value with a remote value lane. A [**MapDownlink**]({% link _typescript-client/mapDownlink.md %}) implements the WARP map subprotocol to synchronize key-value state with a remote map lane. And an [**EventDownlink**]({% link _typescript-client/eventDownlink.md %}) observes raw WARP events, and can be used to observe lanes of any kind.
+Downlinks come in several flavors, depending on the WARP subprotocol to which they conform. A [**ValueDownlink**]({% link _typescript-client/value-downlink.md %}) synchronizes a value with a remote value lane. A [**MapDownlink**]({% link _typescript-client/map-downlink.md %}) implements the WARP map subprotocol to synchronize key-value state with a remote map lane. And an [**EventDownlink**]({% link _typescript-client/event-downlink.md %}) observes raw WARP events, and can be used to observe lanes of any kind.
 
 This article will focus on the properties and methods which all types of downlinks have in common. Later articles on specific types of downlinks will go into detail on what is unique to each of them.
 
@@ -211,7 +211,7 @@ setTimeout(() => { downlink.close(); }, 1000);
   didClose */
 ```
 
-Notice the callbacks registered for `didLink` and `didSync` both always get called (assuming the link opened successfulfully). This is because the host sends back a separate message after each of these events occur. In the second example, we also see "didSet" appear in the output. `didSet` is called each time a `ValueDownlink` receives an update to the value shared between the client and host. When `syncs` is set to `true`, we will always receive at least the initial value, assuring `didSet` gets called at least once. When `syncs` is set to `false`, this is not guaranteed. We'll cover all of this in more detail later in the [**valueDownlinks**]({% link _typescript-client/valueDownlink.md %}) article.
+Notice the callbacks registered for `didLink` and `didSync` both always get called (assuming the link opened successfulfully). This is because the host sends back a separate message after each of these events occur. In the second example, we also see "didSet" appear in the output. `didSet` is called each time a `ValueDownlink` receives an update to the value shared between the client and host. When `syncs` is set to `true`, we will always receive at least the initial value, assuring `didSet` gets called at least once. When `syncs` is set to `false`, this is not guaranteed. We'll cover all of this in more detail later in the [**valueDownlinks**]({% link _typescript-client/value-downlink.md %}) article.
 
 The `opened` method returns `true` if the downlink has been opened. This is not necessarily always the same value as `linked`. Providing a downlink with an invalid `hostUri`, for example, could result in `opened` returning `true` and `linked` returning `false`.
 
