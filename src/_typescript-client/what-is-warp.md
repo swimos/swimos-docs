@@ -5,6 +5,7 @@ description: "An introduction to the protocol which serves as the basis for comm
 group: Introduction
 layout: documentation
 redirect_from:
+  - /frontend/whatiswarp/
 ---
 
 ## Introduction

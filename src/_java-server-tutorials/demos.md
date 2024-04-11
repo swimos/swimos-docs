@@ -5,6 +5,7 @@ description: "Learn by example through demos, cookbooks, and sample code."
 group: Demos
 redirect_from:
   - /meet/
+  - /tutorials/demos.html
 ---
 
 ## Build Apps with Ease

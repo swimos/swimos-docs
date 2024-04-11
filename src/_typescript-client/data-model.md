@@ -5,6 +5,7 @@ description: "An overview of the data model contained within the @swim/structure
 group: Data
 layout: documentation
 redirect_from:
+  - /frontend/datamodel/
 ---
 
 {% include alert.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}

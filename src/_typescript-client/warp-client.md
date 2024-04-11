@@ -5,6 +5,7 @@ description: "The go-to starting point for most data streaming and connection ma
 group: Connections
 layout: documentation
 redirect_from:
+  - /frontend/warpclient/
 ---
 
 {% include alert.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}

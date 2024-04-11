@@ -3,6 +3,8 @@ title: Transit Tutorial
 description: 
 group: Tutorials
 layout: documentation
+redirect_from:
+  - /tutorials/transit.html
 ---
 
 # Application Overview

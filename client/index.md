@@ -3,6 +3,8 @@ title: SwimOS Client
 layout: documentation
 permalink: /client/
 toc: false
+redirect_from:
+  - /frontend/
 ---
 
 <div class="not-prose py-6 sm:py-8 space-y-16">

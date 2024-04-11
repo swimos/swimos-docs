@@ -7,6 +7,7 @@ layout: documentation
 redirect_from:
   - /developer-guide/introduction
   - /developer-guide/introduction.html
+  - /developer-guide/1-introduction/
 ---
 
 Welcome to the SwimOS developer's guide, an introductory guide to the SwimOS framework.

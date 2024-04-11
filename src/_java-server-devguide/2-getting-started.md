@@ -7,6 +7,7 @@ layout: documentation
 redirect_from:
   - /developer-guide/getting-started
   - /developer-guide/getting-started.html
+  - /developer-guide/2-getting-started/
 ---
 
 Let's get started on the SwimOS journey.

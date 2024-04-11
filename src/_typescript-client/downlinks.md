@@ -5,6 +5,7 @@ description: "A link which provides a virtual bidirectional stream between the c
 group: Connections
 layout: documentation
 redirect_from:
+  - /frontend/downlinks/
 ---
 
 {% include alert.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}

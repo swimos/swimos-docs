@@ -3,6 +3,8 @@ title: Process Monitor Tutorial
 description:
 group: Tutorials
 layout: documentation
+redirect_from:
+  - /tutorials/monitor.html
 ---
 
 ## Overview
