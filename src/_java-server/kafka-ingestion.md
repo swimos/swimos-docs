@@ -143,7 +143,7 @@ public class KafkaConsumingAgent extends AbstractAgent {
 _Note: because `KafkaConsumingAgent` is the only class that that actively uses the `KafkaConsumer` class, you may choose to instantiate the `KafkaConsumer` instance from `KafkaConsumingAgent` instead._
 _The current approach has the advantage of "fast-failing" the process, avoiding any part of the Swim server from starting if there is an issue reaching the Kafka topic._
 
-{% include alert.html title='Warning' text='When we configure the Web Agent nodeUri routing paths (e.g. within <strong>server.recon</strong>), ensure that only one instance of <strong>KafkaConsumingAgent</strong> can be instantiated.' %}
+{% include callout-warning.html title='Warning' text='When we configure the Web Agent nodeUri routing paths (e.g. within <strong>server.recon</strong>), ensure that only one instance of <strong>KafkaConsumingAgent</strong> can be instantiated.' %}
 
 ### Step 3: `VehicleAgent` Implementation and Routing
 

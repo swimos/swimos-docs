@@ -8,7 +8,7 @@ redirect_from:
   - /frontend/gettingstarted/
 ---
 
-{% include alert.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
+{% include callout-warning.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
 
 Swim is a full stack **streaming application platform** for building stateful services, streaming APIs, and real-time UIs. Streaming applications push differential state changes through the full application stack, eliminating the need for polling and streaming only what each client chooses to observe. Real-time UIs render live views of distributed application state.
 

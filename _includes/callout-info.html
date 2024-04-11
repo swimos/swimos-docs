@@ -1,0 +1,19 @@
+{% capture passThroughTitle %}
+{{ include.title }}
+{% endcapture %}
+
+{% capture passThroughText %}
+{{ include.text }}
+{% endcapture %}
+
+{% include
+  callout-base.html
+  icon="fa-solid fa-circle-info"
+  iconColor="text-callout-info-icon"
+  backgroundColor="bg-callout-info-fill"
+  border="border border-callout-info-border"
+  title=passThroughTitle
+  titleStyles='text-callout-info-text'
+  text=passThroughText
+  textStyle='text-callout-info-text [&_strong]:text-callout-info-text-accent [&_a]:text-callout-info-text-accent'
+%}

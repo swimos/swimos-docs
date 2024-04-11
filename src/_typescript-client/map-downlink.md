@@ -8,7 +8,7 @@ redirect_from:
   - /frontend/mapdownlink/
 ---
 
-{% include alert.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
+{% include callout-warning.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
 
 A MapDownlink synchronizes a shared real-time key-value map with with any Web Agent lane backed by a map. In addition to [**map lanes**]({% link _java-server/map-lanes.md %}), this includes [**join value lanes**]({% link _java-server/join-value-lanes.md %}) and [**join map lanes**]({% link _java-server/join-map-lanes.md %}), which are maps where each entry is its own value lane or maps lane, respectively. In addition to the standard Downlink callbacks, MapDownlink supports registering `didUpdate`, and `didRemove` callbacks for observing changes to downlinked map state — whether remote or local. `didUpdate` is invoked when an existing map key is updated or a new key is added. `didRemove` gets called when a map key is removed.
 

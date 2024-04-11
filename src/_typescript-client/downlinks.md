@@ -8,7 +8,7 @@ redirect_from:
   - /frontend/downlinks/
 ---
 
-{% include alert.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
+{% include callout-warning.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
 
 A Downlink provides a virtual bidirectional stream between the client and a lane of a remote Web Agent. WARP clients transparently multiplex all links to [**Web Agents**]({% link _java-server/web-agents.md %}) on a given host over a single WebSocket connection.
 

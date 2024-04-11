@@ -154,7 +154,7 @@ public class MongoDbPollingAgent extends AbstractAgent {
 }
 ```
 
-{% include alert.html title='Warning' text='When we configure the Web Agent node URI routing paths (e.g. within <strong>server.recon</strong>), ensure that only one instance of <strong>MongoDbPollingAgent</strong> can be instantiated.' %}
+{% include callout-warning.html title='Warning' text='When we configure the Web Agent node URI routing paths (e.g. within <strong>server.recon</strong>), ensure that only one instance of <strong>MongoDbPollingAgent</strong> can be instantiated.' %}
 
 ### Step 3: `VehicleAgent` Implementation
 

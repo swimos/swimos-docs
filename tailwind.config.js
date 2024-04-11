@@ -4,6 +4,7 @@ module.exports = {
     './_includes/**/*.html',
     './_layouts/**/*.html',
     './_posts/*.md',
+    './_meta/*.md',
     './*.md',
     './*.html',
   ],
@@ -55,6 +56,8 @@ module.exports = {
         },
       }),
       colors: {
+        'swim-body-text': '#3A3C3E',
+        'swim-blue': '#32C5FF', // Apatite?
         'swim-dark-blue': '#042256',
         'swim-darker-blue': '#111827',
         'swim-teal': '#66FFDD',
@@ -62,12 +65,10 @@ module.exports = {
         'swim-darker-teal': 'RGBA(4, 42, 43, 0.85)', // This is greyish-green and used as header/body text in the features section
         'swim-purple': '#BA62FF',
         'swim-dark-purple': '#D651FF',
-        'swim-body-text': '#3A3C3E',
-        'swim-blue': '#32C5FF', // Apatite?
         'swim-grey': '#C1C1C1',
+        'swim-lighter-grey': '#E9EFF0',
         'swim-darker-grey': '#A9A9A9', // Footer links
         'swim-darkerish-grey': '#6D7278', // Footer headings
-        'swim-lighter-grey': '#E9EFF0',
         "kaimurasaki": {
           100: "#E8E8EA",
           200: "#D3D2D6",
@@ -106,9 +107,45 @@ module.exports = {
           950: "#7B0D52",
           DEFAULT: "#740049",
         },
+        "callout": {
+          "info": {
+            "fill": "transparent",
+            "border": "#00A9A5",
+            "icon": "#00A9A5",
+            "text": "#0A1215",
+            "text-accent": "#02372F",
+          },
+          "ok": {
+            "fill": "#00A9A5",
+            "border": "#00896A",
+            "icon": "#FFFFFF",
+            "text": "#0A1514",
+            "text-accent": "#66FFDD",
+          },
+          "warning": {
+            "fill": "#F9DB6D",
+            "border": "#F7B500",
+            "icon": "#FFFFFF",
+            "text": "#15120A",
+            "text-accent": "#FFFFFF",
+          },
+          "bad": {
+            "fill": "#FF8552",
+            "border": "#BC571A",
+            "icon": "#FFFFFF",
+            "text": "#150A0A",
+            "text-accent": "#FFE3E3",
+          },
+        },
       },
     },
   },
+  safelist: [
+    // include all possible tailwind color and border options in production build; supports passing custom styles to callout-base.html
+    { pattern: /bg-+/ },
+    { pattern: /border-+/ },
+    { pattern: /text-+/ },
+  ],
   plugins: [
       require('@tailwindcss/forms'),
       require('@tailwindcss/typography'),

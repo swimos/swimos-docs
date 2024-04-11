@@ -188,7 +188,7 @@
         - title: Meta
           blurb: Information about the docs site
           icon: "fa-solid fa-cloud"
-          url: /meta/
+          url: /meta/contribute.html
   more:
     - name: YouTube
       icon: "fa-brands fa-youtube"

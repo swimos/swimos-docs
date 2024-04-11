@@ -72,34 +72,71 @@ toc:
 
 You can learn more about styling the TOC in the [jekyll-toc README](https://github.com/toshimaru/jekyll-toc#css-styling){:data-proofer-ignore=''}
 
-## Callouts & Alerts
+## Callouts
 
-### Alerts
+A number of different callout variants are available to choose depending on the urgency and content of the message. Each of them implements the base `callout-base.html` template.
 
-You can add alert callouts to any document by including the `alert.html` template located at `_includes/alert.html`.
+### Information
 
-{% raw %}
-```liquid
-{% include alert.html title='Caution' text='This is the alert body text. You can use <strong>HTML</strong> markup in it to add emphasis.' %}
-```
-{% endraw %}
-
-{% include alert.html title='Caution' text='This is the alert body text. You can use <strong>HTML</strong> markup in it to add emphasis.' %}
-
-### Callouts
-
-You can also use a generic callout which has more subtle styling for less urgent messages. Include the `callout.html` template located at `_includes/callout.html`.
-The information icon can be optionally swapped out for another.
+You can add informational callouts to any document by including the `callout-info.html` template located at `_includes/callout-info.html`.
 
 {% raw %}
 ```liquid
-{% include callout.html title='Tip' text='Don\'t forget to add text and body fields. You can still use <strong>HTML</strong> markup to add emphasis.' %}
+{% include callout-info.html title='FYI' text='Here is something you might want to know. You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
 ```
 {% endraw %}
 
-{% include callout.html title='Tip' text='Don\'t forget to add text and body fields. You can still use <strong>HTML</strong> markup to add emphasis.' %}
+{% include callout-info.html title='FYI' text='Here is something you might want to know. You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
 
-### Cookbook Banner
+### OK
+
+When things are going well you can call attention to it by including the `callout-ok.html` template located at `_includes/callout-ok.html`.
+
+{% raw %}
+```liquid
+{% include callout-ok.html title='Huzzah!' text='All of my code works and I actually understand why! You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
+```
+{% endraw %}
+
+{% include callout-ok.html title='Huzzah!' text='All of my code works and I actually understand why! You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
+
+### Warnings
+
+You can add warning callouts to any document by including the `callout-warning.html` template located at `_includes/callout-warning.html`.
+
+{% raw %}
+```liquid
+{% include callout-warning.html title='Look out!' text='This is the warning body text. You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
+```
+{% endraw %}
+
+{% include callout-warning.html title='Look out!' text='This is the warning body text. You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
+
+### Errors and Other Bad Stuff
+
+Inversely, when something is bad or has gone wrong, you can use the `callout-bad.html` template located at `_includes/callout-bad.html`.
+
+{% raw %}
+```liquid
+{% include callout-bad.html title='Uh oh!' text='We need to fix something. Here is where you\'ll find more details. You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
+```
+{% endraw %}
+
+{% include callout-bad.html title='Uh oh!' text='We need to fix something. Here is where you\'ll find more details. You can use <strong>HTML</strong> markup here to add emphasis, even <a href="https://swimos.org/meta/styles.html">links</a>.' %}
+
+### Custom Callouts
+
+For custom callouts you may use the base callout template located at `_includes/callout-base.html`. Since no pre-defined variant is being used, individual callout properties must each be provided, including: `icon`, `iconColor`, `border`, `backgroundColor`, `title`, `titleStyles`, `text`, and `textStyles`. For the `icon` property, provide the font-awesome CSS classes which correspond to the desired icon. Lastly, be aware that with some background colors you may encounter contrast issues with some of the markup text (e.g. links on a royal blue background), so please be sure to address that.
+
+{% raw %}
+```liquid
+{% include callout-base.html icon='fa-solid fa-circle-question' iconColor='text-purple-500' border='border-purple-500 border-4 border-dashed' backgroundColor='bg-purple-300' title='A Special Case' text='Feel free to apply any combination of text, border, or background Tailwind styles here.' %}
+```
+{% endraw %}
+
+{% include callout-base.html icon='fa-solid fa-circle-question' iconColor='text-purple-500' border='border-purple-500 border-4 border-dashed' backgroundColor='bg-purple-300' title='A Special Case' text='Feel free to apply any combination of text, border, or background Tailwind styles here.' %}
+
+## Cookbook Banner
 
 If `cookbook:` is set in a page's [front matter](https://jekyllrb.com/docs/front-matter/), a banner will render to tell readers that 
 a cookbook example exists and will link them to the cookbook repo. This banner is located in `_includes/cookbook.html` and is included in `_layouts/page.html` only if `page.cookbook` is set.
