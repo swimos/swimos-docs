@@ -57,7 +57,7 @@
           url: /server/java/
         - title: Developer Guide
           blurb: Learn SwimOS from the start
-          icon: "fa-brands fa-java"
+          icon: "fa-solid fa-code"
           url: /server/java/developer-guide/
         - title: Tutorials
           blurb:
@@ -105,7 +105,7 @@
       items:
         - title: Typescript Documentation
           blurb: 
-          icon: "fa-solid fa-display"
+          icon: "fa-solid fa-scroll"
           url: /client/typescript/
     # - group: Java
     #   items:
