@@ -207,20 +207,20 @@ collections:
     order:
       - index.md
       # Introduction
-      - whatIsWarp.md
-      - gettingStarted.md
+      - what-is-warp.md
+      - getting-started.md
       # Connections
-      - warpClient.md
+      - warp-client.md
       - downlinks.md
-      - valueDownlink.md
-      - mapDownlink.md
-      # - listDownlink.md
-      - eventDownlink.md
+      - value-downlink.md
+      - map-downlink.md
+      # - list-downlink.md
+      - event-downlink.md
       # - property.md
-      # - demandLanes.md
+      # - demand-lanes.md
       # - authentication.md
       # Data
-      - dataModel.md
+      - data-model.md
       - structures.md
       - form.md
       # - structures.md
