@@ -15,6 +15,11 @@
       <!-- Desktop menu -->
       <div class="hidden lg:flex">
       {% for section in site.data.header-nav %}
+        {% if section.menu == null %}
+        <button class="relative flex items-center px-4 cursor-pointer">
+          <a href="{{ section.url }}" class="mr-1 text-sm tracking-wider font-medium uppercase whitespace-nowrap text-white hover:text-swim-blue transition ease-out">{{ section.section }}</a>
+        </button>
+        {% else %}
         <div
           x-cloak
           x-data="{ open: false }"
@@ -122,6 +127,7 @@
             </div>
           </div>
         </div>
+        {% endif %}
       {% endfor %}
 
       </div>

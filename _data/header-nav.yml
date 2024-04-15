@@ -44,48 +44,123 @@
 #      icon:
 #        path: "M10,23L10,21L5,21C4.45,21,3.98,20.8,3.59,20.41C3.2,20.02,3,19.55,3,19L3,5C3,4.45,3.2,3.98,3.59,3.59C3.98,3.2,4.45,3,5,3L10,3L10,1L12,1L12,23L10,23ZM5,18L10,18L10,12L5,18ZM14,21L14,12L19,18L19,5L14,5L14,3L19,3C19.55,3,20.02,3.2,20.41,3.59C20.8,3.98,21,4.45,21,5L21,19C21,19.55,20.8,20.02,20.41,20.41C20.02,20.8,19.55,21,19,21L14,21Z"
 #      url: /comparisons/
-- section: Documentation
-  id: documentation
+- section: SwimOS Concepts
+  url: /swimos-concepts/
+- section: Server
+  id: server
   menu:
-    - group: Backend
+    - group: Java
       items:
-        - title: Backend Documentation
+        - title: Server Documentation
           blurb: 
           icon: "fa-solid fa-server"
-          url: /backend/
+          url: /server/java/
         - title: Developer Guide
           blurb: Learn SwimOS from the start
-          icon: "fa-brands fa-java"
-          url: /developer-guide/
-    - group: Frontend
-      items:
-        - title: Frontend Documentation
-          blurb: 
           icon: "fa-solid fa-code"
-          url: /frontend/
-    - group: Tutorials & Blog
-      items:
+          url: /server/java/developer-guide/
         - title: Tutorials
           blurb:
           icon: "fa-solid fa-graduation-cap"
-          url: /tutorials/
-        - title: Blog
-          blurb: 
-          icon: "fa-solid fa-rss"
-          url: /blog/
+          url: /server/java/tutorials/
+    # - group: Client
+    #   items:
+    #     - title: Client Documentation
+    #       blurb: 
+    #       icon: "fa-solid fa-code"
+    #       url: /client/
+    # - group: Rust
+    #   items:
+    #     - title: Server Documentation
+    #       blurb:
+    #       icon: "fa-solid fa-graduation-cap"
+    #       url: /server/rust/
+    # - group: Tutorials & Blog
+    #   items:
+    #     - title: Tutorials
+    #       blurb:
+    #       icon: "fa-solid fa-graduation-cap"
+    #       url: /tutorials/
+    #     - title: Blog
+    #       blurb: 
+    #       icon: "fa-solid fa-rss"
+    #       url: /blog/
     # - group: Frontend
     #   items:
     #     - title: Swim UI Documentation
     #       blurb: 
     #       icon: "fa-solid fa-display"
     #       url: /frontend/
-  more:
+  # more:
     # - name: Demos
     #   icon: "fa-solid fa-laptop-code"
     #   url: /demos/
-    - name: Meta
-      icon: "fa-solid fa-cloud"
-      url: /meta/
+    # - name: Meta
+    #   icon: "fa-solid fa-cloud"
+    #   url: /meta/
+- section: Client
+  id: client
+  menu:
+    - group: Typescript
+      items:
+        - title: Typescript Documentation
+          blurb: 
+          icon: "fa-solid fa-scroll"
+          url: /client/typescript/
+    # - group: Java
+    #   items:
+    #     - title: Java Documentation
+    #       blurb: 
+    #       icon: "fa-solid fa-display"
+    #       url: /client/java/
+    # - group: Rust
+    #   items:
+    #     - title: Rust Documentation
+    #       blurb:
+    #       icon: "fa-solid fa-display"
+    #       url: /client/rust/
+# - section: Documentation
+#   id: documentation
+#   menu:
+#     - group: Server
+#       items:
+#         - title: Server Documentation
+#           blurb: 
+#           icon: "fa-solid fa-server"
+#           url: /server/
+#         - title: Developer Guide
+#           blurb: Learn SwimOS from the start
+#           icon: "fa-brands fa-java"
+#           url: /developer-guide/
+#     - group: Client
+#       items:
+#         - title: Client Documentation
+#           blurb: 
+#           icon: "fa-solid fa-code"
+#           url: /client/
+#     - group: Tutorials & Blog
+#       items:
+#         - title: Tutorials
+#           blurb:
+#           icon: "fa-solid fa-graduation-cap"
+#           url: /tutorials/
+#         - title: Blog
+#           blurb: 
+#           icon: "fa-solid fa-rss"
+#           url: /blog/
+    # - group: Frontend
+    #   items:
+    #     - title: Swim UI Documentation
+    #       blurb: 
+    #       icon: "fa-solid fa-display"
+    #       url: /frontend/
+  # more:
+    # - name: Demos
+    #   icon: "fa-solid fa-laptop-code"
+    #   url: /demos/
+    # - name: Meta
+    #   icon: "fa-solid fa-cloud"
+    #   url: /meta/
 - section: Community
   id: community
   menu:
@@ -109,6 +184,10 @@
         - title: Contributor's Guide
           blurb: Learn how to contribute to SwimOS and SwimOS docs.
           icon: "fa-solid fa-screwdriver-wrench"
+          url: https://www.swimos.org/meta/contribute.html
+        - title: Meta
+          blurb: Information about the docs site
+          icon: "fa-solid fa-cloud"
           url: /meta/contribute.html
   more:
     - name: YouTube
@@ -123,3 +202,5 @@
     - name: Twitter
       icon: "fa-brands fa-twitter"
       url: https://twitter.com/nstreamio
+- section: Blog
+  url: /blog/
