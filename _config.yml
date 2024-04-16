@@ -130,7 +130,7 @@ collections:
     output: true
     name: "Java Server"
     description: Java server docs
-    permalink: /server/java/:name
+    permalink: /server/java/:name/
     order:
       - index.md
       - swim-libraries.md
