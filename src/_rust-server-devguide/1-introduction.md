@@ -32,5 +32,5 @@ Which should return an output of something like `rustc 1.76.0 (07dca489a 2024-02
 If you do not have a version that matches this requirement you can update it using:
 
 ```shell
-$ rustup override set {{ site.data.rust.rustc-version }}
+ rustup override set {{ site.data.rust.rustc-version }}
 ```
