@@ -83,7 +83,7 @@ collections:
     output: true
     name: "Java Server Getting Started"
     description: Getting started guide
-    permalink: /swimos-concepts/:name
+    permalink: /swimos-concepts/:name/
     order:
       - index.md
       - fundamentals.md
@@ -97,7 +97,7 @@ collections:
     output: true
     name: "Developer Guide"
     description: An ordered guide through SwimOS.
-    permalink: /server/java/developer-guide/:name
+    permalink: /server/java/developer-guide/:name/
     order:
       - index.md
       # 1. Introduction
@@ -119,7 +119,7 @@ collections:
     output: true
     name: "Tutorials"
     description: Java Tutorials
-    permalink: /server/java/tutorials/:name
+    permalink: /server/java/tutorials/:name/
     order:
       - index.md
       - demos.md
@@ -130,7 +130,7 @@ collections:
     output: true
     name: "Java Server"
     description: Java server docs
-    permalink: /server/java/:name
+    permalink: /server/java/:name/
     order:
       - index.md
       - swim-libraries.md
@@ -178,7 +178,7 @@ collections:
     output: true
     name: "Rust Server"
     description: Documentation for SwimOS Java Client
-    permalink: /server/rust/:name
+    permalink: /server/rust/:name/
     order:
       - index.md
   rust-server-devguide:
@@ -186,7 +186,7 @@ collections:
     output: true
     name: "Rust Server Dev Guide"
     description: Documentation for SwimOS Java Client
-    permalink: /server/rust/developer-guide/:name
+    permalink: /server/rust/developer-guide/:name/
     order:
       - index.md
   rust-server-tutorials:
@@ -194,7 +194,7 @@ collections:
     output: true
     name: "Rust Server Tutorials"
     description: Documentation for SwimOS Java Client
-    permalink: /server/rust/tutorials/:name
+    permalink: /server/rust/tutorials/:name/
     order:
       - index.md
 # Client Docs
@@ -203,7 +203,7 @@ collections:
     output: true
     name: "Client"
     description: Documentation about streaming data from SwimOS apps for use in UIs.
-    permalink: /client/typescript/:name
+    permalink: /client/typescript/:name/
     order:
       - index.md
       # Introduction
@@ -232,7 +232,7 @@ collections:
     output: true
     name: "Java Client"
     description: Documentation for SwimOS Java Client
-    permalink: /client/java/:name
+    permalink: /client/java/:name/
     order:
       - index.md
   rust-client:
@@ -240,7 +240,7 @@ collections:
     output: true
     name: "Rust Client"
     description: Documentation for SwimOS Java Client
-    permalink: /client/rust/:name
+    permalink: /client/rust/:name/
     order:
       - index.md
   meta:
