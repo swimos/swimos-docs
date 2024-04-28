@@ -413,10 +413,6 @@ transit: @fabric {
 
 @web(port: 9001) {
   space: "transit"
-  @websocket {
-    serverCompressionLevel: 0# -1 = default; 0 = off; 1-9 = deflate level
-    clientCompressionLevel: 0# -1 = default; 0 = off; 1-9 = deflate level
-  }
 }
 ```
 

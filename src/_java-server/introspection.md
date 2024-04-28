@@ -34,7 +34,7 @@ This will start a `MetaKernel` responsible for opening additional nodes and endp
 
 Two types of meta node are now available for downlinking:
 
-- The `swim:meta:mesh` node, which provides server wide meta details.
+- The `swim:meta:host` node, which provides server wide meta details.
   
 - The `swim:meta:node/{node_uri}` nodes, which provide node specific meta details.
 
@@ -47,11 +47,11 @@ When using the command line it is necessary to encode the `/` characters in the 
 
 ## Pulse
 
-Available on both `swim:meta:mesh` and `swim:meta:node/`, the simplest thing we can do is downlink the `pulse` lane.
+Available on both `swim:meta:host` and `swim:meta:node/`, the simplest thing we can do is downlink the `pulse` lane.
 This will provide various metrics about the introspection target, including agent count, compute time and link counts.
 
 ```
-swim-cli sync -h warp://localhost:9001 -n swim:meta:mesh -l pulse
+swim-cli sync -h warp://localhost:9001 -n swim:meta:host -l pulse
 ```
 
 Output:
@@ -62,12 +62,12 @@ Output:
 
 ## List Nodes
 
-The `nodes` lane on `swim:meta:mesh` provides access to a list of all nodes and the agents running within them.
+The `nodes` lane on `swim:meta:host` provides access to a list of all nodes and the agents running within them.
 
 Trying this on the introspection cookbook server:
 
 ```
-swim-cli sync -h warp://localhost:9001 -n swim:meta:mesh -l nodes
+swim-cli sync -h warp://localhost:9001 -n swim:meta:host -l nodes
 ```
 
 Output:
@@ -96,7 +96,7 @@ For clarity, here are some example parameters that can be used and their functio
 Using the second option as an example: 
 
 ```
-swim-cli sync -h warp://localhost:9001 -n swim:meta:mesh -l nodes#/building/
+swim-cli sync -h warp://localhost:9001 -n swim:meta:host -l nodes#/building/
 ```
 
 Output:
@@ -131,13 +131,13 @@ Output:
 ## Logs
 
 The Swim framework provides agents with the ability to log messages at different levels (trace, debug, info, warn, error, fail).
-These logs can be accessed on both `swim:meta:mesh`, for server wide logs, and `swim:meta:node/`, for node specific logs.
+These logs can be accessed on both `swim:meta:host`, for server wide logs, and `swim:meta:node/`, for node specific logs.
 Simply prepend the log level desired to `Log` to obtain the lane URI to be downlinked.
 
 For example, to tail all `warn` level logs on the introspection cookbook server:
 
 ```
-swim-cli sync -h warp://localhost:9001 -n swim:meta:mesh -l warnLog
+swim-cli sync -h warp://localhost:9001 -n swim:meta:host -l warnLog
 ```
 
 Output:
