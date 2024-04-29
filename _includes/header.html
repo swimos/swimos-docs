@@ -160,65 +160,69 @@
     @click.away="shown = false"
   >
     <div class="absolute flow-root inset-0 pt-3 pb-12 overflow-y-auto overscroll-y-contain">
-    {% for section in site.data.header-nav %}
-      <div class="px-2" x-data="{ expanded: {% if page.section == section.id %}true{% else %}false{% endif %} }">
-        <!-- Mobile section disclosure button -->
-        <button type="button" aria-controls="disclosure-{{ section.id }}" aria-expanded="false" class="flex justify-between items-center w-full py-3 pr-2 pl-4 text-base leading-7 tracking-wider uppercase whitespace-nowrap text-kaimurasaki-200" @click="expanded = !expanded">
-          {{ section.section }}
-          <div class="flex justify-center items-center w-12 shrink-0">
-            <svg aria-hidden="true" viewBox="0 0 20 20" class="w-6 h-6 shrink-0 transition ease-out" :class="{ '-rotate-180': expanded }">
-              <path fill="currentcolor" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" />
-            </svg>
-          </div>
-        </button>
-        <!-- Mobile sub-section groups -->
-        <div
-          id="disclosure-{{ section.id }}"
-          x-cloak
-          x-show="expanded"
-          x-collapse
-          class="py-2"
-          :class="{ 'border-b border-b-white/10': expanded }"
-        >
-          <div class="space-y-2">
-          {% for group in section.menu %}
-            <div>
-            {% if group.group %}
-              <h3 class="px-4 text-xs font-medium leading-6 tracking-wider uppercase text-kaimurasaki-400">{{ group.group }}</h3>
-            {% endif %}
-            {% for item in group.items %}
-              <a href="{{ item.url | relative_url }}" class="group/item flex gap-x-2 px-2 py-4">
-                <div class="flex shrink-0 justify-center w-12">
-                {% if item.icon %}
-                  <svg aria-hidden="true" viewBox="0 0 24 24" class="w-6 h-6{% if page.url == item.url %} text-swim-blue{% else %} text-kaimurasaki-200 group-hover/item:text-white{% endif %} transition ease-out">
-                    <path fill="currentcolor" fill-rule="evenodd" d="{{ item.icon.path }}" />
-                  </svg>
-                {% endif %}
-                </div>
-                <h4 class="grow {% if page.url == item.url %} text-swim-blue{% else %} text-kaimurasaki-100 group-hover/item:text-white{% endif %} transition ease-out">{{ item.title }}</h4>
-              </a>
-            {% endfor %}
-            </div>
-          {% endfor %}
-          </div>
-          <!-- Mobile section more bar -->
-        {% if section.more %}
-          <div class="flex flex-wrap justify-between gap-x-4 px-12 pt-2 pb-4">
-          {% for item in section.more %}
-            <a href="{{ item.url | relative_url }}" class="group/item flex items-center basis-0 grow gap-x-2.5 px-4 py-3 text-sm font-medium leading-6 text-kaimurasaki-200 hover:text-white whitespace-nowrap transition ease-out">
-            {% if item.icon %}
-              <svg aria-hidden="true" viewBox="0 0 24 24" class="w-5 h-5 shrink-0 text-kaimurasaki-200 group-hover/item:text-white transition ease-out">
-                <path fill="currentcolor" fill-rule="evenodd" d="{{ item.icon.path }}" />
+      {% for section in site.data.header-nav %}
+        {% if section.menu == null %}
+          <a href="{{ section.url }}" class="flex justify-between items-center w-full px-2 py-3 pr-2 pl-6 text-base leading-7 tracking-wider uppercase whitespace-nowrap text-kaimurasaki-200">{{ section.section }}</a>
+        {% else %}
+        <div class="px-2" x-data="{ expanded: {% if page.section == section.id %}true{% else %}false{% endif %} }">
+          <!-- Mobile section disclosure button -->
+          <button type="button" aria-controls="disclosure-{{ section.id }}" aria-expanded="false" class="flex justify-between items-center w-full py-3 pr-2 pl-4 text-base leading-7 tracking-wider uppercase whitespace-nowrap text-kaimurasaki-200" @click="expanded = !expanded">
+            {{ section.section }}
+            <div class="flex justify-center items-center w-12 shrink-0">
+              <svg aria-hidden="true" viewBox="0 0 20 20" class="w-6 h-6 shrink-0 transition ease-out" :class="{ '-rotate-180': expanded }">
+                <path fill="currentcolor" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" />
               </svg>
+            </div>
+          </button>
+          <!-- Mobile sub-section groups -->
+          <div
+            id="disclosure-{{ section.id }}"
+            x-cloak
+            x-show="expanded"
+            x-collapse
+            class="py-2"
+            :class="{ 'border-b border-b-white/10': expanded }"
+          >
+            <div class="space-y-2">
+              {% for group in section.menu %}
+              <div>
+                {% if group.group %}
+                  <h3 class="px-4 text-xs font-medium leading-6 tracking-wider uppercase text-kaimurasaki-400">{{ group.group }}</h3>
+                {% endif %}
+                {% for item in group.items %}
+                  <a href="{{ item.url | relative_url }}" class="group/item flex gap-x-2 px-2 py-4">
+                  <div class="flex shrink-0 justify-center w-12">
+                    {% if item.icon %}
+                      <svg aria-hidden="true" viewBox="0 0 24 24" class="w-6 h-6{% if page.url == item.url %} text-swim-blue{% else %} text-kaimurasaki-200 group-hover/item:text-white{% endif %} transition ease-out">
+                        <path fill="currentcolor" fill-rule="evenodd" d="{{ item.icon.path }}" />
+                      </svg>
+                    {% endif %}
+                  </div>
+                  <h4 class="grow {% if page.url == item.url %} text-swim-blue{% else %} text-kaimurasaki-100 group-hover/item:text-white{% endif %} transition ease-out">{{ item.title }}</h4>
+                  </a>
+                {% endfor %}
+              </div>
+              {% endfor %}
+            </div>
+            <!-- Mobile section more bar -->
+            {% if section.more %}
+              <div class="flex flex-wrap justify-between gap-x-4 px-12 pt-2 pb-4">
+                {% for item in section.more %}
+                  <a href="{{ item.url | relative_url }}" class="group/item flex items-center basis-0 grow gap-x-2.5 px-4 py-3 text-sm font-medium leading-6 text-kaimurasaki-200 hover:text-white whitespace-nowrap transition ease-out">
+                  {% if item.icon %}
+                    <svg aria-hidden="true" viewBox="0 0 24 24" class="w-5 h-5 shrink-0 text-kaimurasaki-200 group-hover/item:text-white transition ease-out">
+                      <path fill="currentcolor" fill-rule="evenodd" d="{{ item.icon.path }}" />
+                    </svg>
+                  {% endif %}
+                  {{ item.name }}
+                  </a>
+                {% endfor %}
+              </div>
             {% endif %}
-              {{ item.name }}
-            </a>
-          {% endfor %}
           </div>
-        {% endif %}
         </div>
-      </div>
-    {% endfor %}
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 </nav>
