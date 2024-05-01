@@ -62,7 +62,7 @@ Value Lanes are used for maintaining scalar state and propagating updates to the
 
 - Forming a digital representation of a physical object; such as the [state of a vehicle](https://github.com/swimos/transit/blob/57f1750af6d1de1f29487a73db18d718ab0d2834/server/src/main/java/swim/transit/agent/VehicleAgent.java#L32).
 - Persisting state in stream computing. If the SwimOS Server is configured to use a persistent store and the agent times out, the state of the Value Lane will be reloaded from the persistence engine. See [persistence]({% link _rust-server/persistence.md %}) for more information.
-- Propagating state in real time. When a downlink first links to a Value Lane, its current state is sent to the downlink; this differs to [Demand Lanes]({% link _rust-server/demand-lanes.md %}) where a `cue` invocation is required.
+- Propagating state in real time. When a downlink first links to a Value Lane, its current state is sent to the downlink; this differs to [Demand Lanes]({% link _rust-server/demand-value-lanes.md %}) where a `cue` invocation is required.
 
 # Event handler
 
