@@ -110,12 +110,12 @@ struct ExampleLifecycle;
 #[lifecycle(ExampleAgent)]
 impl ExampleLifecycle {
     #[on_command(command)]
-    fn handler(&self, context: HandlerContext<ExampleAgent>, value: &i32) -> impl EventHandler<ExampleAgent> {
+    fn command_handler(&self, context: HandlerContext<ExampleAgent>, value: &i32) -> impl EventHandler<ExampleAgent> {
         context.command(ExampleAgent::ADD, value)
     }
 
     #[on_command(add)]
-    fn handler(&self, context: HandlerContext<ExampleAgent>, value: &i32) -> impl EventHandler<ExampleAgent> {
+    fn add_handler(&self, context: HandlerContext<ExampleAgent>, value: &i32) -> impl EventHandler<ExampleAgent> {
         unimplemented!()
     }
 }
