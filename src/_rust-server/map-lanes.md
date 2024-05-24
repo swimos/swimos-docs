@@ -304,7 +304,7 @@ async fn main() {
         .on_update_blocking(|key, _map, _previous, new| {
             println!("Entry updated: {key:?} -> {new:?}")
         })
-        .on_removed_blocking(|key, _map, value| println!("Entry updated: {key:?} -> {value:?}"))
+        .on_removed_blocking(|key, _map, value| println!("Entry removed: {key:?} -> {value:?}"))
         .on_clear_blocking(|map| println!("Map cleared: {map:?}"));
 
     let downlink = handle
