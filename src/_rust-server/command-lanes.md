@@ -168,15 +168,17 @@ async fn main() {
     let _client_task = tokio::spawn(task);
     let handle = client.handle();
 
-    let exec_path = RemotePath::new(
-        "ws://0.0.0.0:8080",
-        "/example/1",
-        "command",
-    );
+    let exec_path = RemotePath::new("ws://0.0.0.0:8080", "/example/1", "command");
+    let exec_lifecycle = BasicValueDownlinkLifecycle::<Operation>::default()
+        // Register an event handler that is invoked when the downlink connects to the agent.
+        .on_linked_blocking(|| println!("Downlink linked"))
+        // Register an event handler that is invoked when the downlink receives a command.
+        .on_event_blocking(|value| println!("Downlink event: {value:?}"));
 
     let exec_downlink = handle
         .value_downlink::<Operation>(exec_path)
         .downlink_config(DownlinkConfig::default())
+        .lifecycle(exec_lifecycle)
         .open()
         .await
         .expect("Failed to open downlink");
