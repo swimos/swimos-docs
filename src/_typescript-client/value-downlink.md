@@ -8,7 +8,7 @@ redirect_from:
   - /frontend/valuedownlink/
 ---
 
-{% include callout-warning.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
+{% include callout-warning.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0 or later. Users of earlier package versions may experience differences in behavior.' %}
 
 A ValueDownlink synchronizes a shared real-time value with a remote value lane. In addition to the standard Downlink callbacks, ValueDownlink supports registering a `didSet` callback to observe changes to downlinked state — whether remote or local.
 
