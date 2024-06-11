@@ -8,7 +8,7 @@ redirect_from:
   - /frontend/warpclient/
 ---
 
-{% include callout-warning.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0-dev-20230923 or later. Users of earlier package versions may experience differences in behavior.' %}
+{% include callout-warning.html title='Version Note' text='This documentation describes Swim JS packages v4.0.0 or later. Users of earlier package versions may experience differences in behavior.' %}
 
 **WarpClient** is the class which behaves as the primary mechanism for handling connection management and link routing. WARP clients transparently multiplex all links to [**Web Agents**]({% link _java-server/web-agents.md %}) on a given host over a single WebSocket connection, and automatically manage the network connection to each host, including reconnection and resynchronization after a network failure. Key lifecycle events may also be observed through the registration of callbacks.
 
