@@ -16,9 +16,9 @@ It is common to group a family of agents together in order to perform some data 
 
 This functionality may be required in situations such as:
 
-- Grouping vehicles by city; group all of the vehicles that are currently inside of a city into another agent that performs some aggregation and exposes the current number of vehicles that are in a city.
-- Grouping the current state of an intersection; an intersection may be modelled by having a number of agents that represent traffic lights, then another agent that models the intersection which aggregates the state of the traffic lights contained within it. This pattern could then be repeated a number of times upwards; perhaps for a block and then the city, detailing the average wait time at each level.
-- Grouping the players currently playing a game on a server; consider a match for a game where the current players are grouped together for a match so that some monitoring can take place for the session.
+- Grouping vehicles by city: group all of the vehicles that are currently inside of a city into another agent that performs some aggregation and exposes the current number of vehicles that are in a city.
+- Grouping the current state of an intersection: an intersection may be modelled by having a number of agents that represent traffic lights, then another agent that models the intersection which aggregates the state of the traffic lights contained within it. This pattern could then be repeated a number of times upwards; perhaps for a block and then the city, detailing the average wait time at each level.
+- Grouping the players currently playing a game on a server: consider a match for a game where the current players are grouped together for a match so that some monitoring can take place for the session.
 
 This guide will cover tracking cars throughout a city and focus on the implementation details of the agent design and the lifecycle event handlers and not the setup of generating the data; the complete code is available [here](https://github.com/swimos/swim-rust/tree/main/example_apps/aggregations).
 
