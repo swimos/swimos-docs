@@ -15,11 +15,8 @@ It is common to want to group agents together and calculate some aggregate stats
 This pattern can really be extended to any kind of grouping where the members share some property, but some specific examples include:
 
 - Grouping vehicles by city
-  
 - Grouping products by manufacturer
-  
 - Grouping users by role
-  
 - Grouping orders by customer
 
 Throughout this guide, for demonstration, we are going to build out the vehicle example, grouping the vehicles by the state (in the USA) they are currently in.
@@ -28,14 +25,14 @@ Let's take a simple vehicle agent as a starting point, the main component of whi
 
 ```java
 public class VehicleAgent extends AbstractAgent {
-    
+
   @SwimLane("addEvent")
   public CommandLane<Value> addEvent = this.<Value>commandLane()
       .onCommand(v -> this.status.set(v));
 
   @SwimLane("status")
   public ValueLane<Value> status = this.<Value>valueLane();
-    
+
 }
 ```
 
@@ -53,15 +50,14 @@ public class StateAgent extends AbstractAgent {
 
   @SwimLane("vehicles")
   public JoinValueLane<Uri, Value> vehicles = this.<Uri, Value>joinValueLane();
-    
+
 }
 ```
 
 Notice the type parameters of the lane in the above example.
 
 - The first parameter is the type of the unique identifier of the vehicle.
-As a node URI is unique to each agent we will be using that (but this could be anything else unique to the vehicle, e.g. `id: String`).
-  
+  As a node URI is unique to each agent we will be using that (but this could be anything else unique to the vehicle, e.g. `id: String`).
 - The second parameter is the type of the value to be downlinked, this should match the type of the `status` `ValueLane` in the vehicle agent.
 
 Now we need some way for a vehicle to register itself with the state and join the lane.
@@ -107,8 +103,7 @@ We now need to call the above method, exactly when you will want to do this will
 The most common cases are:
 
 - **Agent Start**: Call within the agent's `didStart()` lifecycle callback to join immediately on agent start.
-The value ('state' in this example) can be static or loaded from a property of some kind.
-  
+  The value ('state' in this example) can be static or loaded from a property of some kind.
 - **On Event**: Call from a lane's callback functions, this will allow the agent to join the group agent when some condition is met.
 
 Both approaches have a similar implementation, but we will show both.
@@ -258,14 +253,14 @@ For any other count, for example, a count of vehicles currently moving, we can l
 
 ```java
   private void computeStatus() {
-    
+
     int movingVehicles = 0;
     for (final Uri vehicleUri : this.vehicles.keySet()) {
       if (this.vehicles.get(vehicleUri).get("isMoving").booleanValue(false)) {
         movingVehicles++;
       }
     }
-    
+
     this.status.set(
         Record.create(2)
             .slot("vehicle_count", this.vehicles.size())
@@ -282,10 +277,10 @@ Calculating a mean is done by looping through all the entries of the join value 
   private void computeStatus() {
 
     int totalSpeed = 0, movingVehicles = 0;
-    
+
     for (final Uri vehicleUri : this.vehicles.keySet()) {
       totalSpeed += this.vehicles.get(vehicleUri).get("speed").intValue(0);
-      
+
       if (this.vehicles.get(vehicleUri).get("isMoving").booleanValue(false)) {
         movingVehicles++;
       }
