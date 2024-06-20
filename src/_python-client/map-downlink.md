@@ -9,8 +9,9 @@ redirect_from:
 ---
 
 A MapDownlink synchronizes a shared real-time key-value map with any Web Agent lane backed by a map. In addition
-to [**map lanes**]({% link _java-server/map-lanes.md %}), this includes [**join value lanes**]({% link _
-java-server/join-value-lanes.md %}) and [**join map lanes**]({% link _java-server/join-map-lanes.md %}), which are maps
+to [**map lanes**]({% link _java-server/map-lanes.md %}), this includes
+[**join value lanes**]({% link _java-server/join-value-lanes.md %}) and
+[**join map lanes**]({% link _java-server/join-map-lanes.md %}), which are maps
 where each entry is its own value lane or maps lane, respectively. In addition to the standard Downlink callbacks,
 MapDownlink supports registering `did_update`, and `did_remove` callbacks for observing changes to downlinked map
 state —
