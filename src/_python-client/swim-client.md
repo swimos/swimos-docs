@@ -56,12 +56,10 @@ Web Agents on a given host over a single WebSocket connection. A downlink repres
 
 `SwimClient` includes three methods that open different kinds of downlinks. The `downlink_event` method creates an
 EventDownlink for streaming raw events from any Web Agent lane. The `downlink_value` method creates a ValueDownlink for
-synchronizing state with a Web Agent [value lane]({% link _java-server/value-lanes.md %}). A ValueDownlink views its
-state as a [**Value**]({% link _python-client/structures.md %}) by default, which itself may
-represent any kind of Python value, be it primitive or composite. The `downlink_map` method creates a MapDownlink. This
-type of downlink is useful for synchronizing state with any Web Agent lane backed by a map. In addition to [**map lanes
-**]({%
-link _java-server/map-lanes.md %}), this includes [**join value lanes**]({% link _java-server/join-value-lanes.md %})
+synchronizing state with a Web Agent [value lane]({% link _java-server/value-lanes.md %}). The `downlink_map` method
+creates a MapDownlink. This type of downlink is useful for synchronizing state
+with any Web Agent lane backed by a map. In addition to [**map lanes**]({% link _java-server/map-lanes.md %}),
+this includes [**join value lanes**]({% link _java-server/join-value-lanes.md %})
 and [**join map lanes**]({% link _java-server/join-map-lanes.md %}), which are maps of other value lanes and maps lanes,
 respectively.
 
