@@ -14,8 +14,9 @@ host over a single WebSocket connection, and automatically manage the network co
 reconnection and resynchronization after a network failure. Key lifecycle events may also be observed through the
 registration of callbacks.
 
-Besides managing connections and opening links (from here on called [**downlinks**]({% link _
-_python-client/downlinks.md %})) to Web Agents, Swim clients do many other things. They can be used to send arbitrary
+Besides managing connections and opening links
+(from here on called [**downlinks**]({% link _python-client/downlinks.md %})) to Web Agents, Swim clients do many other
+things. They can be used to send arbitrary
 WARP commands and when multiple downlinks are opened to the same lane of the same remote Web Agent, Swim clients
 seamlessly handle multicast event routing.
 

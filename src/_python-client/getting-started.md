@@ -14,8 +14,9 @@ polling and streaming only what each client chooses to observe. Real-time UIs re
 application state.
 
 Creating a real-time applications starts with [**Swim Client**]({% link _python-client/swim-client.md %}), a streaming
-API client for consuming multiplexed streaming APIs. It opens links to lanes of stateful Web Agents using the [**WARP
-**]({% link _python-client/what-is-warp.md %}) protocol, enabling massively real-time applications that continuously
+API client for consuming multiplexed streaming APIs. It opens links to lanes of stateful Web Agents
+using the [**WARP**]({% link _python-client/what-is-warp.md %}) protocol, enabling massively real-time applications that
+continuously
 synchronize all shared states with half ping latency. The client requires no configuration and makes opening links to
 Web Agents a cinch.
 
