@@ -12,7 +12,7 @@ redirect_from:
 
 # Overview
 
-A Map Store provides an agent with a store for map state that is not publically addressable. If server [persistence]({% link _rust-server/persistence.md %}) is enabled, then the state of the store will be persisted to the underlying engine and after a server restart, any state will be restored. If you require addressable value state, then a [Value Lane]({% link _rust-server/value-lanes.md %}) will be suitable.
+A Map Store provides an agent with a store for map state that is not publically addressable. If you require addressable value state, then a [Value Lane]({% link _rust-server/value-lanes.md %}) will be suitable.
 
 A Map Store has the following properties:
 
@@ -71,7 +71,7 @@ impl ExampleLifecycle {
 
 # Bounds and Initialisation
 
-Map Stores place similar bounds to the standard library's `HashMap` but with the addition of requiring both the key and value types to implement the `swimos_form::Form` and `Send` traits. When the store is first intiialised, the store is initialised to an empty map. If the state of the store is to be populated using the `on_start` handler, then care must be taken to not overwrite any previously held state, as it is not currently possible to detect restarts; a workaround is to wrap the state in an `Option` and only replace it if it is `None`.
+Map Stores place similar bounds to the standard library's `HashMap` but with the addition of requiring both the key and value types to implement the `swimos_form::Form` and `Send` traits. When the store is first intiialised, the store is initialised to an empty map. If the state of the store is to be populated using the `on_start` handler, then care must be taken to not overwrite any previously held state, as it is not currently possible to detect restarts; a workaround is to add a `ValueStore<bool>` which is set high after the store has been initialised and then it is checked during the `on_start` call to avoid a duplicate initialisation.
 
 # Use cases
 
