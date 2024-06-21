@@ -15,7 +15,7 @@ This page covers the specifics of Value Lanes and does not cover the more genera
 
 # Overview
 
-A Value Lane stores a scalar value that can be mutated and retreived. Each time the state is updated, the updated state is sent to all uplinks attached to it. A Value Lane meets the following requirements:
+A Value Lane stores a value that can be mutated and retreived. Each time the state is updated, the updated state is sent to all uplinks attached to it. A Value Lane meets the following requirements:
 
 - The state of the lane can be updated by calling the `set` function on the [Handler Context's]({% link _rust-server/handler-context.md %}).
 - Following a `set` invocation, the Value Lane's `on_event` lifecycle event handler will be invoked with the updated state and the `on_set` lifecycle event handler will be invoked with the previous and current state of the lane.
@@ -58,11 +58,11 @@ impl ExampleLifecycle {
 
 # Use cases
 
-Value Lanes are used for maintaining scalar state and propagating updates to the state immediately. Common usecases are:
+Value Lanes are used for maintaining state and propagating updates to the state immediately. Common usecases are:
 
 - Forming a digital representation of a physical object; such as the [state of a vehicle](https://github.com/swimos/transit/blob/57f1750af6d1de1f29487a73db18d718ab0d2834/server/src/main/java/swim/transit/agent/VehicleAgent.java#L32).
 - Persisting state in stream computing. If the SwimOS Server is configured to use a persistent store and the agent times out, the state of the Value Lane will be reloaded from the persistence engine. See [persistence]({% link _rust-server/persistence.md %}) for more information.
-- Propagating state in real time. When a downlink first links to a Value Lane, its current state is sent to the downlink; this differs to [Demand Lanes]({% link _rust-server/demand-lanes.md %}) where a `cue` invocation is required.
+- Propagating state in real time. When a downlink first links to a Value Lane, its current state is sent to the downlink. Value Lanes differ to [Demand Lanes]({% link _rust-server/demand-lanes.md %}) as they are backed by computation where Value lanes are backed by a value that is kept in memory.
 
 # Event handler
 
