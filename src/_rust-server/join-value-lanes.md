@@ -15,7 +15,7 @@ This page covers the specifics of Join Value Lanes and does not cover the more g
 
 # Overview
 
-A Join Value Lane synchronises the state of multiple [Value Lanes]({% link _rust-server/value-lanes.md %}) by using [Value Downlinks]({% link _rust-server/value-downlinks.md %}) and associating a received value with a user-defined key in a map data structure. This allows you to aggregate the state of multiple data sources into a single data structure and be notified when a key changes. It is not possible to directly mutate the state of the map and instead the value associated with a key is mutated by the underlying downlink receiving an event.
+A Join Value Lane provides a view into the state of multiple [Value Lanes]({% link _rust-server/value-lanes.md %}) by using [Value Downlinks]({% link _rust-server/value-downlinks.md %}) and associating a received value with a user-defined key in a map data structure. This allows you to aggregate the state of multiple data sources into a single data structure and be notified when a key changes. It is not possible to directly mutate the state of the map and instead the value associated with a key is mutated by the underlying downlink receiving an event.
 
 A Join Value Lane meets the following requirements:
 
@@ -132,9 +132,9 @@ impl ConsumerLifecycle {
 
 # Use cases
 
-Join Value Lanes are suitable for situations where you want to aggregate the state of multiple lanes into a single map and are generally used to produce a wider view of a dataset which is spread across a number of lanes. Common usecases for Join Value Lanes are:
+Join Value Lanes are suitable for situations where you want to aggregate the state of multiple lanes into a single map and are generally used to produce a wider view of a dataset which is spread across a number of agents. Common usecases for Join Value Lanes are:
 
-- Reducing the state of the map to perform calculations for statistics. When an entry in the map changes, a reduction of the map is performed and the result can be pushed to another lane. An example of this is available [here](https://github.com/swimos/swim-rust/blob/a7f957e5ac23efe8c01c7221d9bfe77c91bc42bf/example_apps/transit/src/agents/state.rs#L142).
+- Reducing the state of the map to perform calculations for statistics. When an entry in the map changes, a reduction of the map is performed and the result can be pushed to another lane. An example of this is available [here]({{ site.data.rust.github_base }}/example_apps/transit/src/agents/state.rs#L142).
 - Simplifying aggregations for clients. Exposing a single Join Value Lane which aggregates a superset of data results in a simplified topology as opposed to clients opening a large number of downlinks remotely.
 
 # Event handlers
@@ -183,25 +183,6 @@ fn on_remove(
 The handler is provided with a reference to the current state of the underlying map, the downlink key that was updated and the value that was removed.
 
 Only one may be registered for the lane and it is invoked exactly once after an entry has been removed.
-
-## On Clear
-
-The `on_clear` event handler has the following signature for a join value lane type of `JoinValueLane<i32, i32>`:
-
-```rust
-#[on_clear(lane_name)]
-fn on_clear(
-    &self,
-    context: HandlerContext<ExampleAgent>,
-    prev: HashMap<i32, i32>,
-) -> impl EventHandler<ExampleAgent> {
-    //...
-}
-```
-
-The handler is provided with the state of the underlying map.
-
-Only one may be registered for the lane and it is invoked exactly once after the map has been cleared.
 
 ## Join Value Lifecycle
 
