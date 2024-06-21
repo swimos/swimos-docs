@@ -246,7 +246,7 @@ $ ./gradlew -Dhost=warp://localhost:9001 runClient
 #### Stream High level stats
 
 ```
-swim-cli sync -h warp://localhost:9001 -n swim:meta:mesh -l pulse
+swim-cli sync -h warp://localhost:9001 -n swim:meta:host -l pulse
 ```
 
 ### Application APIs

@@ -15,7 +15,7 @@ This page covers the specifics of Command Lanes and does not cover the more gene
 
 # Overview
 
-Command Lanes are the simplest type of lanes in SwimOS. They are stateless lanes that receive _command_ envelopes and invoke their registered `on_command` lifecycle callback with the received command envelope. While command lanes are stateless, any commands received are broadcast to any linked peers.
+Command Lanes are the simplest type of lanes in SwimOS. They are stateless lanes that receive _commands_ and invoke their registered `on_command` lifecycle callback with the received command. While command lanes are stateless, any commands received are broadcast to any linked peers.
 
 Example: using a Command Lane to update the state of another lane:
 
@@ -110,12 +110,12 @@ struct ExampleLifecycle;
 #[lifecycle(ExampleAgent)]
 impl ExampleLifecycle {
     #[on_command(command)]
-    fn handler(&self, context: HandlerContext<ExampleAgent>, value: &i32) -> impl EventHandler<ExampleAgent> {
+    fn command_handler(&self, context: HandlerContext<ExampleAgent>, value: &i32) -> impl EventHandler<ExampleAgent> {
         context.command(ExampleAgent::ADD, value)
     }
 
     #[on_command(add)]
-    fn handler(&self, context: HandlerContext<ExampleAgent>, value: &i32) -> impl EventHandler<ExampleAgent> {
+    fn add_handler(&self, context: HandlerContext<ExampleAgent>, value: &i32) -> impl EventHandler<ExampleAgent> {
         unimplemented!()
     }
 }
@@ -168,15 +168,17 @@ async fn main() {
     let _client_task = tokio::spawn(task);
     let handle = client.handle();
 
-    let exec_path = RemotePath::new(
-        "ws://0.0.0.0:8080",
-        "/example/1",
-        "command",
-    );
+    let exec_path = RemotePath::new("ws://0.0.0.0:8080", "/example/1", "command");
+    let exec_lifecycle = BasicValueDownlinkLifecycle::<Operation>::default()
+        // Register an event handler that is invoked when the downlink connects to the agent.
+        .on_linked_blocking(|| println!("Downlink linked"))
+        // Register an event handler that is invoked when the downlink receives a command.
+        .on_event_blocking(|value| println!("Downlink event: {value:?}"));
 
     let exec_downlink = handle
         .value_downlink::<Operation>(exec_path)
         .downlink_config(DownlinkConfig::default())
+        .lifecycle(exec_lifecycle)
         .open()
         .await
         .expect("Failed to open downlink");
