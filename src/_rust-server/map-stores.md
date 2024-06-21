@@ -12,15 +12,15 @@ redirect_from:
 
 # Overview
 
-A Map Store provides an agent with a store for map state that is not publically addressable. If server [persistence]({% link _rust-server/persistence.md %}) is enabled, then the state of the store will be persisted to the underlying engine and after a server restart, any state will be restored. If you require addressable scalar state, then a [Value Lane]({% link _rust-server/value-lanes.md %}) will be suitable.
+A Map Store provides an agent with a store for map state that is not publically addressable. If server [persistence]({% link _rust-server/persistence.md %}) is enabled, then the state of the store will be persisted to the underlying engine and after a server restart, any state will be restored. If you require addressable value state, then a [Value Lane]({% link _rust-server/value-lanes.md %}) will be suitable.
 
-A Map Store meets the following requirements:
+A Map Store has the following properties:
 
-- The state of the store can be updated by calling `update` or removed using `remove` and retreived using the `get_entry` functions on the [Handler Context]({% link _rust-server/handler-context.md %}).
+- The state of the store can be updated by calling `update`, removed using `remove`, retreived using the `get_entry` and cleared using the `clear` functions on the [Handler Context]({% link _rust-server/handler-context.md %}).
 - The state of the store is only accessible from within the agent that it is defined.
 - If persistence is enabled, the state of the store will be retreived from the persistence engine when the agent first starts.
 
-For instances where a scalar structure is required, a [Value Store]({% link _rust-server/value-stores.md %}) is available.
+For instances where a value structure is required, a [Value Store]({% link _rust-server/value-stores.md %}) is available.
 
 Example: using a Map Store to store the highest value associated with a key using a Map Lane:
 
@@ -71,11 +71,11 @@ impl ExampleLifecycle {
 
 # Bounds and Initialisation
 
-Map Stores place similar bounds to the standard library's `HashMap` but with the addition of requiring both the key and value types to implement the `swimos_form::Form` and `Send` traits. When the store is first intiialised, the store is initialised to an empty map. If you need to populate it with another value, then use the agent `on_start` lifecycle event handler and populate the inital value of the store there, ensuring that you handle agent restarts.
+Map Stores place similar bounds to the standard library's `HashMap` but with the addition of requiring both the key and value types to implement the `swimos_form::Form` and `Send` traits. When the store is first intiialised, the store is initialised to an empty map. If the state of the store is to be populated using the `on_start` handler, then care must be taken to not overwrite any previously held state, as it is not currently possible to detect restarts; a workaround is to wrap the state in an `Option` and only replace it if it is `None`.
 
 # Use cases
 
-Map Stores are useful in situtations where you need to persist data that is derived from lane events received but you do not wish for it to be available outside of the scope of the agent. While it is possible to keep state in the agent's lifecycle, this is lost when the agent is stopped and must be rebuilt each time the agent is started. Using a Map Store, the state is retreived from the underlying persistence engine when the agent first starts.
+Map Stores are useful in situtations where you need to persist data that is derived from lane events received but you do not wish for it to be available outside of the scope of the agent. While it is possible to keep state in the agent's lifecycle, this is lost when the agent is stopped and must be rebuilt each time the agent is started. Using a Map Store, the state is retreived from the underlying persistence engine when the agent first starts. Stores have the added benefit of their usability with the `HandlerContext` and do not require the use of interior mutability and are usable within futures.
 
 # Handler Context Operations
 
