@@ -12,7 +12,7 @@ redirect_from:
 
 # Overview
 
-A Value Store provides an agent with store for scalar state that is not publically addressable. If server [persistence]({% link _rust-server/persistence.md %}) is enabled, then the state of the store will be persisted to the underlying engine and after a server restart, any state will be restored. If you require addressable scalar state, then a [Value Lane]({% link _rust-server/value-lanes.md %}) will be suitable.
+A Value Store provides an agent with a store for state that is not publically addressable. If persistence is enabled and the application restarts, the state of the store will be reloaded from the underlying persistence engine. If persistence is not enabled, the state of the store will be reloaded from the in-memory store in between agent restarts but not application restarts. If you require addressable state, then a [Value Lane]({% link _rust-server/value-lanes.md %}) will be suitable.
 
 A Value Store meets the following requirements:
 
