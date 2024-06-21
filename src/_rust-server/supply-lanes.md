@@ -4,7 +4,6 @@ short-title: Supply Lanes
 description: "Remotely command Web Agents to take action, and observe the actions taken by others."
 group: Reference
 layout: documentation
-cookbook: https://github.com/swimos/cookbook/tree/master/demand_value_lanes
 redirect_from:
   - /tutorials/supply-lanes/
   - /reference/supply-lanes.html
@@ -77,7 +76,7 @@ Supply Lanes are suitable for situations where you aren't interested in the data
 
 - Propagating metadata. Metadata may be propagated at set intervals using the [Handler Context's]({% link _rust-server/handler-context.md %}) timer API and calculated on-demand.
 - Generating data on-demand using [Command Lanes]({% link _rust-server/command-lanes.md %}). A Command Lane may react to a command and invoke the `supply` function to return a response.
-- Propagating a subset of data. A Demand Lane may generate a subset of data from the state of another lane and propagate this to linked peers rather than duplicating the state of a lane. The lane's superset may invoke the `supply` operation after its state changes to avoid this duplication.
+- Propagating a subset of data. A Supply Lane may generate a subset of data from the state of another lane and propagate this to linked peers rather than duplicating the state of a lane. The lane's superset may invoke the `supply` operation after its state changes to avoid this duplication.
 
 # Event handler
 
