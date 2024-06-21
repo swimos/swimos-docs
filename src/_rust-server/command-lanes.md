@@ -15,7 +15,7 @@ This page covers the specifics of Command Lanes and does not cover the more gene
 
 # Overview
 
-Command Lanes are the simplest type of lanes in SwimOS. They are stateless lanes that receive _command_ envelopes and invoke their registered `on_command` lifecycle callback with the received command envelope. While command lanes are stateless, any commands received are broadcast to any linked peers.
+Command Lanes are the simplest type of lanes in SwimOS. They are stateless lanes that receive _commands_ and invoke their registered `on_command` lifecycle callback with the received command. While command lanes are stateless, any commands received are broadcast to any linked peers.
 
 Example: using a Command Lane to update the state of another lane:
 
