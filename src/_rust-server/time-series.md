@@ -10,7 +10,9 @@ redirect_from:
   - /backend/time-series/
 ---
 
-A common form of data is time series data that is indexed by the event's timestamp. Time series data is most suited to a [Map Lanes]({% link _rust-server/map-lanes.md %}) where the key is the events timestamp and the value is the data itself. While this data accumulates over time, it is important to implement a form of retention policy to prevent building an unbounded data structure. There are many retention policies that may be implemented to evict entries in the map and this guide will cover two: by count and by time. Both policies will be event driven and only evict entries when an entry has been updated in the map itself.
+A common form of data is time series data that is indexed by the event's timestamp. Time series data sets may be built using [Map Lanes]({% link _rust-server/map-lanes.md %}) where the key is the events timestamp and the value is the data itself.
+
+While this data accumulates over time, it is important to implement a form of retention policy to prevent building an unbounded data structure. There are many retention policies that may be implemented to evict entries in the map and this guide will cover two: by count and by time. Both policies will be event driven and only evict entries when an entry has been updated in the map itself.
 
 # Representation
 
