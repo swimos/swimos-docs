@@ -26,7 +26,7 @@ Value Downlinks provide a Web Agent with a view into remote scalar state. Allowi
 
 # Instantiation
 
-Value Downlinks are created using a [Handler Context]({% link _rust-server/handler-context.md %}) instance which is provided to any lifecycle implementation. While a downlink may not be created the same way as lanes, they may be created when the first starts or an event is received by another lane and a handle to the downlink may be stored in the lifecycle's instance.
+Value Downlinks are created using a [Handler Context]({% link _rust-server/handler-context.md %}) instance which is provided to any lifecycle implementation. While a downlink may not be created the same way as lanes, they may be created when the agent starts or when an event is received by a lane; a handle to a downlink may be stored in a lifecycle instance.
 
 Like all downlinks, they are opened by invoking the corresponding function on the [Handler Context]({% link _rust-server/handler-context.md %}) which returns a `HandlerAction` which will perform the actual construction of the downlink. There are two options available on the context for creating a Value Downlink: using a builder pattern which provides a flexible approach for defining the lifecycle of the downlink or by providing the lifecycle as an argument directly.
 
