@@ -15,9 +15,9 @@ This page covers the specifics of map lanes and does not cover the more general 
 
 # Overview
 
-A Map Lane stores a list of key-value mappings. When the map has an entry updated or removed the change is propagated to all attached uplinks and this differs to [Value Lanes]({% link _rust-server/value-lanes.md %}) where the entire state of the lane is propagated. A Map Lane meets the following requirements:
+A Map Lane stores a list of key-value pairs. When the map has an entry updated or removed all attached uplinks are notified and this differs to [Value Lanes]({% link _rust-server/value-lanes.md %}) where the entire state of the lane is sent. A Map Lane has the following properties:
 
-- A Map Lane stores key-value mappings. Internally, the Map Lane is backed by a [HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html) and places the additional constraint that both the key and value types must implement the [Form]({% link _rust-server/forms.md %}) trait.
+- A Map Lane stores key-value pairs. Both the key and value types must implement the [Form]({% link _rust-server/forms.md %}) trait.
 - Following an entry being inserted or removed, a corresponding `on_update` or `on_remove` lifecycle event handler will be invoked.
 - The Map Lane may be cleared using the `clear` function on the [Handler Context's]({% link _rust-server/handler-context.md %}) and a registered `on_clear` lifecycle event handler will be invoked.
 - A Map Lane may be subscribed to using a [Map Downlink]({% link _rust-server/map-downlinks.md %}).
@@ -92,7 +92,7 @@ impl ExampleLifecycle {
 
 # Use cases
 
-Map Lanes are used for maintaining key-value state mappings. They are useful for storing and propagating changes to record-like data structures at a granular level. Common usecases are:
+Map Lanes are used for maintaining key-value state pairs. Common usecases are:
 
 - Storing key-value mapping that are replicated to all uplinks attached to the lane.
 - Storing time series data. The key in the map may be used to represent the time of an event and the value may be the corresponding event.
@@ -105,110 +105,6 @@ A Map Lane has three lifecycle event handlers that may be registered:
 - `on_update`: invoked after an entry in the map has been updated.
 - `on_remote`: invoked after an entry in the map has been removed.
 - `on_clear`: invoked after the map has been cleared.
-
-It's important to pay close attention to any side effects that a Map Lane's event handler may have while writing a handler. It's possible that a Map Lane's event handler may cause another lane's event handler to mutate the state of the Map while it is executing and this may invalidate the logic of the handler. While contrived, consider the following example:
-
-```rust
-use std::collections::HashMap;
-
-use swimos::agent::event_handler::{ConstHandler, HandlerAction, Sequentially};
-use swimos::agent::lanes::{DemandLane, DemandMapLane};
-use swimos::agent::{
-    agent_lifecycle::utility::HandlerContext,
-    event_handler::{EventHandler, HandlerActionExt},
-    lanes::MapLane,
-    lifecycle, projections, AgentLaneModel,
-};
-
-#[derive(AgentLaneModel)]
-#[projections]
-pub struct ExampleAgent {
-    map: MapLane<i32, String>,
-    demand: DemandLane<Vec<String>>,
-    demand_map: DemandMapLane<i32, String>,
-}
-
-#[derive(Clone)]
-pub struct ExampleLifecycle;
-
-#[lifecycle(ExampleAgent)]
-impl ExampleLifecycle {
-    #[on_cue(demand)]
-    pub fn on_cue(
-        &self,
-        context: HandlerContext<ExampleAgent>,
-    ) -> impl HandlerAction<ExampleAgent, Completion = Vec<String>> {
-        context
-            // Get the current state of the map. At this point in time,
-            // the state of the map is valid.
-            .get_map(ExampleAgent::MAP)
-            .and_then(move |map: HashMap<i32, String>| {
-                context
-                    // Clear the map
-                    .clear(ExampleAgent::MAP)
-                    // Return the values that existed in the map
-                    .followed_by(context.value(map.into_values().collect()))
-            })
-    }
-
-    #[on_cue_key(demand_map)]
-    pub fn on_cue_key(
-        &self,
-        context: HandlerContext<ExampleAgent>,
-        key: i32,
-    ) -> impl HandlerAction<ExampleAgent, Completion = Option<String>> + '_ {
-        // Every call to this event handler is now pointing to an entry that
-        // no longer exists in the map.
-        context.get_entry(ExampleAgent::MAP, key)
-    }
-
-    #[on_update(map)]
-    pub fn on_update(
-        &self,
-        context: HandlerContext<ExampleAgent>,
-        map: &HashMap<i32, String>,
-        _key: i32,
-        _prev: Option<String>,
-        _new_value: &str,
-    ) -> impl EventHandler<ExampleAgent> {
-        let len = map.len();
-        // Ensure that the map has some entries.
-        if len > 10 {
-            // Collect all of the keys that we want to cue into the demand map lane.
-            // At this point in time, these are valid keys and their entries exist
-            // in the map.
-            let cue_handlers = map
-                .keys()
-                .cloned()
-                .collect::<Vec<_>>()
-                .into_iter()
-                .map(move |key| context.cue_key(ExampleAgent::DEMAND_MAP, key));
-
-            context
-                // Cue the demand lane. Calling this will invoke `on_cue` above
-                // and this will clear the state of the map lane.
-                .cue(ExampleAgent::DEMAND)
-                // Now this event handler will have no effect.
-                // At this point in time, `len` is also incorrect as the map
-                // has been cleared.
-                .followed_by(Sequentially::new(cue_handlers))
-                .boxed()
-        } else {
-            ConstHandler::default().boxed()
-        }
-    }
-}
-```
-
-The order of the `on_update` event handler above is incorrect. It executes as follows:
-
-- Build a vector of keys in the map to cue into the `DemandMapLane`.
-- Cue the `DemandLane`. This causes its registered lifecycle event handler to be invoked which clones the state of the map and then clears the state of the map lane.
-- Cue each of the keys into the `DemandMapLane` from the initial vector. This causes the `DemandMapLane`'s registered lifecycle event handler to be invoked which fetches the corresponding value to be retreived from the map lane, which is empty.
-
-It's possible to build the desired functionality but it requires swapping the order that the event handlers are executed. The keys must be cued _before_ the Demand Lane `cue` call is made.
-
-Situations such as this can arise if care is not taken when designing event handlers. In the aforementioned example, the logic is scoped to the agent itself but similar situations can arise when state is mutated outside of the current agent.
 
 ## On Update
 
