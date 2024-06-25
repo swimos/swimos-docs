@@ -4,18 +4,18 @@ short-title: Demand Map Lanes
 description: "Remotely command Web Agents to take action, and observe the actions taken by others."
 group: Reference
 layout: documentation
-cookbook: https://github.com/swimos/cookbook/tree/master/demand_value_lanes
+cookbook: https://github.com/swimos/cookbook/tree/master/demand_map_lanes
 redirect_from:
-  - /tutorials/demand-value-lanes/
-  - /reference/demand-value-lanes.html
-  - /backend/demand-value-lanes/
+  - /tutorials/demand-map-lanes/
+  - /reference/demand-map-lanes.html
+  - /backend/demand-map-lanes/
 ---
 
 This page covers the specifics of Demand Map Lanes and does not cover the more general aspects of Lanes. For more general information about lanes, see the [Lane]({% link _rust-server/lanes.md %}) page.
 
 # Overview
 
-A Demand Map Lane is a stateless analogue of a [Map Lane]({% link _rust-server/value-lane.md %}). Instead of maintaining a persistent state that can be queried, a Demand Map Lane computes a value for a given key, when requested, that is sent to all uplinks attached to it. A Demand Map Lane meets the following requirements:
+Demand Map Lanes are stateless lanes that compute a value for an associated key only when explicitly requested and use the lane's lifecycle event handler, `on_cue_key` to retreive a value to send to attached uplinks. Requests to calculate a new value are made using the [Handler Context's]({% link _rust-server/handler-context.md %}) `cue_key` function. A Demand Value Lane has the following properties:
 
 - Values for keys are `cue`-ed into the Demand Map Lane by calling the [Handler Context's]({% link _rust-server/handler-context.md %}) `cue_key` function.
 - Following a `cue` invocation, the Demand Map Lane's `on_cue_key` lifecycle event handler will be invoked for a value to be produced for the given key.
@@ -222,4 +222,4 @@ Further reading: [Downlinks]({% link _rust-server/downlinks.md %})
 
 # Try It Yourself
 
-A standalone project that demonstrates Command Lanes is available [here](https://github.com/swimos/swim-rust/tree/main/example_apps/demand_map_lane).
+A standalone project that demonstrates Demand Map Lanes is available [here](https://github.com/swimos/swim-rust/tree/main/example_apps/demand_map_lane).
