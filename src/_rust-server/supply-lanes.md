@@ -14,14 +14,14 @@ This page covers the specifics of Supply Lanes and does not cover the more gener
 
 # Overview
 
-A Supply Lane is a stateless analogue of a [Value Lane]({% link _rust-server/value-lanes.md %}). Instead of maintaining a persistent state that can be queried, a Supply Lane is simply fed a value to propagate. A Supply Lane meets the following requirements:
+Supply Lanes have no accessible state and instead are fed values to propagate to attached uplinks. Internally, they are backed by a queue of pending messages that are guaranteed to be dispatched. A Supply Lane has the following properties:
 
 - Values are supplied to the lane by calling the [Handler Context's]({% link _rust-server/handler-context.md %}) `supply` function.
 - The supplied value will be sent to all attached uplinks.
 
-Supply Lanes are similar to [Demand Value Lanes]({% link _rust-server/demand-value-lanes.md %}) and [Demand Map Lanes]({% link _rust-server/demand-map-lanes.md %}) but do not expose a lifecycle event handler. This changes the scope of where a value can be supplied to the lane. With a demand-type handler, the value is typically produced inside the lane's registered lifecycle event handler. Whereas with a Supply Lane, the value may be produced inside another handler.
+Similar to [Demand Value Lanes]({% link _rust-server/demand-value-lanes.md %}), values in Supply Lanes are computed using lifecycle event handlers. However, in Supply Lanes, values are directly provided to the supply function, and no lifecycle event handler can be registered.
 
-Supply Lanes are ideal for publishing statistical events, where it isn’t important that a client receives every incremental update, only that the client eventually receives the latest state, that the state clients receive is real-time (within the latency of the network), and that updates are desired as often as possible. `supply` invocations may happen at scheduled intervals (using timers) or after another event has been triggered by an agent (such as after another lane receives an update and its lifecycle event handler invokes `supply`).
+Supply Lanes are ideal for publishing statistical events, where it is important that a client receives every incremental update, that the state clients receive is real-time, and that updates are desired as often as possible. `supply` invocations may happen at scheduled intervals (using timers) or after another event has been triggered by an agent (such as after another lane receives an update and its lifecycle event handler invokes `supply`).
 
 The following example demonstrates using a Supply Lane as well as how the same functionality would look using a Demand Lane:
 
@@ -72,9 +72,8 @@ impl ExampleLifecycle {
 
 # Use cases
 
-Supply Lanes are suitable for situations where you aren't interested in the data immediately and can handle the delay between linking to the lane and the `supply` invocation. Common usecases are:
+Supply Lanes are appropriate for scenarios where immediate data access isn't critical, and you can accommodate the delay between linking to the lane and invoking the supply operation. Typical use cases include:
 
-- Propagating metadata. Metadata may be propagated at set intervals using the [Handler Context's]({% link _rust-server/handler-context.md %}) timer API and calculated on-demand.
 - Generating data on-demand using [Command Lanes]({% link _rust-server/command-lanes.md %}). A Command Lane may react to a command and invoke the `supply` function to return a response.
 - Propagating a subset of data. A Supply Lane may generate a subset of data from the state of another lane and propagate this to linked peers rather than duplicating the state of a lane. The lane's superset may invoke the `supply` operation after its state changes to avoid this duplication.
 
