@@ -1,1 +1,12 @@
+# Rust version
+rustc-version: 1.76.0
+
+# SwimOS crates
+swimos-version: 0.1.0
+swimos-client-version: 0.1.0
+swimos-form-version: 0.1.0
+
+# Support crates
+tokio-version: 1.3
+
 github_base: https://github.com/swimos/swim-rust/blob/v0.1.0
