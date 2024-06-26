@@ -15,6 +15,7 @@ This page covers the specifics of Value Lanes and does not cover the more genera
 
 # Overview
 
+
 A Value Lane stores a value that can be mutated and retreived. Each time the state is updated, the updated state is sent to all uplinks attached to it. A Value Lane meets the following requirements:
 
 - The state of the lane can be updated by calling the `set` function on the [Handler Context's]({% link _rust-server/handler-context.md %}).

@@ -15,13 +15,13 @@ This page covers the specifics of Demand Value Lanes and does not cover the more
 
 # Overview
 
-A Demand Value Lane is a stateless analogue of a [Value Lane]({% link _rust-server/value-lane.md %}). Instead of maintaining a persistent state that can be queried, a Demand Value Lane computes a value, when requested, that is sent to all uplinks attached to it. A Demand Value Lane meets the following requirements:
+Demand Lanes are stateless lanes that compute a value only when explicitly requested and use the lane's lifecycle event handler, `on_cue` to retreive a value to send to attached uplinks. Requests to calculate a new value are made using the [Handler Context's]({% link _rust-server/handler-context.md %}) `cue` function. A Demand Value Lane has the following properties:
 
 - Values are `cue`-ed into the Demand Value Lane by calling the [Handler Context's]({% link _rust-server/handler-context.md %}) `cue` function.
 - Following a `cue` invocation, the Demand Value Lane's `on_cue` lifecycle event handler will be invoked for a value to be produced.
 - The cued value will be sent to all attached uplinks.
 
-Demand Value Lanes are ideal for publishing statistical events, where it isn’t important that a client receives every incremental update, only that the client eventually receives the latest state, that the state clients receive is real-time (within the latency of the network), and that updates are desired as often as possible. `cue` invocations may happen at scheduled intervals (using timers) or after another event has been triggered by an agent (such as after another lane receives an update and its lifecycle event handler invokes `cue`).
+Demand Value Lanes are perfect for handling expensive computations that should not be executed with every update. They ensure clients receive the latest state in real-time, without needing every incremental update, and allow for updates as frequently as possible. `cue` invocations may happen at scheduled intervals (using timers) or after another event has been triggered by an agent (such as after another lane receives an update and its lifecycle event handler invokes `cue`).
 
 For instances where a map structure is required, a [Demand Map Lane]({% link _rust-server/demand-map-lanes.md %}) exists where a `cue_key` function queues a key-value pair into the lane.
 
@@ -69,9 +69,8 @@ impl ExampleLifecycle {
 
 # Use cases
 
-Demand Value Lanes are suitable for situations where you aren't interested in the data immediately and can handle the delay between linking to the lane and the `cue` invocation. Common usecases are:
+Demand Value Lanes are suitable for scenarios where immediate data access isn't crucial, and a delay between linking to the lane and invoking cue is acceptable. Common usecases are:
 
-- Propagating metadata. Metadata may be propagated at set intervals using the [Handler Context's]({% link _rust-server/handler-context.md %}) timer API and calculated on-demand.
 - Generating data on-demand using [Command Lanes]({% link _rust-server/command-lanes.md %}). A Command Lane may react to a command and invoke the `cue` function to return a response.
 - Propagating a subset of data. A Demand Lane may generate a subset of data from the state of another lane and propagate this to linked peers rather than duplicating the state of a lane. The lane's superset may invoke the `cue` operation after its state changes to avoid this duplication.
 
