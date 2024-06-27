@@ -23,7 +23,7 @@ Demand Map Lanes are stateless lanes that compute a value for an associated key 
 
 Demand Map Lanes are ideal for publishing statistical events, where it isn’t important that a client receives every incremental update, only that the client eventually receives the latest state, that the state clients receive is real-time (within the latency of the network), and that updates are desired as often as possible. `cue_key` invocations may happen at scheduled intervals (using timers) or after another event has been triggered by an agent (such as after another lane receives an update and its lifecycle event handler invokes `cue_key`).
 
-For instances where a scalar type is required, a [Demand Value Lane]({% link _rust-server/demand-value-lanes.md %}) exists where a `cue` function queues a scalar value into the lane.
+For instances where a value type is required, a [Demand Value Lane]({% link _rust-server/demand-value-lanes.md %}) exists where a `cue` function queues a value into the lane.
 
 Example: using a Demand Map Lane event handler extract a subset of data from a Map Lane:
 
@@ -86,7 +86,6 @@ impl ExampleLifecycle {
 
 Demand Map Lanes are suitable for situations where you aren't interested in the data immediately and can handle the delay between linking to the lane and the `cue_key` invocation. Common usecases are:
 
-- Propagating metadata. Metadata may be propagated at set intervals using the [Handler Context's]({% link _rust-server/handler-context.md %}) timer API and calculated on-demand.
 - Generating data on-demand using [Command Lanes]({% link _rust-server/command-lanes.md %}). A Command Lane may react to a command and invoke the `cue_key` function to return a response.
 - Propagating a subset of data. A Demand Map Lane may generate a subset of data from the state of another lane and propagate this to linked peers rather than duplicating the state of a lane. The lane's superset may invoke the `cue_key` operation after its state changes to avoid this duplication.
 
