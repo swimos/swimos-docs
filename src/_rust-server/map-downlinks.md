@@ -1,7 +1,7 @@
 ---
 title: Server Map Downlinks
 short-title: Server Map Downlinks
-description: "Share scalar data across Web Agents and clients through persistent, bidirectionally-streaming lane references."
+description: "Share key-value data across Web Agents and clients through persistent, bidirectionally-streaming lane references."
 group: Reference
 layout: documentation
 cookbook: https://github.com/swimos/swim-rust/tree/main/example_apps/map_downlink
@@ -15,22 +15,22 @@ This page covers the specifics of Map Downlinks and does not cover the more gene
 
 # Overview
 
-A Map Downlink synchronises a shared, real-time, scalar value with a lane outside of the current [Web Agent]({% link _rust-server/web-agents.md %}); this may be a lane that is local or remote. A Map Downlink exposes a variety of lifecycle event handlers that may be registered and are invoked during the lifetime of the downlink.
+A Map Downlink synchronises shared, real-time, key-value data with a lane outside of the current [Web Agent]({% link _rust-server/web-agents.md %}); this may be a lane that is local or remote. A Map Downlink exposes a variety of lifecycle event handlers that may be registered and are invoked during the lifetime of the downlink.
 
 # Use Cases
 
-Map Downlinks provide a Web Agent with a view into remote key-value map state. Allowing you to be notified of state changes elsewhere in a system and react to them, incrementally mutating it as required. Common usecases of Map Downlinks are:
+Map Downlinks allow you to modify the state of a remote lane and observe state changes by registering lifecycle event handlers. Common usecases of Map Downlinks are:
 
 - Replicating state across agents. Using a Map Downlink, you can replicate the state of another lane into your Web Agent. This is useful in instances where a datapoint is shared across Web Agents and is more cleanly defined in a parent Web Agent and a downlink is instead used to replicate it; consider designing a Web Agent for a road and the flow state of the road is defined by a traffic light which is its own Web Agent.
 - Aggregating state. Aggregate the state of multiple lanes across multiple Web Agents into a single [Map Lane]({% link _rust-server/map-lanes.md %}) using Map Downlinks.
 
 # Instantiation
 
-Map Downlinks are created using a [Handler Context]({% link _rust-server/handler-context.md %}) instance which is provided to any lifecycle implementation. While a downlink may not be created the same way as lanes, they may be created when the first starts or an event is received by another lane and a handle to the downlink may be stored in the lifecycle's instance.
+Map Downlinks are created using a [Handler Context]({% link _rust-server/handler-context.md %}) instance which is provided to any lifecycle handler. While a downlink may not be created the same way as lanes, they may be created when the first starts or an event is received by another lane and a handle to the downlink may be stored in the lifecycle's instance.
 
 Like all downlinks, they are opened by invoking the corresponding function on the [Handler Context]({% link _rust-server/handler-context.md %}) which returns a `HandlerAction` which will perform the actual construction of the downlink. There are two options available on the context for creating a Map Downlink: using a builder pattern which provides a flexible approach for defining the lifecycle of the downlink or by providing the lifecycle as an argument directly.
 
-A Map Downlink may be built using the `HandlerContext::value_downlink_builder` function. Which is defined as follows:
+A Map Downlink may be built using the `HandlerContext::map_downlink_builder` function. Which is defined as follows:
 
 ```rust
 use swimos::agent::{
@@ -60,7 +60,7 @@ The following arguments must be provided:
 - `lane`: the lane to downlink from.
 - `config`: configuration parameters for the downlink.
 
-Invoking this function will return a `HandlerAction` that completes with a handle which may be used to set the state of the downlink as well as terminate it. This function will return immediately but internally the handle will spawn a task that attempts to open the link. Dropping the returned handle will result in the downlink terminating; a common place to keep the handle is inside the agent's lifecycle.
+Invoking this function will return a `HandlerAction` that completes with a handle which may be used to update the state of the downlink as well as terminate it. This function will return immediately but internally the handle will spawn a task that attempts to open the link.
 
 A complete example for opening a Map Downlink:
 
@@ -70,7 +70,7 @@ use swimos::agent::{
     agent_model::downlink::hosted::MapDownlinkHandle,
     config::SimpleDownlinkConfig,
     event_handler::{EventHandler, HandlerActionExt},
-    lanes::ValueLane,
+    lanes::MapLane,
     lifecycle, projections,
     state::State,
     AgentLaneModel,
@@ -133,7 +133,7 @@ impl ExampleLifecycle {
 When creating a Map Downlink, a `swimos::agent::config::MapDownlinkConfig` must be provided that configures two behavioural properties of the Downlink:
 
 - `events_when_not_synced`: if this is set, lifecycle handlers will be invoked for events before the downlink is synchronized with the lane. Defaults to `false`.
-- `terminate_on_unlinked`: if this is set, the downlink will stop if it enters the unlinked state. Defaults to: `true`.
+- `terminate_on_unlinked`: if this is set, the downlink will stop if it enters the unlinked state. Defaults to: `true`. If set to `false`, the downlink will attempt to reconnect to the lane.
 
 # Lifecycle Event Handlers
 
@@ -168,7 +168,7 @@ use swimos::agent::{
     agent_model::downlink::hosted::MapDownlinkHandle,
     config::MapDownlinkConfig,
     event_handler::{EventHandler, HandlerActionExt},
-    lanes::ValueLane,
+    lanes::MapLane,
     lifecycle, projections,
     state::State,
     AgentLaneModel,
@@ -216,60 +216,6 @@ impl ExampleLifecycle {
 }
 ```
 
-# Map Downlink Handles
-
-After opening a Map Downlink, you are provided with a handle which may be used to set the current state of the downlink and its remote lane, and to stop the downlink. While operations may be executed using the handle, the downlink may not have necessarily opened a link to the lane and care should be taken to ensure that dispatched operations are executing on a valid link; this is possible by implementing synchronisation using the lifecycle event handlers and a barrier on the receiving end using the handle.
-
-Dropping the downlink handle will cause the downlink to terminate. It is possible to prevent this by keeping the downlink handle inside the agent's lifecycle after creating it:
-
-```rust
-
-use swimos::agent::{
-    agent_lifecycle::utility::HandlerContext,
-    agent_model::downlink::hosted::ValueDownlinkHandle,
-    config::MapDownlinkConfig,
-    event_handler::{EventHandler, HandlerActionExt},
-    lanes::ValueLane,
-    lifecycle, projections,
-    state::State,
-    AgentLaneModel,
-};
-
-#[derive(AgentLaneModel)]
-#[projections]
-pub struct ExampleAgent {
-    lane: ValueLane<u64>,
-}
-
-#[derive(Debug, Default)]
-pub struct ExampleLifecycle {
-    /// Here we use a State instance which enables using interior
-    /// mutability in agent lifecycles. Since the downlink is not
-    /// opened until the agent has started the handle must be wrapped
-    /// in an Option.
-    handle: State<ExampleAgent, Option<MapDownlinkHandle<String, i32>>>,
-}
-
-#[lifecycle(ExampleAgent)]
-impl ExampleLifecycle {
-    #[on_start]
-    pub fn on_start(
-        &self,
-        context: HandlerContext<ExampleAgent>,
-    ) -> impl EventHandler<ExampleAgent> + '_ {
-        let ExampleLifecycle { handle } = self;
-
-        context
-            .map_downlink_builder(None, "node", "lane", MapDownlinkConfig::default())
-            .done()
-            .and_then(move |downlink_handle| {
-              /// Set the value of the State to be the downlink handle.
-              handle.set(Some(downlink_handle))
-            })
-    }
-}
-```
-
 ## Clear
 
 Clears the current state of the downlink, ensuring that the new state is synchronised with the remote lane. Invoking this function only _queues_ the clear operation and then returns immediately. It does not wait for the operation to be synchronised with the lane.
@@ -277,22 +223,29 @@ Clears the current state of the downlink, ensuring that the new state is synchro
 An example for clearing the downlink's state when a sentinel value is received:
 
 ```rust
-
-use swimos::agent::{
-    agent_lifecycle::utility::HandlerContext,
-    agent_model::downlink::hosted::MapDownlinkHandle,
-    AgentLaneModel,
-    config::MapDownlinkConfig,
-    event_handler::{EventHandler, HandlerActionExt},
-    lanes::ValueLane, lifecycle,
-    projections,
-    state::State,
+use swimos::{
+    agent::agent_model::downlink::MapDownlinkHandle,
+    agent::lanes::CommandLane,
+    agent::{
+        agent_lifecycle::HandlerContext,
+        config::MapDownlinkConfig,
+        event_handler::{EventHandler, HandlerActionExt},
+        lifecycle, projections,
+        state::State,
+        AgentLaneModel,
+    },
 };
+use swimos_form::Form;
+
+#[derive(Form, Copy, Clone, PartialEq)]
+pub enum Action {
+    Clear,
+}
 
 #[derive(AgentLaneModel)]
 #[projections]
 pub struct ExampleAgent {
-    lane: ValueLane<u64>,
+    lane: CommandLane<Action>,
 }
 
 #[derive(Default)]
@@ -321,22 +274,23 @@ impl ExampleLifecycle {
             .and_then(move |downlink_handle| handle.set(Some(downlink_handle)))
     }
 
-    #[on_event(lane)]
-    pub fn on_event<'s>(
+    #[on_command(lane)]
+    pub fn on_command<'s>(
         &'s self,
         _context: HandlerContext<ExampleAgent>,
-        value: &u64,
+        action: &Action,
     ) -> impl EventHandler<ExampleAgent> + 's {
-        let value = *value;
+        let action = *action;
         self.handle.with_mut(move |state| {
             if let Some(handle) = state.as_mut() {
-                if value == -1 {
+                if action == Action::Clear {
                     handle.clear().expect("Failed to clear downlink");
                 }
             }
         })
     }
 }
+
 ```
 
 ## Remove
@@ -351,7 +305,7 @@ use swimos::agent::{
     agent_model::downlink::hosted::MapDownlinkHandle,
     config::MapDownlinkConfig,
     event_handler::{EventHandler, HandlerActionExt},
-    lanes::ValueLane,
+    lanes::MapLane,
     lifecycle, projections,
     state::State,
     AgentLaneModel,
@@ -360,7 +314,7 @@ use swimos::agent::{
 #[derive(AgentLaneModel)]
 #[projections]
 pub struct ExampleAgent {
-    lane: ValueLane<u64>,
+    lane: MapLane<i32, i32>
 }
 
 #[derive(Default)]
@@ -423,7 +377,7 @@ use swimos::agent::{
     agent_model::downlink::hosted::MapDownlinkHandle,
     config::MapDownlinkConfig,
     event_handler::{EventHandler, HandlerActionExt},
-    lanes::ValueLane,
+    lanes::MapLane,
     lifecycle, projections,
     state::State,
     AgentLaneModel,
@@ -432,7 +386,7 @@ use swimos::agent::{
 #[derive(AgentLaneModel)]
 #[projections]
 pub struct ExampleAgent {
-    lane: ValueLane<u64>,
+    lane: MapLane<i32, i32>
 }
 
 #[derive(Default)]
