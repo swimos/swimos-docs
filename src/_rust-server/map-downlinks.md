@@ -137,9 +137,7 @@ When creating a Map Downlink, a `swimos::agent::config::MapDownlinkConfig` must 
 
 # Lifecycle Event Handlers
 
-Lifecycle event handlers may be registered with a Map Downlink to be notified when an event takes places in the downlink. Most commonly, an On Set and On Event handler will be registered to be notified when the downlink's state changes.
-
-Any lifecycle event handler that is registered is run within the context of the agent that opened it and has access to the agent's `HandlerContext`. As such, the handlers may invoke operations that read or mutate the state of the agent. All handlers are invoked exactly once after an event has occurred.
+Lifecycle event handlers may be registered with a Map Downlink to be notified when an event takes places in the downlink. Any lifecycle event handler that is registered is run within the context of the agent that opened it and has access to the agent's `HandlerContext`. As such, the handlers may invoke operations that read or mutate the state of the agent. All handlers are invoked exactly once after an event has occurred.
 
 A variety of event handlers are available:
 
