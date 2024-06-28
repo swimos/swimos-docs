@@ -16,7 +16,7 @@ A Map Store provides an agent with a store for map state that is not publically 
 
 A Map Store has the following properties:
 
-- The state of the store can be updated by calling `update`, removed using `remove`, retreived using the `get_entry` and cleared using the `clear` functions on the [Handler Context]({% link _rust-server/handler-context.md %}).
+- The state of the store can be updated by calling `update`, removed using `remove`, retreived using the `get_entry` and cleared using the `clear` functions on the [Handler Context](https://docs.rs/swimos_agent/{{ site.data.rust.swimos-agent-version }}/swimos_agent/agent_lifecycle/struct.HandlerContext.html).
 - The state of the store is only accessible from within the agent that it is defined.
 - If persistence is enabled, the state of the store will be retreived from the persistence engine when the agent first starts.
 

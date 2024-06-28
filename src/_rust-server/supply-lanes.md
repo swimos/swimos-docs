@@ -16,7 +16,7 @@ This page covers the specifics of Supply Lanes and does not cover the more gener
 
 Supply Lanes have no accessible state and instead are fed values to propagate to attached uplinks. Internally, they are backed by a queue of pending messages that are guaranteed to be dispatched. A Supply Lane has the following properties:
 
-- Values are supplied to the lane by calling the [Handler Context's]({% link _rust-server/handler-context.md %}) `supply` function.
+- Values are supplied to the lane by calling the [Handler Context's](https://docs.rs/swimos_agent/{{ site.data.rust.swimos-agent-version }}/swimos_agent/agent_lifecycle/struct.HandlerContext.html) `supply` function.
 - The supplied value will be sent to all attached uplinks.
 
 Similar to [Demand Value Lanes]({% link _rust-server/demand-value-lanes.md %}), values in Supply Lanes are computed using lifecycle event handlers. However, in Supply Lanes, values are directly provided to the supply function, and no lifecycle event handler can be registered.
@@ -79,7 +79,7 @@ Supply Lanes are appropriate for scenarios where immediate data access isn't cri
 
 # Event handler
 
-No lifecycle event handler is provided for a Supply Lane. Values are fed to the lane using the [Handler Context's]({% link _rust-server/handler-context.md %}) `supply` function.
+No lifecycle event handler is provided for a Supply Lane. Values are fed to the lane using the [Handler Context's](https://docs.rs/swimos_agent/{{ site.data.rust.swimos-agent-version }}/swimos_agent/agent_lifecycle/struct.HandlerContext.html) `supply` function.
 
 # Handler Context Operations
 

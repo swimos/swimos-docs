@@ -15,9 +15,9 @@ This page covers the specifics of Demand Value Lanes and does not cover the more
 
 # Overview
 
-Demand Lanes are stateless lanes that compute a value only when explicitly requested and use the lane's lifecycle event handler, `on_cue` to retreive a value to send to attached uplinks. Requests to calculate a new value are made using the [Handler Context's]({% link _rust-server/handler-context.md %}) `cue` function. A Demand Value Lane has the following properties:
+Demand Lanes are stateless lanes that compute a value only when explicitly requested and use the lane's lifecycle event handler, `on_cue` to retreive a value to send to attached uplinks. Requests to calculate a new value are made using the [Handler Context's](https://docs.rs/swimos_agent/{{ site.data.rust.swimos-agent-version }}/swimos_agent/agent_lifecycle/struct.HandlerContext.html) `cue` function. A Demand Value Lane has the following properties:
 
-- Values are `cue`-ed into the Demand Value Lane by calling the [Handler Context's]({% link _rust-server/handler-context.md %}) `cue` function.
+- Values are `cue`-ed into the Demand Value Lane by calling the [Handler Context's](https://docs.rs/swimos_agent/{{ site.data.rust.swimos-agent-version }}/swimos_agent/agent_lifecycle/struct.HandlerContext.html) `cue` function.
 - Following a `cue` invocation, the Demand Value Lane's `on_cue` lifecycle event handler will be invoked for a value to be produced.
 - The cued value will be sent to all attached uplinks.
 
