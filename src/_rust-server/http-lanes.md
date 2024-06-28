@@ -15,14 +15,13 @@ This page covers the specifics of HTTP Lanes and does not cover the more general
 
 # Overview
 
-HTTP Lanes expose endpoints that allow web applications to communicate with Web Agents using REST APIs. They are defined like other lane types but take an additional type parameter that sets the codec which is used for encoding and decoding HTTP requests and responses. HTTP Lanes provide lifecycle event handlers like other lanes, are able to interact with the state of the agent and return handlers which signal what the HTTP request should respond with.
+HTTP Lanes expose endpoints that allow web applications to communicate with Web Agents using REST APIs. They are defined like other lane types and their type parameter defines the request and response types for the corresponding REST methods. HTTP Lanes provide lifecycle event handlers like other lanes, are able to interact with the state of the agent and return handlers which signal what the HTTP request should respond with.
 
 Example: exposing REST endpoints to view and update the state of a Value Lane:
 
 ```rust
 use swimos::{
-    agent::lanes::http::DefaultCodec,
-    agent::lanes::HttpLane,
+    agent::lanes::SimpleHttpLane,
     agent::{
         agent_lifecycle::HandlerContext,
         event_handler::{HandlerAction, HandlerActionExt},
@@ -38,7 +37,7 @@ use swimos::{
 #[projections]
 pub struct ExampleAgent {
     value_lane: ValueLane<i32>,
-    http_lane: HttpLane<i32, i32, i32, DefaultCodec>,
+    http_lane: SimpleHttpLane<i32>,
 }
 
 #[derive(Clone)]
@@ -96,9 +95,9 @@ impl ExampleLifecycle {
 
 The aforementioned example creates a HTTP lane that uses lifecycle event handlers which provide read and write access to the lane `value_lane`. Using the `HttpRequestContext` it's possible to inspect the HTTP request and view the URI that generated the request as well as any HTTP headers in the request. Once the SwimOS Server is running, HTTP Lanes are accessible using the following URL format: `url/node_uri?lane=lane_uri'`; for the above example, `http://127.0.0.1:59282/example/1?lane=http_lane`.
 
-## Type Signature
+## Advanced Usage
 
-A HTTP Lane has the following definition:
+`SimpleHttpLane` is a type alias for a `HttpLane` where all HTTP methods have the same request and response body type. If this is not desired, then a `HttpLane` may be used which has the following definition:
 
 ```rust
 pub struct HttpLane<Get, Post, Put, Codec> {
@@ -106,26 +105,13 @@ pub struct HttpLane<Get, Post, Put, Codec> {
 }
 ```
 
-`Get`, `Post`, and `Put` are used to specify the types for HTTP response and requests for the lane. The [DefaultCodec](https://docs.rs/swimos/{{ site.data.rust.version }}/swimos/agent/lanes/http/struct.DefaultCodec.html) provides a codec implementation that supports serialization and deserialization for Recon and JSON formats. If your application requires support for another data format, the traits [HttpLaneCodec](https://docs.rs/swimos/{{ site.data.rust.version }}/swimos/agent/lanes/http/trait.HttpLaneCodec.html) and [HttpLaneCodecSupport](https://docs.rs/swimos/{{ site.data.rust.version }}/swimos/agent/lanes/http/trait.HttpLaneCodecSupport.html) must be implemented. Additionally, if your HTTP lane requires identical request and response types, a shorthand [SimpleHttpLane](https://docs.rs/swimos/{{ site.data.rust.version }}/swimos/agent/lanes/http/type.SimpleHttpLane.html) is available:
-
-```rust
-use swimos::{
-    agent::lanes::http::DefaultCodec, agent::lanes::SimpleHttpLane, agent::projections,
-    agent::AgentLaneModel,
-};
-
-#[derive(AgentLaneModel)]
-#[projections]
-pub struct ExampleAgent {
-    http_lane: SimpleHttpLane<i32, DefaultCodec>,
-}
-```
+`Get`, `Post`, and `Put` are used to specify the types for HTTP response and requests for the lane. The [DefaultCodec](https://docs.rs/swimos/{{ site.data.rust.version }}/swimos/agent/lanes/http/struct.DefaultCodec.html) provides a codec implementation that supports serialization and deserialization for Recon and JSON formats (requires the `json` feature to be enabled). If your application requires support for another data format, the traits [HttpLaneCodec](https://docs.rs/swimos/{{ site.data.rust.version }}/swimos/agent/lanes/http/trait.HttpLaneCodec.html) and [HttpLaneCodecSupport](https://docs.rs/swimos/{{ site.data.rust.version }}/swimos/agent/lanes/http/trait.HttpLaneCodecSupport.html) must be implemented.
 
 # Event Handlers
 
 HTTP Lanes expose four lifecycle event handlers that may be registered:
 
-- `on_get`: invoked exactly once after a HTTP GET request has been received; this handler is also invoked after a HTTP HEAD request has been received but the response body is discarded.
+- `on_get`: invoked exactly once after a HTTP GET request has been received.
 - `on_put`: invoked exactly once after a HTTP PUT request has been received and is provided with a decoded HTTP request body.
 - `on_post`: invoked exactly once after a HTTP POST request has been received and is provided with a decoded HTTP request body.
 - `on_delete`: invoked exactly once after a HTTP DELETE request has been received.
@@ -147,7 +133,7 @@ fn handler(
 }
 ```
 
-This handler accepts no additional parameters and must return a handler which completes with a HTTP [Response](https://docs.rs/swimos/{{ site.data.rust.version }}/swimos/agent/lanes/http/struct.Response.html). This handler is also invoked when the lane receives a HTTP HEAD request but the response body is discarded.
+This handler accepts no additional parameters and must return a handler which completes with a HTTP [Response](https://docs.rs/swimos/{{ site.data.rust.version }}/swimos/agent/lanes/http/struct.Response.html).
 
 ## On Put
 
