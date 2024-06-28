@@ -69,12 +69,12 @@
     #       blurb: 
     #       icon: "fa-solid fa-code"
     #       url: /client/
-    # - group: Rust
-    #   items:
-    #     - title: Server Documentation
-    #       blurb:
-    #       icon: "fa-solid fa-graduation-cap"
-    #       url: /server/rust/
+    - group: Rust
+      items:
+        - title: Server Documentation
+          blurb:
+          icon: "fa-brands fa-rust"
+          url: /server/rust/
     # - group: Tutorials & Blog
     #   items:
     #     - title: Tutorials
