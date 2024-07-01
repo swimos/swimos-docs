@@ -15,10 +15,9 @@ This page covers the specifics of Value Lanes and does not cover the more genera
 
 # Overview
 
-
 A Value Lane stores a value that can be mutated and retreived. Each time the state is updated, the updated state is sent to all uplinks attached to it. A Value Lane meets the following requirements:
 
-- The state of the lane can be updated by calling the `set` function on the [Handler Context's]({% link _rust-server/handler-context.md %}).
+- The state of the lane can be updated by calling the `set` function on the [Handler Context's](https://docs.rs/swimos_agent/{{ site.data.rust.swimos-agent-version }}/swimos_agent/agent_lifecycle/struct.HandlerContext.html).
 - Following a `set` invocation, the Value Lane's `on_event` lifecycle event handler will be invoked with the updated state and the `on_set` lifecycle event handler will be invoked with the previous and current state of the lane.
 - The updated state will be sent to all attached uplinks as an event envelope.
 

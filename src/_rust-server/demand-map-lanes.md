@@ -15,9 +15,9 @@ This page covers the specifics of Demand Map Lanes and does not cover the more g
 
 # Overview
 
-Demand Map Lanes are stateless lanes that compute a value for an associated key only when explicitly requested and use the lane's lifecycle event handler, `on_cue_key` to retreive a value to send to attached uplinks. Requests to calculate a new value are made using the [Handler Context's]({% link _rust-server/handler-context.md %}) `cue_key` function. A Demand Value Lane has the following properties:
+Demand Map Lanes are stateless lanes that compute a value for an associated key only when explicitly requested and use the lane's lifecycle event handler, `on_cue_key` to retreive a value to send to attached uplinks. Requests to calculate a new value are made using the [Handler Context's](https://docs.rs/swimos_agent/{{ site.data.rust.swimos-agent-version }}/swimos_agent/agent_lifecycle/struct.HandlerContext.html) `cue_key` function. A Demand Value Lane has the following properties:
 
-- Values for keys are `cue`-ed into the Demand Map Lane by calling the [Handler Context's]({% link _rust-server/handler-context.md %}) `cue_key` function.
+- Values for keys are `cue`-ed into the Demand Map Lane by calling the [Handler Context's](https://docs.rs/swimos_agent/{{ site.data.rust.swimos-agent-version }}/swimos_agent/agent_lifecycle/struct.HandlerContext.html) `cue_key` function.
 - Following a `cue` invocation, the Demand Map Lane's `on_cue_key` lifecycle event handler will be invoked for a value to be produced for the given key.
 - The cued key-value will be sent to all attached uplinks as an update envelope
 
