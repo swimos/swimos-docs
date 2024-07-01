@@ -236,14 +236,12 @@ use swimos::{
 use swimos_form::Form;
 
 #[derive(Form, Copy, Clone, PartialEq)]
-pub enum Action {
-    Clear,
-}
+pub struct Clear;
 
 #[derive(AgentLaneModel)]
 #[projections]
 pub struct ExampleAgent {
-    lane: CommandLane<Action>,
+    lane: CommandLane<Clear>,
 }
 
 #[derive(Default)]
@@ -276,14 +274,11 @@ impl ExampleLifecycle {
     pub fn on_command<'s>(
         &'s self,
         _context: HandlerContext<ExampleAgent>,
-        action: &Action,
+        _clear: &Clear,
     ) -> impl EventHandler<ExampleAgent> + 's {
-        let action = *action;
         self.handle.with_mut(move |state| {
             if let Some(handle) = state.as_mut() {
-                if action == Action::Clear {
-                    handle.clear().expect("Failed to clear downlink");
-                }
+                handle.clear().expect("Failed to clear downlink");
             }
         })
     }
