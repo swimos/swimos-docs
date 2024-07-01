@@ -19,7 +19,7 @@ A Map Lane stores a list of key-value pairs. When the map has an entry updated o
 
 - A Map Lane stores key-value pairs. Both the key and value types must implement the [Form]({% link _rust-server/forms.md %}) trait.
 - Following an entry being inserted or removed, a corresponding `on_update` or `on_remove` lifecycle event handler will be invoked.
-- The Map Lane may be cleared using the `clear` function on the [Handler Context's]({% link _rust-server/handler-context.md %}) and a registered `on_clear` lifecycle event handler will be invoked.
+- The Map Lane may be cleared using the `clear` function on the [Handler Context's](https://docs.rs/swimos_agent/{{ site.data.rust.swimos-agent-version }}/swimos_agent/agent_lifecycle/struct.HandlerContext.html) and a registered `on_clear` lifecycle event handler will be invoked.
 - A Map Lane may be subscribed to using a [Map Downlink]({% link _rust-server/map-downlinks.md %}).
 
 Example Map Lane usage:
