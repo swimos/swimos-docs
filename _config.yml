@@ -227,6 +227,24 @@ collections:
       # Examples/Demos
       # Integrations
       # - react.md
+    # Client Docs
+  python-client:
+    kind: docs
+    output: true
+    name: "Python Client"
+    description: Documentation for SwimOS Python Client
+    permalink: /client/python/:name/
+    order:
+      - index.md
+      # Introduction
+      - what-is-warp.md
+      - getting-started.md
+      # Connections
+      - swim-client.md
+      - downlinks.md
+      - value-downlink.md
+      - map-downlink.md
+      - event-downlink.md
   java-client:
     kind: docs
     output: true
