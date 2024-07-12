@@ -52,11 +52,11 @@
     - group: Java
       items:
         - title: Server Documentation
-          blurb: 
+          blurb:
           icon: "fa-solid fa-server"
           url: /server/java/
-        - title: Developer Guide
-          blurb: Learn SwimOS from the start
+        - title: Java Developer Guide
+          blurb: Learn SwimOS Java from the start
           icon: "fa-solid fa-code"
           url: /server/java/developer-guide/
         - title: Tutorials
@@ -66,7 +66,7 @@
     # - group: Client
     #   items:
     #     - title: Client Documentation
-    #       blurb: 
+    #       blurb:
     #       icon: "fa-solid fa-code"
     #       url: /client/
     - group: Rust
@@ -75,6 +75,10 @@
           blurb:
           icon: "fa-brands fa-rust"
           url: /server/rust/
+        - title: Rust Developer Guide
+          blurb: Learn SwimOS Rust from the start
+          icon: "fa-solid fa-code"
+          url: /server/rust/developer-guide/
     # - group: Tutorials & Blog
     #   items:
     #     - title: Tutorials
@@ -82,35 +86,35 @@
     #       icon: "fa-solid fa-graduation-cap"
     #       url: /tutorials/
     #     - title: Blog
-    #       blurb: 
+    #       blurb:
     #       icon: "fa-solid fa-rss"
     #       url: /blog/
     # - group: Frontend
     #   items:
     #     - title: Swim UI Documentation
-    #       blurb: 
+    #       blurb:
     #       icon: "fa-solid fa-display"
     #       url: /frontend/
   # more:
-    # - name: Demos
-    #   icon: "fa-solid fa-laptop-code"
-    #   url: /demos/
-    # - name: Meta
-    #   icon: "fa-solid fa-cloud"
-    #   url: /meta/
+  # - name: Demos
+  #   icon: "fa-solid fa-laptop-code"
+  #   url: /demos/
+  # - name: Meta
+  #   icon: "fa-solid fa-cloud"
+  #   url: /meta/
 - section: Client
   id: client
   menu:
     - group: Typescript
       items:
         - title: Typescript Documentation
-          blurb: 
+          blurb:
           icon: "fa-solid fa-scroll"
           url: /client/typescript/
     # - group: Java
     #   items:
     #     - title: Java Documentation
-    #       blurb: 
+    #       blurb:
     #       icon: "fa-solid fa-display"
     #       url: /client/java/
     # - group: Rust
@@ -125,7 +129,7 @@
 #     - group: Server
 #       items:
 #         - title: Server Documentation
-#           blurb: 
+#           blurb:
 #           icon: "fa-solid fa-server"
 #           url: /server/
 #         - title: Developer Guide
@@ -135,7 +139,7 @@
 #     - group: Client
 #       items:
 #         - title: Client Documentation
-#           blurb: 
+#           blurb:
 #           icon: "fa-solid fa-code"
 #           url: /client/
 #     - group: Tutorials & Blog
@@ -145,31 +149,31 @@
 #           icon: "fa-solid fa-graduation-cap"
 #           url: /tutorials/
 #         - title: Blog
-#           blurb: 
+#           blurb:
 #           icon: "fa-solid fa-rss"
 #           url: /blog/
-    # - group: Frontend
-    #   items:
-    #     - title: Swim UI Documentation
-    #       blurb: 
-    #       icon: "fa-solid fa-display"
-    #       url: /frontend/
-  # more:
-    # - name: Demos
-    #   icon: "fa-solid fa-laptop-code"
-    #   url: /demos/
-    # - name: Meta
-    #   icon: "fa-solid fa-cloud"
-    #   url: /meta/
+# - group: Frontend
+#   items:
+#     - title: Swim UI Documentation
+#       blurb:
+#       icon: "fa-solid fa-display"
+#       url: /frontend/
+# more:
+# - name: Demos
+#   icon: "fa-solid fa-laptop-code"
+#   url: /demos/
+# - name: Meta
+#   icon: "fa-solid fa-cloud"
+#   url: /meta/
 - section: Community
   id: community
   menu:
     - group: Code
       items:
-      - title: GitHub
-        blurb: Check out Swim’s latest projects and commits on GitHub.
-        icon: "fa-brands fa-github"
-        url: https://github.com/swimos/swim
+        - title: GitHub
+          blurb: Check out Swim’s latest projects and commits on GitHub.
+          icon: "fa-brands fa-github"
+          url: https://github.com/swimos/swim
       # Java Doc & JS info is updated in header.html
     - group: Contribute
       items:
@@ -178,7 +182,7 @@
           icon: "fa-solid fa-bug"
           url: https://github.com/swimos/swim/issues/new
         - title: Code of Conduct
-          blurb: 
+          blurb:
           icon: "fa-solid fa-people-roof"
           url: https://github.com/swimos/swimos-docs/blob/main/CODE_OF_CONDUCT.md
         - title: Contributor's Guide
