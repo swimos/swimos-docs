@@ -111,6 +111,10 @@
           blurb:
           icon: "fa-solid fa-scroll"
           url: /client/typescript/
+        - title: Python Documentation
+          blurb:
+          icon: "fa-solid fa-scroll"
+          url: /client/python/
     # - group: Java
     #   items:
     #     - title: Java Documentation
