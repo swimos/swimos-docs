@@ -96,7 +96,7 @@ collections:
     kind: docs
     output: true
     name: "Developer Guide"
-    description: An ordered guide through SwimOS Java.
+    description: Step by step guide through SwimOS (Java).
     permalink: /server/java/developer-guide/:name/
     order:
       - index.md
@@ -119,7 +119,7 @@ collections:
     kind: docs
     output: true
     name: "Developer Guide"
-    description: An ordered guide through SwimOS Rust.
+    description: Step by step guide through SwimOS (Rust).
     permalink: /server/rust/developer-guide/:name/
     order:
       - index.md

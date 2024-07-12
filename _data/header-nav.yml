@@ -56,7 +56,7 @@
           icon: "fa-solid fa-server"
           url: /server/java/
         - title: Java Developer Guide
-          blurb: Learn SwimOS Java from the start
+          blurb: Learn SwimOS (Java) from the start
           icon: "fa-solid fa-code"
           url: /server/java/developer-guide/
         - title: Tutorials
@@ -76,7 +76,7 @@
           icon: "fa-brands fa-rust"
           url: /server/rust/
         - title: Rust Developer Guide
-          blurb: Learn SwimOS Rust from the start
+          blurb: Learn SwimOS (Rust) from the start
           icon: "fa-solid fa-code"
           url: /server/rust/developer-guide/
     # - group: Tutorials & Blog
