@@ -1,7 +1,7 @@
 ---
 title: Announcing SwimOS on Rust
 redirect_from:
-  - /blog/2024/7/12/munin.html
+  - /blog/2024/7/12/swimos-beta-release.html
 ---
 
 NStream is excited to announce the beta version of the open SwimOS platform, written entirely in Rust. As with the original Java implementation, SwimOS on Rust is entirely open source and the code is available [on Github](https://github.com/swimos/swim-rust).
