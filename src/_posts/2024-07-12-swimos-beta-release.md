@@ -57,13 +57,14 @@ By default, a SwimOS application does not require any external persistent storag
 
 ## Why SwimOS on Rust?
 
-SwimOS was previously written in Java and by switching to Rust, we achieved the following:
+SwimOS is written in Java but by reimplementing it using Rust, we achieved the following:
 
-1. Deterministic Memory Management: Without the need for garbage collection, the performance of SwimOS applications can be much more predictable under heavy load.
-2. Safety: Rust’s strong emphasis on memory safety and its ownership system help prevent common bugs and security vulnerabilities, ensuring SwimOS operates more reliably and securely.
-3. Performance: Applications can take advantage of potential performance gains by implementing their agents in Rust.
-4. Rust Ecosystem: SwimOS on Rust is implemented using the [Tokio asynchronous runtime](https://tokio.rs/) and numerous other high quality Rust libraries making maintenance of the SwimOS code-base much simpler.
-5. Language Binding Support: Using Rust, we can provide bindings to other languages such as Java, JavaScript, Go and many others.
+1. Single Executable: A typical SwimOS Rust application compiles to a small executable with no additional dependencies.
+2. Deterministic Memory Management: Without the need for garbage collection, the performance of SwimOS applications can be much more predictable under heavy load.
+3. Safety: Rust’s strong emphasis on memory safety and its ownership system help prevent common bugs and security vulnerabilities, ensuring SwimOS operates more reliably and securely.
+4. Performance: Applications can take advantage of potential performance gains by implementing their agents in Rust.
+5. Rust Ecosystem: SwimOS on Rust is implemented using the [Tokio asynchronous runtime](https://tokio.rs/) and numerous other high quality Rust libraries making maintenance of the SwimOS code-base much simpler.
+6. Language Binding Support: Using Rust, we can provide bindings to other languages such as Java, JavaScript, Go and many others.
 
 ## Optional Persistence Support
 
