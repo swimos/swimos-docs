@@ -97,7 +97,7 @@ collections:
     kind: docs
     output: true
     name: "Developer Guide"
-    description: An ordered guide through SwimOS.
+    description: Step by step guide through SwimOS (Java).
     permalink: /server/java/developer-guide/:name/
     order:
       - index.md
@@ -115,6 +115,20 @@ collections:
       # 3.1 Agent URIs
       # 3.2 Agent Properties
       # 3.3 Traits
+
+  rust-server-devguide:
+    kind: docs
+    output: true
+    name: "Developer Guide"
+    description: Step by step guide through SwimOS (Rust).
+    permalink: /server/rust/developer-guide/:name/
+    order:
+      - index.md
+      - 1-getting-started.md
+      - 2-simple-agent.md
+      - 3-client.md
+      - 4-agent-lifecycle.md
+      - 5-custom-types.md
   java-server-tutorials:
     kind: docs
     output: true
