@@ -1,14 +1,14 @@
 ---
-title: Announcing SwimOS on Rust
+title: Why SwimOS?
+short-title: Why SwimOS?
+description: "Learn about why you would use SwimOS."
+group: Getting Started
+layout: documentation
 redirect_from:
-  - /blog/2024/7/12/munin.html
+  - /concepts/why-swimos/
+  - /reference/why-swimos.html
+  - /backend/why-swimos/
 ---
-
-NStream is excited to announce the beta version of the open SwimOS platform, written entirely in Rust. As with the original Java implementation, SwimOS on Rust is entirely open source and the code is available [on Github](https://github.com/swimos/swim-rust).
-
-SwimOS is a framework for building applications for real-time streaming data processing. When using SwimOS on Rust, your application will compile to a single executable that does not need any additional infrastructure to run (no external runtimes, distributed filesystems or job schedulers are required).
-
-## What is Real-Time Stream Processing?
 
 A large proportion of data analysis is performed on static data sets. Data is accumulated over time and stored, either as files or in a database. To gain insight into the data, queries can then be run against the data store and for very large repositories or complex queries this can involve very long running batch processes to produce the result. This approach has several advantages:
 
@@ -54,29 +54,3 @@ Perhaps counterintuitively, many of the advantages of using SwimOS come from wha
 2. Outside of an agent, the view of its state is weakly consistent within the entire system. There is no guarantee of the global order of external events observed by an agent (or an external client) but, in the absence of further changes, they are guaranteed to observe the same final state.
 
 By default, a SwimOS application does not require any external persistent storage; its state will be held entirely in memory. Additionally, as mentioned in the introduction, SwimOS runs as an independent executable and no external job scheduler is required to run it.
-
-## Why SwimOS on Rust?
-
-SwimOS was previously written in Java and by switching to Rust, we achieved the following:
-
-1. Deterministic Memory Management: Without the need for garbage collection, the performance of SwimOS applications can be much more predictable under heavy load.
-2. Safety: Rust’s strong emphasis on memory safety and its ownership system help prevent common bugs and security vulnerabilities, ensuring SwimOS operates more reliably and securely.
-3. Performance: Applications can take advantage of potential performance gains by implementing their agents in Rust.
-4. Rust Ecosystem: SwimOS on Rust is implemented using the [Tokio asynchronous runtime](https://tokio.rs/) and numerous other high quality Rust libraries making maintenance of the SwimOS code-base much simpler.
-5. Language Binding Support: Using Rust, we can provide bindings to other languages such as Java, JavaScript, Go and many others.
-
-## Optional Persistence Support
-
-By default, SwimOS applications do not provide any persistent storage, however, sometimes it is desirable to be able to keep some of the application's state between executions. To support this, there is support for persisting the state of agents to disk, using RocksDB as a backend. This is entirely optional, gated behind a feature flag, and will not be included in your executable unless requested.
-
-It is possible to have fine grained control, at the level of individual lanes, over what components of your state are persisted, or not.
-
-## Getting Started
-
-To learn how to write Swim applications in Rust a selection of tutorials are provided [here](https://www.swimos.org/server/rust/) and example applications are available [here](https://github.com/swimos/swim-rust/tree/v0.1.0/example_apps).
-
-SwimOS can be integrated easily with other open source products that you are already using, for example using Apache Kafka as a data source or sink. In future, we intend to add built in connectors to make this easier. For now, it is straightforward to use the SwimOS client to push data into your application.
-
-It will be possible to port the vast majority of applications, written with the JVM version of SwimOS, to Rust. The protocol used by both is entirely identical and so a Rust application would be a drop-in replacement for an equivalent JVM application.
-
-If the application uses any third-party libraries, for example to provide a Stream of data to populate its agents, it will be necessary to ensure that an equivalent exists for Rust.
