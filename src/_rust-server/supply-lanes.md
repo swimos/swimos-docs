@@ -35,8 +35,8 @@ use swimos::agent::{
     lifecycle, projections, AgentLaneModel,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     lane: ValueLane<i32>,
     supply: SupplyLane<i32>,
@@ -100,8 +100,8 @@ pub struct LogEntry {
     message: String,
 }
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     state: ValueLane<i32>,
     logs: SupplyLane<LogEntry>,

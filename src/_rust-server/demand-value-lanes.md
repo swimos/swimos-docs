@@ -36,8 +36,8 @@ use swimos::agent::{
     lifecycle, projections, AgentLaneModel,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     state: ValueLane<i32>,
     demand: DemandLane<i32>,
@@ -103,8 +103,8 @@ use swimos::agent::{
 };
 use swimos_form::Form;
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     state: ValueLane<i32>,
     metrics: DemandLane<Metrics>,

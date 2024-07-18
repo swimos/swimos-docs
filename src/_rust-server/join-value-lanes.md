@@ -41,8 +41,8 @@ use swimos::{
 };
 
 // Mock agent that simply produces data.
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct GeneratorAgent {
     state: ValueLane<u32>,
 }
@@ -66,8 +66,8 @@ impl GeneratorLifecycle {
     }
 }
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ConsumerAgent {
     // Our aggregated value lanes will be
     // available under a lane with a URI

@@ -35,8 +35,8 @@ enum Operation {
     Sub(i32)
 }
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 struct ExampleAgent {
     command: CommandLane<Operation>,
     state: ValueLane<i32>
@@ -98,8 +98,8 @@ use swimos::agent::{
     lifecycle, AgentLaneModel, projections
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 struct ExampleAgent {
     command: CommandLane<i32>,
     add: CommandLane<i32>
@@ -131,8 +131,8 @@ use swimos::agent::{
     lifecycle, AgentLaneModel, projections
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 struct ExampleAgent {
     command: CommandLane<i32>,
 }
