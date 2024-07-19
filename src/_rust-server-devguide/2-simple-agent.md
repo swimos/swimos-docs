@@ -20,8 +20,8 @@ Web Agents are declared by defining a struct and adding lanes which represent th
 ```rust
 use swimos::agent::{lifecycle, projections, lanes::ValueLane, AgentLaneModel};
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     state: ValueLane<i32>,
 }

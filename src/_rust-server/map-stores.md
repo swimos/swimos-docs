@@ -35,8 +35,8 @@ use swimos::agent::{
     AgentLaneModel,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     lane: MapLane<String, i32>,
     store: MapStore<String, i32>,
@@ -329,8 +329,8 @@ use swimos::{
 };
 use swimos_form::Form;
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     state: MapLane<String, i32>,
     map_store: MapStore<String, i32>,

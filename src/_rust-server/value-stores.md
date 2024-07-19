@@ -35,8 +35,8 @@ use swimos::agent::{
     AgentLaneModel,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     lane: ValueLane<i32>,
     store: ValueStore<i32>,

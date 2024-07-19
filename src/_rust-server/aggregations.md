@@ -118,8 +118,8 @@ use swimos::agent::lanes::ValueLane;
 use swimos::agent::stores::ValueStore;
 use crate::area::Area;
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct CarAgent {
     speed: ValueLane<u64>,
     #[item(transient)]
@@ -279,8 +279,8 @@ use swimos::{
     agent::{projections, AgentLaneModel},
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct AreaAgent {
     registrations: CommandLane<Action>,
     cars: JoinValueLane<u64, u64>,
@@ -411,8 +411,8 @@ use swimos::{
     agent::{projections, AgentLaneModel},
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct CityAgent {
     aggregated: JoinValueLane<String, f64>,
     register: CommandLane<String>,

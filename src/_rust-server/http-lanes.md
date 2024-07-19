@@ -33,8 +33,8 @@ use swimos::{
     },
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     value_lane: ValueLane<i32>,
     http_lane: SimpleHttpLane<i32>,

@@ -29,8 +29,8 @@ Example: using a Join Map Lane to aggregate the state of multiple Map Lanes:
 
 ```rust
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct GeneratorAgent {
     state: MapLane<u32, u32>,
 }
@@ -54,8 +54,8 @@ impl GeneratorLifecycle {
     }
 }
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ConsumerAgent {
     lanes: JoinMapLane<String, u32, u32>,
 }

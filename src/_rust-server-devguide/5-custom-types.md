@@ -45,8 +45,8 @@ Replace the agent declaration with the following:
 ```rust
 use swimos_server::agent::{projections, lanes::{CommandLane, ValueLane}};
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     state: ValueLane<i32>,
     exec: CommandLane<Operation>,

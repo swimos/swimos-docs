@@ -76,8 +76,8 @@ use swimos::agent::{
     AgentLaneModel,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     lane: ValueLane<i32>,
 }
@@ -172,8 +172,8 @@ use swimos::agent::{
     AgentLaneModel,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     lane: ValueLane<i32>,
 }
@@ -238,8 +238,8 @@ use swimos_form::Form;
 #[derive(Form, Copy, Clone, PartialEq)]
 pub struct Clear;
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     lane: CommandLane<Clear>,
 }
@@ -304,8 +304,8 @@ use swimos::agent::{
     AgentLaneModel,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     lane: MapLane<i32, i32>
 }
@@ -376,8 +376,8 @@ use swimos::agent::{
     AgentLaneModel,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     lane: MapLane<i32, i32>
 }

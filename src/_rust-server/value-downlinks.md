@@ -76,8 +76,8 @@ use swimos::agent::{
     AgentLaneModel,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     lane: ValueLane<i32>,
 }
@@ -160,8 +160,8 @@ use swimos::agent::{
     AgentLaneModel,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     event_count: ValueLane<u64>,
 }
@@ -215,8 +215,8 @@ use swimos::agent::{
     AgentLaneModel,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     lane: ValueLane<u64>,
 }
@@ -268,8 +268,8 @@ use swimos::agent::{
     state::State,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     lane: ValueLane<u64>,
 }
@@ -331,8 +331,8 @@ use swimos::agent::{
     AgentLaneModel,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     lane: ValueLane<i32>,
 }

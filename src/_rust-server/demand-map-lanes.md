@@ -39,8 +39,8 @@ use swimos::agent::{
 };
 use swimos_form::Form;
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     orders: MapLane<usize, Order>,
     values: DemandMapLane<usize, usize>,
@@ -116,8 +116,8 @@ use swimos::agent::{
     lifecycle, projections, AgentLaneModel,
 };
 
-#[derive(AgentLaneModel)]
 #[projections]
+#[derive(AgentLaneModel)]
 pub struct ExampleAgent {
     command: CommandLane<String>,
     demand_map: DemandMapLane<String, i32>,
