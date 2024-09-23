@@ -28,7 +28,7 @@ Swim implements a complete, self-contained, distributed application stack in an 
   <a href="#web-ui" class="web-ui platform-box platform-right">Web UI</a>
 </div>
 <div class="release-stack">
-  <p class="release-version">Current version: 4.1.0.12</p>
+  <p class="release-version">Current version: 4.3.15</p>
   <!-- <p class="release-notes"><a href="">View Release Notes</a></p>-->
 <!-- </div> -->
 
@@ -41,7 +41,7 @@ The Swim Java Server is a self-contained, distributed application server for sta
 ```java
 group: "org.swimos",
 name: "swim-server",
-version: "4.2.14"
+version: "4.3.15"
 ```
 
 
@@ -52,7 +52,7 @@ The Swim Java Client is a minimal WARP streaming API client.
 ```java
 group: "org.swimos",
 name: "swim-client",
-version: "4.2.14"
+version: "4.3.15"
 ```
 
 ### JavaScript Client Quick Start
